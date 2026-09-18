@@ -1,0 +1,151 @@
+{
+  "per_checkpoint": [
+    {
+      "tag": "c_llama1b",
+      "family": "llama",
+      "n": 2185,
+      "beta_interaction": -0.269,
+      "se": 0.223,
+      "z": -1.21
+    },
+    {
+      "tag": "c_llama3b",
+      "family": "llama",
+      "n": 3081,
+      "beta_interaction": -0.203,
+      "se": 0.168,
+      "z": -1.21
+    },
+    {
+      "tag": "c_llama8b",
+      "family": "llama",
+      "n": 3390,
+      "beta_interaction": -0.082,
+      "se": 0.145,
+      "z": -0.57
+    },
+    {
+      "tag": "c_mistral",
+      "family": "mistral",
+      "n": 3213,
+      "beta_interaction": -0.385,
+      "se": 0.204,
+      "z": -1.88
+    },
+    {
+      "tag": "c_olmo",
+      "family": "olmo",
+      "n": 3423,
+      "beta_interaction": -0.249,
+      "se": 0.198,
+      "z": -1.26
+    },
+    {
+      "tag": "c_olmo_dpo",
+      "family": "olmo",
+      "n": 3156,
+      "beta_interaction": 0.052,
+      "se": 0.162,
+      "z": 0.32
+    },
+    {
+      "tag": "c_olmo_sft",
+      "family": "olmo",
+      "n": 3462,
+      "beta_interaction": -1.096,
+      "se": 0.199,
+      "z": -5.49
+    },
+    {
+      "tag": "c_phi35",
+      "family": "phi",
+      "n": 2967,
+      "beta_interaction": -0.455,
+      "se": 0.153,
+      "z": -2.98
+    },
+    {
+      "tag": "c_qwen05",
+      "family": "qwen",
+      "n": 3272,
+      "beta_interaction": -0.969,
+      "se": 0.411,
+      "z": -2.36
+    },
+    {
+      "tag": "c_qwen14b",
+      "family": "qwen",
+      "n": 3541,
+      "beta_interaction": -0.729,
+      "se": 0.204,
+      "z": -3.57
+    },
+    {
+      "tag": "c_qwen15",
+      "family": "qwen",
+      "n": 3341,
+      "beta_interaction": 0.404,
+      "se": 0.21,
+      "z": 1.92
+    },
+    {
+      "tag": "c_qwen7b",
+      "family": "qwen",
+      "n": 3527,
+      "beta_interaction": -1.0,
+      "se": 0.233,
+      "z": -4.29
+    },
+    {
+      "tag": "c_tulu_dpo",
+      "family": "tulu",
+      "n": 3418,
+      "beta_interaction": -0.545,
+      "se": 0.144,
+      "z": -3.78
+    },
+    {
+      "tag": "c_tulu_rlvr",
+      "family": "tulu",
+      "n": 3487,
+      "beta_interaction": -0.375,
+      "se": 0.133,
+      "z": -2.83
+    },
+    {
+      "tag": "c_tulu_sft",
+      "family": "tulu",
+      "n": 3528,
+      "beta_interaction": 0.002,
+      "se": 0.182,
+      "z": 0.01
+    },
+    {
+      "tag": "c_zephyr_dpo",
+      "family": "mistral",
+      "n": 3405,
+      "beta_interaction": -0.113,
+      "se": 0.221,
+      "z": -0.51
+    },
+    {
+      "tag": "c_zephyr_sft",
+      "family": "mistral",
+      "n": 3425,
+      "beta_interaction": -1.3,
+      "se": 0.573,
+      "z": -2.27
+    }
+  ],
+  "meta": {
+    "mu": -0.384,
+    "se": 0.062,
+    "ci95": [
+      -0.506,
+      -0.262
+    ],
+    "tau2": 0.0077,
+    "k": 6,
+    "Q": 7.54
+  }
+}
