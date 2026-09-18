@@ -1,0 +1,20 @@
+# Prompt for the co-author's Claude Code session (Princeton della/ionic)
+
+Paste everything below the line into Claude Code, run from inside the `reality-monitoring` checkout on the cluster login node.
+
+---
+
+You are running the causal post-training ladder for our ICLR 2027 paper on LLM capitulation under pushback. The repo is `reality-monitoring` (current directory). Read `train/README.md`, `docs/ASSESSMENT_2026-09-18.md` §5, and `prereg/PREREG_causal_ladder.md` first; they define the six arms A0–A5, the two backbones, the frozen predictions, and every command. Do not change any file under `harness/`, `analysis/`, `results/`, or `prereg/`; the eval harness and pre-registration are frozen. Do not commit or push unless I ask.
+
+Goal for tonight: get the first result, arm **A2 (revision-DPO) on `allenai/OLMo-2-1124-7B-SFT`**, evaluated on the held-out 450 hard-bank questions, into `results_ladder/olmo/A2/summary.json`, then keep the rest of the OLMo ladder running (A1, A3, A4, A5), then the Tulu-3-8B-SFT backbone. Every arm's `summary.json` has `retain_correct`, `accept_valid_correction`, `pressure_abandon`, `counter_bare_abandon`, `excluded_frac`. Those five numbers per arm are the deliverable.
+
+Steps:
+1. Environment. Work from a filesystem with room for ~60 GB of checkpoints and HF cache (`/scratch/gpfs/$USER` on della, not `$HOME`). If the repo is in `$HOME`, `git clone` or `rsync` it to scratch and work there. Put the HF token in `.hftok` at the repo root (needed for gated Llama/Tulu weights). Set `export HF_HOME=/scratch/gpfs/$USER/hf` so model downloads do not fill home. Create the venv once: `python -m venv .venv && source .venv/bin/activate && pip install -r train/requirements.txt`. If pip resolution fails on this cluster's CUDA, install `torch` matching `nvidia-smi`'s CUDA first, then the rest; vLLM 0.8.5 needs CUDA 12.x.
+2. Discover the cluster. Run `sinfo -o "%P %G %l %D"` and `scontrol show partition` to find the GPU partition, the gres string, and any constraint for A100-80GB or H100 nodes. Set `PARTITION`, `GRES`, `CONSTRAINT` (and `ACCOUNT` if required) accordingly when submitting. The scripts default to `--partition=gpu --gres=gpu:1`.
+3. Smoke on a GPU before committing hours: `QUICK=1 bash train/run_ladder.sh --reuse-a0 allenai/OLMo-2-1124-7B-SFT olmo` inside a 1-hour interactive GPU allocation (`salloc --gres=gpu:1 --time=01:00:00 --mem=80G`). This runs 4 steps of every arm and the full eval path on the real stack (vLLM, TRL, merge, lm-eval). Fix environment problems here; report anything you had to change.
+4. Submit the real ladder: `PARTITION=... GRES=... CONSTRAINT=... bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo"` and then the same with `--backbones "tulu"`. This chains train → eval with `--dependency=afterok` and puts A2 first. Watch with `squeue -u $USER` and `tail -f logs/rm-*.out`. A2 train is ~1.5 h on one A100, eval ~20 min. GRPO arms are 6–9 h each and may need `--time` raised in `slurm/train_grpo.sbatch` if the queue limits are lower; if the partition has no 12-hour limit, lower `grpo.epochs` via `train/configs/base.yaml` rather than dropping the arm.
+5. When `results_ladder/olmo/A2/summary.json` exists, send me the five numbers next to A0's (`results_ladder/olmo/A0/summary.json`). Then continue. Do not stop the ladder to wait for me.
+6. Known behaviour: `eval_arm.py` refuses adapter-only checkpoints, it wants `<arm>/merged`; `run_ladder.sh` and `submit_ladder.sh` skip arms whose `summary.json` exists, so re-running after a failure is safe; A5 depends on A1's merged weights. If vLLM colocated rollouts OOM on a 40 GB GPU, resubmit GRPO jobs with `VLLM=0` (slower HF generation) or request an 80 GB node.
+7. Failure policy: if an arm fails twice for the same reason, leave it and continue with the others, and tell me exactly what the log says. Never delete `results/` or `results_ladder/`.
+
+Report back in this format: cluster/partition used; smoke test outcome; job IDs submitted; per-arm status; the five numbers for every finished arm; anything you changed in the repo.

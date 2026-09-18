@@ -2,3 +2,12 @@ secrets.env
 .hftok
 *.tgz
 __pycache__/
+checkpoints/
+checkpoints_meta/
+data/
+results_ladder/**/capability/
+results_ladder/**/_an/
+logs/
+.venv/
+.hf/
+azure/.last_ip

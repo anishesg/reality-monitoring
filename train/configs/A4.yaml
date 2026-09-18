@@ -1,0 +1,3 @@
+extends: base.yaml
+arm: A4
+grpo: {conf: true}

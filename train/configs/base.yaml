@@ -1,0 +1,11 @@
+# Shared defaults for all ladder arms. Per-arm files `extends: base.yaml`; CLI overrides use dotted keys (train/config.py).
+backbone: allenai/OLMo-2-1124-7B-SFT
+tag: olmo
+data:
+  revision: data/{tag}/revision.jsonl
+  generic: data/{tag}/generic.jsonl
+  per_cell: 600
+  elicited: false
+dpo: {epochs: 2, beta: 0.1, lr: 5e-6, bsz: 2, grad_accum: 8, max_length: 1024, lora_r: 64}
+grpo: {epochs: 1, beta: 0.04, lr: 5e-6, G: 8, bsz: 8, grad_accum: 2, max_completion: 128, vllm: true, vllm_mem: 0.3, lora_r: 64}
+eval: {n_questions: 450, capability: true, quick: false}
