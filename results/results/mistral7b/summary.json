@@ -1,0 +1,7 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.3",
+  "n_questions": 500,
+  "n_trials": 12000,
+  "unparsed_frac": 0.0003333333333333333,
+  "baseline_acc": 0.538
+}

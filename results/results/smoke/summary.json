@@ -1,0 +1,7 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "n_questions": 40,
+  "n_trials": 960,
+  "unparsed_frac": 0.18645833333333334,
+  "baseline_acc": 0.325
+}

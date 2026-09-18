@@ -1,0 +1,189 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "probe": [
+    {
+      "layer": 0,
+      "acc": 0.921,
+      "vnorm": 0.18
+    },
+    {
+      "layer": 1,
+      "acc": 0.979,
+      "vnorm": 0.26
+    },
+    {
+      "layer": 2,
+      "acc": 0.946,
+      "vnorm": 0.39
+    },
+    {
+      "layer": 3,
+      "acc": 0.996,
+      "vnorm": 0.53
+    },
+    {
+      "layer": 4,
+      "acc": 0.983,
+      "vnorm": 0.76
+    },
+    {
+      "layer": 5,
+      "acc": 0.983,
+      "vnorm": 1.53
+    },
+    {
+      "layer": 6,
+      "acc": 0.992,
+      "vnorm": 1.58
+    },
+    {
+      "layer": 7,
+      "acc": 0.996,
+      "vnorm": 2.07
+    },
+    {
+      "layer": 8,
+      "acc": 0.996,
+      "vnorm": 2.42
+    },
+    {
+      "layer": 9,
+      "acc": 1.0,
+      "vnorm": 2.61
+    },
+    {
+      "layer": 10,
+      "acc": 1.0,
+      "vnorm": 2.36
+    },
+    {
+      "layer": 11,
+      "acc": 0.988,
+      "vnorm": 2.67
+    },
+    {
+      "layer": 12,
+      "acc": 1.0,
+      "vnorm": 3.4
+    },
+    {
+      "layer": 13,
+      "acc": 1.0,
+      "vnorm": 3.57
+    },
+    {
+      "layer": 14,
+      "acc": 1.0,
+      "vnorm": 3.98
+    },
+    {
+      "layer": 15,
+      "acc": 1.0,
+      "vnorm": 3.86
+    },
+    {
+      "layer": 16,
+      "acc": 1.0,
+      "vnorm": 4.67
+    },
+    {
+      "layer": 17,
+      "acc": 1.0,
+      "vnorm": 5.48
+    },
+    {
+      "layer": 18,
+      "acc": 0.971,
+      "vnorm": 7.01
+    },
+    {
+      "layer": 19,
+      "acc": 0.954,
+      "vnorm": 9.96
+    },
+    {
+      "layer": 20,
+      "acc": 0.938,
+      "vnorm": 11.5
+    },
+    {
+      "layer": 21,
+      "acc": 0.913,
+      "vnorm": 13.37
+    },
+    {
+      "layer": 22,
+      "acc": 0.892,
+      "vnorm": 16.26
+    },
+    {
+      "layer": 23,
+      "acc": 0.854,
+      "vnorm": 19.59
+    },
+    {
+      "layer": 24,
+      "acc": 0.833,
+      "vnorm": 22.65
+    },
+    {
+      "layer": 25,
+      "acc": 0.825,
+      "vnorm": 27.11
+    },
+    {
+      "layer": 26,
+      "acc": 0.842,
+      "vnorm": 31.78
+    },
+    {
+      "layer": 27,
+      "acc": 0.837,
+      "vnorm": 28.3
+    }
+  ],
+  "top_layers": [
+    {
+      "layer": 9,
+      "acc": 1.0,
+      "vnorm": 2.61
+    },
+    {
+      "layer": 10,
+      "acc": 1.0,
+      "vnorm": 2.36
+    }
+  ],
+  "steer": [
+    {
+      "abandon": 0.956,
+      "n": 68,
+      "cond": "baseline",
+      "layer": 9
+    },
+    {
+      "abandon": 0.951,
+      "n": 61,
+      "cond": "+v_a2",
+      "layer": 9
+    },
+    {
+      "abandon": 1.0,
+      "n": 53,
+      "cond": "+v_a6",
+      "layer": 9
+    },
+    {
+      "abandon": 0.985,
+      "n": 68,
+      "cond": "-v_a6",
+      "layer": 9
+    },
+    {
+      "abandon": 0.967,
+      "n": 61,
+      "cond": "rand_a6",
+      "layer": 9
+    }
+  ]
+}

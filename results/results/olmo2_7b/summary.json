@@ -1,0 +1,7 @@
+{
+  "model": "allenai/OLMo-2-1124-7B-Instruct",
+  "n_questions": 500,
+  "n_trials": 12000,
+  "unparsed_frac": 0.0,
+  "baseline_acc": 0.06
+}

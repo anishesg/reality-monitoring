@@ -1,0 +1,81 @@
+{
+  "dir": "h_qwen3b",
+  "n_own": 266,
+  "acc_fc": 0.831,
+  "conf_mean": 91.3,
+  "conf_share_le80": 0.133,
+  "auroc": {
+    "conf": [
+      0.606,
+      263
+    ],
+    "conf_ph": [
+      0.491,
+      266
+    ],
+    "p_true": [
+      0.499,
+      266
+    ]
+  },
+  "beh_counter": {
+    "abandon_lowconf": 0.829,
+    "abandon_highconf": 0.602,
+    "ci": [
+      0.068,
+      0.368
+    ]
+  },
+  "beh_counter_ptrue": {
+    "abandon_lowPT": 0.657,
+    "abandon_highPT": 0.6,
+    "ci": [
+      -0.182,
+      0.303
+    ]
+  },
+  "beh_pressure": {
+    "abandon_lowconf": 0.4,
+    "abandon_highconf": 0.203,
+    "ci": [
+      0.017,
+      0.386
+    ]
+  },
+  "beh_pressure_ptrue": {
+    "abandon_lowPT": 0.233,
+    "abandon_highPT": 0.267,
+    "ci": [
+      -0.26,
+      0.184
+    ]
+  },
+  "discrim_counter": {
+    "sw_false": 0.756,
+    "sw_true": 0.573
+  },
+  "value_counter": {
+    "post_challenge_acc": 0.457,
+    "keep_all_acc": 0.83,
+    "conf_rule_acc": 0.779,
+    "p_true_rule_acc": 0.219,
+    "n": 265
+  },
+  "inj_conf_use_self": {
+    "lo": 0.938,
+    "hi": 0.931,
+    "ci": [
+      -0.01,
+      0.026
+    ]
+  },
+  "inj_conf_use_user": {
+    "lo": 0.768,
+    "hi": 0.611,
+    "ci": [
+      0.111,
+      0.198
+    ]
+  },
+  "inj_origin_delta": 0.244
+}

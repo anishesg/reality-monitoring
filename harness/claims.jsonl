@@ -1,0 +1,600 @@
+{"qid": 0, "question": "What type of organism is commonly used in preparation of foods such as cheese and yogurt?", "true_answer": "mesophilic organisms", "distractor": "protozoa"}
+{"qid": 1, "question": "What phenomenon makes global winds blow northeast to southwest or the reverse in the northern hemisphere and northwest to southeast or the reverse in the southern hemisphere?", "true_answer": "coriolis effect", "distractor": "muon effect"}
+{"qid": 2, "question": "Changes from a less-ordered state to a more-ordered state (such as a liquid to a solid) are always what?", "true_answer": "exothermic", "distractor": "unbalanced"}
+{"qid": 3, "question": "What is the least dangerous radioactive decay?", "true_answer": "alpha decay", "distractor": "beta decay"}
+{"qid": 4, "question": "Kilauea in hawaii is the world\u2019s most continuously active volcano. very active volcanoes characteristically eject red-hot rocks and lava rather than this?", "true_answer": "smoke and ash", "distractor": "greenhouse gases"}
+{"qid": 5, "question": "When a meteoroid reaches earth, what is the remaining object called?", "true_answer": "meteorite", "distractor": "comet"}
+{"qid": 6, "question": "What kind of a reaction occurs when a substance reacts quickly with oxygen?", "true_answer": "combustion reaction", "distractor": "invention reaction"}
+{"qid": 7, "question": "Organisms categorized by what species descriptor demonstrate a version of allopatric speciation and have limited regions of overlap with one another, but where they overlap they interbreed successfully?.", "true_answer": "ring species", "distractor": "surface species"}
+{"qid": 8, "question": "Alpha emission is a type of what?", "true_answer": "radioactivity", "distractor": "radiation"}
+{"qid": 9, "question": "What is the stored food in a seed called?", "true_answer": "endosperm", "distractor": "pollin"}
+{"qid": 10, "question": "Zinc is more easily oxidized than iron because zinc has a lower reduction potential. since zinc has a lower reduction potential, it is a more what?", "true_answer": "active metal", "distractor": "much metal"}
+{"qid": 11, "question": "What is controlled by both genes and experiences in a given envionment?", "true_answer": "animal behaviors", "distractor": "reflexes"}
+{"qid": 12, "question": "What tells you how much of the food you should eat to get the nutrients listed on the label?", "true_answer": "serving size", "distractor": "regular size"}
+{"qid": 13, "question": "What are used to write nuclear equations for radioactive decay?", "true_answer": "nuclear symbols", "distractor": "trigonometric symbols"}
+{"qid": 14, "question": "What is controlled by regulatory proteins that bind to regulatory elements on dna?", "true_answer": "gene transcription", "distractor": "amino acids"}
+{"qid": 15, "question": "Boron only occurs naturally in compounds with what element?", "true_answer": "oxygen", "distractor": "helium"}
+{"qid": 16, "question": "What organ systems link exchange surfaces with cells throughout the body?", "true_answer": "circulatory", "distractor": "vascular"}
+{"qid": 17, "question": "What occurs when the immune system attacks a harmless substance that enters the body from the outside?", "true_answer": "allergy", "distractor": "panic attack"}
+{"qid": 18, "question": "Fertilization is the union of a sperm and egg, resulting in the formation of what?", "true_answer": "a zygote", "distractor": "a cytoplasm"}
+{"qid": 19, "question": "The plants alternation between haploid and diploud generations allow it to do what?", "true_answer": "reproduce asexually and sexually", "distractor": "reproduce asexually and simultaneously"}
+{"qid": 20, "question": "Most of the chemical reactions in the body are facilitated by what?", "true_answer": "enzymes", "distractor": "proteins"}
+{"qid": 21, "question": "What is the termination of a pregnancy in progress called?", "true_answer": "abortion", "distractor": "contraception"}
+{"qid": 22, "question": "Cutting down on the use of chemical fertilizers and preserving wetlands are ways to prevent what \"unlivable\" regions in bodies of water?", "true_answer": "dead zones", "distractor": "inhabitable zones"}
+{"qid": 23, "question": "Which muscles allow your fingers to also make precise movements for actions?", "true_answer": "intrinsic muscles", "distractor": "paired muscles"}
+{"qid": 24, "question": "Testing what usually requires making observations or performing experiments?", "true_answer": "hypothesis", "distractor": "variables"}
+{"qid": 25, "question": "This sharing of electrons produces what is known as a covalent bond. covalent bonds are ~20 to 50 times stronger than what?", "true_answer": "van der waals interactions", "distractor": "Mendelian systems"}
+{"qid": 26, "question": "Water molecules move about continuously due to what type of energy?", "true_answer": "kinetic", "distractor": "seismic"}
+{"qid": 27, "question": "A small scale version of what type of map displays individual rock units?", "true_answer": "geologic map", "distractor": "seismic map"}
+{"qid": 28, "question": "What is defined as a change in the inherited traits of organisms over time?", "true_answer": "evolution", "distractor": "variation"}
+{"qid": 29, "question": "What hormone, which is associated with luteinizing hormone and male sexuality, helps bring about physical changes in puberty?", "true_answer": "testosterone", "distractor": "steroids"}
+{"qid": 30, "question": "Where do angiosperms produce seeds in flowers?", "true_answer": "ovaries", "distractor": "germs"}
+{"qid": 31, "question": "In order to create food, what do photosynthetic protists use?", "true_answer": "light energy", "distractor": "thermal energy"}
+{"qid": 32, "question": "What type of vertebrates are birds?", "true_answer": "endothermic tetrapod", "distractor": "epidermal tetrapod"}
+{"qid": 33, "question": "What type of ions do ionic compounds contain?", "true_answer": "positive and negative", "distractor": "regular and irregular"}
+{"qid": 34, "question": "All living things need air and this to survive?", "true_answer": "water", "distractor": "stimuli"}
+{"qid": 35, "question": "The cells of all eukarya have a what?", "true_answer": "nucleus", "distractor": "chloroplast"}
+{"qid": 36, "question": "What type of plate boundaries produce huge mountain ranges in the ocean basin?", "true_answer": "divergent", "distractor": "coherent"}
+{"qid": 37, "question": "Interstitial carbides are produced by the reaction of most transition metals at high temperatures with what element?", "true_answer": "carbon", "distractor": "hydrogen"}
+{"qid": 38, "question": "Fungus-like protist saprobes play what role in a food chain and are specialized to absorb nutrients from nonliving organic matter, such as dead organisms or their wastes?", "true_answer": "decomposers", "distractor": "aphids"}
+{"qid": 39, "question": "What are the sites of protein synthesis or assembly?", "true_answer": "ribosomes", "distractor": "chloroplasts"}
+{"qid": 40, "question": "What must replicate in the cell cycle before meiosis i takes place?", "true_answer": "dna", "distractor": "cell walls"}
+{"qid": 41, "question": "What phenomenon is primarily the result of plate tectonic motions?", "true_answer": "earthquake", "distractor": "eruption"}
+{"qid": 42, "question": "What is a group of neuron cell bodies in the periphery called?", "true_answer": "ganglion", "distractor": "crystals"}
+{"qid": 43, "question": "Where does most of our food come from?", "true_answer": "angiosperms", "distractor": "microbes"}
+{"qid": 44, "question": "Gases are most ideal at high temperature and what pressure?", "true_answer": "low", "distractor": "absolute"}
+{"qid": 45, "question": "Hard igneous rocks and easily dissolved sedimentary rocks respond very differently to what natural force?", "true_answer": "weathering", "distractor": "gravity"}
+{"qid": 46, "question": "A diet rich in calcium and what vitamin may reduce the risk of osteoporosis and related bone fractures?", "true_answer": "vitamin d", "distractor": "niacin"}
+{"qid": 47, "question": "How many people die from air pollution each year?", "true_answer": "22 million", "distractor": "14 million"}
+{"qid": 48, "question": "What substances serve as catalysts in most of the biochemical reactions that take place in organisms?", "true_answer": "enzymes", "distractor": "hormones"}
+{"qid": 49, "question": "The formation of an amalgam allows the metal to react with what?", "true_answer": "air and water", "distractor": "helium and oxygen"}
+{"qid": 50, "question": "A pulley changes the direction of the force t exerted by the cord without changing its what?", "true_answer": "magnitude", "distractor": "longitude"}
+{"qid": 51, "question": "What is the name of the small bumps that contain taste buds and covers the tongue?", "true_answer": "papillae", "distractor": "lingual tonsils"}
+{"qid": 52, "question": "In the absence of air resistance, all falling objects accelerate at the same rate due to what force?", "true_answer": "gravity", "distractor": "velocity"}
+{"qid": 53, "question": "The ability for a plasma membrane to only allow certain molecules in or out of the cell is referred to as what?", "true_answer": "selective permeability", "distractor": "periodic permeability"}
+{"qid": 54, "question": "In the presence of oxygen, hydrogen can interact to make what?", "true_answer": "water", "distractor": "carbon"}
+{"qid": 55, "question": "What galaxy is our solar system a part of?", "true_answer": "milky way", "distractor": "Centaurus"}
+{"qid": 56, "question": "The angle at which light bends when it enters a different medium is known as what?", "true_answer": "refraction", "distractor": "bounce"}
+{"qid": 57, "question": "Whether the organism is a bacterium, plant, or animal, all living things access energy by breaking down these?", "true_answer": "carbohydrate molecules", "distractor": "lipid molecules"}
+{"qid": 58, "question": "Increasing the temperature of n2 molecules increases what energy of motion?", "true_answer": "kinetic energy", "distractor": "compression energy"}
+{"qid": 59, "question": "Which radio frequency should you listen to if you want less noise?", "true_answer": "fm", "distractor": "am"}
+{"qid": 60, "question": "What form of radiation is the energy emitted by the sun?", "true_answer": "electromagnetic", "distractor": "seismic"}
+{"qid": 61, "question": "What is the suns innermost layer called?", "true_answer": "core", "distractor": "surface"}
+{"qid": 62, "question": "A growth spurt requires constant divisions of what?", "true_answer": "cells", "distractor": "hairs"}
+{"qid": 63, "question": "What's the term for the gradual progression from simple plants to larger more complex ones in an area?", "true_answer": "primary succession", "distractor": "complex progression"}
+{"qid": 64, "question": "Fungi may form mutualistic relationships with plants, algae, cyanobacteria, and what?", "true_answer": "animals", "distractor": "plants"}
+{"qid": 65, "question": "Which cycle tracks the flow of nitrogen through an ecosystem?", "true_answer": "nitrogen cycle", "distractor": "nitrogen reaction"}
+{"qid": 66, "question": "What consequence of a tornado is responsible for most injuries and deaths?", "true_answer": "flying debris", "distractor": "catching debris"}
+{"qid": 67, "question": "What are the only truly innate behaviors in humans called?", "true_answer": "reflexes", "distractor": "automatic movements"}
+{"qid": 68, "question": "What happens to the density of air as the altitude decreases?", "true_answer": "decreases", "distractor": "multiplies"}
+{"qid": 69, "question": "How do some animals change their depth?", "true_answer": "by changing their density", "distractor": "mass migration"}
+{"qid": 70, "question": "What phenomenon is crowding out other species and making all the other causes of extinction worse?", "true_answer": "human overpopulation", "distractor": "climate change"}
+{"qid": 71, "question": "Dessication is an extreme and usually fatal form of what in animals?", "true_answer": "dehydration", "distractor": "diarrhea"}
+{"qid": 72, "question": "Internal and external forms of what life process occur as simple diffusion due to a partial pressure gradient?", "true_answer": "respiration", "distractor": "reproduction"}
+{"qid": 73, "question": "The fossil record shows that this type of event is followed by the evolution of new species to fill the habitats where old species lived?", "true_answer": "mass extinction", "distractor": "minor extinction"}
+{"qid": 74, "question": "Soluble minerals and clays accumulate in what soil layer, allowing it to hold more water?", "true_answer": "subsoil", "distractor": "silt"}
+{"qid": 75, "question": "What is the common word for potential difference in a circuit?", "true_answer": "voltage", "distractor": "watt"}
+{"qid": 76, "question": "How many chambers does the stomach of a crocodile have?", "true_answer": "two", "distractor": "six"}
+{"qid": 77, "question": "When populations get close to the carrying capacity, what happens to growth?", "true_answer": "slows", "distractor": "halts"}
+{"qid": 78, "question": "Although air can transfer heat rapidly by convection, it is a poor conductor and thus a good what?", "true_answer": "insulator", "distractor": "magnet"}
+{"qid": 79, "question": "Most plants grow continuously, except for what periods?", "true_answer": "dormant", "distractor": "abnormal"}
+{"qid": 80, "question": "What man-made devices in space are used to observe the earth's surface?", "true_answer": "satellites", "distractor": "crystals"}
+{"qid": 81, "question": "Carboxylic acids are weak acids, meaning they are not 100% ionized in what?", "true_answer": "water", "distractor": "air"}
+{"qid": 82, "question": "An endocrine disease usually involves the secretion of too much or not enough of what?", "true_answer": "hormone", "distractor": "enzyme"}
+{"qid": 83, "question": "In experiments with garden peas, austrian monk gregor mendel described the basic patterns of what?", "true_answer": "inheritance", "distractor": "behavior"}
+{"qid": 84, "question": "Nutrition and diet affect your metabolism. more energy is required to break down fats and proteins than this?", "true_answer": "carbohydrates", "distractor": "vitamins"}
+{"qid": 85, "question": "What are unsaturated hydrocarbons with at least one double bond between carbon atoms called?", "true_answer": "alkenes", "distractor": "amines"}
+{"qid": 86, "question": "What is the opposite of melting?", "true_answer": "freezing", "distractor": "evaporation"}
+{"qid": 87, "question": "A unique characteristic of mammals is the ability to chew, this happens by the temporalis and the masseter allowing what?", "true_answer": "side-to-side movement", "distractor": "Up and down"}
+{"qid": 88, "question": "Most of the pathogens that cause stis enter the body through mucous membranes of which organs?", "true_answer": "reproductive organs", "distractor": "eyes"}
+{"qid": 89, "question": "The activation of what kind of buds induces branching?", "true_answer": "axillary buds", "distractor": "lymphatic buds"}
+{"qid": 90, "question": "Sexual reproduction involves haploid gametes and produces a diploid zygote through what process?", "true_answer": "fertilization", "distractor": "infection"}
+{"qid": 91, "question": "All alkanes are composed of carbon and hydrogen atoms, and have similar bonds, structures, and formulas; noncyclic alkanes all have a formula of cnh2n+2. the number of carbon atoms present in an alkane has what?", "true_answer": "no limit", "distractor": "done limit"}
+{"qid": 92, "question": "What percentage of men suffer from some form of erectile dysfunction by age 40?", "true_answer": "approximately 40 percent", "distractor": "approximately 60 percent"}
+{"qid": 93, "question": "What secures together immovable joints and prevents them from moving?", "true_answer": "dense collagen", "distractor": "light collagen"}
+{"qid": 94, "question": "Transform faults are the site of massive what?", "true_answer": "earthquakes", "distractor": "vibrations"}
+{"qid": 95, "question": "When water goes above and below its freezing point, what rock-breaking phenomenon is common?", "true_answer": "ice wedging", "distractor": "ice locking"}
+{"qid": 96, "question": "The diatoms are unicellular photosynthetic protists that encase themselves in intricately patterned, glassy cell walls composed of silicon dioxide in a matrix of organic particles. these protists are a component of freshwater and these?", "true_answer": "marine plankton", "distractor": "waste plankton"}
+{"qid": 97, "question": "What type of reactions form compounds?", "true_answer": "chemical reactions", "distractor": "mineral reactions"}
+{"qid": 98, "question": "Millions of years ago, plants used energy from the sun to form what?", "true_answer": "carbon compounds", "distractor": "fossil fuels"}
+{"qid": 99, "question": "What is the term for the process in which living things with beneficial traits produce more offspring than others do?", "true_answer": "natural selection", "distractor": "natural process"}
+{"qid": 100, "question": "In a chemical reaction, the amounts of reactants and products will be constant when what state is attained?", "true_answer": "equilibrium", "distractor": "saturation"}
+{"qid": 101, "question": "What protects a developing flower while it is still a bud?", "true_answer": "sepals", "distractor": "shell"}
+{"qid": 102, "question": "What is the term for the force of attraction between things that have a mass?", "true_answer": "gravity", "distractor": "weight"}
+{"qid": 103, "question": "What are the long, thin protein extensions in most prokaryotic cells called?", "true_answer": "flagellum", "distractor": "analyte"}
+{"qid": 104, "question": "Dialysis is a treatment for failure of what organs?", "true_answer": "kidneys", "distractor": "lungs"}
+{"qid": 105, "question": "What preventive measure can protect even young children against diseases such as viral meningitis?", "true_answer": "vaccination", "distractor": "nutrition"}
+{"qid": 106, "question": "Renal plasma flow equals the blood flow per minute times the what?", "true_answer": "hematocrit", "distractor": "erythrocytes"}
+{"qid": 107, "question": "What does lattice energy of an ionic solid measure the strength of?", "true_answer": "bonds", "distractor": "metals"}
+{"qid": 108, "question": "How many different types of taste can be detected by taste buds?", "true_answer": "five", "distractor": "three"}
+{"qid": 109, "question": "What species do humans belong to?", "true_answer": "homo sapiens", "distractor": "homo erectus"}
+{"qid": 110, "question": "Titration is a method to determine what in acids or bases?", "true_answer": "concentration", "distractor": "alkalinity"}
+{"qid": 111, "question": "How many different amino acids make up proteins.", "true_answer": "20", "distractor": "14"}
+{"qid": 112, "question": "What are sores in the lining of the stomach or duodenum that are usually caused by bacterial infections or acidity?", "true_answer": "ulcers", "distractor": "lesions"}
+{"qid": 113, "question": "In some species, what has led to the evolution of alternative male mating behavior and morphology?", "true_answer": "sexual selection", "distractor": "distributive selection"}
+{"qid": 114, "question": "What structure is made from dna and protein molecules coiled together?", "true_answer": "chromosome", "distractor": "bacterium"}
+{"qid": 115, "question": "What renewable energy source converts energy from the sunlight into electricity?", "true_answer": "solar energy", "distractor": "geophysical energy"}
+{"qid": 116, "question": "The radial artery and which artery parallel their namesake bones, giving off smaller branches until they reach the wrist, or carpal region?", "true_answer": "ulnar", "distractor": "triceps"}
+{"qid": 117, "question": "The bones of the skull are connected by what type of joints?", "true_answer": "immovable", "distractor": "semi-mobile"}
+{"qid": 118, "question": "What is the lowest layer of the atmosphere?", "true_answer": "troposphere", "distractor": "ionosphere"}
+{"qid": 119, "question": "What is the name of the type of plant tissue consisting of undifferentiated cells that can continue to divide and differentiate?", "true_answer": "meristem", "distractor": "cuticle"}
+{"qid": 120, "question": "Phosphate-containing ocean sediments form primarily from the bodies of ocean organisms and from their what?", "true_answer": "excretions", "distractor": "ancestors"}
+{"qid": 121, "question": "What does erosion do to pieces of broken rock?", "true_answer": "moves them", "distractor": "lead them"}
+{"qid": 122, "question": "The passing of traits from parents to offspring is done through what?", "true_answer": "dna", "distractor": "sperm"}
+{"qid": 123, "question": "In a glass of sweet tea the sugar is known as the solute and the water is known as what?", "true_answer": "solvent", "distractor": "pigment"}
+{"qid": 124, "question": "A few earthquakes take place away from plate boundaries, these are called what?", "true_answer": "intraplate earthquakes", "distractor": "outer earthquakes"}
+{"qid": 125, "question": "Red litmus paper turns what color when placed in a basic solution?", "true_answer": "blue", "distractor": "white"}
+{"qid": 126, "question": "The difference between the theoretical half-reaction reduction potential and the actual voltage required is called what?", "true_answer": "overpotential", "distractor": "resistance"}
+{"qid": 127, "question": "While the egg is developing, other changes are taking place in the uterus. it develops a thick lining that is full of what?", "true_answer": "tiny blood vessels", "distractor": "large arteries"}
+{"qid": 128, "question": "The neural plate undergoes a series of cell movements where it rolls up and forms a tube called what?", "true_answer": "neural tube", "distractor": "cell tube"}
+{"qid": 129, "question": "In what way do all vertebrates reproduce?", "true_answer": "sexually", "distractor": "mitosis"}
+{"qid": 130, "question": "First, high temperature denatures proteins and does what to cells?", "true_answer": "kills them", "distractor": "finds them"}
+{"qid": 131, "question": "What term is used to describe a collection of molecules surrounded by a phospholipid bilayer that is capable of reproducing itself?", "true_answer": "cell", "distractor": "atom"}
+{"qid": 132, "question": "By allowing blood levels of a hormone to be regulated within a narrow range, feedback loops contribute to maintaining what state?", "true_answer": "homeostasis", "distractor": "hypothesis"}
+{"qid": 133, "question": "Collagen fibers, elastic fibers, and reticular fibers comprise what type of tissue?", "true_answer": "connective tissue", "distractor": "nucleus tissue"}
+{"qid": 134, "question": "What the name of the disease where some of the alveoli of the lungs fill with fluid so they can no longer exchange gas?", "true_answer": "pneumonia", "distractor": "leukemia"}
+{"qid": 135, "question": "What occurs when groups from the same species stop mating because of something other than physical or geographic separation?", "true_answer": "sympatric speciation", "distractor": "extinction"}
+{"qid": 136, "question": "What environment do animals with gills live in?", "true_answer": "water", "distractor": "air"}
+{"qid": 137, "question": "What is the boiling and freezing point of water in celcius?", "true_answer": "100 degrees c and 0 degrees c", "distractor": "100 degrees c and 32 degrees c"}
+{"qid": 138, "question": "What are living things that obtain glucose by eating self feeders called?", "true_answer": "heterotrophs", "distractor": "producers"}
+{"qid": 139, "question": "Virtually every task performed by living organisms requires this?", "true_answer": "energy", "distractor": "solids"}
+{"qid": 140, "question": "The binding of what helps eliminate antigens by phagocytosis and complement-mediated lysis", "true_answer": "antibodies", "distractor": "proteins"}
+{"qid": 141, "question": "What muscles are used to pump water over the gills?", "true_answer": "jaws and pharynx", "distractor": "pharynx and tonsils"}
+{"qid": 142, "question": "Compounds like sodium chloride form structures called what?", "true_answer": "crystals", "distractor": "ions"}
+{"qid": 143, "question": "What are made of long chains consisting almost solely of carbon and hydrogen?", "true_answer": "lipids", "distractor": "nucleic acids"}
+{"qid": 144, "question": "When a series of measurements is precise but not what, the error is usually systematic?", "true_answer": "accurate", "distractor": "velocity"}
+{"qid": 145, "question": "Inserting copies of normal genes into a patient with defective genes is known as?", "true_answer": "gene therapy", "distractor": "pattern therapy"}
+{"qid": 146, "question": "What type of reproduction usually occur during times of environmental stress?", "true_answer": "sexual reproduction", "distractor": "internal reproduction"}
+{"qid": 147, "question": "All forms of energy can be interconverted. three things can change the energy of an object: the transfer of heat, work performed on or by an object, or some combination of what?", "true_answer": "heat and work", "distractor": "temperature and work"}
+{"qid": 148, "question": "What science includes many fields of science related to our home planet?", "true_answer": "earth science", "distractor": "meteorology"}
+{"qid": 149, "question": "What are alloys that are mostly composed of mercury known as?", "true_answer": "amalgams", "distractor": "halogens"}
+{"qid": 150, "question": "What are made from highly reflective metal that is applied to a curved or flat piece of glass?", "true_answer": "mirrors", "distractor": "lenses"}
+{"qid": 151, "question": "What do ranchers fear will happen if wolves return?", "true_answer": "livestock predation", "distractor": "loss of environment"}
+{"qid": 152, "question": "How many types of surface waves are there?", "true_answer": "two", "distractor": "over a hundred"}
+{"qid": 153, "question": "What is the rigid layer that is found outside the cell membrane and surrounds the cell?", "true_answer": "cell wall", "distractor": "cell barrier"}
+{"qid": 154, "question": "Surface tension of alveolar fluid, which is mostly water, creates an inward pull of the tissue of what organ?", "true_answer": "lung", "distractor": "spleen"}
+{"qid": 155, "question": "What type of tumor mostly does not cause serious problems and can be completely removed by surgery?", "true_answer": "benign", "distractor": "toxic"}
+{"qid": 156, "question": "What supports and protects the soft organs of the body?", "true_answer": "skeleton", "distractor": "Skin"}
+{"qid": 157, "question": "What celestial body is the earth\u2019s main source of energy?", "true_answer": "sun", "distractor": "rivers"}
+{"qid": 158, "question": "What do you call the horizontal stems of a strawberry plant that run over the ground surface?", "true_answer": "stolons", "distractor": "root volunteers"}
+{"qid": 159, "question": "Glaciers are incredibly powerful agents of what?", "true_answer": "erosion", "distractor": "climate change"}
+{"qid": 160, "question": "What type of pressure is the pressure exerted by gas particles in earth\u2019s atmosphere as those particles collide with objects?", "true_answer": "atmospheric pressure", "distractor": "vertical pressure"}
+{"qid": 161, "question": "What helps the plasma membrane keep its shape?", "true_answer": "molecules of cholesterol", "distractor": "molecules of carbohydrates"}
+{"qid": 162, "question": "What type of reproduction only involves one parent?", "true_answer": "asexual", "distractor": "primitive"}
+{"qid": 163, "question": "What is defined as a repeating series of events that include growth, dna synthesis, and cell division?", "true_answer": "cell cycle", "distractor": "photosynthesis"}
+{"qid": 164, "question": "How metalloids behave in chemical interactions with other elements depends mainly on the number of what, in the outer energy level of their atoms?", "true_answer": "electrons", "distractor": "protons"}
+{"qid": 165, "question": "What distinguishing characteristic of annelid anatomy shows specialization and adaptation?", "true_answer": "segmentation", "distractor": "asymmetry"}
+{"qid": 166, "question": "The spermatids are transported from the testes to where?", "true_answer": "epididymis", "distractor": "abdominis"}
+{"qid": 167, "question": "How does water from roots reach the leaves?", "true_answer": "water-conducting cells", "distractor": "water - combining cells"}
+{"qid": 168, "question": "As a polycrystalline material solidifies, grains with irregular shapes form. the interfaces between grains constitute grain what?", "true_answer": "boundaries", "distractor": "waves"}
+{"qid": 169, "question": "Motors are the most common application of magnetic force on current-carrying wires. motors have loops of wire in this?", "true_answer": "magnetic field", "distractor": "electrical circuit"}
+{"qid": 170, "question": "What makes and stores pigments that give petals and fruit their orange and yellow colors?", "true_answer": "chromoplasts", "distractor": "sporozoans"}
+{"qid": 171, "question": "What term is used to describe when a liquid is the temperature at which its equilibrium vapor pressure is equal to the pressure exerted on the liquid by its gaseous surroundings?", "true_answer": "boiling point", "distractor": "freezing point"}
+{"qid": 172, "question": "When electrons return to a lower energy level, they emit the excess energy in the form of what?", "true_answer": "light", "distractor": "weight"}
+{"qid": 173, "question": "What is another term for nearsightedness?", "true_answer": "myopia", "distractor": "hypoxia"}
+{"qid": 174, "question": "What are the areas located at fixed distances from the nucleus of the atom?", "true_answer": "energy levels", "distractor": "molar levels"}
+{"qid": 175, "question": "In which state of matter do particles take the shape of their container, but cannot expand to fill it?", "true_answer": "liquid", "distractor": "gas"}
+{"qid": 176, "question": "Runoff is likely to cause more what if the land is bare?", "true_answer": "erosion", "distractor": "abrasion"}
+{"qid": 177, "question": "Cations have what type of charge?", "true_answer": "positive", "distractor": "negative"}
+{"qid": 178, "question": "What organ is subdivided into ascending, descending, transverse and sigmoid parts?", "true_answer": "colon", "distractor": "heart"}
+{"qid": 179, "question": "Ammonia, urea, and uric acid are examples of what kind of waste?", "true_answer": "nitrogenous", "distractor": "carbonous"}
+{"qid": 180, "question": "What are variants of genes called?", "true_answer": "alleles", "distractor": "antigens"}
+{"qid": 181, "question": "Mushrooms are an example of what type of organism, which includes beneficial and toxic specimens?", "true_answer": "fungi", "distractor": "spores"}
+{"qid": 182, "question": "Comparing what sequences provides clues to evolution and development?", "true_answer": "genome", "distractor": "DNA"}
+{"qid": 183, "question": "What is a measure of the average amount of energy of motion, or kinetic energy, a system contains called?", "true_answer": "temperature", "distractor": "size"}
+{"qid": 184, "question": "What is the minimum mass capable of supporting sustained fission called?", "true_answer": "critical mass", "distractor": "concentrated mass"}
+{"qid": 185, "question": "Many hydrocarbons are cyclic and adopt specific three-dimensional structures that influence their physical and what properties?", "true_answer": "chemical", "distractor": "liquid"}
+{"qid": 186, "question": "What does the cell cycle do?", "true_answer": "divide and reproduce cells", "distractor": "only divide cells"}
+{"qid": 187, "question": "Inside the nasal area of the skull, the nasal cavity is divided into halves by the what?", "true_answer": "nasal septum", "distractor": "cerebral cortex"}
+{"qid": 188, "question": "Bacteria can be chemotrophs, which obtain what by breaking down chemical compounds in their environment?", "true_answer": "energy", "distractor": "waste"}
+{"qid": 189, "question": "Habitat loss, introduced species, overharvesting, and global change are major threats to what?", "true_answer": "biodiversity", "distractor": "the earth's gravity"}
+{"qid": 190, "question": "What \"plumbing\" structures inside the veins maintain a unidirectional flow of blood despite the low blood pressure?", "true_answer": "valves", "distractor": "funnels"}
+{"qid": 191, "question": "What do we call the cartilaginous structure that surrounds the notochrod?", "true_answer": "arcualia", "distractor": "osteocytes"}
+{"qid": 192, "question": "What is the process of the transfer of pollen from an anther to a stigma in angiosperms called?", "true_answer": "pollination", "distractor": "grabation"}
+{"qid": 193, "question": "Despite its small size, an erythrocyte contains about 250 million molecules of what?", "true_answer": "hemoglobin", "distractor": "calcium"}
+{"qid": 194, "question": "How many variables are used to describe the condition of a gas?", "true_answer": "four", "distractor": "five"}
+{"qid": 195, "question": "What is a suggested explanation for a phenomenon or a suggested explanation for a relationship between many phenomena called?", "true_answer": "hypothesis", "distractor": "query"}
+{"qid": 196, "question": "Land plants are classified into two major groups according to the absence or presence of what tissue?", "true_answer": "vascular", "distractor": "disease"}
+{"qid": 197, "question": "What type of treatment is necessary for anaphylaxis?", "true_answer": "emergency", "distractor": "outpatient"}
+{"qid": 198, "question": "What substances, which are distinct from acids and bases, form when ions form ionic bonds?", "true_answer": "salts", "distractor": "oils"}
+{"qid": 199, "question": "What is the name for biochemical compounds that consist of one or more chains of small molecules called amino acids?", "true_answer": "proteins", "distractor": "lipids"}
+{"qid": 200, "question": "What are the ionic compounds that produce negative hydroxide ions when dissolved in water?", "true_answer": "bases", "distractor": "isotopes"}
+{"qid": 201, "question": "The atomic number of tungsten is 74. therefore, in a neutral atom of tungsten, there are 74 electrons. the atomic number of argon is 18. therefore, in a neutral atom of argon, there are how many electrons?", "true_answer": "18", "distractor": "74"}
+{"qid": 202, "question": "What is the apparatus used for carrying out an electrolysis reaction?", "true_answer": "an electrolytic cell", "distractor": "Golgi apparatus"}
+{"qid": 203, "question": "What two ways may light be transmitted?", "true_answer": "refracted or scattered", "distractor": "magnified or scattered"}
+{"qid": 204, "question": "Triggered by changes in the environment, migration and hibernation occur as cycles on what temporal basis?", "true_answer": "annual", "distractor": "bi-annually"}
+{"qid": 205, "question": "What pair of tubes that extends toward the ovaries features a fringelike structure that sweeps eggs inside?", "true_answer": "fallopian tubes", "distractor": "golgi apparatus"}
+{"qid": 206, "question": "In most animals, what sense is related to balance or equilibrium?", "true_answer": "hearing", "distractor": "vision"}
+{"qid": 207, "question": "Terminal pods are located at the end of what?", "true_answer": "stems", "distractor": "fruits"}
+{"qid": 208, "question": "What forms when the spores from two parents fuse during sexual reproduction?", "true_answer": "zygospore", "distractor": "xerophyte"}
+{"qid": 209, "question": "What is the name of the galaxy we live in?", "true_answer": "milky way", "distractor": "Centaurus A"}
+{"qid": 210, "question": "What are the most common seedless vascular plants?", "true_answer": "ferns", "distractor": "trees"}
+{"qid": 211, "question": "In a monogamous pairing, a male individual is generally paired with what other type of individual in a sexual relationship?", "true_answer": "female", "distractor": "worker"}
+{"qid": 212, "question": "What is a mass spectrometer used to measure?", "true_answer": "relative atomic masses", "distractor": "partial atomic masses"}
+{"qid": 213, "question": "What combines sets of genes from two different parents leading to genetically diverse offspring?", "true_answer": "sexual reproduction", "distractor": "subject reproduction"}
+{"qid": 214, "question": "Global warming will raise ocean levels due to melt water from glaciers and the greater volume of what?", "true_answer": "warmer water", "distractor": "greenhouse gases"}
+{"qid": 215, "question": "What are groups of young stars loosely held together by gravity called?", "true_answer": "open clusters", "distractor": "constellations"}
+{"qid": 216, "question": "What does a pollinator pick up from its body and carry directly to another plant of the same species?", "true_answer": "pollen", "distractor": "spore"}
+{"qid": 217, "question": "What is formed when an oxygen atom picks up a pair of hydrogen ions from a solution?", "true_answer": "water", "distractor": "liquid"}
+{"qid": 218, "question": "What does the driving of turbines by the heating of water to steam accomplish?", "true_answer": "generation of electricity", "distractor": "depletion of electricity"}
+{"qid": 219, "question": "What is a device that changes kinetic energy to electrical energy through electromagnetic induction?", "true_answer": "an electric generator", "distractor": "a battery"}
+{"qid": 220, "question": "How many naturally occurring elements are known on earth?", "true_answer": "90", "distractor": "85"}
+{"qid": 221, "question": "What are the two types of vesicle transport called?", "true_answer": "endocytosis and exocytosis", "distractor": "dielectric and exocytosis"}
+{"qid": 222, "question": "What do you call a species that has died out in the past?", "true_answer": "extinct", "distractor": "endangered"}
+{"qid": 223, "question": "Where does the embryo develop in a plant?", "true_answer": "inside the female plant after fertilization", "distractor": "outside the female plant after fertilization"}
+{"qid": 224, "question": "What is the method of setting or correcting a measuring device by matching it to known measurement standards called?", "true_answer": "calibration", "distractor": "parallax"}
+{"qid": 225, "question": "What property of warm air causes it to rise above cold air?", "true_answer": "lower density", "distractor": "greater pressure"}
+{"qid": 226, "question": "Which branch of biology studies animal behavior?", "true_answer": "ethology", "distractor": "microbiology"}
+{"qid": 227, "question": "What unit of measure is equal to the amount of work a horse can do in 1 minute?", "true_answer": "horsepower", "distractor": "joule"}
+{"qid": 228, "question": "What organism is characterized by an incomplete digestive system and a single, tentacled opening?", "true_answer": "cnidarians", "distractor": "annelids"}
+{"qid": 229, "question": "What term is not the same as energy, but means the energy per unit charge?", "true_answer": "voltage", "distractor": "frequency"}
+{"qid": 230, "question": "What specific part of the african violet is used to propagate other plants?", "true_answer": "leaves", "distractor": "petals"}
+{"qid": 231, "question": "What are fibers that depend on aerobic respiration called?", "true_answer": "oxidative fibers", "distractor": "hydrogen fibers"}
+{"qid": 232, "question": "Which form of electromagnetic waves have more energy: low frequency wave or high frequency waves?", "true_answer": "high frequency waves", "distractor": "neither"}
+{"qid": 233, "question": "Something that has all of the characteristics of life is considered to be what?", "true_answer": "alive", "distractor": "molecule"}
+{"qid": 234, "question": "What do the letters in our blood types represent?", "true_answer": "alleles", "distractor": "genomes"}
+{"qid": 235, "question": "The two stages of photosynthesis are the light reactions and what?", "true_answer": "calvin cycle", "distractor": "digestive cycle"}
+{"qid": 236, "question": "What do living things need to survive?", "true_answer": "nutrients", "distractor": "oxygen"}
+{"qid": 237, "question": "The denser regions of the electron cloud are called what?", "true_answer": "orbitals", "distractor": "cores"}
+{"qid": 238, "question": "In studying energy, what term do scientists use to refer to the matter and its environment involved in energy transfers?", "true_answer": "system", "distractor": "molecule"}
+{"qid": 239, "question": "To measure what changes that occur in chemical reactions, chemists usually use a related thermodynamic quantity, calledenthalpy?", "true_answer": "energy", "distractor": "ion exchange"}
+{"qid": 240, "question": "A system in what state cannot spontaneously change, and therefore can do no work?", "true_answer": "equilibrium", "distractor": "equality"}
+{"qid": 241, "question": "What is a species that plays an especially important role in it's community called?", "true_answer": "keystone", "distractor": "complement"}
+{"qid": 242, "question": "What term that shows how fast a population is growing includes new members added to the population over a given period, as well as old members removed from the population?", "true_answer": "growth rate", "distractor": "birth rate"}
+{"qid": 243, "question": "The rings of what planet can be easily seen from earth?", "true_answer": "saturn", "distractor": "Venus"}
+{"qid": 244, "question": "What planet is a blue green color?", "true_answer": "uranus", "distractor": "Mars"}
+{"qid": 245, "question": "The simplest class of organic compounds is the what?", "true_answer": "hydrocarbons", "distractor": "particles"}
+{"qid": 246, "question": "Some meteorites are made of iron and nickel and are thought to be very similar to what part of the earth?", "true_answer": "core", "distractor": "crust"}
+{"qid": 247, "question": "Which pathway carries somatosensory information from the face, head, mouth, and nasal cavity?", "true_answer": "trigeminal pathway", "distractor": "posterior pathway"}
+{"qid": 248, "question": "The amount of kinetic energy in a moving object depends directly on its mass and what else?", "true_answer": "velocity", "distractor": "volume"}
+{"qid": 249, "question": "Cycling, shoveling snow and cross-country skiing are examples of what kind of heart-strengthening activity?", "true_answer": "aerobic", "distractor": "metabolism"}
+{"qid": 250, "question": "What take the shape of their container, and are relatively easy to compress?", "true_answer": "gases", "distractor": "molecules"}
+{"qid": 251, "question": "What is moving air called?", "true_answer": "wind", "distractor": "steam"}
+{"qid": 252, "question": "What property makes bone marrow cells ideal for gene therapy?", "true_answer": "lifelong reproduction", "distractor": "behavior reproduction"}
+{"qid": 253, "question": "What is the name of the two metalloids in the carbon group called?", "true_answer": "silicon and germanium", "distractor": "titantium and copper"}
+{"qid": 254, "question": "What is the name of the zone where water is deeper than 200 meters called?", "true_answer": "aphotic zone", "distractor": "transition zone"}
+{"qid": 255, "question": "Diagnosing and treating cancer is a beneficial use of what potentially dangerous energy?", "true_answer": "radiation", "distractor": "thermal"}
+{"qid": 256, "question": "Many adults and some children suffer from a deficiency of lactase. these individuals are said to be lactose intolerant because they cannot digest the lactose found in what?", "true_answer": "milk", "distractor": "fruit"}
+{"qid": 257, "question": "Three-prong plugs, circuit breakers, and gfci outlets are safety features that recognize the danger of what?", "true_answer": "electricity", "distractor": "heat"}
+{"qid": 258, "question": "Catabolic reactions break down large organic molecules into smaller molecules, releasing the energy contained in what?", "true_answer": "chemical bonds", "distractor": "molecular bonds"}
+{"qid": 259, "question": "In qualitative analysis, reagents are added to an unknown chemical mixture in order to induce what?", "true_answer": "precipitation", "distractor": "motion"}
+{"qid": 260, "question": "While climate change in earth history was due to natural processes, what is primarily to blame for recent global warming?", "true_answer": "human actions", "distractor": "wars"}
+{"qid": 261, "question": "What is the simplest life cycle?", "true_answer": "haploid life cycle", "distractor": "diploid life cycle"}
+{"qid": 262, "question": "What keeps the moon orbiting earth?", "true_answer": "gravity", "distractor": "Coriolis effect"}
+{"qid": 263, "question": "What are formed by the attraction between oppositely charged ions?", "true_answer": "ionic bonds", "distractor": "inept bonds"}
+{"qid": 264, "question": "What produces hormones that directly regulate body processes?", "true_answer": "hypothalamus", "distractor": "hippocampus"}
+{"qid": 265, "question": "Comparing anatomy, and characterizing the similarities and differences, provides evidence of what process?", "true_answer": "evolution", "distractor": "regression"}
+{"qid": 266, "question": "What is the second most abundant element in the earth's crust?", "true_answer": "silicon", "distractor": "nitrogen"}
+{"qid": 267, "question": "Which kind of genetics approach involves mutating or deleting genes provides researchers with clues about gene function?", "true_answer": "reverse genetics", "distractor": "possible genetics"}
+{"qid": 268, "question": "More than half of all known organisms are what?", "true_answer": "insects", "distractor": "mammals"}
+{"qid": 269, "question": "For what purpose does liver use the excess carbohydrate?", "true_answer": "to synthesize glycogen", "distractor": "process sugar"}
+{"qid": 270, "question": "Saturn is made mostly of helium and what else?", "true_answer": "hydrogen", "distractor": "nitrogen"}
+{"qid": 271, "question": "What are alkenes organic compounds that contain one or more double or triple bonds between carbon atoms described as?", "true_answer": "unsaturated", "distractor": "saturated"}
+{"qid": 272, "question": "Electrons in covalent compounds are shared between the two atoms, unlike the case in what type of bonds?", "true_answer": "ionic bonds", "distractor": "horizontal bonds"}
+{"qid": 273, "question": "What is the resistance of a liquid to flow called?", "true_answer": "viscosity", "distractor": "turbulence"}
+{"qid": 274, "question": "The mass of atoms is based on the number of protons and neutrons in what?", "true_answer": "nucleus", "distractor": "electrons"}
+{"qid": 275, "question": "Where do polychaete worms live?", "true_answer": "the ocean floor", "distractor": "in tide pools"}
+{"qid": 276, "question": "What is the study of how and why plants and animals live where they do?", "true_answer": "biogeography", "distractor": "geomorphology"}
+{"qid": 277, "question": "Muscles that position the pectoral girdle are located either on the anterior thorax or on this?", "true_answer": "posterior thorax", "distractor": "inferred thorax"}
+{"qid": 278, "question": "What are the two major types of seed plants called?", "true_answer": "gymnosperms and angiosperms", "distractor": "perennials and annuals"}
+{"qid": 279, "question": "What do we call the energy-rich product of photosynthesis?", "true_answer": "glucose", "distractor": "chloride"}
+{"qid": 280, "question": "How is oxygen transferred into the bloodstream?", "true_answer": "simple diffusion", "distractor": "mean diffusion"}
+{"qid": 281, "question": "Ringworm and athlete's foot are human diseases caused by what simple organisms?", "true_answer": "fungi", "distractor": "bacteria"}
+{"qid": 282, "question": "What is the measure of the change in the velocity of a moving object called?", "true_answer": "acceleration", "distractor": "transmission"}
+{"qid": 283, "question": "What is the usual treatment for acute bronchitis?", "true_answer": "antibiotics", "distractor": "surgery"}
+{"qid": 284, "question": "What are generally divided into prosimian and non-prosimian?", "true_answer": "primates", "distractor": "carnivores"}
+{"qid": 285, "question": "The creation and destruction of oceanic crust is the reason what moves?", "true_answer": "continents", "distractor": "animals"}
+{"qid": 286, "question": "What is the concept by which two species within the same area to coexist by adapting by developing different specializations?", "true_answer": "character displacement", "distractor": "character development"}
+{"qid": 287, "question": "A turbine that spins a generator will produce?", "true_answer": "electricity", "distractor": "solar energy"}
+{"qid": 288, "question": "Meiosis in the sporophyte produces haploid cells called what?", "true_answer": "spores", "distractor": "fibers"}
+{"qid": 289, "question": "In this type of reaction, an element replaces another element in a compound, and the element is in any state of matter but is not an ion?", "true_answer": "single-replacement reaction", "distractor": "double-replacement reaction"}
+{"qid": 290, "question": "What are the two distinct types of cells found in the animal kingdom?", "true_answer": "prokaryotes and eukaryotes", "distractor": "DNA and Eukaryotes"}
+{"qid": 291, "question": "What category of elements are chacterized by their ability to reflect light, called luster, their high electrical and thermal conductivity, their high heat capacity, and their malleability and ductility?", "true_answer": "metals", "distractor": "halogens"}
+{"qid": 292, "question": "Angiosperms are also known as what?", "true_answer": "flowering plants", "distractor": "dry plants"}
+{"qid": 293, "question": "An estimated 100 trillion of these live in the gut of an average person?", "true_answer": "bacteria", "distractor": "viruses"}
+{"qid": 294, "question": "The ability to regulate what, which is possessed by mammals, was an advantage as earth\u2019s climate went through sudden and dramatic changes?", "true_answer": "body temperature", "distractor": "mutations"}
+{"qid": 295, "question": "What is the term for very large arrays of tandemly repeating, non-coding dna?", "true_answer": "satellite dna", "distractor": "recombinant dna"}
+{"qid": 296, "question": "What kind of map can show the features of the bottom of a body of water?", "true_answer": "bathymetric", "distractor": "topographic"}
+{"qid": 297, "question": "What evolved, adapted response to resource availability is the long-range seasonal movement of animals?", "true_answer": "migration", "distractor": "changing"}
+{"qid": 298, "question": "When animals get rid of their gaseous waste, what is exhaled through their mouth and nose?", "true_answer": "carbon dioxide", "distractor": "oxygen"}
+{"qid": 299, "question": "What is another name for composite volcanos?", "true_answer": "stratovolcanoes", "distractor": "fjords"}
+{"qid": 300, "question": "Fossil records support the idea that periods of little change may be interrupted by bursts of rapid change, an evolutionary model contrasted by what?", "true_answer": "gradualism", "distractor": "elitism"}
+{"qid": 301, "question": "What type of winds occur when air is forced over a mountain range?", "true_answer": "chinook winds", "distractor": "local winds"}
+{"qid": 302, "question": "What do clouds trap into the atmosphere at night?", "true_answer": "heat", "distractor": "seawater"}
+{"qid": 303, "question": "A nerve cell that carries messages is called a?", "true_answer": "neuron", "distractor": "mitochondria"}
+{"qid": 304, "question": "What group of animals are the largest arthropods?", "true_answer": "insects", "distractor": "birds"}
+{"qid": 305, "question": "What term describes a collection of similar cells that had a common embryonic origin?", "true_answer": "tissue", "distractor": "organ-level organization"}
+{"qid": 306, "question": "Most biochemical molecules are macromolecules, meaning that they are what?", "true_answer": "very large", "distractor": "very dense"}
+{"qid": 307, "question": "The name of a spinal cord region corresponds to the level at which spinal nerves pass through the what?", "true_answer": "intervertebral foramina", "distractor": "lumbar foramina"}
+{"qid": 308, "question": "Tests for levels of what in blood allow a diabetic patient to regulate how much insulin to administer?", "true_answer": "glucose", "distractor": "alcohol"}
+{"qid": 309, "question": "Reasoning can be broken down into two categories: deduction and?", "true_answer": "induction", "distractor": "conduction"}
+{"qid": 310, "question": "What are used to make maps of the moon and other planets?", "true_answer": "imaging satellites", "distractor": "radio telescopes"}
+{"qid": 311, "question": "What term describes how closely packed the particles of matter are?", "true_answer": "density", "distractor": "range"}
+{"qid": 312, "question": "Populations of viruses do not grow through cell division because they?", "true_answer": "are not cells", "distractor": "Static"}
+{"qid": 313, "question": "What is likely to happen to a parasite if it kills its host?", "true_answer": "it dies", "distractor": "it thrives"}
+{"qid": 314, "question": "What is a type of solid that lacks an ordered internal structure?", "true_answer": "an amorphous solid", "distractor": "ice"}
+{"qid": 315, "question": "What is it called when you get the same result after repeating an experiment?", "true_answer": "replication", "distractor": "variable"}
+{"qid": 316, "question": "What is the largest human organ?", "true_answer": "skin", "distractor": "stomach"}
+{"qid": 317, "question": "In the chest, the trachea divides as it enters the lungs to form the right and left what?", "true_answer": "bronchi", "distractor": "alveoli"}
+{"qid": 318, "question": "Many objects have color because they contain what?", "true_answer": "pigments", "distractor": "solvents"}
+{"qid": 319, "question": "What is the process of action potentials in myelinated axons jumping between the nodes of ranvier called?", "true_answer": "saltatory conduction", "distractor": "photoreactive conduction"}
+{"qid": 320, "question": "What do craters and rifts become when the fill with water?", "true_answer": "lakes", "distractor": "rivers"}
+{"qid": 321, "question": "What kind of power does not produce any pollutants, but produces waste that can be difficult to dispose of?", "true_answer": "nuclear", "distractor": "electrical"}
+{"qid": 322, "question": "What is the long, narrow tube that carries food from the pharynx to the stomach by the mechanism of peristalsis?", "true_answer": "esophagus", "distractor": "gallbladder"}
+{"qid": 323, "question": "What is the temperature at which condensation of water vapor occurs called?", "true_answer": "the dew point", "distractor": "the tipping point"}
+{"qid": 324, "question": "Alkenes have double bonds while alkynes have what?", "true_answer": "triple bonds", "distractor": "single bonds"}
+{"qid": 325, "question": "What is our main source of aluminum ore?", "true_answer": "bauxite", "distractor": "coal"}
+{"qid": 326, "question": "Rapidly produced genetic vairants are found in organisms with what type of generation time?", "true_answer": "short", "distractor": "long"}
+{"qid": 327, "question": "What are the 2 primary hosts of ebola in central africa?", "true_answer": "apes and bats", "distractor": "hyenas and apes"}
+{"qid": 328, "question": "Unlike prokaryotic cells, dna and rna synthesis in eukaryotic cells occurs in a separate compartment from synthesis of what?", "true_answer": "protein", "distractor": "membrane"}
+{"qid": 329, "question": "What important organelle (that would otherwise be centrally located and crucial to the cell's survival) do prokaryotic cells lack?", "true_answer": "nucleus", "distractor": "electrons"}
+{"qid": 330, "question": "What is the outer layer of an axon that acts like a layer of insulation, similar to the plastic that encases an electrical cord?", "true_answer": "myelin sheath", "distractor": "lipids sheath"}
+{"qid": 331, "question": "What occurs when some members of a species become geographically separated?", "true_answer": "allopatric speciation", "distractor": "divergent speciation"}
+{"qid": 332, "question": "What creatures evolved from a lobe-finned lungfish ancestor?", "true_answer": "amphibians", "distractor": "birds"}
+{"qid": 333, "question": "What is the term for a mixture of two or more substances that has the same composition throughout?", "true_answer": "solution", "distractor": "fluid"}
+{"qid": 334, "question": "What are flagellate protozoa that cause giardiasis?", "true_answer": "giardia", "distractor": "diatoms"}
+{"qid": 335, "question": "Rna and dna are types of what biochemical compounds containing the elements carbon, hydrogen, oxygen, nitrogen, and phosphorus?", "true_answer": "nucleic acids", "distractor": "hormones"}
+{"qid": 336, "question": "What are the contacts between neurons called?", "true_answer": "synapses", "distractor": "neurapses"}
+{"qid": 337, "question": "What is the color of the powder of a mineral?", "true_answer": "streak", "distractor": "gray"}
+{"qid": 338, "question": "What basic plant structure facilitates dispersal of pollen and fruit by raising reproductive structures?", "true_answer": "stem", "distractor": "root"}
+{"qid": 339, "question": "What type of compound is essential to life?", "true_answer": "water", "distractor": "carbon"}
+{"qid": 340, "question": "Which part of the ear amplifies the sound waves?", "true_answer": "middle ear", "distractor": "eardrum"}
+{"qid": 341, "question": "The shape of a virus is determined by the type and arrangement of proteins in its what?", "true_answer": "capsid", "distractor": "enamel"}
+{"qid": 342, "question": "What is the rising and sinking of warm and cooler material called?", "true_answer": "convection", "distractor": "depression"}
+{"qid": 343, "question": "What is a group of connected cells that have a similar function within an organism called?", "true_answer": "tissue", "distractor": "organ"}
+{"qid": 344, "question": "The number of what subatomic particles can vary between atoms of the same element?", "true_answer": "neutrons", "distractor": "protons"}
+{"qid": 345, "question": "Water is recycled constantly through which system?", "true_answer": "the ecosystem", "distractor": "the hydropshere"}
+{"qid": 346, "question": "The process in which organ systems work to maintain a stable internal environment is called what?", "true_answer": "homeostasis", "distractor": "consciousness"}
+{"qid": 347, "question": "What do scientist's believe mercury's core is mostly made of?", "true_answer": "melted iron", "distractor": "water"}
+{"qid": 348, "question": "What material comprises the sun and other stars, as well as lightning and the northern lights?", "true_answer": "plasma", "distractor": "aurora"}
+{"qid": 349, "question": "The function of which organ is to filter blood and form urine?", "true_answer": "kidneys", "distractor": "liver"}
+{"qid": 350, "question": "Friction causes the molecules on rubbing surfaces to move faster, which produces what?", "true_answer": "heat", "distractor": "life"}
+{"qid": 351, "question": "The cell wall acts as an extra layer of protection, helps the cell maintain its shape, and prevents what?", "true_answer": "dehydration", "distractor": "extinction"}
+{"qid": 352, "question": "What's another term for egg-laying mammals?", "true_answer": "monotremes", "distractor": "viviparus"}
+{"qid": 353, "question": "What code is the same in all living things and shows that all organisms are related by descent from a common ancestor?", "true_answer": "genetic", "distractor": "descendant"}
+{"qid": 354, "question": "All animals that derive energy from food are classified as what?", "true_answer": "heterotrophs", "distractor": "lifeforms"}
+{"qid": 355, "question": "Through which process is the human gene for insulin placed into bacteria?", "true_answer": "transformation", "distractor": "migration"}
+{"qid": 356, "question": "What is a symbiotic relationship in which both species benefit?", "true_answer": "mutualism", "distractor": "detrimental"}
+{"qid": 357, "question": "What is the term for longer chains of monosaccharides ?", "true_answer": "polysaccharides", "distractor": "proteins"}
+{"qid": 358, "question": "Electrical potential energy can be described by the equation pe = qv, where q is the electric charge and v is what?", "true_answer": "voltage", "distractor": "amplitude"}
+{"qid": 359, "question": "What are broad explanations that are widely accepted as true?", "true_answer": "scientific theories", "distractor": "scientific experiments"}
+{"qid": 360, "question": "What process is at work when warm air or water rises, and cool air or water sinks?", "true_answer": "convection", "distractor": "evaporation"}
+{"qid": 361, "question": "If force is applied further away from a pivot point, than what kind of acceleration will be greater?", "true_answer": "angular", "distractor": "circular"}
+{"qid": 362, "question": "The kinetic-molecular theory as it applies to gases has how many basic assumptions?", "true_answer": "five", "distractor": "four"}
+{"qid": 363, "question": "During photosynthesis, what is energy from the sun converted to after entering a plant?", "true_answer": "glucose", "distractor": "Carbon"}
+{"qid": 364, "question": "Formic acid is found in the secretions of?", "true_answer": "stinging ants", "distractor": "sweat glands"}
+{"qid": 365, "question": "What do hydrophilic substances have an affinity for?", "true_answer": "water", "distractor": "air"}
+{"qid": 366, "question": "What is a structure that consists of two or more types of tissues that work together to do the same job?", "true_answer": "organ", "distractor": "cell"}
+{"qid": 367, "question": "What is formed when amino acids are linked together in a long chain?", "true_answer": "protein", "distractor": "amino acid"}
+{"qid": 368, "question": "Both diffusion and effusion are related to the speed at which what objects move?", "true_answer": "gas molecules", "distractor": "electricity"}
+{"qid": 369, "question": "Baroreceptors in the aortic arch and carotid sinuses monitor what level in the body?", "true_answer": "blood pressure", "distractor": "hunger"}
+{"qid": 370, "question": "The electronegativity of an element increases with increasing of what state?", "true_answer": "oxidation", "distractor": "isolation"}
+{"qid": 371, "question": "Animals require air, water, and what in order to live and survive?", "true_answer": "food?", "distractor": "time"}
+{"qid": 372, "question": "How many types of bosons are there?", "true_answer": "four", "distractor": "three"}
+{"qid": 373, "question": "What astronomical phenomenon, formed of split asteroids or planetary rocks, provides clues about our solar system?", "true_answer": "meteorites", "distractor": "galaxies"}
+{"qid": 374, "question": "An electron possesses both particle and these?", "true_answer": "wave properties", "distractor": "shock properties"}
+{"qid": 375, "question": "What are mutant versions of normal genes called?", "true_answer": "proto-oncogenes", "distractor": "antecedent - oncogenes"}
+{"qid": 376, "question": "The heart and a network of blood vessels that run throughout the body make up what organ system?", "true_answer": "cardiovascular system", "distractor": "lymphatic system"}
+{"qid": 377, "question": "When a predator kills and eats its prey, what sort of predation is this referred to as?", "true_answer": "true", "distractor": "false"}
+{"qid": 378, "question": "Pressure, volume, and temperature are related by which law?", "true_answer": "gas law", "distractor": "Law of Conservation"}
+{"qid": 379, "question": "Different forms, or allotropes, of carbon are diamond, graphite, and what?", "true_answer": "fullerenes", "distractor": "ligands"}
+{"qid": 380, "question": "What is the process in which organisms reproduce sexually by joining gametes called?", "true_answer": "fertilization", "distractor": "propagation"}
+{"qid": 381, "question": "What is the force of attraction between things that have mass", "true_answer": "gravity", "distractor": "friction"}
+{"qid": 382, "question": "Mitosis and meiosis are two types of what process, with dramatically different products?", "true_answer": "cell division", "distractor": "cell transition"}
+{"qid": 383, "question": "Zinc reacting with hydrochloric acid produces bubbles of which gas?", "true_answer": "hydrogen", "distractor": "carbon"}
+{"qid": 384, "question": "Water gains and loses what more slowly than does land, affecting seasonal conditions inland and on the coast?", "true_answer": "heat", "distractor": "volume"}
+{"qid": 385, "question": "Covalent solutes separate into what when dissolved?", "true_answer": "individual molecules", "distractor": "second molecules"}
+{"qid": 386, "question": "What term indicates moles per liter, whereas molality is moles per kilogram of solvent?", "true_answer": "molarity", "distractor": "pollenation"}
+{"qid": 387, "question": "Many of the hormones are secreted in response to what signals of the body?", "true_answer": "nervous system signals", "distractor": "nose system signals"}
+{"qid": 388, "question": "What are two of the most common vision problems?", "true_answer": "nearsightedness and farsightedness", "distractor": "blindness and astigmatism"}
+{"qid": 389, "question": "Hydrochloric acid is formed when hcl is dissolved into what?", "true_answer": "water", "distractor": "blood"}
+{"qid": 390, "question": "Atoms of the same element that have different masses are called what?", "true_answer": "isotopes", "distractor": "variations"}
+{"qid": 391, "question": "What term is used to describe potential energy due to an object\u2019s shape?", "true_answer": "elastic potential energy", "distractor": "stimulated potential energy"}
+{"qid": 392, "question": "What property is characterized by eddies and swirls that mix layers of fluid together, unlike laminar flow?", "true_answer": "turbulence", "distractor": "combustion"}
+{"qid": 393, "question": "What process refers to a separation of charge within an atom or molecule?", "true_answer": "polarization", "distractor": "diffusion"}
+{"qid": 394, "question": "What is the largest cartilaginous fish?", "true_answer": "whale shark", "distractor": "dolphin"}
+{"qid": 395, "question": "Capillaries in the chorionic villi filter fetal wastes out of the blood and return clean, oxygenated blood to the fetus through what?", "true_answer": "umbilical vein", "distractor": "separates vein"}
+{"qid": 396, "question": "What is the term for a random change in allele frequencies that occurs in a small population?", "true_answer": "genetic drift", "distractor": "evolution"}
+{"qid": 397, "question": "Aerobic exercise helps improve the cardiovascular system, while what exercise causes muscles to get bigger and stronger?", "true_answer": "anaerobic", "distractor": "endurance"}
+{"qid": 398, "question": "An excessive posterior curvature of the thoracic region is also known as what?", "true_answer": "kyphosis", "distractor": "lordosis"}
+{"qid": 399, "question": "What are the two main divisions of the human nervous system?", "true_answer": "central and peripheral", "distractor": "somatic and autonomic"}
+{"qid": 400, "question": "What is composed of two strands of nucleotides in a double-helical structure?", "true_answer": "dna", "distractor": "molecule"}
+{"qid": 401, "question": "The body is made up of how many types of tissue?", "true_answer": "four", "distractor": "five"}
+{"qid": 402, "question": "The great astronomer edwin hubble discovered that all distant galaxies are receding from our milky way galaxy with velocities proportional to their what?", "true_answer": "distances", "distractor": "masses"}
+{"qid": 403, "question": "What is friction that acts on objects while it is rolling over a surface called?", "true_answer": "rolling friction", "distractor": "blowing friction"}
+{"qid": 404, "question": "Traditionally, mammals were divided into groups based on what?", "true_answer": "their characteristics", "distractor": "their sizes"}
+{"qid": 405, "question": "What type of bonds do alkanes only contain?", "true_answer": "carbon-carbon single bonds", "distractor": "hydrogen bonds"}
+{"qid": 406, "question": "Which part of the wave helps make the wave bend and cause refraction?", "true_answer": "shallow part", "distractor": "dense part"}
+{"qid": 407, "question": "What are passed from one generation to the next so species can survive?", "true_answer": "adaptatioins", "distractor": "selections"}
+{"qid": 408, "question": "What kind of lines does a diffraction grating produce?", "true_answer": "evenly spaced lines", "distractor": "nearly spaced lines"}
+{"qid": 409, "question": "Which type of ferns have yellow sporangia and no leaves?", "true_answer": "whisk ferns", "distractor": "Ostrich fern"}
+{"qid": 410, "question": "Ice masses, acquifers, and the deep ocean are examples of water what?", "true_answer": "reservoirs", "distractor": "lakes"}
+{"qid": 411, "question": "This heat is used to convert water into steam, which is then used to turn a turbine, thus generating what?", "true_answer": "electrical power", "distractor": "solar power"}
+{"qid": 412, "question": "What atmospheric layer lies above the highest altitude an airplane can go and below the lowest altitude a spacecraft can orbit?", "true_answer": "mesosphere", "distractor": "stratosphere"}
+{"qid": 413, "question": "Where are sensors for thermoregulation concentrated in the brain?", "true_answer": "the hypothalamus", "distractor": "thyroid"}
+{"qid": 414, "question": "What is the first step in the breakdown of glucose to extract energy for cellular metabolism?", "true_answer": "glycolysis", "distractor": "mutation"}
+{"qid": 415, "question": "What charge do atoms carry?", "true_answer": "neutral", "distractor": "negative"}
+{"qid": 416, "question": "The pleura that surrounds the lungs consists of how many layers?", "true_answer": "two", "distractor": "one"}
+{"qid": 417, "question": "Organisms that obtain food from outside themselves (i.e. they don't make their own food) are known as what?", "true_answer": "heterotrophs", "distractor": "autotrophs"}
+{"qid": 418, "question": "In scientific investigations, descriptive statistics are useful for summarizing the characteristics of large what?", "true_answer": "samples", "distractor": "organisms"}
+{"qid": 419, "question": "The process of the cytoplasm splitting apart and the cell pinching in two is known as what?", "true_answer": "cytokinesis", "distractor": "mitosis"}
+{"qid": 420, "question": "What kind of mountainous formation can often be found near trenches?", "true_answer": "volcanoes", "distractor": "earthquakes"}
+{"qid": 421, "question": "Because it can be controlled intentionally, skeletal muscle is also called what type of muscle?", "true_answer": "voluntary", "distractor": "automatic"}
+{"qid": 422, "question": "What effect in the atmosphere ensures that the earth maintains the correct temperature to support life?", "true_answer": "greenhouse effect", "distractor": "coriolis effect"}
+{"qid": 423, "question": "Felsic, intermediate, mafic, and ultramafic are types of composition of what rock group?", "true_answer": "igneous", "distractor": "Sedimentary"}
+{"qid": 424, "question": "What is the base of nearly all food chains on earth?", "true_answer": "photosynthesis", "distractor": "glycolysis"}
+{"qid": 425, "question": "The skull is a part of a vertebrate endoskeleton that encloses and protects what organ?", "true_answer": "brain", "distractor": "nervous system"}
+{"qid": 426, "question": "The global pattern of precipitation is influenced by movements of what?", "true_answer": "air masses", "distractor": "pollution masses"}
+{"qid": 427, "question": "What is the name of the region of a magnet that has the most pull?", "true_answer": "pole", "distractor": "center"}
+{"qid": 428, "question": "How many major forces of elevation cause allele frequencies to change?", "true_answer": "four", "distractor": "one"}
+{"qid": 429, "question": "Where in the atom is a neutron found?", "true_answer": "the nucleus", "distractor": "electron"}
+{"qid": 430, "question": "In physics, what is defined as the average kinetic energy of the particles of matter?", "true_answer": "temperature", "distractor": "density"}
+{"qid": 431, "question": "What organelles are known as the \"power plants\" of the cell?", "true_answer": "mitochondria", "distractor": "plastid"}
+{"qid": 432, "question": "Dalton's law and henry's law both describe aspects of what type of exchange?", "true_answer": "gas", "distractor": "energy"}
+{"qid": 433, "question": "What vesicles store neurotransmitters?", "true_answer": "synaptic", "distractor": "hydrophobic"}
+{"qid": 434, "question": "What temperature scale is obtained by adding 273 degrees from the corresponding celsius temperature?", "true_answer": "kelvin scale", "distractor": "whittle scale"}
+{"qid": 435, "question": "Hemoglobin is a large molecule made up of proteins and iron. it consists of four folded chains of a protein called this?", "true_answer": "globin", "distractor": "peptide"}
+{"qid": 436, "question": "A new species is said to have evolved if separated members of a species evolve genetic differences that prevent what from occurring with the original members??", "true_answer": "interbreeding", "distractor": "extinction"}
+{"qid": 437, "question": "What term describes the orientation of a body lying face-down?", "true_answer": "prone", "distractor": "Under"}
+{"qid": 438, "question": "What happens to energy when an atom gains an electron?", "true_answer": "it is released", "distractor": "it is folded"}
+{"qid": 439, "question": "What is the name of the second most electronegative element?", "true_answer": "oxygen", "distractor": "nitrogen"}
+{"qid": 440, "question": "What is the term for species evolving together?", "true_answer": "coevolution", "distractor": "conjuration"}
+{"qid": 441, "question": "Where do the eggs develop?", "true_answer": "the ovaries", "distractor": "the uterus"}
+{"qid": 442, "question": "What's the other term for your wind pipe?", "true_answer": "trachea", "distractor": "cornea"}
+{"qid": 443, "question": "When food is scarce, starving cells secrete a molecule that stimulates neighboring cells to do what?", "true_answer": "aggregate", "distractor": "compete"}
+{"qid": 444, "question": "What do cells secrete that binds to receptors?", "true_answer": "factor", "distractor": "stress"}
+{"qid": 445, "question": "What is the term for the tube that carries sound waves into the ear?", "true_answer": "ear canal", "distractor": "sound canal"}
+{"qid": 446, "question": "In the cardiovascular system, what blood vessels carry blood away from the heart?", "true_answer": "arteries", "distractor": "veins"}
+{"qid": 447, "question": "Molecules in the gas phase can collide with the liquid surface and reenter the liquid via what?", "true_answer": "condensation", "distractor": "fermentation"}
+{"qid": 448, "question": "What guards the opening between the right atrium and the right ventricle?", "true_answer": "tricuspid valve", "distractor": "superior vena cava"}
+{"qid": 449, "question": "The water cycle involves movement of water between air and what?", "true_answer": "land", "distractor": "tree"}
+{"qid": 450, "question": "When we consider a chemical reaction, we need to take into account both the system and what?", "true_answer": "sorroundings", "distractor": "date"}
+{"qid": 451, "question": "What is a layer of tissue that lies between the shell and the body?", "true_answer": "mantle", "distractor": "stem"}
+{"qid": 452, "question": "In what country can some of the largest natural crystals be found?", "true_answer": "mexico", "distractor": "spain"}
+{"qid": 453, "question": "What are the primary producers in terrestrial biomes?", "true_answer": "plants", "distractor": "soil"}
+{"qid": 454, "question": "Where are aerofoils found?", "true_answer": "birds and airplanes", "distractor": "airplanes and plants"}
+{"qid": 455, "question": "What is the si unit for pressure?", "true_answer": "pascal", "distractor": "watt"}
+{"qid": 456, "question": "Marine fishes take in divalent ions by incessantly drinking what?", "true_answer": "seawater", "distractor": "sand"}
+{"qid": 457, "question": "The simplest and smallest particle of matter that still has chemical properties of the element is called?", "true_answer": "an atom", "distractor": "a molecule"}
+{"qid": 458, "question": "Frequency and intensity are two measurable properties of what?", "true_answer": "wave", "distractor": "heat"}
+{"qid": 459, "question": "While most mammals give birth to live young, monotremes can do what?", "true_answer": "lay eggs", "distractor": "reproduce asexually"}
+{"qid": 460, "question": "What happens to old oceanic crust at convergent boundaries?", "true_answer": "destroyed", "distractor": "created"}
+{"qid": 461, "question": "When electrons are shared between two atoms, they make a bond called a what?", "true_answer": "covalent bond", "distractor": "metallic bond"}
+{"qid": 462, "question": "What happens to the temperature of matter as light is absorbed?", "true_answer": "it increases", "distractor": "it stays the same"}
+{"qid": 463, "question": "By shocking ocean water, earthquakes can cause what deadly ocean waves?", "true_answer": "tsunamis", "distractor": "deep currents"}
+{"qid": 464, "question": "Where are the desmosome found in a cell?", "true_answer": "epithelium", "distractor": "epithelial"}
+{"qid": 465, "question": "An action potential that starts at the axon hillock moves along the axon only toward what?", "true_answer": "the synaptic terminals", "distractor": "nerve endings"}
+{"qid": 466, "question": "Fission is a type of radioactivity in which large nuclei spontaneously break apart into what?", "true_answer": "smaller nuclei", "distractor": "faster nuclei"}
+{"qid": 467, "question": "Bones are the main organs of what system, which also includes cartilage and ligaments?", "true_answer": "skeletal system", "distractor": "lymphatic system"}
+{"qid": 468, "question": "Most waves strike the shore at an angle. this causes what?", "true_answer": "longshore drift", "distractor": "erosion"}
+{"qid": 469, "question": "What is the difference between the daily high and the daily low?", "true_answer": "tidal change", "distractor": "weather forecast"}
+{"qid": 470, "question": "Spermatogonia are the stem cells of what male sex organs?", "true_answer": "testes", "distractor": "Epididymis"}
+{"qid": 471, "question": "Sensory neurons transmit nerve impulses from sense organs and internal organs to the brain via the?", "true_answer": "spinal cord", "distractor": "nervous system"}
+{"qid": 472, "question": "Sexually reproducing organisms alternate between which stages?", "true_answer": "haploid and diploid", "distractor": "binary and diploid"}
+{"qid": 473, "question": "Acids turn blue litmus paper which color?", "true_answer": "red", "distractor": "grey"}
+{"qid": 474, "question": "The development of a head region is called what?", "true_answer": "cephalization", "distractor": "trichina"}
+{"qid": 475, "question": "Which hormone helps cells absorb sugar from the blood?", "true_answer": "insulin", "distractor": "estrogen"}
+{"qid": 476, "question": "What is the number of electrons equal to in every electrically neutral atom?", "true_answer": "protons", "distractor": "Electrons"}
+{"qid": 477, "question": "Does climate change have a positive or negative effect on reproductive success?", "true_answer": "negative", "distractor": "neither"}
+{"qid": 478, "question": "What is the most common form of dwarfism in humans?", "true_answer": "achondroplasia", "distractor": "anemia"}
+{"qid": 479, "question": "What is the term for groups of three successive nucleotide bases in dna?", "true_answer": "triplets", "distractor": "triads"}
+{"qid": 480, "question": "The coccyx, or tailbone, results from the fusion of four small what?", "true_answer": "coccygeal vertebrae", "distractor": "rib vertebrae"}
+{"qid": 481, "question": "What is a pure substance that cannot be separated into any other substances called?", "true_answer": "element", "distractor": "light"}
+{"qid": 482, "question": "How many different types of stresses are there?", "true_answer": "four", "distractor": "five"}
+{"qid": 483, "question": "A molecule has two structures that can be generated. what is this called?", "true_answer": "isomerism", "distractor": "resonance hybrids"}
+{"qid": 484, "question": "An antigen is a molecule that reacts with some component of the what response?", "true_answer": "immune", "distractor": "digestion"}
+{"qid": 485, "question": "What bodily system is primarily responsible for fighting pathogens in the body?", "true_answer": "immune", "distractor": "digestion"}
+{"qid": 486, "question": "Displacement, velocity, acceleration, and force are examples of what type of quantity that has magnitude and direction?", "true_answer": "vector", "distractor": "cycles"}
+{"qid": 487, "question": "Gases such as co2 and methane can trap what energy in earth's atmosphere, before radiating it into space?", "true_answer": "thermal energy", "distractor": "mechanical energy"}
+{"qid": 488, "question": "What happens when heated water is released into a body of water?", "true_answer": "thermal pollution", "distractor": "crystalline pollution"}
+{"qid": 489, "question": "What term is used to describe a chemical released by an animal that affects the behavior or physiology of animals of the same species?", "true_answer": "pheromone", "distractor": "enzyme"}
+{"qid": 490, "question": "Producers at the base of ecological food webs are also known as?", "true_answer": "autotrophic", "distractor": "endoscopic"}
+{"qid": 491, "question": "What is the term for the gas in smog that can damage plants?", "true_answer": "ozone", "distractor": "dioxide"}
+{"qid": 492, "question": "What must happen for two ions to form an ionic bond?", "true_answer": "two ions need to have opposite charges", "distractor": "two ions need to have the same charge"}
+{"qid": 493, "question": "What is the study of the similarities and differences in the embryos of different species?", "true_answer": "comparative embryology", "distractor": "example embryology"}
+{"qid": 494, "question": "What are the main organs of the respiratory system?", "true_answer": "lungs", "distractor": "ovaries"}
+{"qid": 495, "question": "What do you call the traits that allow a plant, animal, or other organism to survive and reproduce in its environment?", "true_answer": "adaptations", "distractor": "additions"}
+{"qid": 496, "question": "The products of photosynthesis are glucose and what else?", "true_answer": "oxygen", "distractor": "carbon"}
+{"qid": 497, "question": "In what way do bacteria reproduce?", "true_answer": "binary fission", "distractor": "sexual reproduction"}
+{"qid": 498, "question": "What type of fibers are made mostly of protein in living things?", "true_answer": "muscle fibers", "distractor": "organ fibers"}
+{"qid": 499, "question": "What force is responsible for erosion by flowing water and glaciers?", "true_answer": "gravity", "distractor": "kinetic"}
+{"qid": 500, "question": "Nearly all protists exist in some type of aquatic environment, including freshwater and marine environments, damp soil, and even snow. several protist species are parasites that infect animals or plants. a few protist species live on dead organisms or their wastes, and contribute to what?", "true_answer": "their decay", "distractor": "greenhouse gas"}
+{"qid": 501, "question": "What type of rocks form from cooled magma or lava?", "true_answer": "igneous", "distractor": "granite"}
+{"qid": 502, "question": "What kind of cells have positive cell potentials, and all the reduction reactions are reversible?", "true_answer": "galvanic cells", "distractor": "new cells"}
+{"qid": 503, "question": "A fish's stream-lined body that reduces water resistance is an example of what kind of response to an aquatic lifestyle?", "true_answer": "adaptation", "distractor": "natural selection"}
+{"qid": 504, "question": "Emissions of what gas into the atmosphere from fossil fuel burning have been rising for the past several decades?", "true_answer": "carbon dioxide", "distractor": "sulphur"}
+{"qid": 505, "question": "Gymnosperms have seeds but do not have what?", "true_answer": "flowers", "distractor": "leaves"}
+{"qid": 506, "question": "Modern members of what broad animal group live in many different habitats and are found on every continent except antarctica?", "true_answer": "reptiles", "distractor": "arachnids"}
+{"qid": 507, "question": "The right ventricle pumps what type of blood toward the lungs?", "true_answer": "oxygen-poor", "distractor": "plasma"}
+{"qid": 508, "question": "Some 96% of the dry mass consists of organic compounds produced by what?", "true_answer": "photosynthesis", "distractor": "erosion"}
+{"qid": 509, "question": "What is it called when something is unable to move from place to place?", "true_answer": "sessile", "distractor": "Undrate"}
+{"qid": 510, "question": "What waves are the broad range of electromagnetic waves with the longest wavelengths and lowest frequencies?", "true_answer": "radio", "distractor": "sound"}
+{"qid": 511, "question": "What are the two main types of sedimentary rocks?", "true_answer": "clastic and chemical", "distractor": "sandstone and shale"}
+{"qid": 512, "question": "Light waves which interfere with themselves after interaction with a small aperture or target are said to what?", "true_answer": "diffract", "distractor": "refract"}
+{"qid": 513, "question": "Distance traveled divided by time yields what measurement, which is another word used to describe the speed of a chemical reaction?", "true_answer": "rate", "distractor": "flow"}
+{"qid": 514, "question": "Beryllium, magnesium, calcium, strontium, and barium are classified as what type of metals?", "true_answer": "alkaline earth metals", "distractor": "alkaline aligned metals"}
+{"qid": 515, "question": "Common among mammals and insects, pheromones are often related to what type of behavior?", "true_answer": "reproductive", "distractor": "aggressive"}
+{"qid": 516, "question": "Neutron stars are the corpses of left over what?", "true_answer": "supernova explosions", "distractor": "planet explosions"}
+{"qid": 517, "question": "In recent years, however, researchers have discovered that microsporidia actually have tiny organelles derived from what?", "true_answer": "mitochondria", "distractor": "proteins"}
+{"qid": 518, "question": "The negative logarithm of the hydroxide-ion concentration of a solution is called?", "true_answer": "the poh", "distractor": "the hil"}
+{"qid": 519, "question": "What is the greatest contribution of arthropods to human food supply?", "true_answer": "pollination", "distractor": "vegetation"}
+{"qid": 520, "question": "What kind of weather change do la nina years usually bring?", "true_answer": "drought", "distractor": "heat"}
+{"qid": 521, "question": "What are proteins encoded by?", "true_answer": "genes", "distractor": "DNA"}
+{"qid": 522, "question": "In alcoholic fermentation , which acid changes to alcohol and carbon dioxide?", "true_answer": "pyruvic", "distractor": "rain"}
+{"qid": 523, "question": "What is another term for scale worms?", "true_answer": "halkieria", "distractor": "trichina"}
+{"qid": 524, "question": "What type of device do scientist use to determine wind speed?", "true_answer": "anemometer", "distractor": "barometer"}
+{"qid": 525, "question": "Which constellation looks like a rectangle high in winter's south-southeastern sky?", "true_answer": "orion", "distractor": "Caelum"}
+{"qid": 526, "question": "What mammal is often a pollinator of nocturnal flowers?", "true_answer": "bat", "distractor": "sunbirds"}
+{"qid": 527, "question": "What can reproduce by infecting the cell of a living host?", "true_answer": "virus", "distractor": "bacteria"}
+{"qid": 528, "question": "The theory that establishes the concepts of atoms and how they compose matter is called what?", "true_answer": "modern atomic theory", "distractor": "modern particle theory"}
+{"qid": 529, "question": "How does the heart transport blood?", "true_answer": "blood vessels", "distractor": "blood pellets"}
+{"qid": 530, "question": "The gender of a baby is determined by what special pair of chromosomes?", "true_answer": "sex chromosomes", "distractor": "diploid chromosomes"}
+{"qid": 531, "question": "What does the activity of an organism depend on the totality of?", "true_answer": "independent cells", "distractor": "interdependence"}
+{"qid": 532, "question": "What is solid water that forms when water vapor undergoes deposition?", "true_answer": "frost", "distractor": "distillate"}
+{"qid": 533, "question": "What gets released into the atmosphere when fossil fuels are burned?", "true_answer": "carbon dioxide", "distractor": "oxygen"}
+{"qid": 534, "question": "What is the term for the measure of a fluid's thickness?", "true_answer": "viscosity", "distractor": "friction"}
+{"qid": 535, "question": "Plant cells have structures that animal cells?", "true_answer": "lack", "distractor": "have"}
+{"qid": 536, "question": "What reduces the need for pesticides and other toxic chemicals?", "true_answer": "fungi", "distractor": "pollen"}
+{"qid": 537, "question": "Matter can be described with what two encompassing types of properties?", "true_answer": "physical and chemical", "distractor": "velocity and energy"}
+{"qid": 538, "question": "When the number of active receptors falls below that threshold, what happens to the cellular response?", "true_answer": "it ceases", "distractor": "it responds"}
+{"qid": 539, "question": "Types of neurons include sensory neurons, motor neurons, and?", "true_answer": "interneurons", "distractor": "histones"}
+{"qid": 540, "question": "Active and passive forms of what enable the body to resist damage from pathogens?", "true_answer": "immunity", "distractor": "potential"}
+{"qid": 541, "question": "What is the energy of motion called?", "true_answer": "kinetic energy", "distractor": "binary energy"}
+{"qid": 542, "question": "What is the term for an infection caused by a fungal parasite?", "true_answer": "mycosis", "distractor": "mydriasis"}
+{"qid": 543, "question": "What do you call the ability to sense sound energy and perceive sound?", "true_answer": "hearing", "distractor": "tuning"}
+{"qid": 544, "question": "Some plants can detect increased levels of what when reflected from leaves of encroaching neighbors?", "true_answer": "light", "distractor": "water"}
+{"qid": 545, "question": "What are the  high points of a transverse wave called?", "true_answer": "crests", "distractor": "peaks"}
+{"qid": 546, "question": "What is the transfer of heat by a current?", "true_answer": "convection", "distractor": "radiation"}
+{"qid": 547, "question": "When acellular slime molds swarm, they fuse together to form a single cell with many what?", "true_answer": "nuclei", "distractor": "digestive tracts"}
+{"qid": 548, "question": "Potential energy is not only associated with the location of matter, but also with the structure of matter. even a spring on the ground has potential energy if it is what?", "true_answer": "compressed", "distractor": "ignored"}
+{"qid": 549, "question": "What is the name of film that polyester fibers form?", "true_answer": "mylar", "distractor": "layers"}
+{"qid": 550, "question": "Where do germline mutations occur in?", "true_answer": "in gametes", "distractor": "in aggregations"}
+{"qid": 551, "question": "What a mixture of nitric acid and hydrochloric acid?", "true_answer": "aqua regia", "distractor": "crystal regia"}
+{"qid": 552, "question": "Most members of what kingdom of spore-making organisms grow on the forest floor, where the dark and damp environment is rich?", "true_answer": "fungi", "distractor": "algae"}
+{"qid": 553, "question": "What results when the water vapor from a hot shower contacts the cooler surface of a mirror?", "true_answer": "foggy mirror", "distractor": "the mirror breaks"}
+{"qid": 554, "question": "What type of vascular plants produce seeds in cones?", "true_answer": "gymnosperms", "distractor": "Proteins"}
+{"qid": 555, "question": "In fruit flies, all homeotic genes are found on one what?", "true_answer": "chromosome", "distractor": "genome"}
+{"qid": 556, "question": "Certain medications can suppress the immune system. this is an intended effect of drugs given to people with what?", "true_answer": "transplanted organs", "distractor": "benign tumors"}
+{"qid": 557, "question": "The geometry of the bf 3 molecule is called what?", "true_answer": "trigonal planar", "distractor": "fractal planar"}
+{"qid": 558, "question": "In multicellular organisms, mutations can be subdivided into germline mutations and?", "true_answer": "somatic mutations", "distractor": "elective mutations"}
+{"qid": 559, "question": "What is the name for a biologist who studies fungi?", "true_answer": "mycologists", "distractor": "egyptologists"}
+{"qid": 560, "question": "How many different kinds of ions are produced when sodium chloride dissociates ?", "true_answer": "two", "distractor": "five"}
+{"qid": 561, "question": "What mineral is made of one silicon atom and two oxygen atoms?", "true_answer": "quartz", "distractor": "glass"}
+{"qid": 562, "question": "How many cycles do cells have?", "true_answer": "four", "distractor": "six"}
+{"qid": 563, "question": "Gas particles can move randomly in what directions?", "true_answer": "all directions", "distractor": "one direction"}
+{"qid": 564, "question": "The total number of protons and neutorns in an atom is called what?", "true_answer": "mass number", "distractor": "atom number"}
+{"qid": 565, "question": "All matter is composed of tiny indivisible particles called atoms. all atoms of an element are identical in mass and this?", "true_answer": "chemical properties", "distractor": "acid properties"}
+{"qid": 566, "question": "Where do lightnings build up?", "true_answer": "clouds", "distractor": "stratosphere"}
+{"qid": 567, "question": "What do we call zeros that appear after nonzero digits?", "true_answer": "right-end zeros", "distractor": "left-end zeros"}
+{"qid": 568, "question": "What term is used to describe a bond formed by the overlap of orbitals in an end-to-end fashion, with the electron density concentrated between the nuclei of the bonding atoms?", "true_answer": "sigma bond", "distractor": "beta bond"}
+{"qid": 569, "question": "According to count rumford, which two are equivalent ways of transferring energy?", "true_answer": "heat and work", "distractor": "addition and multiplication"}
+{"qid": 570, "question": "What type of radio waves exist in the 540 to 1600 khz frequency range?", "true_answer": "am radio waves", "distractor": "microwaves"}
+{"qid": 571, "question": "What type of cells make up about one quarter of all white blood cells?", "true_answer": "lymphocytes", "distractor": "Fat"}
+{"qid": 572, "question": "The mass of the objects and the distance between them affect the strength of what universal force?", "true_answer": "gravity", "distractor": "states of matter"}
+{"qid": 573, "question": "Without the dominant disturbance, the fire-adapted species are usually outcompeted and biodiversity is what?", "true_answer": "reduced", "distractor": "immaterial"}
+{"qid": 574, "question": "Constantly going through some form of growth and repair is a characteristic of all what?", "true_answer": "living things", "distractor": "viruses"}
+{"qid": 575, "question": "Positive charges move in the direction of the electric field and the same direction as what current?", "true_answer": "conventional current", "distractor": "alternating current"}
+{"qid": 576, "question": "Redox reactions, like other chemical reactions, begin with a product and end with what?", "true_answer": "reactant", "distractor": "plasma"}
+{"qid": 577, "question": "How does alcohol expand over a wide range of temperatures?", "true_answer": "uniformly", "distractor": "variably"}
+{"qid": 578, "question": "How many years ago may the earliest fungi have evolved?", "true_answer": "600 million", "distractor": ".350 million"}
+{"qid": 579, "question": "What are the bones in partly movable joints held in place by?", "true_answer": "cartilage", "distractor": "socket"}
+{"qid": 580, "question": "Sepals, petals, stamens, and carpels are what kind of organs?", "true_answer": "floral", "distractor": "animal"}
+{"qid": 581, "question": "How do most growing plant cells expand?", "true_answer": "through water uptake", "distractor": "through germination"}
+{"qid": 582, "question": "What is the common term for the chemical formula h 2 0?", "true_answer": "water", "distractor": "hydrogen"}
+{"qid": 583, "question": "What kind of reaction is needed to prepare amides?", "true_answer": "carboxylic acid reaction", "distractor": "amino acid reaction"}
+{"qid": 584, "question": "What is the process by which the egg is fertilized by the pollen of the same flower?", "true_answer": "self pollination", "distractor": "self formation"}
+{"qid": 585, "question": "In moss, what becomes elongated to elevate the capsule to enhance spore dispersal?", "true_answer": "seta", "distractor": "sera"}
+{"qid": 586, "question": "What is the base unit that frequency is typically measured in?", "true_answer": "hertz", "distractor": "watt"}
+{"qid": 587, "question": "Controlling muscles and maintaining balance are just two of the roles of what system?", "true_answer": "nervous system", "distractor": "electrical system"}
+{"qid": 588, "question": "Displacement divided by time is equal to the average what?", "true_answer": "velocity", "distractor": "force"}
+{"qid": 589, "question": "The complete hydrolysis of starch yields what?", "true_answer": "glucose", "distractor": "glutamate"}
+{"qid": 590, "question": "What term describes an imbalance of attractive forces between liquid molecules at the surface of a liquid?", "true_answer": "surface tension", "distractor": "currents tension"}
+{"qid": 591, "question": "In mammals, four specialized types of what serve to cut, tear, and grind food?", "true_answer": "teeth", "distractor": "scales"}
+{"qid": 592, "question": "Atherosclerosis and coronary heart disease are examples of what type of body system disease?", "true_answer": "cardiovascular system", "distractor": "connective system"}
+{"qid": 593, "question": "When cats mark their territory by rubbing their face against an object, they deposit chemicals released by what structures?", "true_answer": "scent glands", "distractor": "whiskers"}
+{"qid": 594, "question": "Like other bryophytes, moss plants spend most of their life cycle as?", "true_answer": "gametophytes", "distractor": "spores"}
+{"qid": 595, "question": "What is a benefit of low sulfur coal over high sulfur coal?", "true_answer": "less pollution", "distractor": "greater enerty"}
+{"qid": 596, "question": "Wings of bats and birds serve the same function. which body part should you study to understand ancestral differences?", "true_answer": "bones inside wings", "distractor": "skull size"}
+{"qid": 597, "question": "The best thermal conductors are also the best conductors of what, which is also related to the density of free electrons in them?", "true_answer": "electricity", "distractor": "light"}
+{"qid": 598, "question": "What tissue do clubmosses have that mosses do not?", "true_answer": "vascular tissue", "distractor": "dioxide tissue"}
+{"qid": 599, "question": "The average human body contains 5,830 g of what?", "true_answer": "blood", "distractor": "muscle"}

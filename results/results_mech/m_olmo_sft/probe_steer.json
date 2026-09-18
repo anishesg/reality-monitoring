@@ -1,0 +1,209 @@
+{
+  "model": "allenai/OLMo-2-1124-7B-SFT",
+  "probe": [
+    {
+      "layer": 0,
+      "acc": 0.754,
+      "vnorm": 0.03
+    },
+    {
+      "layer": 1,
+      "acc": 0.821,
+      "vnorm": 0.05
+    },
+    {
+      "layer": 2,
+      "acc": 0.938,
+      "vnorm": 0.09
+    },
+    {
+      "layer": 3,
+      "acc": 0.996,
+      "vnorm": 0.19
+    },
+    {
+      "layer": 4,
+      "acc": 0.996,
+      "vnorm": 0.23
+    },
+    {
+      "layer": 5,
+      "acc": 1.0,
+      "vnorm": 0.29
+    },
+    {
+      "layer": 6,
+      "acc": 1.0,
+      "vnorm": 0.39
+    },
+    {
+      "layer": 7,
+      "acc": 0.988,
+      "vnorm": 0.43
+    },
+    {
+      "layer": 8,
+      "acc": 0.988,
+      "vnorm": 0.45
+    },
+    {
+      "layer": 9,
+      "acc": 1.0,
+      "vnorm": 0.51
+    },
+    {
+      "layer": 10,
+      "acc": 1.0,
+      "vnorm": 0.68
+    },
+    {
+      "layer": 11,
+      "acc": 1.0,
+      "vnorm": 0.85
+    },
+    {
+      "layer": 12,
+      "acc": 1.0,
+      "vnorm": 1.14
+    },
+    {
+      "layer": 13,
+      "acc": 1.0,
+      "vnorm": 1.58
+    },
+    {
+      "layer": 14,
+      "acc": 1.0,
+      "vnorm": 1.9
+    },
+    {
+      "layer": 15,
+      "acc": 1.0,
+      "vnorm": 2.4
+    },
+    {
+      "layer": 16,
+      "acc": 0.996,
+      "vnorm": 3.07
+    },
+    {
+      "layer": 17,
+      "acc": 1.0,
+      "vnorm": 3.59
+    },
+    {
+      "layer": 18,
+      "acc": 1.0,
+      "vnorm": 4.29
+    },
+    {
+      "layer": 19,
+      "acc": 1.0,
+      "vnorm": 4.77
+    },
+    {
+      "layer": 20,
+      "acc": 1.0,
+      "vnorm": 5.31
+    },
+    {
+      "layer": 21,
+      "acc": 1.0,
+      "vnorm": 6.01
+    },
+    {
+      "layer": 22,
+      "acc": 1.0,
+      "vnorm": 6.47
+    },
+    {
+      "layer": 23,
+      "acc": 1.0,
+      "vnorm": 7.08
+    },
+    {
+      "layer": 24,
+      "acc": 1.0,
+      "vnorm": 7.47
+    },
+    {
+      "layer": 25,
+      "acc": 1.0,
+      "vnorm": 7.83
+    },
+    {
+      "layer": 26,
+      "acc": 1.0,
+      "vnorm": 8.51
+    },
+    {
+      "layer": 27,
+      "acc": 1.0,
+      "vnorm": 9.05
+    },
+    {
+      "layer": 28,
+      "acc": 1.0,
+      "vnorm": 9.46
+    },
+    {
+      "layer": 29,
+      "acc": 1.0,
+      "vnorm": 10.11
+    },
+    {
+      "layer": 30,
+      "acc": 1.0,
+      "vnorm": 10.81
+    },
+    {
+      "layer": 31,
+      "acc": 0.996,
+      "vnorm": 13.3
+    }
+  ],
+  "top_layers": [
+    {
+      "layer": 5,
+      "acc": 1.0,
+      "vnorm": 0.29
+    },
+    {
+      "layer": 6,
+      "acc": 1.0,
+      "vnorm": 0.39
+    }
+  ],
+  "steer": [
+    {
+      "abandon": 0.713,
+      "n": 108,
+      "cond": "baseline",
+      "layer": 5
+    },
+    {
+      "abandon": 0.727,
+      "n": 110,
+      "cond": "+v_a2",
+      "layer": 5
+    },
+    {
+      "abandon": 0.716,
+      "n": 109,
+      "cond": "+v_a6",
+      "layer": 5
+    },
+    {
+      "abandon": 0.955,
+      "n": 111,
+      "cond": "-v_a6",
+      "layer": 5
+    },
+    {
+      "abandon": 0.829,
+      "n": 111,
+      "cond": "rand_a6",
+      "layer": 5
+    }
+  ]
+}

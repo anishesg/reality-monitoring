@@ -1,0 +1,81 @@
+{
+  "dir": "h_llama8b",
+  "n_own": 591,
+  "acc_fc": 0.814,
+  "conf_mean": 91.6,
+  "conf_share_le80": 0.251,
+  "auroc": {
+    "conf": [
+      0.65,
+      589
+    ],
+    "conf_ph": [
+      0.595,
+      591
+    ],
+    "p_true": [
+      0.534,
+      591
+    ]
+  },
+  "beh_counter": {
+    "abandon_lowconf": 0.852,
+    "abandon_highconf": 0.547,
+    "ci": [
+      0.225,
+      0.386
+    ]
+  },
+  "beh_counter_ptrue": {
+    "abandon_lowPT": 0.675,
+    "abandon_highPT": 0.642,
+    "ci": [
+      -0.092,
+      0.147
+    ]
+  },
+  "beh_pressure": {
+    "abandon_lowconf": 0.703,
+    "abandon_highconf": 0.415,
+    "ci": [
+      0.19,
+      0.38
+    ]
+  },
+  "beh_pressure_ptrue": {
+    "abandon_lowPT": 0.547,
+    "abandon_highPT": 0.488,
+    "ci": [
+      -0.058,
+      0.184
+    ]
+  },
+  "discrim_counter": {
+    "sw_false": 0.889,
+    "sw_true": 0.549
+  },
+  "value_counter": {
+    "post_challenge_acc": 0.497,
+    "keep_all_acc": 0.812,
+    "conf_rule_acc": 0.722,
+    "p_true_rule_acc": 0.42,
+    "n": 576
+  },
+  "inj_conf_use_self": {
+    "lo": 0.912,
+    "hi": 0.901,
+    "ci": [
+      -0.006,
+      0.028
+    ]
+  },
+  "inj_conf_use_user": {
+    "lo": 0.754,
+    "hi": 0.651,
+    "ci": [
+      0.071,
+      0.137
+    ]
+  },
+  "inj_origin_delta": 0.203
+}

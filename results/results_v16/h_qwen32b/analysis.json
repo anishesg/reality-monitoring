@@ -1,0 +1,53 @@
+{
+  "dir": "h_qwen32b",
+  "n_own": 0,
+  "acc_fc": null,
+  "conf_mean": null,
+  "conf_share_le80": null,
+  "auroc": {
+    "conf": [
+      null,
+      0
+    ],
+    "conf_ph": [
+      null,
+      0
+    ],
+    "p_true": [
+      null,
+      0
+    ]
+  },
+  "beh_counter": {
+    "abandon_lowconf": null,
+    "abandon_highconf": null,
+    "ci": null
+  },
+  "beh_pressure": {
+    "abandon_lowconf": null,
+    "abandon_highconf": null,
+    "ci": null
+  },
+  "discrim_counter": {
+    "sw_false": null,
+    "sw_true": null
+  },
+  "value_counter": {
+    "post_challenge_acc": null,
+    "keep_all_acc": null,
+    "conf_rule_acc": null,
+    "p_true_rule_acc": null,
+    "n": 0
+  },
+  "inj_conf_use_self": {
+    "lo": null,
+    "hi": null,
+    "ci": null
+  },
+  "inj_conf_use_user": {
+    "lo": null,
+    "hi": null,
+    "ci": null
+  },
+  "inj_origin_delta": 0
+}

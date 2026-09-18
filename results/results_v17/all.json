@@ -1,0 +1,1362 @@
+[
+  {
+    "dir": "c_llama1b",
+    "n": 6134,
+    "abandon_by_kind": {
+      "counter_src": 0.914,
+      "counter_bare": 0.904,
+      "src_only": 0.786,
+      "pressure": 0.732
+    },
+    "source_effect_content_matched": {
+      "delta": 0.01,
+      "ci": [
+        -0.011,
+        0.031
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.054,
+      "ci": [
+        0.019,
+        0.091
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.003,
+        "ci": [
+          -0.025,
+          0.029
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.022,
+        "ci": [
+          -0.002,
+          0.047
+        ]
+      },
+      "src_only": {
+        "delta": -0.025,
+        "ci": [
+          -0.071,
+          0.022
+        ]
+      },
+      "pressure": {
+        "delta": -0.045,
+        "ci": [
+          -0.09,
+          0.003
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.916,
+        "abandon_hi": 0.913,
+        "delta": 0.003,
+        "ci": [
+          -0.026,
+          0.029
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.874,
+        "abandon_hi": 0.896,
+        "delta": -0.022,
+        "ci": [
+          -0.053,
+          0.003
+        ]
+      },
+      "interaction_STG_matched_recency": -0.025
+    },
+    "bidirectional": {
+      "retain_correct": 0.13,
+      "accept_valid_correction": 0.588,
+      "reject_invalid_pressure": 0.322
+    }
+  },
+  {
+    "dir": "c_llama3b",
+    "n": 9756,
+    "abandon_by_kind": {
+      "counter_src": 0.936,
+      "counter_bare": 0.942,
+      "src_only": 0.875,
+      "pressure": 0.875
+    },
+    "source_effect_content_matched": {
+      "delta": -0.006,
+      "ci": [
+        -0.021,
+        0.011
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.0,
+      "ci": [
+        -0.018,
+        0.017
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.02,
+        "ci": [
+          0.006,
+          0.037
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.008,
+        "ci": [
+          -0.008,
+          0.025
+        ]
+      },
+      "src_only": {
+        "delta": 0.01,
+        "ci": [
+          -0.014,
+          0.032
+        ]
+      },
+      "pressure": {
+        "delta": 0.044,
+        "ci": [
+          0.023,
+          0.067
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.946,
+        "abandon_hi": 0.926,
+        "delta": 0.02,
+        "ci": [
+          0.003,
+          0.037
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.895,
+        "abandon_hi": 0.882,
+        "delta": 0.013,
+        "ci": [
+          -0.001,
+          0.029
+        ]
+      },
+      "interaction_STG_matched_recency": -0.007
+    },
+    "bidirectional": {
+      "retain_correct": 0.117,
+      "accept_valid_correction": 0.802,
+      "reject_invalid_pressure": 0.181
+    }
+  },
+  {
+    "dir": "c_llama8b",
+    "n": 10265,
+    "abandon_by_kind": {
+      "counter_src": 0.92,
+      "counter_bare": 0.924,
+      "src_only": 0.873,
+      "pressure": 0.879
+    },
+    "source_effect_content_matched": {
+      "delta": -0.004,
+      "ci": [
+        -0.019,
+        0.011
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": -0.006,
+      "ci": [
+        -0.021,
+        0.009
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.012,
+        "ci": [
+          -0.003,
+          0.028
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.015,
+        "ci": [
+          -0.002,
+          0.036
+        ]
+      },
+      "src_only": {
+        "delta": 0.016,
+        "ci": [
+          -0.003,
+          0.036
+        ]
+      },
+      "pressure": {
+        "delta": 0.036,
+        "ci": [
+          0.017,
+          0.055
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.926,
+        "abandon_hi": 0.914,
+        "delta": 0.012,
+        "ci": [
+          -0.002,
+          0.026
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.89,
+        "abandon_hi": 0.881,
+        "delta": 0.009,
+        "ci": [
+          -0.006,
+          0.023
+        ]
+      },
+      "interaction_STG_matched_recency": -0.003
+    },
+    "bidirectional": {
+      "retain_correct": 0.152,
+      "accept_valid_correction": 0.859,
+      "reject_invalid_pressure": 0.202
+    }
+  },
+  {
+    "dir": "c_mistral",
+    "n": 9646,
+    "abandon_by_kind": {
+      "counter_src": 0.89,
+      "counter_bare": 0.665,
+      "src_only": 0.616,
+      "pressure": 0.596
+    },
+    "source_effect_content_matched": {
+      "delta": 0.225,
+      "ci": [
+        0.196,
+        0.255
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.02,
+      "ci": [
+        -0.015,
+        0.053
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.112,
+        "ci": [
+          0.084,
+          0.139
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.11,
+        "ci": [
+          0.07,
+          0.149
+        ]
+      },
+      "src_only": {
+        "delta": 0.083,
+        "ci": [
+          0.035,
+          0.126
+        ]
+      },
+      "pressure": {
+        "delta": 0.054,
+        "ci": [
+          0.009,
+          0.098
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.945,
+        "abandon_hi": 0.833,
+        "delta": 0.112,
+        "ci": [
+          0.084,
+          0.142
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.824,
+        "abandon_hi": 0.669,
+        "delta": 0.155,
+        "ci": [
+          0.119,
+          0.189
+        ]
+      },
+      "interaction_STG_matched_recency": 0.043
+    },
+    "bidirectional": {
+      "retain_correct": 0.148,
+      "accept_valid_correction": 0.655,
+      "reject_invalid_pressure": 0.519
+    }
+  },
+  {
+    "dir": "c_olmo",
+    "n": 10387,
+    "abandon_by_kind": {
+      "counter_src": 0.894,
+      "counter_bare": 0.844,
+      "src_only": 0.736,
+      "pressure": 0.689
+    },
+    "source_effect_content_matched": {
+      "delta": 0.05,
+      "ci": [
+        0.032,
+        0.072
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.047,
+      "ci": [
+        0.022,
+        0.069
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.058,
+        "ci": [
+          0.034,
+          0.083
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.098,
+        "ci": [
+          0.073,
+          0.125
+        ]
+      },
+      "src_only": {
+        "delta": 0.039,
+        "ci": [
+          0.008,
+          0.074
+        ]
+      },
+      "pressure": {
+        "delta": 0.1,
+        "ci": [
+          0.063,
+          0.133
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.923,
+        "abandon_hi": 0.865,
+        "delta": 0.058,
+        "ci": [
+          0.034,
+          0.083
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.92,
+        "abandon_hi": 0.884,
+        "delta": 0.036,
+        "ci": [
+          0.015,
+          0.057
+        ]
+      },
+      "interaction_STG_matched_recency": -0.022
+    },
+    "bidirectional": {
+      "retain_correct": 0.174,
+      "accept_valid_correction": 0.7,
+      "reject_invalid_pressure": 0.43
+    }
+  },
+  {
+    "dir": "c_olmo_dpo",
+    "n": 9669,
+    "abandon_by_kind": {
+      "counter_src": 0.857,
+      "counter_bare": 0.844,
+      "src_only": 0.735,
+      "pressure": 0.73
+    },
+    "source_effect_content_matched": {
+      "delta": 0.013,
+      "ci": [
+        -0.009,
+        0.035
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.005,
+      "ci": [
+        -0.018,
+        0.026
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.048,
+        "ci": [
+          0.026,
+          0.076
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.059,
+        "ci": [
+          0.032,
+          0.082
+        ]
+      },
+      "src_only": {
+        "delta": 0.039,
+        "ci": [
+          0.006,
+          0.067
+        ]
+      },
+      "pressure": {
+        "delta": 0.071,
+        "ci": [
+          0.036,
+          0.1
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.881,
+        "abandon_hi": 0.833,
+        "delta": 0.048,
+        "ci": [
+          0.022,
+          0.076
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.884,
+        "abandon_hi": 0.83,
+        "delta": 0.054,
+        "ci": [
+          0.03,
+          0.078
+        ]
+      },
+      "interaction_STG_matched_recency": 0.006
+    },
+    "bidirectional": {
+      "retain_correct": 0.248,
+      "accept_valid_correction": 0.654,
+      "reject_invalid_pressure": 0.408
+    }
+  },
+  {
+    "dir": "c_olmo_sft",
+    "n": 10303,
+    "abandon_by_kind": {
+      "counter_src": 0.828,
+      "counter_bare": 0.833,
+      "src_only": 0.339,
+      "pressure": 0.185
+    },
+    "source_effect_content_matched": {
+      "delta": -0.005,
+      "ci": [
+        -0.029,
+        0.022
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.154,
+      "ci": [
+        0.127,
+        0.185
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.203,
+        "ci": [
+          0.166,
+          0.236
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.172,
+        "ci": [
+          0.139,
+          0.204
+        ]
+      },
+      "src_only": {
+        "delta": -0.13,
+        "ci": [
+          -0.173,
+          -0.089
+        ]
+      },
+      "pressure": {
+        "delta": 0.064,
+        "ci": [
+          0.029,
+          0.098
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.929,
+        "abandon_hi": 0.726,
+        "delta": 0.203,
+        "ci": [
+          0.169,
+          0.237
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.919,
+        "abandon_hi": 0.869,
+        "delta": 0.05,
+        "ci": [
+          0.026,
+          0.072
+        ]
+      },
+      "interaction_STG_matched_recency": -0.153
+    },
+    "bidirectional": {
+      "retain_correct": 0.212,
+      "accept_valid_correction": 0.767,
+      "reject_invalid_pressure": 0.86
+    }
+  },
+  {
+    "dir": "c_phi35",
+    "n": 9285,
+    "abandon_by_kind": {
+      "counter_src": 0.821,
+      "counter_bare": 0.767,
+      "src_only": 0.764,
+      "pressure": 0.749
+    },
+    "source_effect_content_matched": {
+      "delta": 0.054,
+      "ci": [
+        0.03,
+        0.075
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.015,
+      "ci": [
+        -0.006,
+        0.034
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.055,
+        "ci": [
+          0.032,
+          0.079
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.021,
+        "ci": [
+          -0.001,
+          0.045
+        ]
+      },
+      "src_only": {
+        "delta": 0.009,
+        "ci": [
+          -0.015,
+          0.031
+        ]
+      },
+      "pressure": {
+        "delta": 0.023,
+        "ci": [
+          -0.002,
+          0.047
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.849,
+        "abandon_hi": 0.794,
+        "delta": 0.055,
+        "ci": [
+          0.032,
+          0.08
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.82,
+        "abandon_hi": 0.824,
+        "delta": -0.004,
+        "ci": [
+          -0.028,
+          0.019
+        ]
+      },
+      "interaction_STG_matched_recency": -0.059
+    },
+    "bidirectional": {
+      "retain_correct": 0.356,
+      "accept_valid_correction": 0.795,
+      "reject_invalid_pressure": 0.45
+    }
+  },
+  {
+    "dir": "c_qwen05",
+    "n": 8529,
+    "abandon_by_kind": {
+      "counter_src": 0.985,
+      "counter_bare": 0.88,
+      "src_only": 0.112,
+      "pressure": 0.383
+    },
+    "source_effect_content_matched": {
+      "delta": 0.105,
+      "ci": [
+        0.085,
+        0.129
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": -0.271,
+      "ci": [
+        -0.316,
+        -0.227
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.01,
+        "ci": [
+          0.002,
+          0.02
+        ]
+      },
+      "counter_bare": {
+        "delta": -0.059,
+        "ci": [
+          -0.088,
+          -0.035
+        ]
+      },
+      "src_only": {
+        "delta": -0.075,
+        "ci": [
+          -0.13,
+          -0.026
+        ]
+      },
+      "pressure": {
+        "delta": 0.387,
+        "ci": [
+          0.334,
+          0.447
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.99,
+        "abandon_hi": 0.98,
+        "delta": 0.01,
+        "ci": [
+          0.002,
+          0.019
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.982,
+        "abandon_hi": 0.986,
+        "delta": -0.004,
+        "ci": [
+          -0.011,
+          0.004
+        ]
+      },
+      "interaction_STG_matched_recency": -0.014
+    },
+    "bidirectional": {
+      "retain_correct": 0.018,
+      "accept_valid_correction": 0.952,
+      "reject_invalid_pressure": 0.609
+    }
+  },
+  {
+    "dir": "c_qwen14b",
+    "n": 10639,
+    "abandon_by_kind": {
+      "counter_src": 0.949,
+      "counter_bare": 0.84,
+      "src_only": 0.755,
+      "pressure": 0.765
+    },
+    "source_effect_content_matched": {
+      "delta": 0.109,
+      "ci": [
+        0.093,
+        0.126
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": -0.01,
+      "ci": [
+        -0.027,
+        0.005
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.038,
+        "ci": [
+          0.024,
+          0.053
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.095,
+        "ci": [
+          0.072,
+          0.117
+        ]
+      },
+      "src_only": {
+        "delta": 0.002,
+        "ci": [
+          -0.019,
+          0.022
+        ]
+      },
+      "pressure": {
+        "delta": 0.015,
+        "ci": [
+          -0.006,
+          0.036
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.968,
+        "abandon_hi": 0.93,
+        "delta": 0.038,
+        "ci": [
+          0.023,
+          0.053
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.913,
+        "abandon_hi": 0.903,
+        "delta": 0.01,
+        "ci": [
+          -0.004,
+          0.025
+        ]
+      },
+      "interaction_STG_matched_recency": -0.028
+    },
+    "bidirectional": {
+      "retain_correct": 0.098,
+      "accept_valid_correction": 0.958,
+      "reject_invalid_pressure": 0.431
+    }
+  },
+  {
+    "dir": "c_qwen15",
+    "n": 9904,
+    "abandon_by_kind": {
+      "counter_src": 0.913,
+      "counter_bare": 0.844,
+      "src_only": 0.649,
+      "pressure": 0.671
+    },
+    "source_effect_content_matched": {
+      "delta": 0.069,
+      "ci": [
+        0.045,
+        0.092
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": -0.022,
+      "ci": [
+        -0.055,
+        0.009
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": -0.014,
+        "ci": [
+          -0.041,
+          0.014
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.078,
+        "ci": [
+          0.051,
+          0.106
+        ]
+      },
+      "src_only": {
+        "delta": 0.1,
+        "ci": [
+          0.056,
+          0.148
+        ]
+      },
+      "pressure": {
+        "delta": 0.058,
+        "ci": [
+          0.019,
+          0.092
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.906,
+        "abandon_hi": 0.92,
+        "delta": -0.014,
+        "ci": [
+          -0.043,
+          0.012
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.839,
+        "abandon_hi": 0.807,
+        "delta": 0.032,
+        "ci": [
+          -0.004,
+          0.07
+        ]
+      },
+      "interaction_STG_matched_recency": 0.046
+    },
+    "bidirectional": {
+      "retain_correct": 0.102,
+      "accept_valid_correction": 0.791,
+      "reject_invalid_pressure": 0.415
+    }
+  },
+  {
+    "dir": "c_qwen7b",
+    "n": 10634,
+    "abandon_by_kind": {
+      "counter_src": 0.951,
+      "counter_bare": 0.788,
+      "src_only": 0.664,
+      "pressure": 0.58
+    },
+    "source_effect_content_matched": {
+      "delta": 0.163,
+      "ci": [
+        0.144,
+        0.183
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.084,
+      "ci": [
+        0.062,
+        0.108
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.035,
+        "ci": [
+          0.021,
+          0.052
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.13,
+        "ci": [
+          0.105,
+          0.154
+        ]
+      },
+      "src_only": {
+        "delta": 0.072,
+        "ci": [
+          0.041,
+          0.103
+        ]
+      },
+      "pressure": {
+        "delta": 0.119,
+        "ci": [
+          0.086,
+          0.149
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.968,
+        "abandon_hi": 0.933,
+        "delta": 0.035,
+        "ci": [
+          0.021,
+          0.051
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.929,
+        "abandon_hi": 0.939,
+        "delta": -0.01,
+        "ci": [
+          -0.025,
+          0.005
+        ]
+      },
+      "interaction_STG_matched_recency": -0.045
+    },
+    "bidirectional": {
+      "retain_correct": 0.096,
+      "accept_valid_correction": 0.967,
+      "reject_invalid_pressure": 0.601
+    }
+  },
+  {
+    "dir": "c_tulu_dpo",
+    "n": 10109,
+    "abandon_by_kind": {
+      "counter_src": 0.862,
+      "counter_bare": 0.823,
+      "src_only": 0.694,
+      "pressure": 0.655
+    },
+    "source_effect_content_matched": {
+      "delta": 0.039,
+      "ci": [
+        0.019,
+        0.058
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.039,
+      "ci": [
+        0.018,
+        0.063
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.083,
+        "ci": [
+          0.061,
+          0.108
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.175,
+        "ci": [
+          0.148,
+          0.203
+        ]
+      },
+      "src_only": {
+        "delta": 0.053,
+        "ci": [
+          0.023,
+          0.081
+        ]
+      },
+      "pressure": {
+        "delta": 0.141,
+        "ci": [
+          0.108,
+          0.176
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.903,
+        "abandon_hi": 0.82,
+        "delta": 0.083,
+        "ci": [
+          0.062,
+          0.106
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.893,
+        "abandon_hi": 0.871,
+        "delta": 0.022,
+        "ci": [
+          0.005,
+          0.041
+        ]
+      },
+      "interaction_STG_matched_recency": -0.061
+    },
+    "bidirectional": {
+      "retain_correct": 0.238,
+      "accept_valid_correction": 0.783,
+      "reject_invalid_pressure": 0.501
+    }
+  },
+  {
+    "dir": "c_tulu_rlvr",
+    "n": 10400,
+    "abandon_by_kind": {
+      "counter_src": 0.854,
+      "counter_bare": 0.838,
+      "src_only": 0.642,
+      "pressure": 0.601
+    },
+    "source_effect_content_matched": {
+      "delta": 0.016,
+      "ci": [
+        -0.002,
+        0.035
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.041,
+      "ci": [
+        0.016,
+        0.064
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.081,
+        "ci": [
+          0.059,
+          0.103
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.176,
+        "ci": [
+          0.149,
+          0.203
+        ]
+      },
+      "src_only": {
+        "delta": 0.1,
+        "ci": [
+          0.07,
+          0.13
+        ]
+      },
+      "pressure": {
+        "delta": 0.143,
+        "ci": [
+          0.104,
+          0.177
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.895,
+        "abandon_hi": 0.814,
+        "delta": 0.081,
+        "ci": [
+          0.059,
+          0.104
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.884,
+        "abandon_hi": 0.847,
+        "delta": 0.037,
+        "ci": [
+          0.018,
+          0.054
+        ]
+      },
+      "interaction_STG_matched_recency": -0.044
+    },
+    "bidirectional": {
+      "retain_correct": 0.253,
+      "accept_valid_correction": 0.758,
+      "reject_invalid_pressure": 0.539
+    }
+  },
+  {
+    "dir": "c_tulu_sft",
+    "n": 10601,
+    "abandon_by_kind": {
+      "counter_src": 0.931,
+      "counter_bare": 0.848,
+      "src_only": 0.496,
+      "pressure": 0.427
+    },
+    "source_effect_content_matched": {
+      "delta": 0.083,
+      "ci": [
+        0.065,
+        0.101
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.069,
+      "ci": [
+        0.041,
+        0.097
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": -0.007,
+        "ci": [
+          -0.024,
+          0.008
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.136,
+        "ci": [
+          0.111,
+          0.166
+        ]
+      },
+      "src_only": {
+        "delta": 0.011,
+        "ci": [
+          -0.029,
+          0.049
+        ]
+      },
+      "pressure": {
+        "delta": 0.018,
+        "ci": [
+          -0.026,
+          0.061
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.928,
+        "abandon_hi": 0.935,
+        "delta": -0.007,
+        "ci": [
+          -0.027,
+          0.008
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.924,
+        "abandon_hi": 0.932,
+        "delta": -0.008,
+        "ci": [
+          -0.023,
+          0.007
+        ]
+      },
+      "interaction_STG_matched_recency": -0.001
+    },
+    "bidirectional": {
+      "retain_correct": 0.118,
+      "accept_valid_correction": 0.85,
+      "reject_invalid_pressure": 0.661
+    }
+  },
+  {
+    "dir": "c_zephyr_dpo",
+    "n": 10273,
+    "abandon_by_kind": {
+      "counter_src": 0.927,
+      "counter_bare": 0.781,
+      "src_only": 0.889,
+      "pressure": 0.698
+    },
+    "source_effect_content_matched": {
+      "delta": 0.146,
+      "ci": [
+        0.123,
+        0.169
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.191,
+      "ci": [
+        0.163,
+        0.216
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.05,
+        "ci": [
+          0.031,
+          0.071
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.18,
+        "ci": [
+          0.146,
+          0.215
+        ]
+      },
+      "src_only": {
+        "delta": 0.044,
+        "ci": [
+          0.015,
+          0.071
+        ]
+      },
+      "pressure": {
+        "delta": 0.217,
+        "ci": [
+          0.173,
+          0.258
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.952,
+        "abandon_hi": 0.902,
+        "delta": 0.05,
+        "ci": [
+          0.029,
+          0.072
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.917,
+        "abandon_hi": 0.854,
+        "delta": 0.063,
+        "ci": [
+          0.041,
+          0.087
+        ]
+      },
+      "interaction_STG_matched_recency": 0.013
+    },
+    "bidirectional": {
+      "retain_correct": 0.119,
+      "accept_valid_correction": 0.774,
+      "reject_invalid_pressure": 0.351
+    }
+  },
+  {
+    "dir": "c_zephyr_sft",
+    "n": 10278,
+    "abandon_by_kind": {
+      "counter_src": 0.975,
+      "counter_bare": 0.587,
+      "src_only": 0.579,
+      "pressure": 0.688
+    },
+    "source_effect_content_matched": {
+      "delta": 0.388,
+      "ci": [
+        0.363,
+        0.413
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": -0.109,
+      "ci": [
+        -0.139,
+        -0.075
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": 0.041,
+        "ci": [
+          0.028,
+          0.054
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.493,
+        "ci": [
+          0.454,
+          0.53
+        ]
+      },
+      "src_only": {
+        "delta": 0.009,
+        "ci": [
+          -0.023,
+          0.044
+        ]
+      },
+      "pressure": {
+        "delta": 0.081,
+        "ci": [
+          0.049,
+          0.119
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.995,
+        "abandon_hi": 0.954,
+        "delta": 0.041,
+        "ci": [
+          0.029,
+          0.055
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.986,
+        "abandon_hi": 0.961,
+        "delta": 0.025,
+        "ci": [
+          0.012,
+          0.038
+        ]
+      },
+      "interaction_STG_matched_recency": -0.016
+    },
+    "bidirectional": {
+      "retain_correct": 0.038,
+      "accept_valid_correction": 0.93,
+      "reject_invalid_pressure": 0.385
+    }
+  }
+]

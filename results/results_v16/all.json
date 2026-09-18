@@ -1,0 +1,1473 @@
+[
+  {
+    "dir": "h_llama1b",
+    "n_own": 29,
+    "acc_fc": 0.655,
+    "conf_mean": 75.0,
+    "conf_share_le80": 0.429,
+    "auroc": {
+      "conf": [
+        0.594,
+        28
+      ],
+      "conf_ph": [
+        0.586,
+        27
+      ],
+      "p_true": [
+        0.653,
+        29
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.9,
+      "abandon_highconf": 0.857,
+      "ci": [
+        -0.227,
+        0.333
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.824,
+      "abandon_highPT": null,
+      "ci": null
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.625,
+      "abandon_highconf": 0.562,
+      "ci": [
+        -0.361,
+        0.5
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.556,
+      "abandon_highPT": null,
+      "ci": null
+    },
+    "discrim_counter": {
+      "sw_false": 0.875,
+      "sw_true": 0.812
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.417,
+      "keep_all_acc": 0.667,
+      "conf_rule_acc": 0.667,
+      "p_true_rule_acc": 0.458,
+      "n": 24
+    },
+    "inj_conf_use_self": {
+      "lo": 0.931,
+      "hi": 0.91,
+      "ci": [
+        -0.008,
+        0.053
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.747,
+      "hi": 0.741,
+      "ci": [
+        -0.042,
+        0.058
+      ]
+    },
+    "inj_origin_delta": 0.176
+  },
+  {
+    "dir": "h_llama3b",
+    "n_own": 394,
+    "acc_fc": 0.741,
+    "conf_mean": 92.9,
+    "conf_share_le80": 0.249,
+    "auroc": {
+      "conf": [
+        0.582,
+        393
+      ],
+      "conf_ph": [
+        0.525,
+        394
+      ],
+      "p_true": [
+        0.553,
+        394
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.926,
+      "abandon_highconf": 0.675,
+      "ci": [
+        0.178,
+        0.331
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.745,
+      "abandon_highPT": 0.647,
+      "ci": [
+        -0.046,
+        0.235
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.876,
+      "abandon_highconf": 0.565,
+      "ci": [
+        0.216,
+        0.397
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.618,
+      "abandon_highPT": 0.725,
+      "ci": [
+        -0.234,
+        0.048
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.83,
+      "sw_true": 0.612
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.442,
+      "keep_all_acc": 0.735,
+      "conf_rule_acc": 0.66,
+      "p_true_rule_acc": 0.474,
+      "n": 378
+    },
+    "inj_conf_use_self": {
+      "lo": 0.943,
+      "hi": 0.93,
+      "ci": [
+        -0.009,
+        0.034
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.787,
+      "hi": 0.741,
+      "ci": [
+        0.018,
+        0.074
+      ]
+    },
+    "inj_origin_delta": 0.172
+  },
+  {
+    "dir": "h_llama8b",
+    "n_own": 591,
+    "acc_fc": 0.814,
+    "conf_mean": 91.6,
+    "conf_share_le80": 0.251,
+    "auroc": {
+      "conf": [
+        0.65,
+        589
+      ],
+      "conf_ph": [
+        0.595,
+        591
+      ],
+      "p_true": [
+        0.534,
+        591
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.852,
+      "abandon_highconf": 0.547,
+      "ci": [
+        0.225,
+        0.386
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.675,
+      "abandon_highPT": 0.642,
+      "ci": [
+        -0.092,
+        0.147
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.703,
+      "abandon_highconf": 0.415,
+      "ci": [
+        0.19,
+        0.38
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.547,
+      "abandon_highPT": 0.488,
+      "ci": [
+        -0.058,
+        0.184
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.889,
+      "sw_true": 0.549
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.497,
+      "keep_all_acc": 0.812,
+      "conf_rule_acc": 0.722,
+      "p_true_rule_acc": 0.42,
+      "n": 576
+    },
+    "inj_conf_use_self": {
+      "lo": 0.912,
+      "hi": 0.901,
+      "ci": [
+        -0.006,
+        0.028
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.754,
+      "hi": 0.651,
+      "ci": [
+        0.071,
+        0.137
+      ]
+    },
+    "inj_origin_delta": 0.203
+  },
+  {
+    "dir": "h_mistral",
+    "n_own": 836,
+    "acc_fc": 0.696,
+    "conf_mean": 99.4,
+    "conf_share_le80": 0.004,
+    "auroc": {
+      "conf": [
+        0.473,
+        836
+      ],
+      "conf_ph": [
+        0.495,
+        831
+      ],
+      "p_true": [
+        0.496,
+        836
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 1.0,
+      "abandon_highconf": 0.268,
+      "ci": [
+        0.703,
+        0.767
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.136,
+      "abandon_highPT": null,
+      "ci": null
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 1.0,
+      "abandon_highconf": 0.305,
+      "ci": [
+        0.661,
+        0.728
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.183,
+      "abandon_highPT": null,
+      "ci": null
+    },
+    "discrim_counter": {
+      "sw_false": 0.171,
+      "sw_true": 0.168
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.544,
+      "keep_all_acc": 0.694,
+      "conf_rule_acc": 0.696,
+      "p_true_rule_acc": 0.651,
+      "n": 805
+    },
+    "inj_conf_use_self": {
+      "lo": 0.944,
+      "hi": 0.824,
+      "ci": [
+        0.085,
+        0.156
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.477,
+      "hi": 0.32,
+      "ci": [
+        0.108,
+        0.203
+      ]
+    },
+    "inj_origin_delta": 0.489
+  },
+  {
+    "dir": "h_olmo_dpo",
+    "n_own": 431,
+    "acc_fc": 0.817,
+    "conf_mean": 92.2,
+    "conf_share_le80": 0.096,
+    "auroc": {
+      "conf": [
+        0.577,
+        354
+      ],
+      "conf_ph": [
+        0.545,
+        431
+      ],
+      "p_true": [
+        0.361,
+        431
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.559,
+      "abandon_highconf": 0.461,
+      "ci": [
+        -0.091,
+        0.279
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.478,
+      "abandon_highPT": 0.64,
+      "ci": [
+        -0.306,
+        -0.004
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.353,
+      "abandon_highconf": 0.268,
+      "ci": [
+        -0.088,
+        0.274
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.375,
+      "abandon_highPT": 0.3,
+      "ci": [
+        -0.071,
+        0.218
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.696,
+      "sw_true": 0.312
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.547,
+      "keep_all_acc": 0.815,
+      "conf_rule_acc": 0.77,
+      "p_true_rule_acc": 0.388,
+      "n": 428
+    },
+    "inj_conf_use_self": {
+      "lo": 0.884,
+      "hi": 0.833,
+      "ci": [
+        0.017,
+        0.085
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.76,
+      "hi": 0.688,
+      "ci": [
+        0.039,
+        0.107
+      ]
+    },
+    "inj_origin_delta": 0.135
+  },
+  {
+    "dir": "h_olmo_rlvr",
+    "n_own": 474,
+    "acc_fc": 0.768,
+    "conf_mean": 92.4,
+    "conf_share_le80": 0.096,
+    "auroc": {
+      "conf": [
+        0.519,
+        387
+      ],
+      "conf_ph": [
+        0.515,
+        474
+      ],
+      "p_true": [
+        0.43,
+        474
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.595,
+      "abandon_highconf": 0.52,
+      "ci": [
+        -0.097,
+        0.257
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.516,
+      "abandon_highPT": 0.64,
+      "ci": [
+        -0.329,
+        0.08
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.371,
+      "abandon_highconf": 0.294,
+      "ci": [
+        -0.075,
+        0.249
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.357,
+      "abandon_highPT": 0.08,
+      "ci": [
+        0.151,
+        0.377
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.697,
+      "sw_true": 0.334
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.567,
+      "keep_all_acc": 0.769,
+      "conf_rule_acc": 0.743,
+      "p_true_rule_acc": 0.321,
+      "n": 471
+    },
+    "inj_conf_use_self": {
+      "lo": 0.923,
+      "hi": 0.867,
+      "ci": [
+        0.027,
+        0.087
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.77,
+      "hi": 0.686,
+      "ci": [
+        0.042,
+        0.121
+      ]
+    },
+    "inj_origin_delta": 0.167
+  },
+  {
+    "dir": "h_olmo_sft",
+    "n_own": 485,
+    "acc_fc": 0.631,
+    "conf_mean": 82.8,
+    "conf_share_le80": 0.216,
+    "auroc": {
+      "conf": [
+        0.514,
+        236
+      ],
+      "conf_ph": [
+        0.472,
+        479
+      ],
+      "p_true": [
+        0.515,
+        485
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.66,
+      "abandon_highconf": 0.582,
+      "ci": [
+        -0.087,
+        0.217
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.607,
+      "abandon_highPT": 0.5,
+      "ci": [
+        -0.25,
+        0.44
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.451,
+      "abandon_highconf": 0.384,
+      "ci": [
+        -0.094,
+        0.23
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.402,
+      "abandon_highPT": 0.3,
+      "ci": [
+        -0.217,
+        0.384
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.567,
+      "sw_true": 0.443
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.502,
+      "keep_all_acc": 0.63,
+      "conf_rule_acc": 0.611,
+      "p_true_rule_acc": 0.494,
+      "n": 462
+    },
+    "inj_conf_use_self": {
+      "lo": 0.937,
+      "hi": 0.712,
+      "ci": [
+        0.185,
+        0.266
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.726,
+      "hi": 0.593,
+      "ci": [
+        0.084,
+        0.176
+      ]
+    },
+    "inj_origin_delta": 0.169
+  },
+  {
+    "dir": "h_phi35",
+    "n_own": 0,
+    "acc_fc": null,
+    "conf_mean": null,
+    "conf_share_le80": null,
+    "auroc": {
+      "conf": [
+        null,
+        0
+      ],
+      "conf_ph": [
+        null,
+        0
+      ],
+      "p_true": [
+        null,
+        0
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": null,
+      "abandon_highconf": null,
+      "ci": null
+    },
+    "beh_pressure": {
+      "abandon_lowconf": null,
+      "abandon_highconf": null,
+      "ci": null
+    },
+    "discrim_counter": {
+      "sw_false": null,
+      "sw_true": null
+    },
+    "value_counter": {
+      "post_challenge_acc": null,
+      "keep_all_acc": null,
+      "conf_rule_acc": null,
+      "p_true_rule_acc": null,
+      "n": 0
+    },
+    "inj_conf_use_self": {
+      "lo": null,
+      "hi": null,
+      "ci": null
+    },
+    "inj_conf_use_user": {
+      "lo": null,
+      "hi": null,
+      "ci": null
+    },
+    "inj_origin_delta": 0
+  },
+  {
+    "dir": "h_qwen05",
+    "n_own": 389,
+    "acc_fc": 0.53,
+    "conf_mean": 63.6,
+    "conf_share_le80": 0.647,
+    "auroc": {
+      "conf": [
+        0.542,
+        266
+      ],
+      "conf_ph": [
+        0.473,
+        389
+      ],
+      "p_true": [
+        0.508,
+        389
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.947,
+      "abandon_highconf": 0.878,
+      "ci": [
+        0.0,
+        0.152
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.955,
+      "abandon_highPT": 0.83,
+      "ci": [
+        -0.023,
+        0.261
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.308,
+      "abandon_highconf": 0.305,
+      "ci": [
+        -0.125,
+        0.123
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.227,
+      "abandon_highPT": 0.415,
+      "ci": [
+        -0.398,
+        0.015
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.896,
+      "sw_true": 0.927
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.451,
+      "keep_all_acc": 0.531,
+      "conf_rule_acc": 0.532,
+      "p_true_rule_acc": 0.531,
+      "n": 388
+    },
+    "inj_conf_use_self": {
+      "lo": 0.983,
+      "hi": 0.987,
+      "ci": [
+        -0.014,
+        0.009
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.456,
+      "hi": 0.484,
+      "ci": [
+        -0.088,
+        0.029
+      ]
+    },
+    "inj_origin_delta": 0.515
+  },
+  {
+    "dir": "h_qwen14b",
+    "n_own": 601,
+    "acc_fc": 0.905,
+    "conf_mean": 94.1,
+    "conf_share_le80": 0.087,
+    "auroc": {
+      "conf": [
+        0.695,
+        596
+      ],
+      "conf_ph": [
+        0.652,
+        601
+      ],
+      "p_true": [
+        0.657,
+        601
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.808,
+      "abandon_highconf": 0.494,
+      "ci": [
+        0.188,
+        0.424
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.591,
+      "abandon_highPT": 0.459,
+      "ci": [
+        0.048,
+        0.221
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.462,
+      "abandon_highconf": 0.161,
+      "ci": [
+        0.15,
+        0.444
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.288,
+      "abandon_highPT": 0.115,
+      "ci": [
+        0.11,
+        0.236
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.807,
+      "sw_true": 0.507
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.509,
+      "keep_all_acc": 0.905,
+      "conf_rule_acc": 0.872,
+      "p_true_rule_acc": 0.453,
+      "n": 601
+    },
+    "inj_conf_use_self": {
+      "lo": 0.968,
+      "hi": 0.924,
+      "ci": [
+        0.026,
+        0.062
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.646,
+      "hi": 0.522,
+      "ci": [
+        0.096,
+        0.155
+      ]
+    },
+    "inj_origin_delta": 0.362
+  },
+  {
+    "dir": "h_qwen15",
+    "n_own": 225,
+    "acc_fc": 0.573,
+    "conf_mean": 97.4,
+    "conf_share_le80": 0.036,
+    "auroc": {
+      "conf": [
+        0.49,
+        225
+      ],
+      "conf_ph": [
+        0.49,
+        225
+      ],
+      "p_true": [
+        0.538,
+        225
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.714,
+      "abandon_highconf": 0.773,
+      "ci": [
+        -0.479,
+        0.261
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.772,
+      "abandon_highPT": 0.778,
+      "ci": [
+        -0.255,
+        0.372
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.286,
+      "abandon_highconf": 0.576,
+      "ci": [
+        -0.61,
+        0.088
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.538,
+      "abandon_highPT": 0.667,
+      "ci": [
+        -0.459,
+        0.21
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.75,
+      "sw_true": 0.766
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.443,
+      "keep_all_acc": 0.585,
+      "conf_rule_acc": 0.579,
+      "p_true_rule_acc": 0.443,
+      "n": 183
+    },
+    "inj_conf_use_self": {
+      "lo": 0.897,
+      "hi": 0.908,
+      "ci": [
+        -0.05,
+        0.024
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.718,
+      "hi": 0.453,
+      "ci": [
+        0.205,
+        0.318
+      ]
+    },
+    "inj_origin_delta": 0.314
+  },
+  {
+    "dir": "h_qwen32b",
+    "n_own": 0,
+    "acc_fc": null,
+    "conf_mean": null,
+    "conf_share_le80": null,
+    "auroc": {
+      "conf": [
+        null,
+        0
+      ],
+      "conf_ph": [
+        null,
+        0
+      ],
+      "p_true": [
+        null,
+        0
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": null,
+      "abandon_highconf": null,
+      "ci": null
+    },
+    "beh_pressure": {
+      "abandon_lowconf": null,
+      "abandon_highconf": null,
+      "ci": null
+    },
+    "discrim_counter": {
+      "sw_false": null,
+      "sw_true": null
+    },
+    "value_counter": {
+      "post_challenge_acc": null,
+      "keep_all_acc": null,
+      "conf_rule_acc": null,
+      "p_true_rule_acc": null,
+      "n": 0
+    },
+    "inj_conf_use_self": {
+      "lo": null,
+      "hi": null,
+      "ci": null
+    },
+    "inj_conf_use_user": {
+      "lo": null,
+      "hi": null,
+      "ci": null
+    },
+    "inj_origin_delta": 0
+  },
+  {
+    "dir": "h_qwen3b",
+    "n_own": 266,
+    "acc_fc": 0.831,
+    "conf_mean": 91.3,
+    "conf_share_le80": 0.133,
+    "auroc": {
+      "conf": [
+        0.606,
+        263
+      ],
+      "conf_ph": [
+        0.491,
+        266
+      ],
+      "p_true": [
+        0.499,
+        266
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.829,
+      "abandon_highconf": 0.602,
+      "ci": [
+        0.068,
+        0.368
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.657,
+      "abandon_highPT": 0.6,
+      "ci": [
+        -0.182,
+        0.303
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.4,
+      "abandon_highconf": 0.203,
+      "ci": [
+        0.017,
+        0.386
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.233,
+      "abandon_highPT": 0.267,
+      "ci": [
+        -0.26,
+        0.184
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.756,
+      "sw_true": 0.573
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.457,
+      "keep_all_acc": 0.83,
+      "conf_rule_acc": 0.779,
+      "p_true_rule_acc": 0.219,
+      "n": 265
+    },
+    "inj_conf_use_self": {
+      "lo": 0.938,
+      "hi": 0.931,
+      "ci": [
+        -0.01,
+        0.026
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.768,
+      "hi": 0.611,
+      "ci": [
+        0.111,
+        0.198
+      ]
+    },
+    "inj_origin_delta": 0.244
+  },
+  {
+    "dir": "h_qwen7b",
+    "n_own": 599,
+    "acc_fc": 0.858,
+    "conf_mean": 94.6,
+    "conf_share_le80": 0.103,
+    "auroc": {
+      "conf": [
+        0.66,
+        592
+      ],
+      "conf_ph": [
+        0.59,
+        599
+      ],
+      "p_true": [
+        0.547,
+        599
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.82,
+      "abandon_highconf": 0.568,
+      "ci": [
+        0.135,
+        0.364
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.627,
+      "abandon_highPT": 0.55,
+      "ci": [
+        -0.013,
+        0.164
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.246,
+      "abandon_highconf": 0.062,
+      "ci": [
+        0.076,
+        0.292
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.095,
+      "abandon_highPT": 0.079,
+      "ci": [
+        -0.031,
+        0.06
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.917,
+      "sw_true": 0.502
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.517,
+      "keep_all_acc": 0.859,
+      "conf_rule_acc": 0.827,
+      "p_true_rule_acc": 0.453,
+      "n": 596
+    },
+    "inj_conf_use_self": {
+      "lo": 0.974,
+      "hi": 0.92,
+      "ci": [
+        0.032,
+        0.075
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.694,
+      "hi": 0.524,
+      "ci": [
+        0.13,
+        0.213
+      ]
+    },
+    "inj_origin_delta": 0.338
+  },
+  {
+    "dir": "h_tulu_dpo",
+    "n_own": 654,
+    "acc_fc": 0.757,
+    "conf_mean": 95.7,
+    "conf_share_le80": 0.061,
+    "auroc": {
+      "conf": [
+        0.568,
+        652
+      ],
+      "conf_ph": [
+        0.517,
+        654
+      ],
+      "p_true": [
+        0.515,
+        654
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.65,
+      "abandon_highconf": 0.4,
+      "ci": [
+        0.087,
+        0.394
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.451,
+      "abandon_highPT": 0.364,
+      "ci": [
+        -0.076,
+        0.236
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.225,
+      "abandon_highconf": 0.122,
+      "ci": [
+        -0.049,
+        0.237
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.146,
+      "abandon_highPT": 0.091,
+      "ci": [
+        -0.043,
+        0.146
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.658,
+      "sw_true": 0.338
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.643,
+      "keep_all_acc": 0.758,
+      "conf_rule_acc": 0.748,
+      "p_true_rule_acc": 0.548,
+      "n": 652
+    },
+    "inj_conf_use_self": {
+      "lo": 0.892,
+      "hi": 0.804,
+      "ci": [
+        0.059,
+        0.114
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.666,
+      "hi": 0.522,
+      "ci": [
+        0.109,
+        0.183
+      ]
+    },
+    "inj_origin_delta": 0.254
+  },
+  {
+    "dir": "h_tulu_rlvr",
+    "n_own": 711,
+    "acc_fc": 0.716,
+    "conf_mean": 96.7,
+    "conf_share_le80": 0.068,
+    "auroc": {
+      "conf": [
+        0.535,
+        710
+      ],
+      "conf_ph": [
+        0.495,
+        711
+      ],
+      "p_true": [
+        0.502,
+        711
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.667,
+      "abandon_highconf": 0.427,
+      "ci": [
+        0.091,
+        0.391
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.478,
+      "abandon_highPT": 0.344,
+      "ci": [
+        -0.053,
+        0.289
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.146,
+      "abandon_highconf": 0.127,
+      "ci": [
+        -0.082,
+        0.122
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.126,
+      "abandon_highPT": 0.031,
+      "ci": [
+        0.009,
+        0.152
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.672,
+      "sw_true": 0.343
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.645,
+      "keep_all_acc": 0.716,
+      "conf_rule_acc": 0.702,
+      "p_true_rule_acc": 0.499,
+      "n": 708
+    },
+    "inj_conf_use_self": {
+      "lo": 0.885,
+      "hi": 0.832,
+      "ci": [
+        0.025,
+        0.084
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.692,
+      "hi": 0.535,
+      "ci": [
+        0.116,
+        0.191
+      ]
+    },
+    "inj_origin_delta": 0.245
+  },
+  {
+    "dir": "h_tulu_sft",
+    "n_own": 845,
+    "acc_fc": 0.633,
+    "conf_mean": 99.6,
+    "conf_share_le80": 0.006,
+    "auroc": {
+      "conf": [
+        0.504,
+        843
+      ],
+      "conf_ph": [
+        0.493,
+        845
+      ],
+      "p_true": [
+        0.521,
+        845
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.6,
+      "abandon_highconf": 0.616,
+      "ci": [
+        -0.608,
+        0.397
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.605,
+      "abandon_highPT": 0.5,
+      "ci": [
+        -0.274,
+        0.485
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.2,
+      "abandon_highconf": 0.256,
+      "ci": [
+        -0.28,
+        0.399
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.214,
+      "abandon_highPT": 0.25,
+      "ci": [
+        -0.386,
+        0.236
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.732,
+      "sw_true": 0.496
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.568,
+      "keep_all_acc": 0.639,
+      "conf_rule_acc": 0.642,
+      "p_true_rule_acc": 0.527,
+      "n": 829
+    },
+    "inj_conf_use_self": {
+      "lo": 0.925,
+      "hi": 0.93,
+      "ci": [
+        -0.025,
+        0.02
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.666,
+      "hi": 0.564,
+      "ci": [
+        0.065,
+        0.14
+      ]
+    },
+    "inj_origin_delta": 0.312
+  },
+  {
+    "dir": "h_zephyr_dpo",
+    "n_own": 506,
+    "acc_fc": 0.682,
+    "conf_mean": 97.1,
+    "conf_share_le80": 0.032,
+    "auroc": {
+      "conf": [
+        0.498,
+        504
+      ],
+      "conf_ph": [
+        0.501,
+        506
+      ],
+      "p_true": [
+        0.509,
+        506
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.562,
+      "abandon_highconf": 0.653,
+      "ci": [
+        -0.335,
+        0.163
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.64,
+      "abandon_highPT": 0.651,
+      "ci": [
+        -0.106,
+        0.086
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.5,
+      "abandon_highconf": 0.321,
+      "ci": [
+        -0.101,
+        0.426
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.454,
+      "abandon_highPT": 0.279,
+      "ci": [
+        0.082,
+        0.268
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.622,
+      "sw_true": 0.388
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.491,
+      "keep_all_acc": 0.682,
+      "conf_rule_acc": 0.661,
+      "p_true_rule_acc": 0.591,
+      "n": 491
+    },
+    "inj_conf_use_self": {
+      "lo": 0.954,
+      "hi": 0.903,
+      "ci": [
+        0.025,
+        0.078
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.6,
+      "hi": 0.466,
+      "ci": [
+        0.089,
+        0.178
+      ]
+    },
+    "inj_origin_delta": 0.396
+  },
+  {
+    "dir": "h_zephyr_sft",
+    "n_own": 862,
+    "acc_fc": 0.609,
+    "conf_mean": 96.1,
+    "conf_share_le80": 0.008,
+    "auroc": {
+      "conf": [
+        0.486,
+        862
+      ],
+      "conf_ph": [
+        0.492,
+        862
+      ],
+      "p_true": [
+        0.542,
+        862
+      ]
+    },
+    "beh_counter": {
+      "abandon_lowconf": 0.857,
+      "abandon_highconf": 0.836,
+      "ci": [
+        -0.286,
+        0.185
+      ]
+    },
+    "beh_counter_ptrue": {
+      "abandon_lowPT": 0.887,
+      "abandon_highPT": 0.0,
+      "ci": [
+        0.847,
+        0.921
+      ]
+    },
+    "beh_pressure": {
+      "abandon_lowconf": 0.857,
+      "abandon_highconf": 0.675,
+      "ci": [
+        -0.109,
+        0.36
+      ]
+    },
+    "beh_pressure_ptrue": {
+      "abandon_lowPT": 0.759,
+      "abandon_highPT": 0.0,
+      "ci": [
+        0.706,
+        0.811
+      ]
+    },
+    "discrim_counter": {
+      "sw_false": 0.914,
+      "sw_true": 0.819
+    },
+    "value_counter": {
+      "post_challenge_acc": 0.461,
+      "keep_all_acc": 0.609,
+      "conf_rule_acc": 0.607,
+      "p_true_rule_acc": 0.564,
+      "n": 861
+    },
+    "inj_conf_use_self": {
+      "lo": 0.993,
+      "hi": 0.956,
+      "ci": [
+        0.022,
+        0.054
+      ]
+    },
+    "inj_conf_use_user": {
+      "lo": 0.388,
+      "hi": 0.183,
+      "ci": [
+        0.163,
+        0.243
+      ]
+    },
+    "inj_origin_delta": 0.688
+  }
+]
