@@ -10,9 +10,17 @@ REUSE=0; [ "${1:-}" = "--reuse-a0" ] && { REUSE=1; shift; }
 BACKBONE="${1:?backbone HF id}"; TAG="${2:?short tag e.g. olmo}"; shift 2
 ARMS=("$@"); [ ${#ARMS[@]} -eq 0 ] && ARMS=(A0 A2 A1 A3 A4 A5)
 PY="${PYTHON:-python3}"; export USE_TF=0 TRANSFORMERS_NO_TF=1
+# per-size defaults (override with TRAIN_EXTRA / VLLM_TP / GRPO_EXTRA env): 13B fits one 80GB GPU; 32B shards across all visible GPUs
+case "$TAG" in
+  olmo13) TRAIN_EXTRA="${TRAIN_EXTRA:---bsz 1 --grad-accum 16}"; export VLLM_TP="${VLLM_TP:-1}";;
+  olmo32) TRAIN_EXTRA="${TRAIN_EXTRA:---device-map auto --bsz 1 --grad-accum 16}"; export VLLM_TP="${VLLM_TP:-2}"
+          GRPO_EXTRA="${GRPO_EXTRA:---vllm-server 127.0.0.1:8000}"; echo "NOTE olmo32 GRPO expects a running 'trl vllm-serve' (see slurm/train_grpo_32b.sbatch)";;
+  *) TRAIN_EXTRA="${TRAIN_EXTRA:-}"; export VLLM_TP="${VLLM_TP:-1}";;
+esac
+GRPO_EXTRA="${GRPO_EXTRA:-}"
 CK="$ROOT/checkpoints/$TAG"; DATA="$ROOT/data/$TAG"; RES="$ROOT/results_ladder/$TAG"; mkdir -p "$CK" "$DATA" "$RES"
 Q=""; [ "${QUICK:-0}" = "1" ] && Q="--limit 64 --max-steps 4"
-VL="--vllm"; [ "${VLLM:-1}" = "0" ] && VL=""
+VL="--vllm"; { [ "${VLLM:-1}" = "0" ] || [ -n "${GRPO_EXTRA:-}" ]; } && VL=""
 CAP="--capability"; [ "${QUICK:-0}" = "1" ] && CAP="--capability --quick"
 done_arm() { [ -f "$RES/$1/summary.json" ]; }
 reuse_a0() { SRC="$ROOT/results/results_v17_cells/c_${TAG}_sft/cells.jsonl"; [ -f "$SRC" ] || { echo "no reusable A0 at $SRC"; return 1; }
@@ -51,16 +59,16 @@ for ARM in "${ARMS[@]}"; do
   echo "== $ARM ($TAG) $(date -u +%FT%TZ)"
   case "$ARM" in
     A0) if [ $REUSE = 1 ] && reuse_a0; then :; else evalarm A0 "$BACKBONE"; fi ;;
-    A1) $PY "$ROOT/train/dpo.py" --model "$BACKBONE" --data "$DATA/generic.jsonl" --out "$CK/A1" --merge $Q
+    A1) $PY "$ROOT/train/dpo.py" --model "$BACKBONE" --data "$DATA/generic.jsonl" --out "$CK/A1" --merge $TRAIN_EXTRA $Q
         evalarm A1 "$CK/A1/merged" ;;
-    A2) $PY "$ROOT/train/dpo.py" --model "$BACKBONE" --data "$DATA/revision.jsonl" --out "$CK/A2" --merge $Q
+    A2) $PY "$ROOT/train/dpo.py" --model "$BACKBONE" --data "$DATA/revision.jsonl" --out "$CK/A2" --merge $TRAIN_EXTRA $Q
         evalarm A2 "$CK/A2/merged" ;;
-    A3) $PY "$ROOT/train/grpo.py" --model "$BACKBONE" --data "$DATA/revision.jsonl" --out "$CK/A3" --merge $VL $Q
+    A3) $PY "$ROOT/train/grpo.py" --model "$BACKBONE" --data "$DATA/revision.jsonl" --out "$CK/A3" --merge $TRAIN_EXTRA $GRPO_EXTRA $VL $Q
         evalarm A3 "$CK/A3/merged" ;;
-    A4) $PY "$ROOT/train/grpo.py" --model "$BACKBONE" --data "$DATA/revision.jsonl" --out "$CK/A4" --merge --conf $VL $Q
+    A4) $PY "$ROOT/train/grpo.py" --model "$BACKBONE" --data "$DATA/revision.jsonl" --out "$CK/A4" --merge --conf $TRAIN_EXTRA $GRPO_EXTRA $VL $Q
         evalarm A4 "$CK/A4/merged" ;;
     A5) [ -d "$CK/A1/merged" ] || { echo "A5 needs A1 merged weights"; exit 1; }
-        $PY "$ROOT/train/grpo.py" --model "$CK/A1/merged" --data "$DATA/revision.jsonl" --out "$CK/A5" --merge $VL $Q
+        $PY "$ROOT/train/grpo.py" --model "$CK/A1/merged" --data "$DATA/revision.jsonl" --out "$CK/A5" --merge $TRAIN_EXTRA $GRPO_EXTRA $VL $Q
         evalarm A5 "$CK/A5/merged" ;;
     *) echo "unknown arm $ARM"; exit 1 ;;
   esac

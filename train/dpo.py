@@ -24,7 +24,7 @@ def merge_and_save(base, adapter_dir, out_dir, tok):
     from peft import PeftModel
     from transformers import AutoModelForCausalLM
     cuda = torch.cuda.is_available()
-    m = AutoModelForCausalLM.from_pretrained(base, torch_dtype=torch.bfloat16 if cuda else torch.float16)
+    m = AutoModelForCausalLM.from_pretrained(base, torch_dtype=torch.bfloat16 if cuda else torch.float16, low_cpu_mem_usage=True)
     m = PeftModel.from_pretrained(m, adapter_dir).merge_and_unload()
     m.save_pretrained(out_dir, safe_serialization=True); tok.save_pretrained(out_dir)
     json.dump({"base": base, "adapter": adapter_dir}, open(os.path.join(out_dir, "provenance.json"), "w"))
@@ -39,6 +39,7 @@ def main():
     ap.add_argument("--max-steps", type=int, default=-1); ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--lora-r", type=int, default=64); ap.add_argument("--merge", action="store_true")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--device-map", default=None, help="'auto' = shard the policy across all visible GPUs (13B/32B)")
     args = ap.parse_args()
     import torch
     from datasets import Dataset
@@ -47,9 +48,10 @@ def main():
     cuda = torch.cuda.is_available()
     tok = AutoTokenizer.from_pretrained(args.model)
     if tok.pad_token is None: tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.bfloat16 if cuda else torch.float32)
+    mk = {"device_map": args.device_map} if args.device_map else {}
+    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.bfloat16 if cuda else torch.float32, **mk)
     ds = Dataset.from_list(load_rows(args.data, args.limit))
-    print(f"[dpo] {len(ds)} pairs from {args.data}; cuda={cuda}", flush=True)
+    print(f"[dpo] {len(ds)} pairs from {args.data}; cuda={cuda}; device_map={args.device_map}", flush=True)
     cfg = DPOConfig(output_dir=os.path.join(args.out, "trainer"), num_train_epochs=args.epochs, max_steps=args.max_steps,
                     per_device_train_batch_size=args.bsz, gradient_accumulation_steps=args.grad_accum,
                     learning_rate=args.lr, lr_scheduler_type="cosine", warmup_ratio=0.05, beta=args.beta,

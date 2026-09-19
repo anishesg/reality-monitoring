@@ -15,3 +15,10 @@ H6 (generalization): the A3 gain in retain_correct is >= 60% as large on Truthfu
 Decisive negative: if A3 retain_correct < 0.5 in both backbones, the fix is not achievable with LoRA + 128-token rollouts at this budget; report as such.
 
 Reward definitions (frozen with the predictions): A3/A5 reward = 1[final answer correct] + 0.1[explicit FINAL line]. A4 reward = A3 reward + 0.5*(1 - Brier(stated confidence in final answer, correctness)), -0.3 if no CONFIDENCE line. No term rewards conditioning on the prior stated confidence; H4 tests whether that emerges.
+
+## Scale rung (added 2026-09-18, before any 13B/32B result is read)
+Checkpoints: allenai/OLMo-2-1124-13B-{SFT,DPO,Instruct}, allenai/OLMo-2-0325-32B-{SFT,DPO,Instruct}; STAND arms trained on the 13B/32B SFT.
+H7 (defect persists with scale): the DPO-stage rise in pressure_abandon seen at 7B (0.19->0.73) is >= 0.15 at both 13B and 32B, and the
+   RLVR stage does not bring it back below SFT + 0.05. Falsified if the 32B DPO - SFT gap is < 0.05.
+H8 (fix persists with scale): A2 (STAND-DPO) gain in retain_correct at 32B is >= 60% of the 7B gain; if A3 runs at 32B, same for A3.
+   No claim is made about models larger than 32B; the scale trend within 7B-32B is the evidence offered.

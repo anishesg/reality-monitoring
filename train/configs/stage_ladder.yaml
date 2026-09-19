@@ -1,0 +1,5 @@
+# Measurement-only rung: published SFT -> DPO -> RLVR(Instruct) checkpoints at 13B and 32B, evaluated with the
+# frozen v17 harness (no training). Extends the 7B/8B stage ladder in results/results_v17_cells to larger scale.
+lineages:
+  olmo13: {SFT: allenai/OLMo-2-1124-13B-SFT, DPO: allenai/OLMo-2-1124-13B-DPO, RLVR: allenai/OLMo-2-1124-13B-Instruct, vllm_tp: 1, gres: "gpu:1", mem: "80G"}
+  olmo32: {SFT: allenai/OLMo-2-0325-32B-SFT, DPO: allenai/OLMo-2-0325-32B-DPO, RLVR: allenai/OLMo-2-0325-32B-Instruct, vllm_tp: 2, gres: "gpu:2", mem: "160G"}

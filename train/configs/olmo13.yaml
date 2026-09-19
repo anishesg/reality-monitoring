@@ -1,0 +1,7 @@
+extends: base.yaml
+backbone: allenai/OLMo-2-1124-13B-SFT
+tag: olmo13
+# 13B in bf16 (27 GB) + LoRA + grad-ckpt fits one 80 GB GPU at bsz 1
+dpo: {bsz: 1, grad_accum: 16}
+grpo: {bsz: 8, grad_accum: 2, vllm: true, vllm_mem: 0.25}
+eval: {vllm_tp: 1}

@@ -12,7 +12,7 @@ existing v17 harness on the held-out first 450 hard-bank questions. Predictions 
 | A4 | A3 + required CONFIDENCE line, Brier-calibration reward on the final answer (`--conf`) | `grpo.py` |
 | A5 | A1 merged weights → revision-GRPO (does RLVR repair the DPO-installed defect?) | `grpo.py` |
 
-Backbones: `allenai/OLMo-2-1124-7B-SFT` (tag `olmo`), `allenai/Llama-3.1-Tulu-3-8B-SFT` (tag `tulu`).
+Backbones: `allenai/OLMo-2-1124-7B-SFT` (tag `olmo`), `allenai/Llama-3.1-Tulu-3-8B-SFT` (tag `tulu`); scale rung `allenai/OLMo-2-1124-13B-SFT` (tag `olmo13`, 1 GPU) and `allenai/OLMo-2-0325-32B-SFT` (tag `olmo32`, 4 GPUs, policy sharded with `--device-map auto`, GRPO rollouts from `trl vllm-serve`).
 Training bank = SciQ (600) + hard-bank qids 450–899. Eval bank = hard-bank qids 0–449 (never trained on; `build_data.py` asserts this).
 All paths are anchored to the git repo root (`harness/…`, `analysis/…`), never the cwd.
 
@@ -56,6 +56,15 @@ squeue -u $USER
 `submit_ladder.sh` chains train → eval with `--dependency=afterok`, in the order A2, A1, A3, A4, A5 (A5 waits on A1).
 Single stages: `sbatch --export=ALL,BACKBONE=...,DATA=...,OUT=... slurm/train_dpo.sbatch`, likewise `train_grpo.sbatch`, `eval_arm.sbatch`.
 
+## 1c. Scale rung (13B / 32B)
+```
+bash slurm/measure_stages.sh olmo13 olmo32          # published SFT/DPO/Instruct at 13B+32B, eval only (~1-3 h each)
+PARTITION=gpu bash slurm/submit_ladder.sh --backbones "olmo13" --arms "A0 A2 A1 A3"   # 13B ladder, one 80GB GPU per job
+PARTITION=gpu bash slurm/submit_ladder.sh --backbones "olmo32" --arms "A0 A2 A1"      # 32B DPO arms, 4 GPUs per job
+PARTITION=gpu bash slurm/submit_ladder.sh --backbones "olmo32" --arms "A3"            # 32B GRPO: slurm/train_grpo_32b.sbatch (2 GPUs serve, 2 train), ~25-35 h
+```
+Priority if queue time is scarce: measure_stages (cheap, gives H7) -> olmo32 A2 (gives H8) -> olmo13 ladder -> olmo32 A3.
+
 ## 2. Reading results
 `results_ladder/<tag>/<arm>/summary.json` (one row per arm) and `results_ladder/<tag>/ladder.json`. Headline columns:
 `retain_correct`, `accept_valid_correction` (the frontier), `pressure_abandon` (the DPO-installed defect), `counter_bare_abandon`
@@ -69,3 +78,4 @@ config (dotted CLI overrides, numeric coercion). The shell drivers take the same
 ## Budget (one A100 80GB, LoRA r=64, 7–8B)
 DPO 10k pairs × 2 epochs ≈ 1.5 h; GRPO G=8, 128-token rollouts, ~7k prompts × 1 epoch ≈ 6–9 h; v17 eval ≈ 15 min; capability ≈ 30 min.
 Full ladder per backbone ≈ 25–32 GPU-hours sequential; two backbones ≈ 55–65 h (≈ $220 on NC24 pay-as-you-go).
+13B: DPO ≈ 3 h, GRPO ≈ 12–16 h on one 80GB GPU. 32B: stage measurement ≈ 3 GPU-h per checkpoint; A2 ≈ 5–7 h on 4×A100 (20–28 GPU-h); A3 ≈ 25–35 h on 4×A100.

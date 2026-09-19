@@ -1,0 +1,9 @@
+extends: base.yaml
+backbone: allenai/OLMo-2-0325-32B-SFT
+tag: olmo32
+# 32B in bf16 (64 GB) is sharded across all visible GPUs (device_map=auto); GRPO rollouts come from a separate
+# `trl vllm-serve` process (vllm_mode=server) because colocated vLLM cannot share a GPU with a 32B policy.
+dpo: {bsz: 1, grad_accum: 16, device_map: auto}
+grpo: {bsz: 4, grad_accum: 4, vllm: false, vllm_server: "127.0.0.1:8000", device_map: auto}
+eval: {vllm_tp: 2}
+slurm: {gres: "gpu:4", mem: "300G"}

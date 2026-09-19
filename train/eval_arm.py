@@ -86,7 +86,7 @@ def main():
         cap_dir = os.path.join(arm_dir, "capability")
         try:
             base = ["lm_eval", "--model", "vllm" if backend == "vllm" else "hf",
-                    "--model_args", f"pretrained={args.model},dtype=auto" + (",gpu_memory_utilization=0.85,max_model_len=4096" if backend == "vllm" else ""),
+                    "--model_args", f"pretrained={args.model},dtype=auto" + (f",gpu_memory_utilization=0.85,max_model_len=4096,tensor_parallel_size={os.environ.get('VLLM_TP', '1')}" if backend == "vllm" else ""),
                     "--batch_size", "auto"]
             # mmlu and gsm8k are 5-shot by convention; ifeval is strictly 0-shot (a global --num_fewshot would corrupt it)
             subprocess.run(base + ["--tasks", "mmlu,gsm8k", "--num_fewshot", "5", "--output_path", os.path.join(cap_dir, "fewshot")] + lim, check=True, cwd=ROOT)

@@ -33,6 +33,8 @@ def main():
     ap.add_argument("--lora-r", type=int, default=64); ap.add_argument("--conf", action="store_true")
     ap.add_argument("--vllm", action="store_true"); ap.add_argument("--vllm-mem", type=float, default=0.3)
     ap.add_argument("--merge", action="store_true"); ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--device-map", default=None, help="'auto' = shard the policy across visible GPUs (13B/32B)")
+    ap.add_argument("--vllm-server", default=None, help="host:port of a running `trl vllm-serve`; uses vllm_mode=server instead of colocate")
     args = ap.parse_args()
     import torch
     from datasets import Dataset
@@ -43,19 +45,23 @@ def main():
     cuda = torch.cuda.is_available()
     tok = AutoTokenizer.from_pretrained(args.model)
     if tok.pad_token is None: tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.bfloat16 if cuda else torch.float32)
+    mk = {"device_map": args.device_map} if args.device_map else {}
+    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.bfloat16 if cuda else torch.float32, **mk)
     ds = Dataset.from_list(load_rows(args.data, args.limit, args.conf))
-    print(f"[grpo] {len(ds)} prompts; conf={args.conf}; vllm={args.vllm}; cuda={cuda}", flush=True)
+    print(f"[grpo] {len(ds)} prompts; conf={args.conf}; vllm={args.vllm}; server={args.vllm_server}; device_map={args.device_map}; cuda={cuda}", flush=True)
     kw = dict(output_dir=os.path.join(args.out, "trainer"), num_train_epochs=args.epochs, max_steps=args.max_steps,
               per_device_train_batch_size=args.bsz, gradient_accumulation_steps=args.grad_accum,
               learning_rate=args.lr, lr_scheduler_type="cosine", warmup_ratio=0.05, beta=args.beta,
               num_generations=args.G, max_completion_length=args.max_completion,
               temperature=1.0, bf16=cuda, gradient_checkpointing=cuda, logging_steps=5, save_strategy="no",
-              report_to="none", seed=args.seed, use_cpu=not cuda, use_vllm=args.vllm)
+              report_to="none", seed=args.seed, use_cpu=not cuda, use_vllm=bool(args.vllm or args.vllm_server))
     import inspect
     allowed = inspect.signature(GRPOConfig).parameters
     if "max_prompt_length" in allowed: kw["max_prompt_length"] = args.max_prompt  # removed in newer TRL
-    if args.vllm:
+    if args.vllm_server:
+        host, _, port = args.vllm_server.partition(":")
+        kw.update(vllm_mode="server", vllm_server_host=host or "127.0.0.1", vllm_server_port=int(port or 8000), vllm_server_timeout=600.0)
+    elif args.vllm:
         kw.update(vllm_mode="colocate", vllm_gpu_memory_utilization=args.vllm_mem)
     kw = {k: v for k, v in kw.items() if k in allowed}
     cfg = GRPOConfig(**kw)
