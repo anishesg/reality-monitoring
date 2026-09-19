@@ -1,11 +1,45 @@
-# Prompt for the co-author's Claude Code session (Princeton della/ionic)
-
-Verified on GitHub at commit e33779b: train/ (README, build_data, dpo, grpo, reward, eval_arm, config, configs/), slurm/ (submit_ladder, measure_stages, train_dpo, train_grpo, train_grpo_32b, eval_arm, _common), prereg/PREREG_causal_ladder.md. Paste everything below the line into Claude Code.
+# Prompt for the co-author's Claude Code session (Princeton della)
+Verified on GitHub at commit 04690ce. Paste everything below the line into Claude Code on the della login node.
 
 ---
 
-Clone https://github.com/anishesg/reality-monitoring (private; use my GitHub login) into /scratch/gpfs/$USER on della and cd into it. First run `git log -1 --format=%h` and confirm it prints e33779b or a later commit; then run `ls train slurm prereg` and confirm you see train/README.md, train/run_ladder.sh, train/dpo.py, train/grpo.py, train/reward.py, train/eval_arm.py, slurm/submit_ladder.sh, slurm/measure_stages.sh, prereg/PREREG_causal_ladder.md. If any are missing, stop and tell me the commit hash you have; do not improvise. Then read train/README.md and prereg/PREREG_causal_ladder.md in full: this is a pre-registered post-training ladder (arms A0–A5: SFT baseline, generic DPO, revision DPO, revision GRPO, confidence GRPO, DPO-then-GRPO) on allenai/OLMo-2-1124-7B-SFT and allenai/Llama-3.1-Tulu-3-8B-SFT, evaluated with the frozen harness in harness/run_cells_v17.py on the held-out first 450 questions of harness/claims_hard.jsonl. Do not modify anything under harness/, analysis/, results/, or prereg/. Do not commit or push unless I ask.
+Goal: run our pre-registered post-training ladder on della GPUs, publish a live results page I can open through an SSH tunnel, and report the numbers. Everything you need is in the repo; do not invent files or steps that are not there.
 
-Setup: put a Hugging Face token in a file named .hftok at the repo root; `export HF_HOME=/scratch/gpfs/$USER/hf`; `python -m venv .venv && source .venv/bin/activate && pip install -r train/requirements.txt` (if pip fails on CUDA, install torch matching `nvidia-smi` first, then the rest; vLLM 0.8.5 needs CUDA 12.x). Run `sinfo -o "%P %G %l %D"` to find the GPU partition, gres string, and any A100-80GB constraint. Smoke the real stack first inside a 1-hour interactive allocation (`salloc --gres=gpu:1 --time=01:00:00 --mem=80G`) with `QUICK=1 bash train/run_ladder.sh --reuse-a0 allenai/OLMo-2-1124-7B-SFT olmo`; fix environment issues there and tell me what you changed. Then submit: `PARTITION=<p> GRES=<g> CONSTRAINT=<c> bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo"`, then the same with `--backbones "tulu"`. This chains train→eval with SLURM afterok dependencies and runs A2 (revision DPO, ~2 h on one A100) first, then A1, A3, A4, A5 (GRPO arms 6–9 h each; if the partition's time limit is under 12 h, lower grpo.epochs in train/configs/base.yaml rather than dropping an arm; if vLLM rollouts OOM on a 40 GB GPU, resubmit with VLLM=0 or request an 80 GB node). After those are queued, run `bash slurm/measure_stages.sh olmo13 olmo32` (eval-only, published 13B/32B checkpoints) and `bash slurm/submit_ladder.sh --backbones "olmo32" --arms "A0 A2 A1"` (4×80GB per job). Only start 32B A3 if the 7B A3 result is positive.
+1. Fresh clone, verify, read.
+cd /scratch/gpfs/$USER && git clone https://github.com/anishesg/reality-monitoring.git rm-ladder && cd rm-ladder
+Run `git log -1 --format=%h` and confirm it prints 04690ce or a later hash. Run `ls train slurm prereg harness analysis` and confirm these exist: train/README.md, train/run_ladder.sh, train/build_data.py, train/dpo.py, train/grpo.py, train/reward.py, train/eval_arm.py, train/results_server.py, train/requirements.txt, slurm/submit_ladder.sh, slurm/measure_stages.sh, slurm/train_dpo.sbatch, slurm/train_grpo.sbatch, slurm/eval_arm.sbatch, prereg/PREREG_causal_ladder.md, harness/run_cells_v17.py, harness/claims_hard.jsonl, analysis/analyze_v17.py. If anything is missing, stop and tell me the hash; do not improvise. Then read train/README.md and prereg/PREREG_causal_ladder.md in full. Do not use the old flattened copy of the repo elsewhere on the cluster; this clone is the only layout the scripts support.
 
-Watch with `squeue -u $USER` and `tail -f logs/rm-*.out`. Each finished arm writes results_ladder/<tag>/<arm>/summary.json with retain_correct, accept_valid_correction, pressure_abandon, counter_bare_abandon, excluded_frac; those five numbers per arm are the deliverable. As soon as results_ladder/olmo/A2/summary.json exists, report its numbers next to A0's (results_ladder/olmo/A0/summary.json), then `git add results_ladder && git commit -m "olmo A2 results" && git push`, and keep going without waiting for me. Both drivers skip arms whose summary.json exists, so re-running after a failure is safe; eval_arm.py refuses adapter-only checkpoints and wants <arm>/merged; A5 depends on A1's merged weights. If an arm fails twice for the same reason, skip it, continue the others, and quote the log verbatim. Never delete results/ or results_ladder/. Report: commit hash, partition used, smoke outcome, job IDs, per-arm status, numbers for every finished arm, anything you changed.
+What this is: six arms per backbone, A0 (SFT baseline, reused from existing results), A1 (generic DPO on 10k Tulu-3 preference pairs), A2 (revision DPO on our challenge dialogues), A3 (revision GRPO with a verifiable reward), A4 (A3 plus a calibrated confidence line), A5 (A1 weights then the A3 recipe). Backbones: allenai/OLMo-2-1124-7B-SFT (tag olmo) and allenai/Llama-3.1-Tulu-3-8B-SFT (tag tulu). Every arm is evaluated with the frozen harness harness/run_cells_v17.py on the held-out first 450 questions of harness/claims_hard.jsonl. Never edit anything under harness/, analysis/, results/, or prereg/. Do not commit or push unless I say so.
+
+2. Environment (once).
+export HF_HOME=/scratch/gpfs/$USER/hf
+touch .hftok            # models are ungated; put a Hugging Face token here only if a download asks for one
+module load anaconda3 2>/dev/null || true
+python -m venv .venv && source .venv/bin/activate && pip install -r train/requirements.txt
+If pip fails on CUDA/torch, install torch 2.6 matching `nvidia-smi`'s CUDA first, then rerun the requirements install. vLLM 0.8.5 needs CUDA 12.x.
+
+3. Start the results dashboard now, so it is up before the first arm finishes.
+mkdir -p logs && nohup python3 train/results_server.py --port 8765 > logs/dashboard.log 2>&1 &
+It is stdlib-only, binds to localhost only, and auto-refreshes every 60 s with every finished arm's numbers, capability scores, recent job logs, and figures. Confirm with `curl -s localhost:8765 | head -3`. Tell me the login node's hostname (`hostname`) and your NetID, so I can open it from my laptop with: ssh -N -L 8765:localhost:8765 <netid>@della.princeton.edu  and then http://localhost:8765. If the login node rotates between hosts, tell me which one the server runs on so I can target it (ssh -J or the specific della-login hostname).
+
+4. Find the GPU partition.
+sinfo -o "%P %G %l %D" and scontrol show partition. Note the partition name, the gres string (e.g. gpu:1), and any constraint that selects 80 GB A100s. Tell me what you found.
+
+5. Smoke test on a real GPU before spending hours.
+salloc --gres=gpu:1 --time=01:00:00 --mem=80G (add --partition/--constraint as needed), then inside it:
+source .venv/bin/activate && QUICK=1 bash train/run_ladder.sh --reuse-a0 allenai/OLMo-2-1124-7B-SFT olmo
+This runs 4 training steps of every arm plus the full eval path (vLLM, TRL, LoRA merge, lm-eval) and should finish in under an hour. Fix environment problems here and tell me exactly what you changed. When it passes, delete its outputs: rm -rf results_ladder/olmo checkpoints/olmo.
+
+6. Submit the real ladder.
+PARTITION=<from step 4> GRES=<from step 4> CONSTRAINT=<from step 4, or omit> bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo"
+then the same command with --backbones "tulu". It submits train and eval jobs chained with SLURM afterok dependencies, in the order A2, A1, A3, A4, A5, and prints the job IDs. Timing on one A100: A2 and A1 about 1.5 h train plus 20 min eval each; A3, A4, A5 about 6 to 9 h each. If the partition's max walltime is under 12 h, lower grpo.epochs in train/configs/base.yaml (e.g. 0.5) rather than dropping an arm. If GRPO OOMs on a 40 GB GPU, resubmit with VLLM=0 or a constraint for 80 GB nodes.
+
+7. Scale rung, after step 6 is queued.
+bash slurm/measure_stages.sh olmo13 olmo32     (eval-only on the published 13B and 32B SFT/DPO/Instruct checkpoints, 1 to 3 h each)
+bash slurm/submit_ladder.sh --backbones "olmo32" --arms "A0 A2 A1"     (needs 4 x 80 GB per job)
+Do not start 32B GRPO (slurm/train_grpo_32b.sbatch) unless I confirm the 7B A3 result is positive.
+
+8. Monitor and report.
+squeue -u $USER, tail -f logs/rm-*.out, and the dashboard. Each finished arm writes results_ladder/<tag>/<arm>/summary.json containing retain_correct, accept_valid_correction, pressure_abandon, counter_bare_abandon, excluded_frac; those five numbers per arm are the deliverable. The first milestone is results_ladder/olmo/A2/summary.json: as soon as it exists, send me its five numbers next to results_ladder/olmo/A0/summary.json, then run `git add results_ladder && git commit -m "olmo A2 results" && git push`, and keep going without waiting for me. Both drivers skip arms whose summary.json already exists, so rerunning after a failure is safe. eval_arm.py refuses adapter-only checkpoints and wants <arm>/merged. A5 depends on A1's merged weights. If an arm fails twice for the same reason, skip it, continue the others, and quote the log verbatim. Never delete results/ or results_ladder/.
+
+Final report format: commit hash; dashboard hostname and port; partition/gres/constraint used; smoke test outcome and any fixes; job IDs; per-arm status; the five numbers for every finished arm; anything you changed in the repo.
