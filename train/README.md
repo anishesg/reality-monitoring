@@ -65,6 +65,11 @@ PARTITION=gpu bash slurm/submit_ladder.sh --backbones "olmo32" --arms "A3"      
 ```
 Priority if queue time is scarce: measure_stages (cheap, gives H7) -> olmo32 A2 (gives H8) -> olmo13 ladder -> olmo32 A3.
 
+## 1d. Live dashboard through an SSH tunnel
+On the cluster login node, inside the repo: `nohup python3 train/results_server.py --port 8765 > logs/dashboard.log 2>&1 &`
+From your laptop: `ssh -N -L 8765:localhost:8765 <netid>@della.princeton.edu` and open http://localhost:8765 (stdlib only,
+binds to localhost, auto-refreshes every 60 s: every finished arm's five numbers, capability scores, recent job logs, figures, `/api` JSON).
+
 ## 2. Reading results
 `results_ladder/<tag>/<arm>/summary.json` (one row per arm) and `results_ladder/<tag>/ladder.json`. Headline columns:
 `retain_correct`, `accept_valid_correction` (the frontier), `pressure_abandon` (the DPO-installed defect), `counter_bare_abandon`
