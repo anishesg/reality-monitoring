@@ -124,12 +124,16 @@ def main():
     ap.add_argument("--per-cell", type=int, default=0, help="cap rows per origin x kind x truth cell (0 = no cap)")
     ap.add_argument("--n-generic", type=int, default=10000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--exclude-qids", default="800-899", help="hard-bank qid range held out as the DEV split (never trained on); '' to disable")
     args = ap.parse_args()
     rng = random.Random(args.seed)
     if args.mode == "generic":
         rows = build_generic(args.n_generic, rng)
     else:
         recs = train_claims(include_sciq=not args.no_sciq)
+        if args.exclude_qids:
+            lo, hi = (int(x) for x in args.exclude_qids.split("-"))
+            recs = [r for r in recs if not (r["bank"] == "hard" and lo <= r["qid"] <= hi)]
         rng.shuffle(recs)
         if args.n_questions: recs = recs[: args.n_questions]
         assert all(not (r["bank"] == "hard" and r["qid"] < 450) for r in recs), "eval leakage"

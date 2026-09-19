@@ -20,9 +20,9 @@ def is_adapter_only(path):
     has_weights = any(f.endswith((".safetensors", ".bin")) and not f.startswith("adapter") for f in os.listdir(path))
     return has_adapter and not has_weights
 
-def run_v17_hf(model, out_dir, n_q):
+def run_v17_hf(model, out_dir, n_q, claims_path=None):
     """Mirror of run_cells_v17.main() using the transformers backend (Mac / no-vLLM smoke path)."""
-    recs = read_jsonl(CLAIMS)[:n_q]
+    recs = read_jsonl(claims_path or CLAIMS)[:n_q]
     trials, msgs = [], []
     for r in recs:
         for truth in (True, False):
@@ -48,10 +48,17 @@ def main():
     ap.add_argument("--n-questions", type=int, default=EVAL_HOLDOUT)
     ap.add_argument("--capability", action="store_true"); ap.add_argument("--quick", action="store_true")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--split", choices=("test", "dev"), default="test", help="test = held-out qids 0-449 (paper); dev = qids 800-899 (hyperparameter selection only)")
     args = ap.parse_args()
     if is_adapter_only(args.model):
         sys.exit(f"[eval_arm] {args.model} is an adapter-only directory; run dpo.py/grpo.py with --merge and point at <out>/merged")
-    assert args.n_questions <= EVAL_HOLDOUT, "eval must stay inside the held-out first 450 hard-bank qids"
+    claims_path = CLAIMS
+    if args.split == "dev":
+        dev = [r for r in read_jsonl(CLAIMS) if 800 <= r["qid"] <= 899]
+        claims_path = os.path.join(args.results_root, "dev_claims.jsonl"); write_jsonl(claims_path, dev)
+        args.n_questions = min(args.n_questions, len(dev)); args.results_root = os.path.join(args.results_root, "dev")
+    else:
+        assert args.n_questions <= EVAL_HOLDOUT, "test eval must stay inside the held-out first 450 hard-bank qids"
     arm_dir = os.path.join(args.results_root, args.arm); os.makedirs(arm_dir, exist_ok=True)
     summ = os.path.join(arm_dir, "summary.json")
     if os.path.exists(summ) and not args.force:
@@ -62,10 +69,10 @@ def main():
         import vllm, torch  # noqa: F401
         assert torch.cuda.is_available()
         env = dict(os.environ)  # harness honors VLLM_TP / VLLM_MEM / VLLM_DTYPE
-        subprocess.run([sys.executable, HARNESS, "--model", args.model, "--claims", CLAIMS,
+        subprocess.run([sys.executable, HARNESS, "--model", args.model, "--claims", claims_path,
                         "--n-questions", str(args.n_questions), "--out", arm_dir], check=True, env=env, cwd=ROOT)
     except (ImportError, AssertionError):
-        backend = run_v17_hf(args.model, arm_dir, args.n_questions)
+        backend = run_v17_hf(args.model, arm_dir, args.n_questions, claims_path)
     # analyze_v17 globs <base>/*/cells.jsonl and writes <base>/all.json; run on a private parent dir
     an_root = os.path.join(arm_dir, "_an"); os.makedirs(os.path.join(an_root, args.arm), exist_ok=True)
     link = os.path.join(an_root, args.arm, "cells.jsonl")
@@ -73,7 +80,7 @@ def main():
     os.symlink(os.path.abspath(cells), link)
     subprocess.run([sys.executable, ANALYZE, an_root], check=True, cwd=ROOT, stdout=subprocess.DEVNULL)
     A = json.load(open(os.path.join(an_root, "all.json")))[0]
-    row = {"arm": args.arm, "model": args.model, "n": A["n"], "backend": backend,
+    row = {"arm": args.arm, "model": args.model, "n": A["n"], "backend": backend, "split": args.split,
            "abandon_by_kind": A["abandon_by_kind"], "source_effect": A["source_effect_content_matched"]["delta"],
            "conf_use_self_counter_src": A["conf_use_self_by_kind"]["counter_src"]["delta"],
            "retain_correct": A["bidirectional"]["retain_correct"],
