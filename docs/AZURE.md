@@ -24,6 +24,20 @@ All GPU families are at **0 vCPUs** in every region. Spot ("low priority") cores
 3. If the portal quota page rejects it, use **Help + support → Create a support request → Issue type "Service and subscription limits (quotas)" → Compute-VM (cores-vCPUs)**. Quota tickets are free on every plan when opened in the portal.
 Justification text to paste: "LLM post-training research (DPO/GRPO fine-tuning of 7–8B open models with vLLM evaluation), short bursts totalling ~100 GPU-hours over two weeks, funded by Azure startup sponsorship credit."
 
+## Queueing jobs on Azure (no scheduler exists; this script is the queue)
+Azure has no SLURM-style queue: a VM request either starts or fails immediately (quota or capacity). `azure/queue_ladder.sh`
+retries `launch_vm.sh` every 10 min until a VM starts, waits for cloud-init, syncs the repo, runs the whole ladder in tmux,
+pulls results back every 10 min, and tears the VM down when done. Billing starts only when a VM actually boots.
+```
+echo "$HF_TOKEN" > .hftok
+bash azure/queue_ladder.sh --backbones "olmo tulu"            # dry run, prints what it would do
+bash azure/queue_ladder.sh --backbones "olmo tulu" --yes      # arm it; leave the terminal (or a tmux) open
+bash azure/queue_ladder.sh --backbones "olmo32" --size Standard_NC96ads_A100_v4 --yes   # 32B rung, 4 GPUs
+```
+Add `--spot` for the $0.68/h spot A100 (fine for the DPO arms and evals; GRPO arms can be evicted mid-run, and the ladder
+resumes from the last finished arm on the next VM). Capacity note: single-GPU NC24ads_A100_v4 VMs in eastus2/westus3 are
+normally available within minutes once quota exists; it is the H100/ND multi-node SKUs that are chronically full.
+
 ## What it costs (eastus2 list price, Linux)
 | SKU | GPUs | On-demand | Spot |
 |---|---|---|---|
