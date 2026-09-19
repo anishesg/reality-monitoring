@@ -10,3 +10,4 @@ runcmd:
   - sudo -u azureuser bash -c 'export PATH=$HOME/.local/bin:$PATH && uv venv /mnt/work/venv --python 3.11 && . /mnt/work/venv/bin/activate && uv pip install --index-strategy unsafe-best-match torch==2.6.0 && uv pip install vllm==0.8.5.post1 trl==0.17.0 peft==0.15.2 transformers==4.51.3 datasets==3.5.0 accelerate==1.6.0 lm-eval==0.4.8 pyyaml hf_transfer'
   - echo 'export HF_HOME=/mnt/work/hf HF_HUB_ENABLE_HF_TRANSFER=1 USE_TF=0; source /mnt/work/venv/bin/activate' >> /home/azureuser/.bashrc
   - touch /mnt/work/READY
+  - touch /mnt/work/.cloud-init-done
