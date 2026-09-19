@@ -1,5 +1,5 @@
 # Prompt for the co-author's Claude Code session (Princeton della)
-Verified on GitHub at commit 04690ce. Paste everything below the line into Claude Code on the della login node.
+Verified on GitHub at commit 231efc4 or later. Paste everything below the line into Claude Code on the della login node.
 
 ---
 
@@ -18,9 +18,10 @@ module load anaconda3 2>/dev/null || true
 python -m venv .venv && source .venv/bin/activate && pip install -r train/requirements.txt
 If pip fails on CUDA/torch, install torch 2.6 matching `nvidia-smi`'s CUDA first, then rerun the requirements install. vLLM 0.8.5 needs CUDA 12.x.
 
-3. Start the results dashboard now, so it is up before the first arm finishes.
-mkdir -p logs && nohup python3 train/results_server.py --port 8765 > logs/dashboard.log 2>&1 &
-It is stdlib-only, binds to localhost only, and auto-refreshes every 60 s with every finished arm's numbers, capability scores, recent job logs, and figures. Confirm with `curl -s localhost:8765 | head -3`. Tell me the login node's hostname (`hostname`) and your NetID, so I can open it from my laptop with: ssh -N -L 8765:localhost:8765 <netid>@della.princeton.edu  and then http://localhost:8765. If the login node rotates between hosts, tell me which one the server runs on so I can target it (ssh -J or the specific della-login hostname).
+3. Start the results dashboard and open it through an SSH tunnel (you do this; it is how we both watch results).
+On the della login node, inside the repo: mkdir -p logs && nohup python3 train/results_server.py --port 8765 > logs/dashboard.log 2>&1 &
+It is stdlib-only, binds to localhost only, and auto-refreshes every 60 s with every finished arm's numbers, capability scores, recent job logs, and figures. Confirm it is serving with `curl -s localhost:8765 | head -3` and note the login node's hostname (`hostname`), because della has several login nodes and the tunnel must target the one running the server.
+Then, from your own laptop in a separate terminal: ssh -N -L 8765:localhost:8765 <your-netid>@<that-hostname>.princeton.edu  (or @della.princeton.edu if it lands on the same node), and open http://localhost:8765 in a browser. Confirm you see the page titled "STAND ladder" saying "No summary.json yet". Keep that tunnel terminal open for the duration of the runs. If the login node kills the server (some clusters reap long-running processes), restart it with the same nohup command inside a `tmux` session. Send me a screenshot of the dashboard once it is up, and again each time a new arm appears on it.
 
 4. Find the GPU partition.
 sinfo -o "%P %G %l %D" and scontrol show partition. Note the partition name, the gres string (e.g. gpu:1), and any constraint that selects 80 GB A100s. Tell me what you found.
@@ -42,4 +43,4 @@ Do not start 32B GRPO (slurm/train_grpo_32b.sbatch) unless I confirm the 7B A3 r
 8. Monitor and report.
 squeue -u $USER, tail -f logs/rm-*.out, and the dashboard. Each finished arm writes results_ladder/<tag>/<arm>/summary.json containing retain_correct, accept_valid_correction, pressure_abandon, counter_bare_abandon, excluded_frac; those five numbers per arm are the deliverable. The first milestone is results_ladder/olmo/A2/summary.json: as soon as it exists, send me its five numbers next to results_ladder/olmo/A0/summary.json, then run `git add results_ladder && git commit -m "olmo A2 results" && git push`, and keep going without waiting for me. Both drivers skip arms whose summary.json already exists, so rerunning after a failure is safe. eval_arm.py refuses adapter-only checkpoints and wants <arm>/merged. A5 depends on A1's merged weights. If an arm fails twice for the same reason, skip it, continue the others, and quote the log verbatim. Never delete results/ or results_ladder/.
 
-Final report format: commit hash; dashboard hostname and port; partition/gres/constraint used; smoke test outcome and any fixes; job IDs; per-arm status; the five numbers for every finished arm; anything you changed in the repo.
+Final report format: commit hash; dashboard hostname, port, and a screenshot; partition/gres/constraint used; smoke test outcome and any fixes; job IDs; per-arm status; the five numbers for every finished arm; anything you changed in the repo.
