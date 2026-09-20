@@ -12,3 +12,9 @@ logs/
 .hf/
 azure/.last_ip
 wandb/
+paper/_render/
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out

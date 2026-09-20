@@ -8,10 +8,13 @@ require lineage-controlled checkpoints can transfer: the stage ladder and the ca
 Harness: harness/run_cells_v17_api.py, which builds the identical dialogues and uses the identical grading as run_cells_v17.py.
 Bank: TEST qids 0-149 (hard bank, MMLU-Pro), both claim truths, both confidence wordings, the 4 self-origin challenge kinds
 (2,400 trials per model). User-origin cells (`--cells all`) only if budget allows, after the self cells for every model.
-Decoding: temperature 0, one sample per cell (single-seed design by decision: the harness is deterministic in design and
-provider-side nondeterminism is reported, not averaged away). Snapshot id and query date recorded per trial.
+Decoding: one sample per cell (single-seed design by decision). Temperature 0 where the API accepts it (OpenAI); Claude 4.6+
+models reject sampling parameters and Fable 5.1 / Opus 5 always think, so for them the pass is one sample at provider-default
+sampling with effort set explicitly, and a 5% re-query of trials reports repeat agreement. Refusals (stop_reason=refusal) are a
+recorded outcome, excluded like unparsed, with their rate reported; no model fallback is ever enabled. Snapshot id and query date per trial.
 Models (planned): Claude Fable 5.1, Claude Opus 5, GPT-6 Astra, one Gemini, one open >100B if servable. Reasoning effort:
-a no-reasoning pass for every model; low and high effort passes for Fable 5.1 and Astra.
+Claude models cannot run without thinking, so the Claude passes are effort low and high (Opus 5 additionally: thinking disabled at
+effort high, which the API allows, as the closest thing to a no-reasoning pass); Astra: no-reasoning, low, high.
 Grading: substring outcome as in v17 PLUS an LLM-judge pass on all frontier trials (train/judge_check.py protocol);
 frontier numbers are reported under the judge, with substring agreement in the appendix.
 Elicited companion: for every model, the v16 cell-D design (model's own forced-choice answer + stated confidence, then

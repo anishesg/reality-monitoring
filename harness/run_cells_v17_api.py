@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """v17 decomposition over API models (frontier replication). Same trials, same challenge texts, same grading as
 run_cells_v17.py; only the generation backend differs (chat API instead of vLLM). Runs on a laptop; costs API credits,
-no GPU. Single deterministic pass: temperature 0, one sample per cell, pinned model snapshot recorded per trial.
+no GPU. Single pass, one sample per cell, pinned model snapshot recorded per trial. Temperature 0 where the API accepts it (OpenAI);
+Claude 4.6+ models reject sampling parameters, so determinism there is "one sample, provider default sampling", recorded as such.
 
   python3 harness/run_cells_v17_api.py --provider anthropic --model claude-fable-5-1 --out results_api/fable51 --dry-run
   python3 harness/run_cells_v17_api.py --provider openai --model gpt-6-astra --effort low --out results_api/astra_low
@@ -65,13 +66,18 @@ class Backend:
     def complete(self, msgs):
         a = self.a
         if a.provider == "anthropic":
-            kw = dict(model=a.model, max_tokens=a.max_tokens, temperature=0.0, system=msgs[0]["content"],
-                      messages=msgs[1:])
+            # Claude 4.6+ API: no temperature/top_p/top_k (400), no assistant prefill, no budget_tokens. On Fable 5 / 5.1 and
+            # Opus 5 thinking is always on and its depth is set with output_config.effort; thinking tokens count toward
+            # max_tokens, so the cap is raised well above the 288 visible-answer budget (the prompt still asks for two
+            # sentences + FINAL). No server-side fallbacks on purpose: a refusal must be recorded as the outcome of THIS
+            # model, never silently answered by another one.
+            kw = dict(model=a.model, max_tokens=max(a.max_tokens, 8192), system=msgs[0]["content"], messages=msgs[1:])
             if a.effort:
-                kw["thinking"] = {"type": "enabled", "budget_tokens": {"low": 1024, "medium": 4096, "high": 16384}[a.effort]}
-                kw["max_tokens"] = kw["thinking"]["budget_tokens"] + a.max_tokens
-                kw.pop("temperature")  # thinking requires default temperature
+                kw["output_config"] = {"effort": a.effort}
             r = self.client.messages.create(**kw)
+            if r.stop_reason == "refusal":
+                cat = getattr(getattr(r, "stop_details", None), "category", None)
+                return f"[REFUSAL:{cat}]", r.model, r.usage.input_tokens, r.usage.output_tokens
             text = "".join(b.text for b in r.content if getattr(b, "type", "") == "text")
             return text, r.model, r.usage.input_tokens, r.usage.output_tokens
         kw = dict(model=a.model, messages=msgs, temperature=0.0, seed=a.seed)
@@ -90,8 +96,9 @@ def main():
     ap.add_argument("--model", required=True)
     ap.add_argument("--api-base", default=None, help="OpenAI-compatible base URL (Gemini, Grok, vLLM server, ...)")
     ap.add_argument("--api-key-env", default=None)
-    ap.add_argument("--effort", choices=(None, "low", "medium", "high"), default=None,
-                    help="reasoning effort; omit for a non-reasoning pass. Run low and high as separate --out dirs.")
+    ap.add_argument("--effort", choices=(None, "low", "medium", "high", "xhigh", "max"), default=None,
+                    help="reasoning effort. Anthropic: output_config.effort (Fable/Opus 5 always think; omit = provider default 'high'). "
+                         "OpenAI: reasoning_effort. Run each level as a separate --out dir.")
     ap.add_argument("--claims", default=os.path.join(HERE, "claims_hard.jsonl"))
     ap.add_argument("--qid-start", type=int, default=0)
     ap.add_argument("--n-questions", type=int, default=150, help="TEST subset: qids [qid-start, qid-start+n)")
@@ -137,8 +144,8 @@ def main():
                     text, snap, n_in, n_out = "", "ERROR: " + repr(e)[:200], 0, 0
                 else:
                     time.sleep(2 ** attempt)
-        rec = dict(t, i=i, outcome=v17.outcome(v17.parse_final(text), t["claim"], t["alt"], text), resp=text,
-                   model=a.model, model_snapshot=snap, effort=a.effort, temperature=0.0, queried=stamp,
+        rec = dict(t, i=i, outcome=("refusal" if text.startswith("[REFUSAL:") else v17.outcome(v17.parse_final(text), t["claim"], t["alt"], text)), resp=text,
+                   model=a.model, model_snapshot=snap, effort=a.effort, temperature=(None if a.provider == "anthropic" else 0.0), queried=stamp,
                    tokens_in=n_in, tokens_out=n_out)
         with lock:
             f.write(json.dumps(rec) + "\n"); f.flush()
