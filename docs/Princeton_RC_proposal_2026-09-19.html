@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Research Computing Proposal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+@page{size:Letter;margin:0.85in 0.9in}
+body{font:11pt/1.45 "Source Serif 4",Georgia,serif;color:#111;max-width:7in;margin:0 auto}
+h1{font-size:19pt;font-weight:700;line-height:1.2;margin:0 0 4px}
+.sub{font:10.5pt "Source Sans 3",system-ui,sans-serif;color:#444;margin-bottom:18px}
+h2{font:600 10.5pt "Source Sans 3",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#1f3a5f;border-bottom:1px solid #c9d2df;padding-bottom:3px;margin:18px 0 8px}
+p{margin:0 0 8px}
+table{border-collapse:collapse;width:100%;font-size:10pt;margin:6px 0 10px}
+th,td{text-align:left;vertical-align:top;padding:4px 8px;border-bottom:1px solid #dde3ea}
+th{font:600 9.5pt "Source Sans 3",system-ui,sans-serif;color:#333}
+td.n{font-variant-numeric:tabular-nums}
+.fill{background:#fff3c4;padding:0 3px}
+ul{margin:0 0 8px 18px;padding:0}li{margin-bottom:3px}
+.refs p{font-size:9.5pt;margin:0 0 4px;padding-left:1.4em;text-indent:-1.4em}
+.small{font-size:9.5pt;color:#444}
+</style></head><body>
+
+<h1>Post-Training Interventions for Answer Stability in Language Models, and an Automated Research-Loop Harness</h1>
+<div class="sub">Proposal for access to Princeton Research Computing systems · September 2026</div>
+
+<h2>1. Systems requested</h2>
+<p><strong>Della</strong> (GPU partition, A100 80 GB nodes; H100 nodes if available for the largest runs) for model training and evaluation. <strong>Della scratch</strong> (<code>/scratch/gpfs</code>) for checkpoints and model caches. No other systems are required; the login node will run a lightweight results dashboard (a single Python process bound to localhost, viewed through an SSH tunnel).</p>
+
+<h2>2. Researchers requiring accounts</h2>
+<table>
+<tr><th>Name</th><th>Role</th><th>Department / affiliation</th><th>NetID</th></tr>
+<tr><td>Vikram Kakaria</td><td>Co-lead researcher (training pipeline, scale experiments, analysis)</td><td><span class="fill">[department]</span></td><td><span class="fill">[netid]</span></td></tr>
+<tr><td>Anish Kataria</td><td>Co-lead researcher (measurement harness, statistics; existing della/ionic user)</td><td><span class="fill">[department]</span></td><td><span class="fill">[netid]</span></td></tr>
+</table>
+
+<h2>3. Faculty sponsor</h2>
+<p><span class="fill">[Faculty name, title, department, email]</span> — sponsoring the project as <span class="fill">[independent work / senior thesis / research group affiliation]</span>.</p>
+
+<h2>4. Scientific background and merit</h2>
+<p><strong>Problem.</strong> Large language models frequently abandon a correct answer when a user pushes back, a behavior usually grouped under <em>sycophancy</em>. It is a live deployment problem: a model that folds to "are you sure?" cannot be trusted as an assistant or as a component of an autonomous system. In a completed measurement study across 17 open-weight checkpoints (0.5B–14B parameters; Qwen, Llama, Mistral, Phi, OLMo-2, Tulu-3, Zephyr) and roughly 400,000 controlled trials, we found that revision is governed by the surface form of a challenge rather than its evidential content: merely naming an alternative answer flips a correct response as often as citing a source for it (0.92 vs 0.92 for Llama-3.1-8B), a model's own stated confidence has almost no effect on whether it revises even as that confidence becomes more predictive of correctness with scale, and, along open post-training lineages that release intermediate checkpoints, the preference-optimization (DPO) stage sharply raises capitulation to contentless pressure (OLMo-2-7B: 19%→73%) which the subsequent reinforcement-learning stage does not reverse. This work has been submitted to ICLR 2027 (abstract accepted for full-paper submission).</p>
+<p><strong>Proposed work (Project A, reality monitoring).</strong> The measurement study is correlational across released checkpoints. We propose to make it causal and to test a remedy. Starting from the same SFT-only backbones (OLMo-2-7B-SFT, Tulu-3-8B-SFT, then OLMo-2-13B and 32B), we train six pre-registered arms: (A1) generic DPO on the public Tulu-3 preference mixture, to test whether ordinary preference tuning installs the defect; (A2) DPO on challenge dialogues whose preferred response retains a correct answer and accepts a valid correction; (A3) GRPO with a <em>verifiable</em> reward (post-challenge correctness), a method we call STAND; (A4) A3 with a calibrated-confidence reward; (A5) A1 followed by A3, mirroring the production pipeline order; plus (A0) the untouched baseline. Every arm is evaluated with the frozen harness on held-out questions and on standard capability suites (MMLU, GSM8K, IFEval) so that any gain in answer stability is shown not to cost general ability. Predictions and reward definitions are frozen in a pre-registration committed before any arm is trained.</p>
+<p><strong>Proposed work (Project B, autoresearch-loop).</strong> A benchmarkable harness in which an automated "researcher" proposes edits to a training recipe, runs the experiment, and keeps or reverts the change against a fixed metric. Della will run the GPU tasks the harness dispatches (small-scale post-training and evaluation jobs), allowing us to benchmark human, scripted, and LLM-driven research strategies on the same compute budget.</p>
+<p><strong>Merit.</strong> The causal replication converts a widely cited but correlational claim (that preference optimization induces sycophancy) into a controlled result on open recipes; the STAND intervention tests whether the defect is a property of the training signal rather than of model capacity; the 7B→32B scale rung tests whether both persist with scale. All code, prompts, pre-registrations, and trained checkpoints will be released. The autoresearch-loop harness provides a reusable testbed for evaluating automated research agents, a question of growing interest to the ML community.</p>
+
+<h2>5. Programming approach</h2>
+<table>
+<tr><th style="width:26%">Item</th><th>Detail</th></tr>
+<tr><td>Languages</td><td>Python 3.11 (all training, evaluation, analysis); Bash for SLURM job templates.</td></tr>
+<tr><td>Parallelization</td><td>Single-node GPU parallelism only: PyTorch model sharding across GPUs within a node for 13B/32B models, and vLLM tensor parallelism (2–4 GPUs) for inference. Independent training arms and evaluation jobs are embarrassingly parallel and submitted as chained SLURM jobs (<code>--dependency=afterok</code>). No MPI or multi-node training is required.</td></tr>
+<tr><td>Software libraries</td><td>PyTorch 2.6 (CUDA 12.x), Hugging Face transformers 4.51, TRL 0.17 (DPO and GRPO trainers), PEFT 0.15 (LoRA), vLLM 0.8.5 (batched inference and rollouts), datasets, accelerate, lm-evaluation-harness 0.4.8, statsmodels and NumPy for analysis. All installed into a user virtual environment; models and datasets fetched from the Hugging Face Hub into scratch.</td></tr>
+<tr><td>Job structure</td><td>Per arm: one training job (1 GPU for 7–8B, 4 GPUs for 32B) followed by one evaluation job (1–2 GPUs). Scripts are idempotent and resume from completed stages.</td></tr>
+</table>
+
+<h2>6. Resource requirements</h2>
+<table>
+<tr><th style="width:15%">Resource</th><th style="width:47%">Per job</th><th>Project total (3 months)</th></tr>
+<tr><td>CPU cores</td><td class="n">8 (7–8B jobs), 16 (32B jobs)</td><td class="n">—</td></tr>
+<tr><td>CPU memory</td><td class="n">80 GB (7–13B), 300 GB (32B merge step)</td><td class="n">—</td></tr>
+<tr><td>GPUs</td><td class="n">1× A100 80 GB (7–13B); 4× A100 80 GB (32B)</td><td class="n">≈ 650 GPU-hours (A100-equivalent)</td></tr>
+<tr><td>Run time</td><td class="n">DPO 1.5–7 h; GRPO 6–35 h; evaluation 0.5–3 h</td><td class="n">Project A ≈ 450 GPU-h; Project B ≈ 200 GPU-h</td></tr>
+<tr><td>Disk (scratch)</td><td class="n">≈ 60 GB per 7–8B backbone (cache + merged checkpoints); ≈ 250 GB for 32B</td><td class="n">2 TB scratch; results and code &lt; 5 GB in home</td></tr>
+</table>
+<p class="small">Breakdown of Project A GPU-hours: two 7–8B backbones × six arms with evaluation ≈ 65 h; hyperparameter sensitivity sweep on a development split ≈ 8 h; stage measurement of published 13B/32B checkpoints ≈ 12 h; 13B ladder ≈ 25 h; 32B DPO arms ≈ 50 h; 32B GRPO (conditional on 7B results) ≈ 120 h; capability suites and LLM-judge validation ≈ 20 h; contingency for reruns ≈ 150 h. Peak usage is concentrated in the first two weeks (paper deadline), then tapers.</p>
+
+<h2>7. References</h2>
+<div class="refs">
+<p>Sharma, M., et al. (2023). Towards Understanding Sycophancy in Language Models. arXiv:2310.13548.</p>
+<p>Laban, P., et al. (2023). Are You Sure? Challenging LLMs Leads to Performance Drops in the FlipFlop Experiment. arXiv:2311.08596.</p>
+<p>Stengel-Eskin, E., Hase, P., &amp; Bansal, M. (2025). Teaching Models to Balance Resisting and Accepting Persuasion. NAACL 2025.</p>
+<p>Rafailov, R., et al. (2023). Direct Preference Optimization: Your Language Model is Secretly a Reward Model. NeurIPS 2023.</p>
+<p>Shao, Z., et al. (2024). DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models (GRPO). arXiv:2402.03300.</p>
+<p>OLMo Team (2024). 2 OLMo 2 Furious. arXiv:2501.00656. Lambert, N., et al. (2024). Tülu 3: Pushing Frontiers in Open Language Model Post-Training. arXiv:2411.15124.</p>
+<p>Hu, E., et al. (2022). LoRA: Low-Rank Adaptation of Large Language Models. ICLR 2022. Kwon, W., et al. (2023). Efficient Memory Management for Large Language Model Serving with PagedAttention (vLLM). SOSP 2023.</p>
+</div>
+</body></html>

@@ -3,6 +3,9 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=300G
 #SBATCH --time=36:00:00
+#SBATCH --requeue
+#SBATCH --open-mode=append
+#SBATCH --signal=B:USR1@180
 #SBATCH --output=logs/%x_%j.out
 # 32B GRPO on 4 GPUs: GPUs 0-1 serve rollouts via `trl vllm-serve` (tensor parallel 2); GPUs 2-3 hold the sharded policy.
 # env: BACKBONE, DATA, OUT, EXTRA (e.g. "--conf --device-map auto --bsz 1 --grad-accum 16")

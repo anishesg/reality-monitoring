@@ -40,7 +40,17 @@ def main():
     ap.add_argument("--lora-r", type=int, default=64); ap.add_argument("--merge", action="store_true")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device-map", default=None, help="'auto' = shard the policy across all visible GPUs (13B/32B)")
+    ap.add_argument("--save-steps", type=int, default=50, help="checkpoint every N optimizer steps (resume after preemption)")
+    ap.add_argument("--no-resume", action="store_true", help="ignore an existing checkpoint under <out>/trainer")
     args = ap.parse_args()
+    from common import progress_callback, last_checkpoint
+    adapter = os.path.join(args.out, "adapter"); merged = os.path.join(args.out, "merged")
+    if os.path.exists(os.path.join(adapter, "adapter_config.json")):
+        print(f"[dpo] {adapter} exists; training already finished (idempotent skip)")
+        if args.merge and not os.path.exists(os.path.join(merged, "config.json")):
+            from transformers import AutoTokenizer
+            merge_and_save(args.model, adapter, merged, AutoTokenizer.from_pretrained(args.model))
+        return
     import torch
     from datasets import Dataset
     from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -56,19 +66,20 @@ def main():
                     per_device_train_batch_size=args.bsz, gradient_accumulation_steps=args.grad_accum,
                     learning_rate=args.lr, lr_scheduler_type="cosine", warmup_ratio=0.05, beta=args.beta,
                     max_length=args.max_length, bf16=cuda, gradient_checkpointing=cuda,
-                    logging_steps=5, save_strategy="no", report_to="none", seed=args.seed,
+                    logging_steps=5, save_strategy="steps", save_steps=args.save_steps, save_total_limit=2, report_to="none", seed=args.seed,
                     use_cpu=not cuda, remove_unused_columns=False)
     trainer = DPOTrainer(model=model, ref_model=None, args=cfg, train_dataset=ds, processing_class=tok,
-                         peft_config=lora_config(args.lora_r))
-    trainer.train()
-    adapter = os.path.join(args.out, "adapter")
+                         peft_config=lora_config(args.lora_r), callbacks=[progress_callback(args.out)])
+    ck = None if args.no_resume else last_checkpoint(cfg.output_dir)
+    if ck: print(f"[dpo] resuming from {ck}", flush=True)
+    trainer.train(resume_from_checkpoint=ck)
     trainer.model.save_pretrained(adapter); tok.save_pretrained(adapter)
     json.dump({"args": vars(args), "log": trainer.state.log_history[-3:]}, open(os.path.join(args.out, "train_meta.json"), "w"), indent=1)
     print(f"[dpo] adapter -> {adapter}")
     if args.merge:
         del trainer, model
         if cuda: torch.cuda.empty_cache()
-        merge_and_save(args.model, adapter, os.path.join(args.out, "merged"), tok)
+        merge_and_save(args.model, adapter, merged, tok)
 
 if __name__ == "__main__":
     main()

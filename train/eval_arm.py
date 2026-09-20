@@ -20,26 +20,80 @@ def is_adapter_only(path):
     has_weights = any(f.endswith((".safetensors", ".bin")) and not f.startswith("adapter") for f in os.listdir(path))
     return has_adapter and not has_weights
 
-def run_v17_hf(model, out_dir, n_q, claims_path=None):
-    """Mirror of run_cells_v17.main() using the transformers backend (Mac / no-vLLM smoke path)."""
-    recs = read_jsonl(claims_path or CLAIMS)[:n_q]
+def build_trials(recs, paraphrase=False):
+    """Same order and content as harness/run_cells_v17.py (self: 4 kinds; user_recency: 2 kinds). With paraphrase=True the
+    self-origin challenges use the held-out PARAPHRASE wordings (never in training data); user cells are skipped."""
+    from common import paraphrase_text
     trials, msgs = [], []
     for r in recs:
         for truth in (True, False):
             claim = r["true_answer"] if truth else r["distractor"]; alt = r["distractor"] if truth else r["true_answer"]
             for conf in ("low", "high"):
-                for k in KINDS:
-                    msgs.append(self_dialogue(r["question"], claim, conf, k, alt))
+                for j, k in enumerate(KINDS):
+                    m = self_dialogue(r["question"], claim, conf, k, alt)
+                    if paraphrase: m[-1]["content"] = paraphrase_text(k, alt, r["qid"] + j)
+                    msgs.append(m)
                     trials.append({"qid": r["qid"], "origin": "self", "truth": truth, "conf": conf, "kind": k, "claim": claim, "alt": alt})
-                for k in USER_KINDS:
-                    msgs.append(user_recency_dialogue(r["question"], claim, conf, k, alt))
-                    trials.append({"qid": r["qid"], "origin": "user_recency", "truth": truth, "conf": conf, "kind": k, "claim": claim, "alt": alt})
-    gen = Generator(model)
-    texts = gen.chat(msgs, max_tokens=288)
-    for t, txt in zip(trials, texts):
-        t["outcome"] = outcome(parse_final(txt), t["claim"], t["alt"], txt); t["resp"] = txt[-300:]
-    write_jsonl(os.path.join(out_dir, "cells.jsonl"), trials)
-    return gen.backend
+                if not paraphrase:
+                    for k in USER_KINDS:
+                        msgs.append(user_recency_dialogue(r["question"], claim, conf, k, alt))
+                        trials.append({"qid": r["qid"], "origin": "user_recency", "truth": truth, "conf": conf, "kind": k, "claim": claim, "alt": alt})
+    return trials, msgs
+
+def run_v17_resumable(model, out_dir, n_q, claims_path=None, chunk=1200, paraphrase=False, gen=None):
+    """Generate in chunks and APPEND to <out_dir>/cells.jsonl with a trial index, so a preempted job resumes where it stopped.
+    Returns (backend, generator) so the generator can be reused for the paraphrase pass."""
+    recs = read_jsonl(claims_path or CLAIMS)[:n_q]
+    trials, msgs = build_trials(recs, paraphrase)
+    os.makedirs(out_dir, exist_ok=True)
+    cells = os.path.join(out_dir, "cells.jsonl")
+    done = set()
+    if os.path.exists(cells):
+        rows = [json.loads(l) for l in open(cells) if l.strip()]
+        done = {r["i"] for r in rows if "i" in r}
+        if rows and "i" not in rows[0]:  # legacy complete file from the harness subprocess path
+            return "existing", gen
+        print(f"[eval_arm] resuming {out_dir}: {len(done)}/{len(trials)} trials done", flush=True)
+    todo = [i for i in range(len(trials)) if i not in done]
+    if todo:
+        gen = gen or Generator(model, tp=int(os.environ.get("VLLM_TP", "1")))
+        with open(cells, "a") as f:
+            for s0 in range(0, len(todo), chunk):
+                idx = todo[s0:s0 + chunk]
+                texts = gen.chat([msgs[i] for i in idx], max_tokens=288)
+                for i, txt in zip(idx, texts):
+                    t = dict(trials[i]); t["i"] = i
+                    t["outcome"] = outcome(parse_final(txt), t["claim"], t["alt"], txt); t["resp"] = txt[-300:]
+                    f.write(json.dumps(t) + "\n")
+                f.flush(); os.fsync(f.fileno())
+                print(f"[eval_arm] {min(s0 + chunk, len(todo))}/{len(todo)} generated", flush=True)
+    return (gen.backend if gen else "existing"), gen
+
+def summarize(arm, model, arm_dir, cells, backend, split, extra=None):
+    an_root = os.path.join(arm_dir, "_an"); os.makedirs(os.path.join(an_root, arm), exist_ok=True)
+    link = os.path.join(an_root, arm, "cells.jsonl")
+    if os.path.lexists(link): os.remove(link)
+    os.symlink(os.path.abspath(cells), link)
+    subprocess.run([sys.executable, ANALYZE, an_root], check=True, cwd=ROOT, stdout=subprocess.DEVNULL)
+    A = json.load(open(os.path.join(an_root, "all.json")))[0]
+    row = {"arm": arm, "model": model, "n": A["n"], "backend": backend, "split": split,
+           "abandon_by_kind": A["abandon_by_kind"], "source_effect": A["source_effect_content_matched"]["delta"],
+           "conf_use_self_counter_src": A["conf_use_self_by_kind"]["counter_src"]["delta"],
+           "retain_correct": A["bidirectional"]["retain_correct"],
+           "accept_valid_correction": A["bidirectional"]["accept_valid_correction"],
+           "reject_invalid_pressure": A["bidirectional"]["reject_invalid_pressure"],
+           "pressure_abandon": A["abandon_by_kind"]["pressure"], "counter_bare_abandon": A["abandon_by_kind"]["counter_bare"]}
+    T = read_jsonl(cells)
+    row["excluded_frac"] = round(sum(t["outcome"] in ("unparsed", "ambiguous") for t in T) / max(len(T), 1), 3)
+    # exclusion-robust variants: an unparsed/ambiguous reply counts as NOT retained and NOT a valid switch (guards against a
+    # trained arm looking better only because it formats FINAL: more reliably)
+    tr = lambda t: t["truth"] in (True, "True", 1)
+    K = [t for t in T if t["origin"] == "self" and t["kind"] == "counter_src"]
+    row["retain_correct_all_trials"] = round(sum(t["outcome"] == "retain" for t in K if tr(t)) / max(sum(1 for t in K if tr(t)), 1), 3)
+    row["accept_valid_all_trials"] = round(sum(t["outcome"] == "switch_alt" for t in K if not tr(t)) / max(sum(1 for t in K if not tr(t)), 1), 3)
+    row["switch_other_frac"] = round(sum(t["outcome"] == "switch_other" for t in T) / max(len(T), 1), 3)
+    if extra: row.update(extra)
+    return row
 
 def main():
     ap = argparse.ArgumentParser()
@@ -49,6 +103,10 @@ def main():
     ap.add_argument("--capability", action="store_true"); ap.add_argument("--quick", action="store_true")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--split", choices=("test", "dev"), default="test", help="test = held-out qids 0-449 (paper); dev = qids 800-899 (hyperparameter selection only)")
+    ap.add_argument("--chunk", type=int, default=1200, help="trials per generation chunk (each chunk is appended to cells.jsonl; resume granularity)")
+    ap.add_argument("--paraphrase", action="store_true", help="also evaluate the held-out challenge paraphrases -> <arm>/paraphrase/, summary key paraphrase")
+    ap.add_argument("--harness-subprocess", action="store_true", help="legacy one-shot path through harness/run_cells_v17.py (not resumable)")
+    ap.add_argument("--no-refresh", action="store_true", help="do not regenerate results/scale_table.csv + figures/scale after writing the summary")
     args = ap.parse_args()
     if is_adapter_only(args.model):
         sys.exit(f"[eval_arm] {args.model} is an adapter-only directory; run dpo.py/grpo.py with --merge and point at <out>/merged")
@@ -64,30 +122,26 @@ def main():
     if os.path.exists(summ) and not args.force:
         print(f"[eval_arm] {summ} exists; skip (use --force)"); return
     cells = os.path.join(arm_dir, "cells.jsonl")
-    backend = "vllm"
-    try:
-        import vllm, torch  # noqa: F401
-        assert torch.cuda.is_available()
-        env = dict(os.environ)  # harness honors VLLM_TP / VLLM_MEM / VLLM_DTYPE
+    gen = None
+    if args.harness_subprocess:
+        backend = "vllm"
         subprocess.run([sys.executable, HARNESS, "--model", args.model, "--claims", claims_path,
-                        "--n-questions", str(args.n_questions), "--out", arm_dir], check=True, env=env, cwd=ROOT)
-    except (ImportError, AssertionError):
-        backend = run_v17_hf(args.model, arm_dir, args.n_questions, claims_path)
-    # analyze_v17 globs <base>/*/cells.jsonl and writes <base>/all.json; run on a private parent dir
-    an_root = os.path.join(arm_dir, "_an"); os.makedirs(os.path.join(an_root, args.arm), exist_ok=True)
-    link = os.path.join(an_root, args.arm, "cells.jsonl")
-    if os.path.lexists(link): os.remove(link)
-    os.symlink(os.path.abspath(cells), link)
-    subprocess.run([sys.executable, ANALYZE, an_root], check=True, cwd=ROOT, stdout=subprocess.DEVNULL)
-    A = json.load(open(os.path.join(an_root, "all.json")))[0]
-    row = {"arm": args.arm, "model": args.model, "n": A["n"], "backend": backend, "split": args.split,
-           "abandon_by_kind": A["abandon_by_kind"], "source_effect": A["source_effect_content_matched"]["delta"],
-           "conf_use_self_counter_src": A["conf_use_self_by_kind"]["counter_src"]["delta"],
-           "retain_correct": A["bidirectional"]["retain_correct"],
-           "accept_valid_correction": A["bidirectional"]["accept_valid_correction"],
-           "reject_invalid_pressure": A["bidirectional"]["reject_invalid_pressure"],
-           "pressure_abandon": A["abandon_by_kind"]["pressure"], "counter_bare_abandon": A["abandon_by_kind"]["counter_bare"]}
-    T = read_jsonl(cells); row["excluded_frac"] = round(sum(t["outcome"] in ("unparsed", "ambiguous") for t in T) / max(len(T), 1), 3)
+                        "--n-questions", str(args.n_questions), "--out", arm_dir], check=True, env=dict(os.environ), cwd=ROOT)
+    else:
+        backend, gen = run_v17_resumable(args.model, arm_dir, args.n_questions, claims_path, chunk=args.chunk)
+    extra = {}
+    if args.paraphrase:
+        pdir = os.path.join(arm_dir, "paraphrase")
+        pb, gen = run_v17_resumable(args.model, pdir, args.n_questions, claims_path, chunk=args.chunk, paraphrase=True, gen=gen)
+        prow = summarize(args.arm, args.model, pdir, os.path.join(pdir, "cells.jsonl"), pb, args.split)
+        extra["paraphrase"] = {k: prow[k] for k in ("retain_correct", "accept_valid_correction", "pressure_abandon", "counter_bare_abandon",
+                                                    "excluded_frac", "retain_correct_all_trials", "accept_valid_all_trials")}
+    if gen is not None:
+        del gen
+        try:
+            import torch; torch.cuda.empty_cache()
+        except Exception: pass
+    row = summarize(args.arm, args.model, arm_dir, cells, backend, args.split, extra)
     if args.capability:
         lim = ["--limit", "200"] if args.quick else []
         cap_dir = os.path.join(arm_dir, "capability")
@@ -107,6 +161,8 @@ def main():
             row["capability"] = {"error": str(e)[:200]}
     json.dump(row, open(summ, "w"), indent=1)
     print(json.dumps(row, indent=1))
+    if not args.no_refresh:  # running record: table + figures are regenerated after every finished arm
+        subprocess.run([sys.executable, os.path.join(ROOT, "analysis", "scale_compare.py")], cwd=ROOT, check=False)
 
 if __name__ == "__main__":
     main()
