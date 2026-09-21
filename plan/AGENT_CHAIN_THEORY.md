@@ -23,7 +23,8 @@ For a linear chain, with pi_k = P(wrong at position k):
     pi_k = pi_inf + (pi_1 - pi_inf) * lambda^(k-1),   lambda = p_ww - p_cw,   pi_inf = p_cw / (p_cw + 1 - p_ww)
 
 pi_inf is the stationary error rate: every chain converges to it regardless of whether the seed was right or wrong.
-lambda is the memory of the chain; the half-life of a seed's influence is ln 2 / (-ln lambda) hops.
+lambda is the memory of the chain; the half-life of a seed's influence is ln 2 / (-ln lambda) hops (requires p_cw > 0; with
+zero drift the wrong state is absorbing and lambda = 1). All of §2-3 is machine-checked: lean/RealityMonitoring/Theory.lean.
 
 Measured (Q8 CPU run, 300 questions):
 

@@ -78,14 +78,23 @@ receives, which is what the architecture enforces), with $p_{ww} = \Pr[\text{wro
 $p_{cw} = \Pr[\text{wrong}_{k+1} \mid \text{right}_k]$,
 $$\pi_k = \pi_\infty + (\pi_1 - \pi_\infty)\lambda^{k-1}, \qquad \lambda = p_{ww} - p_{cw}, \qquad
 \pi_\infty = \frac{p_{cw}}{p_{cw} + 1 - p_{ww}} .$$
-$\pi_\infty$ is the long-run error of the pipeline from any seed; $\ln 2 / (-\ln \lambda)$ is the half-life of a seed's
-influence. For $m$ independent chains combined by majority vote, $\Pr[\text{majority wrong at depth } k] =
+$\pi_\infty$ is the long-run error of the pipeline from any seed, and $\ln 2 / (-\ln \lambda)$ is the half-life of a seed's
+influence, provided the drift rate is strictly positive ($0 < p_{cw} < p_{ww} \le 1$, so $0 \le \lambda < 1$). With zero
+drift and perfect retention the wrong state is absorbing ($\lambda = 1$) and a seed is never forgotten; the measured models
+have $p_{cw} \ge .027$, so the decay applies. For $m$ independent chains combined by majority vote, $\Pr[\text{majority wrong at depth } k] =
 \Pr[\mathrm{Bin}(m, \pi_k) > m/2]$, which increases in $m$ whenever $\pi_k > 1/2$: adding agents does not help once the
 per-agent policy is contaminated. A trained agent at position $j$ with $p'_{ww} = q$ resets the chain to $\pi_j \approx q$.
 Measured on 7–8B models, $p_{ww} \in [.975, .987]$: a wrong forwarded answer is retained with probability near one per hop,
 so $\pi_\infty$ is set almost entirely by the drift rate $p_{cw}$ (.68 for Qwen2.5-7B, .84 for Llama-3.1-8B).
 
-## 3.5 What the model does not claim
+## 3.5 Machine-checked statements
+The switching rule, Proposition 1 and the non-emptiness of its band, the fixed point $\pi_\infty$, the closed form (by
+induction), seed independence, geometric decay under positive drift, the firewall reset, and the monotone effect of a
+firewalled fraction are formalized and checked in Lean 4 with Mathlib (`lean/RealityMonitoring/Theory.lean`; build record in
+`lean/BUILD_LOG.txt`). The check caught one gap in an earlier draft: decay had been stated under $p_{cw} \ge 0$, which
+admits $\lambda = 1$; the hypothesis is now $p_{cw} > 0$.
+
+## 3.6 What the model does not claim
 
 It is a description of the learned policy, not of an internal representation; the steering null (Appendix) is consistent
 with it but not implied by it. It does not say the model *cannot* access $r$, only that the trained policy does not use it;

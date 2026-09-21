@@ -1,0 +1,10 @@
+Lean build of lean/RealityMonitoring/Theory.lean
+date: 2026-09-21T23:26:51Z
+host: Azure Standard_D64s_v7 (rm-cpu1), lake build RmTheory.Theory
+⚠ [8924/8924] Built RmTheory.Theory (6.4s)
+exit 0
+leanprover/lean4:v4.34.0
+"rev": "5ed2965256430c3649e86755f9576b54eca72435"
+Mon Sep 21 23:26:39 UTC 2026
+axioms (proposition_one, closed_form, seed_influence_decays, piInfMixed_anti): propext, Classical.choice, Quot.sound; no sorry
+history: first build failed on seed_influence_decays (hypothesis 0 <= p_cw admits lambda = 1) and two renamed Mathlib lemmas; fixed, rebuilt, exit 0
