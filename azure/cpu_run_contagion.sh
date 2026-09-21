@@ -18,7 +18,8 @@ PY
 }
 serve() {  # serve <tag>: start llama-server on $PORT, wait for health
   local dir; dir=$(fetch "$1" | tail -1); local f="$dir/${FILE[$1]}"; [ -f "$f" ] || f=$(ls "$dir"/*.gguf | head -1)
-  "$SRV" -m "$f" --host 127.0.0.1 --port $PORT -np $SLOTS -c $((2048 * SLOTS)) -t "$(nproc)" -tb "$(nproc)" --temp 0 -fa on --no-warmup > "logs/llama_$1.log" 2>&1 &
+  local PC; PC=$(lscpu | awk -F: '/^Core\(s\) per socket/{c=$2} /^Socket\(s\)/{s=$2} END{print c*s+0}'); [ "$PC" -gt 0 ] || PC=$(nproc)
+  "$SRV" -m "$f" --host 127.0.0.1 --port $PORT -np $SLOTS -c $((2048 * SLOTS)) -t "$PC" -tb "$PC" --numa distribute --temp 0 --no-warmup > "logs/llama_$1.log" 2>&1 &
   echo $! > /tmp/srv.pid
   for i in $(seq 1 120); do curl -s "http://127.0.0.1:$PORT/health" | grep -q '"ok"' && return 0; sleep 5; done
   echo "server for $1 did not come up; see logs/llama_$1.log"; return 1
