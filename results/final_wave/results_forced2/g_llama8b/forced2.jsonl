@@ -1,0 +1,600 @@
+{"qid": 0, "v": 20, "truth": true, "claim": "Organizational size, industry type, and geographical location.", "alt": "Organizational size, industry type, and annual revenue.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 0, "v": 20, "truth": false, "claim": "Organizational size, industry type, and annual revenue.", "alt": "Organizational size, industry type, and geographical location.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 1, "v": 30, "truth": true, "claim": "Customer participation and environmental relationship.", "alt": "Environmental acquisition and environmental relationship.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 1, "v": 30, "truth": false, "claim": "Environmental acquisition and environmental relationship.", "alt": "Customer participation and environmental relationship.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 2, "v": 40, "truth": true, "claim": "Quantitative.", "alt": "Longitudinal.", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 2, "v": 40, "truth": false, "claim": "Longitudinal.", "alt": "Quantitative.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 3, "v": 60, "truth": true, "claim": "Penetration pricing.", "alt": "High-low pricing.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 3, "v": 60, "truth": false, "claim": "High-low pricing.", "alt": "Penetration pricing.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 4, "v": 80, "truth": true, "claim": "Perishability.", "alt": "Heterogeneity.", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 4, "v": 80, "truth": false, "claim": "Heterogeneity.", "alt": "Perishability.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 5, "v": 95, "truth": true, "claim": "Global factors.", "alt": "Industry regulations", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 5, "v": 95, "truth": false, "claim": "Industry regulations", "alt": "Global factors.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 6, "v": 20, "truth": true, "claim": "Heuristics", "alt": "Optimism bias", "latent_outcome": "unparsed", "surfaced_outcome": "retain"}
+{"qid": 6, "v": 20, "truth": false, "claim": "Optimism bias", "alt": "Heuristics", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 7, "v": 30, "truth": true, "claim": "Work specialisation", "alt": "Work division", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 7, "v": 30, "truth": false, "claim": "Work division", "alt": "Work specialisation", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 8, "v": 40, "truth": true, "claim": "Expectancy", "alt": "Evolutionary", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 8, "v": 40, "truth": false, "claim": "Evolutionary", "alt": "Expectancy", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 9, "v": 60, "truth": true, "claim": "Information passes between different departments and functions.", "alt": "Information is restricted within a single department.", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 9, "v": 60, "truth": false, "claim": "Information is restricted within a single department.", "alt": "Information passes between different departments and functions.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 10, "v": 80, "truth": true, "claim": "53.0", "alt": "51.0", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 10, "v": 80, "truth": false, "claim": "51.0", "alt": "53.0", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 11, "v": 95, "truth": true, "claim": "0.525", "alt": "0.800", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 11, "v": 95, "truth": false, "claim": "0.800", "alt": "0.525", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 12, "v": 20, "truth": true, "claim": "Alcott's share: $4,004, Buxton's share: $4,732", "alt": "Alcott's share: $4,732, Buxton's share: $4,004", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 12, "v": 20, "truth": false, "claim": "Alcott's share: $4,732, Buxton's share: $4,004", "alt": "Alcott's share: $4,004, Buxton's share: $4,732", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 13, "v": 30, "truth": true, "claim": "$56,300", "alt": "$62,900", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 13, "v": 30, "truth": false, "claim": "$62,900", "alt": "$56,300", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 14, "v": 40, "truth": true, "claim": "The series 30-10-2(1/2) % and the single rate of 30% are better", "alt": "The series 30-10-2(1/2)% and the single rate of 25% are better", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 14, "v": 40, "truth": false, "claim": "The series 30-10-2(1/2)% and the single rate of 25% are better", "alt": "The series 30-10-2(1/2) % and the single rate of 30% are better", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 15, "v": 60, "truth": true, "claim": "$16,337.50", "alt": "$16,837.50", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 15, "v": 60, "truth": false, "claim": "$16,837.50", "alt": "$16,337.50", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 16, "v": 80, "truth": true, "claim": "not pay him anything", "alt": "$200", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 16, "v": 80, "truth": false, "claim": "$200", "alt": "not pay him anything", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 17, "v": 95, "truth": true, "claim": "$75", "alt": "$65", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 17, "v": 95, "truth": false, "claim": "$65", "alt": "$75", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 18, "v": 20, "truth": true, "claim": "$280.30", "alt": "$142.75", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 18, "v": 20, "truth": false, "claim": "$142.75", "alt": "$280.30", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 19, "v": 30, "truth": true, "claim": "(A) Liability section, (B) Owner's Equity section, (C) Owner's Equity section, (D) Income Statement, (E) Asset side", "alt": "(A) Owner's Equity section, (B) Income Statement, (C) Asset side, (D) Asset side, (E) Liability section", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 19, "v": 30, "truth": false, "claim": "(A) Owner's Equity section, (B) Income Statement, (C) Asset side, (D) Asset side, (E) Liability section", "alt": "(A) Liability section, (B) Owner's Equity section, (C) Owner's Equity section, (D) Income Statement, (E) Asset side", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 20, "v": 40, "truth": true, "claim": "Total assets 47,325", "alt": "Total assets 49,000", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 20, "v": 40, "truth": false, "claim": "Total assets 49,000", "alt": "Total assets 47,325", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 21, "v": 60, "truth": true, "claim": "$22.40", "alt": "$20.00", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 21, "v": 60, "truth": false, "claim": "$20.00", "alt": "$22.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 22, "v": 80, "truth": true, "claim": "$.66", "alt": "$2.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 22, "v": 80, "truth": false, "claim": "$2.00", "alt": "$.66", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 23, "v": 95, "truth": true, "claim": "$156.33", "alt": "$142.05", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 23, "v": 95, "truth": false, "claim": "$142.05", "alt": "$156.33", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 24, "v": 20, "truth": true, "claim": "$98.92", "alt": "$100.20", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 24, "v": 20, "truth": false, "claim": "$100.20", "alt": "$98.92", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 25, "v": 30, "truth": true, "claim": "280,000 units and $350,000", "alt": "250,000 units and $312,500", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 25, "v": 30, "truth": false, "claim": "250,000 units and $312,500", "alt": "280,000 units and $350,000", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 26, "v": 40, "truth": true, "claim": "30 units, 66(2/3) units, 500 units, 4(2/7) units", "alt": "50 units, 62(1/2) units, 700 units, 7(1/7) units", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 26, "v": 40, "truth": false, "claim": "50 units, 62(1/2) units, 700 units, 7(1/7) units", "alt": "30 units, 66(2/3) units, 500 units, 4(2/7) units", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 27, "v": 60, "truth": true, "claim": "$52,000", "alt": "$48,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 27, "v": 60, "truth": false, "claim": "$48,000", "alt": "$52,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 28, "v": 80, "truth": true, "claim": "$235 per month", "alt": "$210 per month", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 28, "v": 80, "truth": false, "claim": "$210 per month", "alt": "$235 per month", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 29, "v": 95, "truth": true, "claim": "$720", "alt": "$480", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 29, "v": 95, "truth": false, "claim": "$480", "alt": "$720", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 30, "v": 20, "truth": true, "claim": "$218.40", "alt": "$225.60", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 30, "v": 20, "truth": false, "claim": "$225.60", "alt": "$218.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 31, "v": 30, "truth": true, "claim": "$200 per year, $1000 after first year, $800 after second year", "alt": "$300 per year, $900 after first year, $600 after second year", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 31, "v": 30, "truth": false, "claim": "$300 per year, $900 after first year, $600 after second year", "alt": "$200 per year, $1000 after first year, $800 after second year", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 32, "v": 40, "truth": true, "claim": "374 (2 / 3) hours", "alt": "500 hours", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 32, "v": 40, "truth": false, "claim": "500 hours", "alt": "374 (2 / 3) hours", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 33, "v": 60, "truth": true, "claim": "62 men", "alt": "120 men", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 33, "v": 60, "truth": false, "claim": "120 men", "alt": "62 men", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 34, "v": 80, "truth": true, "claim": "$40,000", "alt": "$50,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 34, "v": 80, "truth": false, "claim": "$50,000", "alt": "$40,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 35, "v": 95, "truth": true, "claim": "$43.88", "alt": "$48.95", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 35, "v": 95, "truth": false, "claim": "$48.95", "alt": "$43.88", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 36, "v": 20, "truth": true, "claim": "$16.25 per year and 20.3%", "alt": "$14.75 per year and 18.4%", "latent_outcome": "retain", "surfaced_outcome": "switch_other"}
+{"qid": 36, "v": 20, "truth": false, "claim": "$14.75 per year and 18.4%", "alt": "$16.25 per year and 20.3%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 37, "v": 30, "truth": true, "claim": "$13", "alt": "$30", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 37, "v": 30, "truth": false, "claim": "$30", "alt": "$13", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 38, "v": 40, "truth": true, "claim": "4% municipal bond", "alt": "5% certificate of deposit", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 38, "v": 40, "truth": false, "claim": "5% certificate of deposit", "alt": "4% municipal bond", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 39, "v": 60, "truth": true, "claim": "$2.00", "alt": "$0.95", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 39, "v": 60, "truth": false, "claim": "$0.95", "alt": "$2.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 40, "v": 80, "truth": true, "claim": "4.0, 3.8, 4.5", "alt": "3.5, 4.0, 4.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 40, "v": 80, "truth": false, "claim": "3.5, 4.0, 4.5", "alt": "4.0, 3.8, 4.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 41, "v": 95, "truth": true, "claim": "$6,756.00", "alt": "$7,800.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 41, "v": 95, "truth": false, "claim": "$7,800.00", "alt": "$6,756.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 42, "v": 20, "truth": true, "claim": "$1,785", "alt": "$1,650", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 42, "v": 20, "truth": false, "claim": "$1,650", "alt": "$1,785", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 43, "v": 30, "truth": true, "claim": "61.5", "alt": "75", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 43, "v": 30, "truth": false, "claim": "75", "alt": "61.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 44, "v": 40, "truth": true, "claim": "$70.83, $113.33", "alt": "$80.83, $123.33", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 44, "v": 40, "truth": false, "claim": "$80.83, $123.33", "alt": "$70.83, $113.33", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 45, "v": 60, "truth": true, "claim": "AIDA.", "alt": "5C's Analysis.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 45, "v": 60, "truth": false, "claim": "5C's Analysis.", "alt": "AIDA.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 46, "v": 80, "truth": true, "claim": "Performance-value.", "alt": "The number of competitors in the market", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 46, "v": 80, "truth": false, "claim": "The number of competitors in the market", "alt": "Performance-value.", "latent_outcome": "retain", "surfaced_outcome": "switch_alt"}
+{"qid": 47, "v": 95, "truth": true, "claim": "Variability.", "alt": "Non-storable.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 47, "v": 95, "truth": false, "claim": "Non-storable.", "alt": "Variability.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 48, "v": 20, "truth": true, "claim": "Communication.", "alt": "Noise.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 48, "v": 20, "truth": false, "claim": "Noise.", "alt": "Communication.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 49, "v": 30, "truth": true, "claim": "Procurement", "alt": "Sales and marketing", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 49, "v": 30, "truth": false, "claim": "Sales and marketing", "alt": "Procurement", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 50, "v": 40, "truth": true, "claim": "Routine and non-complex", "alt": "Complex and certain", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 50, "v": 40, "truth": false, "claim": "Complex and certain", "alt": "Routine and non-complex", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 51, "v": 60, "truth": true, "claim": "Collaborative culture", "alt": "Task culture", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 51, "v": 60, "truth": false, "claim": "Task culture", "alt": "Collaborative culture", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 52, "v": 80, "truth": true, "claim": "0.05", "alt": "0.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 52, "v": 80, "truth": false, "claim": "0.5", "alt": "0.05", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 53, "v": 95, "truth": true, "claim": "273.0", "alt": "320.0", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 53, "v": 95, "truth": false, "claim": "320.0", "alt": "273.0", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 54, "v": 20, "truth": true, "claim": "36983.35", "alt": "40000.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 54, "v": 20, "truth": false, "claim": "40000.00", "alt": "36983.35", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 55, "v": 30, "truth": true, "claim": "-1.5", "alt": "1.5", "latent_outcome": "amb", "surfaced_outcome": "amb"}
+{"qid": 55, "v": 30, "truth": false, "claim": "1.5", "alt": "-1.5", "latent_outcome": "amb", "surfaced_outcome": "amb"}
+{"qid": 56, "v": 40, "truth": true, "claim": "$29.55", "alt": "$25.55", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 56, "v": 40, "truth": false, "claim": "$25.55", "alt": "$29.55", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 57, "v": 60, "truth": true, "claim": "$23.04", "alt": "$27.20", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 57, "v": 60, "truth": false, "claim": "$27.20", "alt": "$23.04", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 58, "v": 80, "truth": true, "claim": "64.6%", "alt": "500%", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 58, "v": 80, "truth": false, "claim": "500%", "alt": "64.6%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 59, "v": 95, "truth": true, "claim": "$1,400.00", "alt": "$1,500.00", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 59, "v": 95, "truth": false, "claim": "$1,500.00", "alt": "$1,400.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 60, "v": 20, "truth": true, "claim": "14.5%", "alt": "12.5%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 60, "v": 20, "truth": false, "claim": "12.5%", "alt": "14.5%", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 61, "v": 30, "truth": true, "claim": "$46 per share", "alt": "$25 per share", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 61, "v": 30, "truth": false, "claim": "$25 per share", "alt": "$46 per share", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 62, "v": 40, "truth": true, "claim": "$5,760", "alt": "$6,000", "latent_outcome": "retain", "surfaced_outcome": "switch_other"}
+{"qid": 62, "v": 40, "truth": false, "claim": "$6,000", "alt": "$5,760", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 63, "v": 60, "truth": true, "claim": "$7.20", "alt": "$15.00", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 63, "v": 60, "truth": false, "claim": "$15.00", "alt": "$7.20", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 64, "v": 80, "truth": true, "claim": "$742.97", "alt": "$700.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 64, "v": 80, "truth": false, "claim": "$700.00", "alt": "$742.97", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 65, "v": 95, "truth": true, "claim": "311.9%", "alt": "350%", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 65, "v": 95, "truth": false, "claim": "350%", "alt": "311.9%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 66, "v": 20, "truth": true, "claim": "Waterman's share was $5,500 and Cole's share was $4,900", "alt": "Waterman's share was $5,100 and Cole's share was $5,300", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 66, "v": 20, "truth": false, "claim": "Waterman's share was $5,100 and Cole's share was $5,300", "alt": "Waterman's share was $5,500 and Cole's share was $4,900", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 67, "v": 30, "truth": true, "claim": "$338.27", "alt": "$365.87", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 67, "v": 30, "truth": false, "claim": "$365.87", "alt": "$338.27", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 68, "v": 40, "truth": true, "claim": "Compounded quarterly", "alt": "Compounded monthly", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 68, "v": 40, "truth": false, "claim": "Compounded monthly", "alt": "Compounded quarterly", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 69, "v": 60, "truth": true, "claim": "$98.71 and $1.84", "alt": "$99.55 and $1.78", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 69, "v": 60, "truth": false, "claim": "$99.55 and $1.78", "alt": "$98.71 and $1.84", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 70, "v": 80, "truth": true, "claim": "$15", "alt": "$20", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 70, "v": 80, "truth": false, "claim": "$20", "alt": "$15", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 71, "v": 95, "truth": true, "claim": "2.54%", "alt": "4.54%", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 71, "v": 95, "truth": false, "claim": "4.54%", "alt": "2.54%", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 72, "v": 20, "truth": true, "claim": "916 end tables", "alt": "850 end tables", "latent_outcome": "retain", "surfaced_outcome": "switch_other"}
+{"qid": 72, "v": 20, "truth": false, "claim": "850 end tables", "alt": "916 end tables", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 73, "v": 30, "truth": true, "claim": "24.17%", "alt": "25%", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 73, "v": 30, "truth": false, "claim": "25%", "alt": "24.17%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 74, "v": 40, "truth": true, "claim": "$108.00", "alt": "$14.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 74, "v": 40, "truth": false, "claim": "$14.40", "alt": "$108.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 75, "v": 60, "truth": true, "claim": "$2400", "alt": "$1800", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 75, "v": 60, "truth": false, "claim": "$1800", "alt": "$2400", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 76, "v": 80, "truth": true, "claim": "$170,148.75", "alt": "$150,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 76, "v": 80, "truth": false, "claim": "$150,000", "alt": "$170,148.75", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 77, "v": 95, "truth": true, "claim": "$1684.40", "alt": "$1685.75", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 77, "v": 95, "truth": false, "claim": "$1685.75", "alt": "$1684.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 78, "v": 20, "truth": true, "claim": "$1,197.54", "alt": "$1,113.45", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 78, "v": 20, "truth": false, "claim": "$1,113.45", "alt": "$1,197.54", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 79, "v": 30, "truth": true, "claim": "2.624%, 26.24 mills per $1, 262.4 cents per $100, 26,240 mills per $1000", "alt": "2.724%, 27.24 mills per $1, 272.4 cents per $100, 27,240 mills per $1000", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 79, "v": 30, "truth": false, "claim": "2.724%, 27.24 mills per $1, 272.4 cents per $100, 27,240 mills per $1000", "alt": "2.624%, 26.24 mills per $1, 262.4 cents per $100, 26,240 mills per $1000", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 80, "v": 40, "truth": true, "claim": "$419.57", "alt": "$423.58", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 80, "v": 40, "truth": false, "claim": "$423.58", "alt": "$419.57", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 81, "v": 60, "truth": true, "claim": "$23 million, $11 million", "alt": "$19 million, $10 million", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 81, "v": 60, "truth": false, "claim": "$19 million, $10 million", "alt": "$23 million, $11 million", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 82, "v": 80, "truth": true, "claim": "$802.26", "alt": "$800.00", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 82, "v": 80, "truth": false, "claim": "$800.00", "alt": "$802.26", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 83, "v": 95, "truth": true, "claim": "19.7%", "alt": "17.8%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 83, "v": 95, "truth": false, "claim": "17.8%", "alt": "19.7%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 84, "v": 20, "truth": true, "claim": "b = .4, a = - 2", "alt": "b = .1, a = 1", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 84, "v": 20, "truth": false, "claim": "b = .1, a = 1", "alt": "b = .4, a = - 2", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 85, "v": 30, "truth": true, "claim": "April 16", "alt": "April 15", "latent_outcome": "retain", "surfaced_outcome": "switch_alt"}
+{"qid": 85, "v": 30, "truth": false, "claim": "April 15", "alt": "April 16", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 86, "v": 40, "truth": true, "claim": "12.2%", "alt": "15%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 86, "v": 40, "truth": false, "claim": "15%", "alt": "12.2%", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 87, "v": 60, "truth": true, "claim": "$172.08", "alt": "$210.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 87, "v": 60, "truth": false, "claim": "$210.00", "alt": "$172.08", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 88, "v": 80, "truth": true, "claim": "32.3 cents", "alt": "33.2 cents", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 88, "v": 80, "truth": false, "claim": "33.2 cents", "alt": "32.3 cents", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 89, "v": 95, "truth": true, "claim": "42.22%", "alt": "45%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 89, "v": 95, "truth": false, "claim": "45%", "alt": "42.22%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 90, "v": 20, "truth": true, "claim": "May 15", "alt": "May 16", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 90, "v": 20, "truth": false, "claim": "May 16", "alt": "May 15", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 91, "v": 30, "truth": true, "claim": "$294.50", "alt": "$125.00", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 91, "v": 30, "truth": false, "claim": "$125.00", "alt": "$294.50", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 92, "v": 40, "truth": true, "claim": "$18.88", "alt": "$19.76", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 92, "v": 40, "truth": false, "claim": "$19.76", "alt": "$18.88", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 93, "v": 60, "truth": true, "claim": "a = -20, b = 8.75", "alt": "a = 4, b = 1.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 93, "v": 60, "truth": false, "claim": "a = 4, b = 1.5", "alt": "a = -20, b = 8.75", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 94, "v": 80, "truth": true, "claim": "6.4%, 8.7%", "alt": "6.7%, 8.4%", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 94, "v": 80, "truth": false, "claim": "6.7%, 8.4%", "alt": "6.4%, 8.7%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 95, "v": 95, "truth": true, "claim": "$89.09", "alt": "$95", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 95, "v": 95, "truth": false, "claim": "$95", "alt": "$89.09", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 96, "v": 20, "truth": true, "claim": "$514.35", "alt": "$674.10", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 96, "v": 20, "truth": false, "claim": "$674.10", "alt": "$514.35", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 97, "v": 30, "truth": true, "claim": "Cash price: $40.71, Installment price: $44.80", "alt": "Cash price: $40.71, Installment price: $49.80", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 97, "v": 30, "truth": false, "claim": "Cash price: $40.71, Installment price: $49.80", "alt": "Cash price: $40.71, Installment price: $44.80", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 98, "v": 40, "truth": true, "claim": "$5,180", "alt": "$6,500", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 98, "v": 40, "truth": false, "claim": "$6,500", "alt": "$5,180", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 99, "v": 60, "truth": true, "claim": "$4.30", "alt": "$60", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 99, "v": 60, "truth": false, "claim": "$60", "alt": "$4.30", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 100, "v": 80, "truth": true, "claim": "$174.23", "alt": "$198.75", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 100, "v": 80, "truth": false, "claim": "$198.75", "alt": "$174.23", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 101, "v": 95, "truth": true, "claim": "$58.35", "alt": "$62.35", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 101, "v": 95, "truth": false, "claim": "$62.35", "alt": "$58.35", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 102, "v": 20, "truth": true, "claim": "$45", "alt": "$30", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 102, "v": 20, "truth": false, "claim": "$30", "alt": "$45", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 103, "v": 30, "truth": true, "claim": "Normative, Descriptive and Instrumental", "alt": "Normative, Descriptive and Political", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 103, "v": 30, "truth": false, "claim": "Normative, Descriptive and Political", "alt": "Normative, Descriptive and Instrumental", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 104, "v": 40, "truth": true, "claim": "Acceptability", "alt": "Openness", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 104, "v": 40, "truth": false, "claim": "Openness", "alt": "Acceptability", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 105, "v": 60, "truth": true, "claim": "Price guarantee schemes.", "alt": "Price comparison tools.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 105, "v": 60, "truth": false, "claim": "Price comparison tools.", "alt": "Price guarantee schemes.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 106, "v": 80, "truth": true, "claim": "Niche objectives", "alt": "Competitive objectives.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 106, "v": 80, "truth": false, "claim": "Competitive objectives.", "alt": "Niche objectives", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 107, "v": 95, "truth": true, "claim": "match various functional areas of the company with customer needs", "alt": "ensure that every team member gets to interact with the customer", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 107, "v": 95, "truth": false, "claim": "ensure that every team member gets to interact with the customer", "alt": "match various functional areas of the company with customer needs", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 108, "v": 20, "truth": true, "claim": "Value-based pricing.", "alt": "Competitive pricing.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 108, "v": 20, "truth": false, "claim": "Competitive pricing.", "alt": "Value-based pricing.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 109, "v": 30, "truth": true, "claim": "Bill Clinton", "alt": "Margaret Thatcher", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 109, "v": 30, "truth": false, "claim": "Margaret Thatcher", "alt": "Bill Clinton", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 110, "v": 40, "truth": true, "claim": "An example serving as a model", "alt": "An experimental hypothesis", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 110, "v": 40, "truth": false, "claim": "An experimental hypothesis", "alt": "An example serving as a model", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 111, "v": 60, "truth": true, "claim": "Resource investigator", "alt": "Innovator", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 111, "v": 60, "truth": false, "claim": "Innovator", "alt": "Resource investigator", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 112, "v": 80, "truth": true, "claim": "Mechanistic", "alt": "Organic", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 112, "v": 80, "truth": false, "claim": "Organic", "alt": "Mechanistic", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 113, "v": 95, "truth": true, "claim": "200", "alt": "300", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 113, "v": 95, "truth": false, "claim": "300", "alt": "200", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 114, "v": 20, "truth": true, "claim": "0.1814", "alt": "0.3035", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 114, "v": 20, "truth": false, "claim": "0.3035", "alt": "0.1814", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 115, "v": 30, "truth": true, "claim": "200", "alt": "250", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 115, "v": 30, "truth": false, "claim": "250", "alt": "200", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 116, "v": 40, "truth": true, "claim": "11.9", "alt": "7.8", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 116, "v": 40, "truth": false, "claim": "7.8", "alt": "11.9", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 117, "v": 60, "truth": true, "claim": "0.0828", "alt": "0.0695", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 117, "v": 60, "truth": false, "claim": "0.0695", "alt": "0.0828", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 118, "v": 80, "truth": true, "claim": "9.616", "alt": "9.210", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 118, "v": 80, "truth": false, "claim": "9.210", "alt": "9.616", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 119, "v": 95, "truth": true, "claim": "33389.35", "alt": "32000.00", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 119, "v": 95, "truth": false, "claim": "32000.00", "alt": "33389.35", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 120, "v": 20, "truth": true, "claim": "18.5%", "alt": "13.5%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 120, "v": 20, "truth": false, "claim": "13.5%", "alt": "18.5%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 121, "v": 30, "truth": true, "claim": "$18.109375 per share", "alt": "$18.9375 per share", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 121, "v": 30, "truth": false, "claim": "$18.9375 per share", "alt": "$18.109375 per share", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 122, "v": 40, "truth": true, "claim": "35.875%", "alt": "36.5%", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 122, "v": 40, "truth": false, "claim": "36.5%", "alt": "35.875%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 123, "v": 60, "truth": true, "claim": "$10,500", "alt": "$11,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 123, "v": 60, "truth": false, "claim": "$11,000", "alt": "$10,500", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 124, "v": 80, "truth": true, "claim": "Kirk's share of total profits: $13,943, Martin's share of total profits: $23,137", "alt": "Kirk's share of total profits: $12,930, Martin's share of total profits: $24,150", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 124, "v": 80, "truth": false, "claim": "Kirk's share of total profits: $12,930, Martin's share of total profits: $24,150", "alt": "Kirk's share of total profits: $13,943, Martin's share of total profits: $23,137", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 125, "v": 95, "truth": true, "claim": "Bondholders, preferred stockholders, common stockholders", "alt": "Common stockholders and preferred stockholders equally, then bondholders", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 125, "v": 95, "truth": false, "claim": "Common stockholders and preferred stockholders equally, then bondholders", "alt": "Bondholders, preferred stockholders, common stockholders", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 126, "v": 20, "truth": true, "claim": "$6,500", "alt": "$5,000", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 126, "v": 20, "truth": false, "claim": "$5,000", "alt": "$6,500", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 127, "v": 30, "truth": true, "claim": "$10.19", "alt": "$20.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 127, "v": 30, "truth": false, "claim": "$20.00", "alt": "$10.19", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 128, "v": 40, "truth": true, "claim": "$2487.61 and $487.61", "alt": "$2356.89 and $356.89", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 128, "v": 40, "truth": false, "claim": "$2356.89 and $356.89", "alt": "$2487.61 and $487.61", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 129, "v": 60, "truth": true, "claim": "USCA = 4.3422, CR = 0.2853, USPW = 3.5051", "alt": "USCA = 4.2303, CR = 0.2853, USPW = 3.5051", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 129, "v": 60, "truth": false, "claim": "USCA = 4.2303, CR = 0.2853, USPW = 3.5051", "alt": "USCA = 4.3422, CR = 0.2853, USPW = 3.5051", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 130, "v": 80, "truth": true, "claim": "22.7%", "alt": "21%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 130, "v": 80, "truth": false, "claim": "21%", "alt": "22.7%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 131, "v": 95, "truth": true, "claim": "$7,210", "alt": "$210", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 131, "v": 95, "truth": false, "claim": "$210", "alt": "$7,210", "latent_outcome": "amb", "surfaced_outcome": "amb"}
+{"qid": 132, "v": 20, "truth": true, "claim": "$140.58", "alt": "$165.00", "latent_outcome": "retain", "surfaced_outcome": "switch_alt"}
+{"qid": 132, "v": 20, "truth": false, "claim": "$165.00", "alt": "$140.58", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 133, "v": 30, "truth": true, "claim": "$48.90", "alt": "$40.05", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 133, "v": 30, "truth": false, "claim": "$40.05", "alt": "$48.90", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 134, "v": 40, "truth": true, "claim": "$5785", "alt": "$5675", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 134, "v": 40, "truth": false, "claim": "$5675", "alt": "$5785", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 135, "v": 60, "truth": true, "claim": "4 rides", "alt": "9 rides", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 135, "v": 60, "truth": false, "claim": "9 rides", "alt": "4 rides", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 136, "v": 80, "truth": true, "claim": "$543.61", "alt": "$546.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 136, "v": 80, "truth": false, "claim": "$546.00", "alt": "$543.61", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 137, "v": 95, "truth": true, "claim": "$3,940", "alt": "$3,880", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 137, "v": 95, "truth": false, "claim": "$3,880", "alt": "$3,940", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 138, "v": 20, "truth": true, "claim": "$35.25", "alt": "$41.20", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 138, "v": 20, "truth": false, "claim": "$41.20", "alt": "$35.25", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 139, "v": 30, "truth": true, "claim": "$60", "alt": "$12", "latent_outcome": "retain", "surfaced_outcome": "unparsed"}
+{"qid": 139, "v": 30, "truth": false, "claim": "$12", "alt": "$60", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 140, "v": 40, "truth": true, "claim": "$44,100", "alt": "$44,250", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 140, "v": 40, "truth": false, "claim": "$44,250", "alt": "$44,100", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 141, "v": 60, "truth": true, "claim": "$817.25", "alt": "$799.25", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 141, "v": 60, "truth": false, "claim": "$799.25", "alt": "$817.25", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 142, "v": 80, "truth": true, "claim": "$.04 per mile", "alt": "$0.07 per mile", "latent_outcome": "retain", "surfaced_outcome": "switch_other"}
+{"qid": 142, "v": 80, "truth": false, "claim": "$0.07 per mile", "alt": "$.04 per mile", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 143, "v": 95, "truth": true, "claim": "$4243", "alt": "$4750", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 143, "v": 95, "truth": false, "claim": "$4750", "alt": "$4243", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 144, "v": 20, "truth": true, "claim": "$24,000", "alt": "$12,000", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 144, "v": 20, "truth": false, "claim": "$12,000", "alt": "$24,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 145, "v": 30, "truth": true, "claim": "$70.90", "alt": "$68.50", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 145, "v": 30, "truth": false, "claim": "$68.50", "alt": "$70.90", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 146, "v": 40, "truth": true, "claim": "47833(1/3) yards and 71750 yards", "alt": "52000 yards and 78000 yards", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 146, "v": 40, "truth": false, "claim": "52000 yards and 78000 yards", "alt": "47833(1/3) yards and 71750 yards", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 147, "v": 60, "truth": true, "claim": "output is labor intensive", "alt": "There are 10 operations involved in labor, each at $10.00 per operation", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 147, "v": 60, "truth": false, "claim": "There are 10 operations involved in labor, each at $10.00 per operation", "alt": "output is labor intensive", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 148, "v": 80, "truth": true, "claim": "(C) output is labor intensive", "alt": "Expenses are the largest contributor to the cost per widget", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 148, "v": 80, "truth": false, "claim": "Expenses are the largest contributor to the cost per widget", "alt": "(C) output is labor intensive", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 149, "v": 95, "truth": true, "claim": "$15", "alt": "$50", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 149, "v": 95, "truth": false, "claim": "$50", "alt": "$15", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 150, "v": 20, "truth": true, "claim": "949 copies", "alt": "700 copies", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 150, "v": 20, "truth": false, "claim": "700 copies", "alt": "949 copies", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 151, "v": 30, "truth": true, "claim": "$3.85", "alt": "$4.50", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 151, "v": 30, "truth": false, "claim": "$4.50", "alt": "$3.85", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 152, "v": 40, "truth": true, "claim": "$7.60 per $100", "alt": "$8.00 per $100", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 152, "v": 40, "truth": false, "claim": "$8.00 per $100", "alt": "$7.60 per $100", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 153, "v": 60, "truth": true, "claim": "$14.35", "alt": "$12.85", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 153, "v": 60, "truth": false, "claim": "$12.85", "alt": "$14.35", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 154, "v": 80, "truth": true, "claim": "StockturnRate (at Cost) = 4.0, StockturnRate (at selling price) = 3.8, StockturnRate (in units) = 4.5", "alt": "StockturnRate (at Cost) = 7.0, StockturnRate (at selling price) = 2.3, StockturnRate (in units) = 7.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 154, "v": 80, "truth": false, "claim": "StockturnRate (at Cost) = 7.0, StockturnRate (at selling price) = 2.3, StockturnRate (in units) = 7.5", "alt": "StockturnRate (at Cost) = 4.0, StockturnRate (at selling price) = 3.8, StockturnRate (in units) = 4.5", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 155, "v": 95, "truth": true, "claim": "$54.72", "alt": "$56.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 155, "v": 95, "truth": false, "claim": "$56.00", "alt": "$54.72", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 156, "v": 20, "truth": true, "claim": "(A) 3.168 gallons (B) 9.46 liters", "alt": "(A) 3.18 gallons (B) 9.6 liters", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 156, "v": 20, "truth": false, "claim": "(A) 3.18 gallons (B) 9.6 liters", "alt": "(A) 3.168 gallons (B) 9.46 liters", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 157, "v": 30, "truth": true, "claim": "$138.37 for bodily injury coverage, $52.80 for property damage coverage", "alt": "$110.37 for bodily injury coverage, $45.80 for property damage coverage", "latent_outcome": "retain", "surfaced_outcome": "switch_alt"}
+{"qid": 157, "v": 30, "truth": false, "claim": "$110.37 for bodily injury coverage, $45.80 for property damage coverage", "alt": "$138.37 for bodily injury coverage, $52.80 for property damage coverage", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 158, "v": 40, "truth": true, "claim": "30%", "alt": "28%", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 158, "v": 40, "truth": false, "claim": "28%", "alt": "30%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 159, "v": 60, "truth": true, "claim": "Process of diffusion.", "alt": "Product lifecycle.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 159, "v": 60, "truth": false, "claim": "Product lifecycle.", "alt": "Process of diffusion.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 160, "v": 80, "truth": true, "claim": "Develop sales tactics.", "alt": "Develop the customer proposition.", "latent_outcome": "retain", "surfaced_outcome": "switch_alt"}
+{"qid": 160, "v": 80, "truth": false, "claim": "Develop the customer proposition.", "alt": "Develop sales tactics.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 161, "v": 95, "truth": true, "claim": "$6,860", "alt": "$7,140", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 161, "v": 95, "truth": false, "claim": "$7,140", "alt": "$6,860", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 162, "v": 20, "truth": true, "claim": "Encoding.", "alt": "Reception.", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 162, "v": 20, "truth": false, "claim": "Reception.", "alt": "Encoding.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 163, "v": 30, "truth": true, "claim": "A producer offers a discount to retailers for promoting its product during the month of June.", "alt": "A lumberyard offers a discount to a homeowner for buying lumber.", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 163, "v": 30, "truth": false, "claim": "A lumberyard offers a discount to a homeowner for buying lumber.", "alt": "A producer offers a discount to retailers for promoting its product during the month of June.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 164, "v": 40, "truth": true, "claim": "Fred Fiedler", "alt": "John Adair", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 164, "v": 40, "truth": false, "claim": "John Adair", "alt": "Fred Fiedler", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 165, "v": 60, "truth": true, "claim": "Quick response to change", "alt": "Improved employee motivation", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 165, "v": 60, "truth": false, "claim": "Improved employee motivation", "alt": "Quick response to change", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 166, "v": 80, "truth": true, "claim": "planning, organising, leading, controlling", "alt": "organising, controlling, leading, planning", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 166, "v": 80, "truth": false, "claim": "organising, controlling, leading, planning", "alt": "planning, organising, leading, controlling", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 167, "v": 95, "truth": true, "claim": "0.02", "alt": "0.05", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 167, "v": 95, "truth": false, "claim": "0.05", "alt": "0.02", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 168, "v": 20, "truth": true, "claim": "42.77325", "alt": "39.56789", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 168, "v": 20, "truth": false, "claim": "39.56789", "alt": "42.77325", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 169, "v": 30, "truth": true, "claim": "$0 and $26.40", "alt": "$39.90 and $26.40", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 169, "v": 30, "truth": false, "claim": "$39.90 and $26.40", "alt": "$0 and $26.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 170, "v": 40, "truth": true, "claim": "$533.40", "alt": "$476.20", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 170, "v": 40, "truth": false, "claim": "$476.20", "alt": "$533.40", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 171, "v": 60, "truth": true, "claim": "$1,215.51", "alt": "$1,250", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 171, "v": 60, "truth": false, "claim": "$1,250", "alt": "$1,215.51", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 172, "v": 80, "truth": true, "claim": "$27.82", "alt": "$22.45", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 172, "v": 80, "truth": false, "claim": "$22.45", "alt": "$27.82", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 173, "v": 95, "truth": true, "claim": "$9,000", "alt": "$8,000", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 173, "v": 95, "truth": false, "claim": "$8,000", "alt": "$9,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 174, "v": 20, "truth": true, "claim": "$5.41", "alt": "$7.32", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 174, "v": 20, "truth": false, "claim": "$7.32", "alt": "$5.41", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 175, "v": 30, "truth": true, "claim": "$22.50", "alt": "$270", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 175, "v": 30, "truth": false, "claim": "$270", "alt": "$22.50", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 176, "v": 40, "truth": true, "claim": "$80 per year", "alt": "$120 per year", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 176, "v": 40, "truth": false, "claim": "$120 per year", "alt": "$80 per year", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 177, "v": 60, "truth": true, "claim": "Equilibrium price is 20 dollars, Number of barrels sold is 40 per day", "alt": "Equilibrium price is 30 dollars, Number of barrels sold is 50 per day", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 177, "v": 60, "truth": false, "claim": "Equilibrium price is 30 dollars, Number of barrels sold is 50 per day", "alt": "Equilibrium price is 20 dollars, Number of barrels sold is 40 per day", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 178, "v": 80, "truth": true, "claim": "Marginal propensity to consume is .75, marginal propensity to save is .25", "alt": "Marginal propensity to consume is 1.00, marginal propensity to save is 0.00", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 178, "v": 80, "truth": false, "claim": "Marginal propensity to consume is 1.00, marginal propensity to save is 0.00", "alt": "Marginal propensity to consume is .75, marginal propensity to save is .25", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 179, "v": 95, "truth": true, "claim": "$69.95", "alt": "$67.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 179, "v": 95, "truth": false, "claim": "$67.00", "alt": "$69.95", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 180, "v": 20, "truth": true, "claim": "$176.69", "alt": "$183.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 180, "v": 20, "truth": false, "claim": "$183.00", "alt": "$176.69", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 181, "v": 30, "truth": true, "claim": "$2.11", "alt": "$4.37", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 181, "v": 30, "truth": false, "claim": "$4.37", "alt": "$2.11", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 182, "v": 40, "truth": true, "claim": "Year 1: $5,000, Year 2: $3,333, Year 3: $2,222", "alt": "Year 1: $2,000, Year 2: $1,200, Year 3: $720", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 182, "v": 40, "truth": false, "claim": "Year 1: $2,000, Year 2: $1,200, Year 3: $720", "alt": "Year 1: $5,000, Year 2: $3,333, Year 3: $2,222", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 183, "v": 60, "truth": true, "claim": "$500", "alt": "$1,250", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 183, "v": 60, "truth": false, "claim": "$1,250", "alt": "$500", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 184, "v": 80, "truth": true, "claim": "Average Cost: $100/unit, Marginal Cost: $300", "alt": "Average Cost: $1000/unit, Marginal Cost: $100", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 184, "v": 80, "truth": false, "claim": "Average Cost: $1000/unit, Marginal Cost: $100", "alt": "Average Cost: $100/unit, Marginal Cost: $300", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 185, "v": 95, "truth": true, "claim": "$2,006 and $1,986", "alt": "$2,000 and $1,970", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 185, "v": 95, "truth": false, "claim": "$2,000 and $1,970", "alt": "$2,006 and $1,986", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 186, "v": 20, "truth": true, "claim": "Cost = 1200 + 1.5 X", "alt": "Cost = 1200 + 0.75 X", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 186, "v": 20, "truth": false, "claim": "Cost = 1200 + 0.75 X", "alt": "Cost = 1200 + 1.5 X", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 187, "v": 30, "truth": true, "claim": "$152,250", "alt": "$69,750", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 187, "v": 30, "truth": false, "claim": "$69,750", "alt": "$152,250", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 188, "v": 40, "truth": true, "claim": "7.6 years", "alt": "8.5 years", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 188, "v": 40, "truth": false, "claim": "8.5 years", "alt": "7.6 years", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 189, "v": 60, "truth": true, "claim": "$1,000", "alt": "$900", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 189, "v": 60, "truth": false, "claim": "$900", "alt": "$1,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 190, "v": 80, "truth": true, "claim": "$4217.35", "alt": "$4250.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 190, "v": 80, "truth": false, "claim": "$4250.00", "alt": "$4217.35", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 191, "v": 95, "truth": true, "claim": "$24", "alt": "$18", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 191, "v": 95, "truth": false, "claim": "$18", "alt": "$24", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 192, "v": 20, "truth": true, "claim": "r = 1.061 feet, h = 2.828 feet", "alt": "r = 2.5 feet, h = 2.04 feet", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 192, "v": 20, "truth": false, "claim": "r = 2.5 feet, h = 2.04 feet", "alt": "r = 1.061 feet, h = 2.828 feet", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 193, "v": 30, "truth": true, "claim": "Head of household, four exemptions", "alt": "Qualifying widow(er), five exemptions", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 193, "v": 30, "truth": false, "claim": "Qualifying widow(er), five exemptions", "alt": "Head of household, four exemptions", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 194, "v": 40, "truth": true, "claim": "The inventory turnover rate can be calculated by dividing the cost of goods sold by the average inventory.", "alt": "Inventory turnover rate is calculated by dividing total sales by average inventory.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 194, "v": 40, "truth": false, "claim": "Inventory turnover rate is calculated by dividing total sales by average inventory.", "alt": "The inventory turnover rate can be calculated by dividing the cost of goods sold by the average inventory.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 195, "v": 60, "truth": true, "claim": "22 rolls", "alt": "20 rolls", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 195, "v": 60, "truth": false, "claim": "20 rolls", "alt": "22 rolls", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 196, "v": 80, "truth": true, "claim": "$1,237.81", "alt": "$1,225.62", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 196, "v": 80, "truth": false, "claim": "$1,225.62", "alt": "$1,237.81", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 197, "v": 95, "truth": true, "claim": "$18,526", "alt": "$20,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 197, "v": 95, "truth": false, "claim": "$20,000", "alt": "$18,526", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 198, "v": 20, "truth": true, "claim": "$1.94", "alt": "$1.70", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 198, "v": 20, "truth": false, "claim": "$1.70", "alt": "$1.94", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 199, "v": 30, "truth": true, "claim": "Motive development.", "alt": "An attitude.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 199, "v": 30, "truth": false, "claim": "An attitude.", "alt": "Motive development.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 200, "v": 40, "truth": true, "claim": "Time utility.", "alt": "Form utility.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 200, "v": 40, "truth": false, "claim": "Form utility.", "alt": "Time utility.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 201, "v": 60, "truth": true, "claim": "Family branding.", "alt": "Sub-branding.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 201, "v": 60, "truth": false, "claim": "Sub-branding.", "alt": "Family branding.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 202, "v": 80, "truth": true, "claim": "Independent", "alt": "Interdependent", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 202, "v": 80, "truth": false, "claim": "Interdependent", "alt": "Independent", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 203, "v": 95, "truth": true, "claim": "Gouldner", "alt": "Taylor", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 203, "v": 95, "truth": false, "claim": "Taylor", "alt": "Gouldner", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 204, "v": 20, "truth": true, "claim": "88.33", "alt": "85.67", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 204, "v": 20, "truth": false, "claim": "85.67", "alt": "88.33", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 205, "v": 30, "truth": true, "claim": "9.184", "alt": "9.000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 205, "v": 30, "truth": false, "claim": "9.000", "alt": "9.184", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 206, "v": 40, "truth": true, "claim": "0.016", "alt": "0.020", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 206, "v": 40, "truth": false, "claim": "0.020", "alt": "0.016", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 207, "v": 60, "truth": true, "claim": "-0.023669", "alt": "-0.04213", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 207, "v": 60, "truth": false, "claim": "-0.04213", "alt": "-0.023669", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 208, "v": 80, "truth": true, "claim": "25", "alt": "40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 208, "v": 80, "truth": false, "claim": "40", "alt": "25", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 209, "v": 95, "truth": true, "claim": "$65", "alt": "$85.87", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 209, "v": 95, "truth": false, "claim": "$85.87", "alt": "$65", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 210, "v": 20, "truth": true, "claim": "92%", "alt": "85%", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 210, "v": 20, "truth": false, "claim": "85%", "alt": "92%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 211, "v": 30, "truth": true, "claim": "$4,651.25", "alt": "$7,625", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 211, "v": 30, "truth": false, "claim": "$7,625", "alt": "$4,651.25", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 212, "v": 40, "truth": true, "claim": "18%", "alt": "14%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 212, "v": 40, "truth": false, "claim": "14%", "alt": "18%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 213, "v": 60, "truth": true, "claim": "$675", "alt": "$600", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 213, "v": 60, "truth": false, "claim": "$600", "alt": "$675", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 214, "v": 80, "truth": true, "claim": "$23.10", "alt": "$24.30", "latent_outcome": "unparsed", "surfaced_outcome": "retain"}
+{"qid": 214, "v": 80, "truth": false, "claim": "$24.30", "alt": "$23.10", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 215, "v": 95, "truth": true, "claim": "Acme Insurance - $28,125, Safe Way Insurance - $16,875", "alt": "Acme Insurance - $30,000, Safe Way Insurance - $15,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 215, "v": 95, "truth": false, "claim": "Acme Insurance - $30,000, Safe Way Insurance - $15,000", "alt": "Acme Insurance - $28,125, Safe Way Insurance - $16,875", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 216, "v": 20, "truth": true, "claim": "$7,000", "alt": "$8,500", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 216, "v": 20, "truth": false, "claim": "$8,500", "alt": "$7,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 217, "v": 30, "truth": true, "claim": "2.3%", "alt": "3.7%", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 217, "v": 30, "truth": false, "claim": "3.7%", "alt": "2.3%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 218, "v": 40, "truth": true, "claim": "$1,377.18", "alt": "$1,587.50", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 218, "v": 40, "truth": false, "claim": "$1,587.50", "alt": "$1,377.18", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 219, "v": 60, "truth": true, "claim": "$14.45", "alt": "$10.20", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 219, "v": 60, "truth": false, "claim": "$10.20", "alt": "$14.45", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 220, "v": 80, "truth": true, "claim": "$152.25", "alt": "$160", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 220, "v": 80, "truth": false, "claim": "$160", "alt": "$152.25", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 221, "v": 95, "truth": true, "claim": "8.893%", "alt": "10.893%", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 221, "v": 95, "truth": false, "claim": "10.893%", "alt": "8.893%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 222, "v": 20, "truth": true, "claim": "$69,000", "alt": "$82,000", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 222, "v": 20, "truth": false, "claim": "$82,000", "alt": "$69,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 223, "v": 30, "truth": true, "claim": "$26.25", "alt": "$30.00", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 223, "v": 30, "truth": false, "claim": "$30.00", "alt": "$26.25", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 224, "v": 40, "truth": true, "claim": "$121.85", "alt": "$175.30", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 224, "v": 40, "truth": false, "claim": "$175.30", "alt": "$121.85", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 225, "v": 60, "truth": true, "claim": "2.20%", "alt": "2.80%", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 225, "v": 60, "truth": false, "claim": "2.80%", "alt": "2.20%", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 226, "v": 80, "truth": true, "claim": "Y: $9120 yearly, $175.38 weekly; W: $11440 yearly, $220 weekly; U: $5760 yearly, $110.77 weekly; S: $13390 yearly, $257.50 weekly", "alt": "Y: $760 yearly, $14.61 weekly; W: $2860 yearly, $55 weekly; U: $960 yearly, $18.46 weekly; S: $2060 yearly, $39.61 weekly", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 226, "v": 80, "truth": false, "claim": "Y: $760 yearly, $14.61 weekly; W: $2860 yearly, $55 weekly; U: $960 yearly, $18.46 weekly; S: $2060 yearly, $39.61 weekly", "alt": "Y: $9120 yearly, $175.38 weekly; W: $11440 yearly, $220 weekly; U: $5760 yearly, $110.77 weekly; S: $13390 yearly, $257.50 weekly", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 227, "v": 95, "truth": true, "claim": "$262.11", "alt": "$256.97", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 227, "v": 95, "truth": false, "claim": "$256.97", "alt": "$262.11", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 228, "v": 20, "truth": true, "claim": "$173.00, $30.45, $2,060.00", "alt": "$150.00, $25.45, $2,100.00", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 228, "v": 20, "truth": false, "claim": "$150.00, $25.45, $2,100.00", "alt": "$173.00, $30.45, $2,060.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 229, "v": 30, "truth": true, "claim": "$9.53", "alt": "$11.59", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 229, "v": 30, "truth": false, "claim": "$11.59", "alt": "$9.53", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 230, "v": 40, "truth": true, "claim": "Ms. Atlas: $18, Mr. Johnson: $360, Mr. Breakman: $1,820", "alt": "Ms. Atlas: $30, Mr. Johnson: $720, Mr. Breakman: $1,540", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 230, "v": 40, "truth": false, "claim": "Ms. Atlas: $30, Mr. Johnson: $720, Mr. Breakman: $1,540", "alt": "Ms. Atlas: $18, Mr. Johnson: $360, Mr. Breakman: $1,820", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 231, "v": 60, "truth": true, "claim": "$73.40 and $1448", "alt": "$85 and $1700", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 231, "v": 60, "truth": false, "claim": "$85 and $1700", "alt": "$73.40 and $1448", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 232, "v": 80, "truth": true, "claim": "$120.80", "alt": "$98.10", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 232, "v": 80, "truth": false, "claim": "$98.10", "alt": "$120.80", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 233, "v": 95, "truth": true, "claim": "10.4%", "alt": "6.4%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 233, "v": 95, "truth": false, "claim": "6.4%", "alt": "10.4%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 234, "v": 20, "truth": true, "claim": "$121.31", "alt": "$88.76", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 234, "v": 20, "truth": false, "claim": "$88.76", "alt": "$121.31", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 235, "v": 30, "truth": true, "claim": "$80.00", "alt": "$150.00", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 235, "v": 30, "truth": false, "claim": "$150.00", "alt": "$80.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 236, "v": 40, "truth": true, "claim": "$557.34", "alt": "$560.00", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 236, "v": 40, "truth": false, "claim": "$560.00", "alt": "$557.34", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 237, "v": 60, "truth": true, "claim": "$557.02", "alt": "$700.00", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 237, "v": 60, "truth": false, "claim": "$700.00", "alt": "$557.02", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 238, "v": 80, "truth": true, "claim": "585 type Y struts, Yes", "alt": "650 type Y struts, Yes", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 238, "v": 80, "truth": false, "claim": "650 type Y struts, Yes", "alt": "585 type Y struts, Yes", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 239, "v": 95, "truth": true, "claim": "Boat A, $8.96 per passenger", "alt": "Boat B, $8.96 per passenger", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 239, "v": 95, "truth": false, "claim": "Boat B, $8.96 per passenger", "alt": "Boat A, $8.96 per passenger", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 240, "v": 20, "truth": true, "claim": "capital", "alt": "equity", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 240, "v": 20, "truth": false, "claim": "equity", "alt": "capital", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 241, "v": 30, "truth": true, "claim": "$206.70", "alt": "$220.50", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 241, "v": 30, "truth": false, "claim": "$220.50", "alt": "$206.70", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 242, "v": 40, "truth": true, "claim": "Four hundred customers", "alt": "One hundred and fifty customers", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 242, "v": 40, "truth": false, "claim": "One hundred and fifty customers", "alt": "Four hundred customers", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 243, "v": 60, "truth": true, "claim": "List price: $671.35, Net price: $422.95", "alt": "List price: $248.40, Net price: $422.95", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 243, "v": 60, "truth": false, "claim": "List price: $248.40, Net price: $422.95", "alt": "List price: $671.35, Net price: $422.95", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 244, "v": 80, "truth": true, "claim": "a bounce-back coupon", "alt": "a rebate coupon", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 244, "v": 80, "truth": false, "claim": "a rebate coupon", "alt": "a bounce-back coupon", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 245, "v": 95, "truth": true, "claim": "Intangibility, perishability, variability, inseparability, and a lack of ownership.", "alt": "Intangibility, value, variability, inseparability, and relationship.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 245, "v": 95, "truth": false, "claim": "Intangibility, value, variability, inseparability, and relationship.", "alt": "Intangibility, perishability, variability, inseparability, and a lack of ownership.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 246, "v": 20, "truth": true, "claim": "The way things should be.", "alt": "The way things might have been.", "latent_outcome": "switch_other", "surfaced_outcome": "retain"}
+{"qid": 246, "v": 20, "truth": false, "claim": "The way things might have been.", "alt": "The way things should be.", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 247, "v": 30, "truth": true, "claim": "Incomplete information", "alt": "The decision maker's preferences are stable and consistent", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 247, "v": 30, "truth": false, "claim": "The decision maker's preferences are stable and consistent", "alt": "Incomplete information", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 248, "v": 40, "truth": true, "claim": "Role culture", "alt": "Clan culture", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 248, "v": 40, "truth": false, "claim": "Clan culture", "alt": "Role culture", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 249, "v": 60, "truth": true, "claim": "291.45", "alt": "245.20", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 249, "v": 60, "truth": false, "claim": "245.20", "alt": "291.45", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 250, "v": 80, "truth": true, "claim": "1.15", "alt": "0.95", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 250, "v": 80, "truth": false, "claim": "0.95", "alt": "1.15", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 251, "v": 95, "truth": true, "claim": "0.23", "alt": "0.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 251, "v": 95, "truth": false, "claim": "0.40", "alt": "0.23", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 252, "v": 20, "truth": true, "claim": "65.9", "alt": "75.6", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 252, "v": 20, "truth": false, "claim": "75.6", "alt": "65.9", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 253, "v": 30, "truth": true, "claim": "Mr. Miles received $6,600 and Mr. Rose lost $600", "alt": "Mr. Miles received $4,800 and Mr. Rose received $1,200", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 253, "v": 30, "truth": false, "claim": "Mr. Miles received $4,800 and Mr. Rose received $1,200", "alt": "Mr. Miles received $6,600 and Mr. Rose lost $600", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 254, "v": 40, "truth": true, "claim": "$2,983.50", "alt": "$3,600", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 254, "v": 40, "truth": false, "claim": "$3,600", "alt": "$2,983.50", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 255, "v": 60, "truth": true, "claim": "42%", "alt": "36%", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 255, "v": 60, "truth": false, "claim": "36%", "alt": "42%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 256, "v": 80, "truth": true, "claim": "12%, $640.80", "alt": "11%, $587.40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 256, "v": 80, "truth": false, "claim": "11%, $587.40", "alt": "12%, $640.80", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 257, "v": 95, "truth": true, "claim": "$216.49", "alt": "$225.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 257, "v": 95, "truth": false, "claim": "$225.00", "alt": "$216.49", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 258, "v": 20, "truth": true, "claim": "$15,000.00", "alt": "$14,000.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 258, "v": 20, "truth": false, "claim": "$14,000.00", "alt": "$15,000.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 259, "v": 30, "truth": true, "claim": "$12,000", "alt": "$6,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 259, "v": 30, "truth": false, "claim": "$6,000", "alt": "$12,000", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 260, "v": 40, "truth": true, "claim": "Barnes: $19,823, Lee: $8,446", "alt": "Barnes: $12,089, Lee: $16,180", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 260, "v": 40, "truth": false, "claim": "Barnes: $12,089, Lee: $16,180", "alt": "Barnes: $19,823, Lee: $8,446", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 261, "v": 60, "truth": true, "claim": "Matthews: $6,120, Green: $4,080", "alt": "Matthews: $5,000, Green: $5,200", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 261, "v": 60, "truth": false, "claim": "Matthews: $5,000, Green: $5,200", "alt": "Matthews: $6,120, Green: $4,080", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 262, "v": 80, "truth": true, "claim": "$1,934.64 and $161.22", "alt": "$1,934.64 and $95.60", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 262, "v": 80, "truth": false, "claim": "$1,934.64 and $95.60", "alt": "$1,934.64 and $161.22", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 263, "v": 95, "truth": true, "claim": "List price: $175.20, Net price: $153.30", "alt": "List price: $150.20, Net price: $128.30", "latent_outcome": "switch_alt", "surfaced_outcome": "retain"}
+{"qid": 263, "v": 95, "truth": false, "claim": "List price: $150.20, Net price: $128.30", "alt": "List price: $175.20, Net price: $153.30", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 264, "v": 20, "truth": true, "claim": "(21 / 5) \\DeltaD, 4\\DeltaD, .2\\DeltaD", "alt": "(21 / 7) \\DeltaD, 2\\DeltaD, .4\\DeltaD", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 264, "v": 20, "truth": false, "claim": "(21 / 7) \\DeltaD, 2\\DeltaD, .4\\DeltaD", "alt": "(21 / 5) \\DeltaD, 4\\DeltaD, .2\\DeltaD", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 265, "v": 30, "truth": true, "claim": "$60.00", "alt": "$45", "latent_outcome": "unparsed", "surfaced_outcome": "unparsed"}
+{"qid": 265, "v": 30, "truth": false, "claim": "$45", "alt": "$60.00", "latent_outcome": "unparsed", "surfaced_outcome": "retain"}
+{"qid": 266, "v": 40, "truth": true, "claim": "$817.2", "alt": "$815.50", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 266, "v": 40, "truth": false, "claim": "$815.50", "alt": "$817.2", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 267, "v": 60, "truth": true, "claim": "$819", "alt": "$820", "latent_outcome": "retain", "surfaced_outcome": "unparsed"}
+{"qid": 267, "v": 60, "truth": false, "claim": "$820", "alt": "$819", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 268, "v": 80, "truth": true, "claim": "$347.74", "alt": "$346.50", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 268, "v": 80, "truth": false, "claim": "$346.50", "alt": "$347.74", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 269, "v": 95, "truth": true, "claim": "$194.21", "alt": "$215.60", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 269, "v": 95, "truth": false, "claim": "$215.60", "alt": "$194.21", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 270, "v": 20, "truth": true, "claim": "$253.94", "alt": "$257.94", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 270, "v": 20, "truth": false, "claim": "$257.94", "alt": "$253.94", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 271, "v": 30, "truth": true, "claim": "$175.00", "alt": "$200.00", "latent_outcome": "retain", "surfaced_outcome": "retain"}
+{"qid": 271, "v": 30, "truth": false, "claim": "$200.00", "alt": "$175.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 272, "v": 40, "truth": true, "claim": "7.5% per year", "alt": "3% per year", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 272, "v": 40, "truth": false, "claim": "3% per year", "alt": "7.5% per year", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 273, "v": 60, "truth": true, "claim": "5000 lenses", "alt": "4500 lenses", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 273, "v": 60, "truth": false, "claim": "4500 lenses", "alt": "5000 lenses", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 274, "v": 80, "truth": true, "claim": "$1500", "alt": "$1200", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 274, "v": 80, "truth": false, "claim": "$1200", "alt": "$1500", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 275, "v": 95, "truth": true, "claim": "$546.57", "alt": "$735.60", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 275, "v": 95, "truth": false, "claim": "$735.60", "alt": "$546.57", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 276, "v": 20, "truth": true, "claim": "19.4%", "alt": "23.5%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 276, "v": 20, "truth": false, "claim": "23.5%", "alt": "19.4%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 277, "v": 30, "truth": true, "claim": "$292.50", "alt": "$225", "latent_outcome": "retain", "surfaced_outcome": "switch_other"}
+{"qid": 277, "v": 30, "truth": false, "claim": "$225", "alt": "$292.50", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 278, "v": 40, "truth": true, "claim": "Borrow the $720 at 8% interest with savings of $74.40", "alt": "Pay on the installment plan with no savings", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 278, "v": 40, "truth": false, "claim": "Pay on the installment plan with no savings", "alt": "Borrow the $720 at 8% interest with savings of $74.40", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 279, "v": 60, "truth": true, "claim": "$273.75", "alt": "$137.50", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 279, "v": 60, "truth": false, "claim": "$137.50", "alt": "$273.75", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 280, "v": 80, "truth": true, "claim": "16(2/3)%", "alt": "30%", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 280, "v": 80, "truth": false, "claim": "30%", "alt": "16(2/3)%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 281, "v": 95, "truth": true, "claim": "92 total number of days", "alt": "89 days", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 281, "v": 95, "truth": false, "claim": "89 days", "alt": "92 total number of days", "latent_outcome": "unparsed", "surfaced_outcome": "switch_other"}
+{"qid": 282, "v": 20, "truth": true, "claim": "Cost of goods sold: $15,070, Gross profit: $11,730", "alt": "Cost of goods sold: $15,070, Gross profit: $10,730", "latent_outcome": "unparsed", "surfaced_outcome": "switch_alt"}
+{"qid": 282, "v": 20, "truth": false, "claim": "Cost of goods sold: $15,070, Gross profit: $10,730", "alt": "Cost of goods sold: $15,070, Gross profit: $11,730", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 283, "v": 30, "truth": true, "claim": "0.8t^3 + 120t^2 + 4002t + 100", "alt": "0.4t^3 + 200t^2 + 100t", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 283, "v": 30, "truth": false, "claim": "0.4t^3 + 200t^2 + 100t", "alt": "0.8t^3 + 120t^2 + 4002t + 100", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 284, "v": 40, "truth": true, "claim": "$4.67", "alt": "$4.99", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 284, "v": 40, "truth": false, "claim": "$4.99", "alt": "$4.67", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 285, "v": 60, "truth": true, "claim": "$109,126,000", "alt": "$1,091,260", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 285, "v": 60, "truth": false, "claim": "$1,091,260", "alt": "$109,126,000", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 286, "v": 80, "truth": true, "claim": "$4.80", "alt": "$96", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 286, "v": 80, "truth": false, "claim": "$96", "alt": "$4.80", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 287, "v": 95, "truth": true, "claim": "$1665", "alt": "$5,315", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 287, "v": 95, "truth": false, "claim": "$5,315", "alt": "$1665", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 288, "v": 20, "truth": true, "claim": "$255 and $206.80", "alt": "$500 and $206.80", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 288, "v": 20, "truth": false, "claim": "$500 and $206.80", "alt": "$255 and $206.80", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 289, "v": 30, "truth": true, "claim": "$14.60", "alt": "$19.60", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 289, "v": 30, "truth": false, "claim": "$19.60", "alt": "$14.60", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 290, "v": 40, "truth": true, "claim": "7.6%", "alt": "7.2%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 290, "v": 40, "truth": false, "claim": "7.2%", "alt": "7.6%", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 291, "v": 60, "truth": true, "claim": "37 days", "alt": "65 days", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 291, "v": 60, "truth": false, "claim": "65 days", "alt": "37 days", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 292, "v": 80, "truth": true, "claim": "$1805.68", "alt": "$1785.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_other"}
+{"qid": 292, "v": 80, "truth": false, "claim": "$1785.00", "alt": "$1805.68", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 293, "v": 95, "truth": true, "claim": "$5,228", "alt": "$22,650", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 293, "v": 95, "truth": false, "claim": "$22,650", "alt": "$5,228", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 294, "v": 20, "truth": true, "claim": "5(1/2)%", "alt": "6.5%", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 294, "v": 20, "truth": false, "claim": "6.5%", "alt": "5(1/2)%", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 295, "v": 30, "truth": true, "claim": "6.77%", "alt": "6%", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 295, "v": 30, "truth": false, "claim": "6%", "alt": "6.77%", "latent_outcome": "amb", "surfaced_outcome": "amb"}
+{"qid": 296, "v": 40, "truth": true, "claim": "$1,131.00", "alt": "$1,200.00", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 296, "v": 40, "truth": false, "claim": "$1,200.00", "alt": "$1,131.00", "latent_outcome": "switch_other", "surfaced_outcome": "switch_other"}
+{"qid": 297, "v": 60, "truth": true, "claim": "$598.33", "alt": "$595", "latent_outcome": "switch_other", "surfaced_outcome": "switch_alt"}
+{"qid": 297, "v": 60, "truth": false, "claim": "$595", "alt": "$598.33", "latent_outcome": "switch_alt", "surfaced_outcome": "unparsed"}
+{"qid": 298, "v": 80, "truth": true, "claim": "80", "alt": "40", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 298, "v": 80, "truth": false, "claim": "40", "alt": "80", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}
+{"qid": 299, "v": 95, "truth": true, "claim": "Sale price is $975 and finance charge is $147.58", "alt": "Sale price is $975 and finance charge is $112.58", "latent_outcome": "switch_other", "surfaced_outcome": "unparsed"}
+{"qid": 299, "v": 95, "truth": false, "claim": "Sale price is $975 and finance charge is $112.58", "alt": "Sale price is $975 and finance charge is $147.58", "latent_outcome": "switch_alt", "surfaced_outcome": "switch_alt"}

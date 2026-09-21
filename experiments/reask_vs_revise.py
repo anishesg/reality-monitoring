@@ -12,6 +12,7 @@ def pfinal(t):
         if h: return h[-1].strip().split("\n")[0]
     return None
 def correct(f,gold,dis,resp=None):
+    if f is None and not resp: return None
     src=f if f else (re.split(r"(?<=[.!?])\s+",(resp or "").strip())[-1] if resp else "")
     if not src: return None
     ng,nd,ns=norm(gold),norm(dis),norm(src); g=ng in ns; d=nd in ns

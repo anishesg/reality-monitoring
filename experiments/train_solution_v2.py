@@ -60,7 +60,7 @@ def target_text(action, claim, alt, why):
         return f"{why} FINAL: {claim}"
     return f"{why} FINAL: {alt}"
 
-def gen_training(recs, arm, rng):
+def gen_training(recs, arm, rng, replay=0.8):
     ex = []
     for rec in recs:
         for _ in range(3):
@@ -91,7 +91,8 @@ def gen_training(recs, arm, rng):
             msgs.append({"role": "assistant", "content": target_text(act, claim, alt, why)})
             ex.append(msgs)
         # capability replay: plain QA
-        if rng.random() < 0.8:
+        n_replay = int(replay) + (1 if rng.random() < (replay - int(replay)) else 0)
+        for _rep in range(n_replay):
             ex.append([{"role": "system", "content": SYS},
                        {"role": "user", "content": f"Question: {rec['question']}\nPlease give your best answer. End with a line: FINAL: <answer>"},
                        {"role": "assistant", "content": f"FINAL: {rec['true_answer']}"}])
@@ -137,6 +138,9 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--adapter-dir", required=True)
     ap.add_argument("--phase", choices=["train","eval","all"], default="all")
+    ap.add_argument("--lr", type=float, default=8e-5)
+    ap.add_argument("--epochs", type=int, default=2)
+    ap.add_argument("--replay", type=float, default=0.8)
     args = ap.parse_args()
     rng = random.Random(args.seed)
     os.makedirs(args.out, exist_ok=True)
@@ -158,7 +162,7 @@ def main():
             pm.merge_and_unload().save_pretrained(mdir); tok.save_pretrained(mdir)
             del base, pm; torch.cuda.empty_cache()
         import gc; gc.collect(); torch.cuda.empty_cache()
-    examples = gen_training(train_recs, args.arm, rng) if args.phase != "eval" else []
+    examples = gen_training(train_recs, args.arm, rng, args.replay) if args.phase != "eval" else []
     print(f"arm={args.arm} seed={args.seed} examples={len(examples)}", flush=True)
 
     if args.phase == "eval":
@@ -170,7 +174,7 @@ def main():
         model = get_peft_model(model, LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,
                                                  task_type="CAUSAL_LM",
                                                  target_modules=["q_proj", "k_proj", "v_proj", "o_proj"]))
-        opt = torch.optim.AdamW(model.parameters(), lr=8e-5)
+        opt = torch.optim.AdamW(model.parameters(), lr=args.lr)
 
         def encode(msgs):
             full = tok.apply_chat_template(msgs, tokenize=False)
@@ -181,7 +185,7 @@ def main():
             return fi["input_ids"], fi["attention_mask"], labels
 
         model.train(); step = 0
-        for _ in range(2):
+        for _ in range(args.epochs):
             for msgs in examples:
                 ids, am, lab = encode(msgs)
                 out = model(input_ids=ids.cuda(), attention_mask=am.cuda(), labels=lab.cuda())

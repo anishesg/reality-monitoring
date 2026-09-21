@@ -117,7 +117,7 @@ def main():
             if step % 4 == 0: opt.step(); opt.zero_grad()
             if step % 400 == 0: print(f"step {step} loss {out.loss.item():.3f}", flush=True)
     merged = model.merge_and_unload()
-    mdir = args.mdir or os.path.join(os.environ.get("TMPDIR", "/tmp"), "merged_firm")
+    mdir = a.mdir or os.path.join(os.environ.get("TMPDIR", "/tmp"), "merged_firm")
     merged.save_pretrained(mdir); tok.save_pretrained(mdir)
     del model, merged; torch.cuda.empty_cache()
     print("MERGED", flush=True)
