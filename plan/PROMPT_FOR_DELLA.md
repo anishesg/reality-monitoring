@@ -25,15 +25,13 @@ internet, so all downloads happen on the login node in step 1. Check `squeue` at
    This trains 4 steps of every arm, merges, and runs the real evaluation path. PASS = results_ladder/olmo/A2/summary.json and
    A3/summary.json exist. If vLLM rollouts OOM, rerun with VLLM=0 and tell me. When it passes: rm -rf results_ladder/olmo checkpoints/olmo
 
-3. Submit, in this order (each is resumable; re-running skips finished work):
-   bash slurm/submit_contagion.sh                                                     # 5 jobs, ~25 min each
-   for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A2 A3"; done   # 24 jobs
+3. Submit everything in one command (priority order, dependencies handled, resumable):
+   PARTITION=<p> GRES=gpu:1 CONSTRAINT=<c or unset> bash slurm/submit_everything.sh
+   This queues: contagion replication (5 jobs) -> STAND + DPO control, 3 seeds x 2 backbones (24) -> firewall (after the first
+   STAND model) -> real-recipe DPO (12) -> 13B/32B stage checkpoints (6) -> 32B/72B contagion (2) -> STAND at 32B (3) -> the A2
+   sweep (1). If the queue limits the number of pending jobs, run it with --core-only first and again later without it.
    If the partition walltime is under 12 h: prefix TIME_GRPO=11:30:00. If a job fails twice the same way, skip it and send me the log.
-
-3b. After step 3 is queued, submit the rest in this order (all resumable; details and prefetch commands in plan/DELLA_PACKAGE.md steps 4-9):
-   for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A1"; done   # real-recipe DPO, 12 jobs
-   bash slurm/measure_stages.sh olmo13 olmo32                                                                    # 13B/32B stage checkpoints, 6 jobs
-   contagion at 32B and 72B (step 6 of DELLA_PACKAGE.md), STAND at 32B (step 7), the A2 sweep (step 8), the v2 ladder (step 9)
+   Anish's v2 ladder (della/v2_epistemic_ladder/) is run separately, last.
 
 4. When results_ladder/olmo/A3/summary.json exists (first milestone, ~4 h after the first real submission), send me its five
    numbers next to results_ladder/olmo/A0/summary.json, then:
