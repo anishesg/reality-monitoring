@@ -1,0 +1,22 @@
+==============================================================================
+results_contagion/mistral | mistralai/Mistral-7B-Instruct-v0.3 | rows 9600
+-- PAIRWISE (fold = abandon correct answer when Agent B names the distractor; accept = adopt B's true answer) unparsed=0.100
+peer kind      fold (truth=T)             accept (truth=F)               n
+conf_hi        0.696 [0.64,0.76]          0.658 [0.60,0.72]            532
+conf_lo        0.439 [0.38,0.50]          0.341 [0.29,0.39]            516
+mention        0.706 [0.65,0.76]          0.613 [0.56,0.67]            516
+none           0.455 [0.40,0.51]          0.048 [0.02,0.07]            581
+reason         0.774 [0.72,0.82]          0.685 [0.63,0.74]            534
+gen:same       0.881 [0.84,0.92]          0.658 [0.60,0.72]            546
+gen:strong     0.793 [0.74,0.85]          0.628 [0.57,0.69]            538
+gen:weak       0.893 [0.86,0.93]          0.702 [0.65,0.75]            557
+   identity spread across generated peers: 0.100 (P1 predicts <= 0.10); scripted mention = 0.706
+   reason - mention = +0.068
+   conf_hi - mention = -0.010
+   conf_lo - mention = -0.267
+-- CHAIN  P(agent at hop k answers WRONG)   k=1..8   (unparsed counted as wrong)
+   hop transitions: P(wrong|prev wrong)=1.000 [1.00,1.00]  P(wrong|prev correct)=—
+   clean         measured: k1=1.00 k2=1.00 k3=1.00 k4=1.00 k5=1.00 k6=1.00 k7=1.00 k8=1.00
+                 markov:   k1=— k2=— k3=— k4=— k5=— k6=— k7=— k8=—
+   contaminated  measured: k1=1.00 k2=1.00 k3=1.00 k4=1.00 k5=1.00 k6=1.00 k7=1.00 k8=1.00
+                 markov:   k1=— k2=— k3=— k4=— k5=— k6=— k7=— k8=—

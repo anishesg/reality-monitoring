@@ -1,0 +1,12 @@
+{
+ "model": "mistralai/Mistral-7B-Instruct-v0.3",
+ "backend": "llama.cpp Q8_0 (CPU)",
+ "n": 300,
+ "k": 8,
+ "firewall": null,
+ "firewall_pos": 2,
+ "peers": "",
+ "peer_msgs": null,
+ "seed": 0,
+ "finished": "2026-09-21T19:36:36Z"
+}
