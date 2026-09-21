@@ -15,7 +15,7 @@ comparable to the paper's decomposition table (peer_mention == counter_src with 
             computed in analysis/report_contagion.py.
   FIREWALL  same contaminated chain, but the agent at position --firewall-pos is model --firewall-model (FIRM / STAND).
 
-Backends: vllm (della), api (openai/anthropic, laptop), fake (scripted policies; pipeline test, no GPU).
+Backends: vllm (della), hf (transformers on CPU/Metal/small CUDA, pilots), api (openai/anthropic, laptop), fake (scripted policies).
 Phases:   peers  -> generate Agent-B messages with each peer model into <out>/peer_msgs.jsonl (one subprocess per model)
           main   -> everything else (loads A, plus the firewall model if given)
           all    -> peers then main (default). Peer messages from another run can be reused with --peer-msgs.
@@ -70,6 +70,30 @@ class VllmBackend:
         outs = self.llm.generate(prompts, self.sp)
         return [o.outputs[0].text for o in outs]
 
+class HfBackend:
+    """transformers backend for CPU / Apple Metal / small CUDA boxes (pilots only; della uses vLLM)."""
+    def __init__(self, model, max_tokens, batch=8):
+        import torch
+        from transformers import AutoTokenizer, AutoModelForCausalLM
+        self.dev = "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")
+        dtype = torch.float16 if self.dev in ("cuda", "mps") else torch.float32
+        self.tok = AutoTokenizer.from_pretrained(model); self.tok.padding_side = "left"
+        if self.tok.pad_token is None: self.tok.pad_token = self.tok.eos_token
+        self.m = AutoModelForCausalLM.from_pretrained(model, torch_dtype=dtype).to(self.dev).eval()
+        self.max_tokens, self.bs, self.name, self.torch = max_tokens, batch, model, torch
+        print(f"[hf] {model} on {self.dev} ({dtype})", flush=True)
+    def generate(self, batch):
+        out = []
+        for i in range(0, len(batch), self.bs):
+            chunk = batch[i:i + self.bs]
+            prompts = [self.tok.apply_chat_template([{k: v for k, v in t.items() if not k.startswith("_")} for t in m], tokenize=False, add_generation_prompt=True) for m in chunk]
+            enc = self.tok(prompts, return_tensors="pt", padding=True).to(self.dev)
+            with self.torch.no_grad():
+                gen = self.m.generate(**enc, max_new_tokens=self.max_tokens, do_sample=False, pad_token_id=self.tok.pad_token_id)
+            out += self.tok.batch_decode(gen[:, enc["input_ids"].shape[1]:], skip_special_tokens=True)
+            if (i // self.bs) % 20 == 0: print(f"[hf] {min(i + self.bs, len(batch))}/{len(batch)}", flush=True)
+        return out
+
 class ApiBackend:
     def __init__(self, a):
         api = _load("v17api", os.path.join(HERE, "run_cells_v17_api.py"))
@@ -114,6 +138,7 @@ class FakeBackend:
 
 def make_backend(a, model=None, mem=None):
     if a.backend == "fake": return FakeBackend(model or "fake", seed=a.seed)
+    if a.backend == "hf": return HfBackend(model or a.model, a.max_tokens, a.hf_batch)
     if a.backend == "api":
         b = argparse.Namespace(**vars(a)); b.model = model or a.model; return ApiBackend(b)
     return VllmBackend(model or a.model, mem if mem is not None else a.vllm_mem, a.max_tokens)
@@ -225,7 +250,8 @@ def phase_main(a, recs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--backend", choices=("vllm", "api", "fake"), default="vllm")
+    ap.add_argument("--backend", choices=("vllm", "hf", "api", "fake"), default="vllm")
+    ap.add_argument("--hf-batch", type=int, default=8)
     ap.add_argument("--model", default="fake"); ap.add_argument("--out", required=True)
     ap.add_argument("--phase", choices=("peers", "main", "all"), default="all")
     ap.add_argument("--n", type=int, default=300, help="questions from the held-out TEST split (qids 0-449)")
