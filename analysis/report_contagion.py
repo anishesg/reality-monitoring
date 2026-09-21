@@ -37,6 +37,17 @@ def report(run):
         n = sum(1 for r in P if r["kind"] == kind)
         S["pairwise"][kind] = {"fold": fold, "accept": acc, "n": n}
         print(f"{kind:14s} {fmt(fold):26s} {fmt(acc):26s} {n:>5}")
+    # generated peers: how often the peer's text literally named the alternative, and fold restricted to those trials
+    pm = {}
+    for q in (os.path.join(run, "peer_msgs.jsonl"), os.path.join(os.path.dirname(run.rstrip("/")), "_peers", "peer_msgs.jsonl")):
+        for r in ([json.loads(l) for l in open(q)] if os.path.exists(q) else []): pm[(r["peer"], r["qid"], r["truth"])] = r["mentions_alt"]
+    for kind in [k for k in S["pairwise"] if k.startswith("gen:")]:
+        name = kind[4:]; rows = [r for r in P if r["kind"] == kind and pm.get((name, r["qid"], r["truth"])) is not None]
+        if not rows: continue
+        named = [r for r in rows if pm[(name, r["qid"], r["truth"])]]
+        fold_named = boot([(r["qid"], ab(r["outcome"])) for r in named if r["truth"]], rate) if any(r["truth"] for r in named) else (None, None, None)
+        S["pairwise"][kind]["mentions_alt_rate"] = len(named) / len(rows); S["pairwise"][kind]["fold_when_named"] = fold_named
+        print(f"   {kind}: peer text named the alternative in {len(named)/len(rows):.2f} of trials; fold when named = {fmt(fold_named)}")
     if "mention" in S["pairwise"]:
         m = S["pairwise"]["mention"]["fold"][0]
         gens = {k: v["fold"][0] for k, v in S["pairwise"].items() if k.startswith("gen:") and v["fold"][0] is not None}
