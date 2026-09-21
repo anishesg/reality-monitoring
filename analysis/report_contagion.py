@@ -100,3 +100,52 @@ def report(run):
 
 if __name__ == "__main__":
     for run in sys.argv[1:]: report(run)
+
+# ------------------------------------------------------------------------------------------------- figures + optional W&B
+def figure(S, run):
+    try: import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    except Exception: return None
+    pw = {k: v for k, v in S["pairwise"].items() if not k.startswith("_") and v.get("fold", (None,))[0] is not None}
+    if not pw: return None
+    chain_ok = any(isinstance(v, dict) and "measured" in v for v in S["chain"].values())
+    fig, axes = plt.subplots(1, 2 if chain_ok else 1, figsize=(11 if chain_ok else 6, 4))
+    ax = axes[0] if chain_ok else axes
+    order = ["none", "mention", "reason", "conf_lo", "conf_hi"] + sorted(k for k in pw if k.startswith("gen:"))
+    ks = [k for k in order if k in pw]; x = range(len(ks))
+    f = [pw[k]["fold"][0] for k in ks]; lo = [pw[k]["fold"][0] - (pw[k]["fold"][1] or 0) for k in ks]; hi = [(pw[k]["fold"][2] or 0) - pw[k]["fold"][0] for k in ks]
+    a = [pw[k]["accept"][0] or 0 for k in ks]
+    ax.bar([i - 0.2 for i in x], f, 0.4, yerr=[lo, hi], color="#b91c1c", capsize=3, label="fold (abandon correct answer)")
+    ax.bar([i + 0.2 for i in x], a, 0.4, color="#15803d", label="accept (adopt true alternative)")
+    ax.set_xticks(list(x)); ax.set_xticklabels([k.replace("gen:", "peer:") for k in ks], rotation=30, ha="right"); ax.set_ylim(0, 1)
+    ax.set_ylabel("rate"); ax.set_title(f"Pairwise: message from Agent B  ({os.path.basename(run)})"); ax.legend(fontsize=8, loc="lower right")
+    if chain_ok:
+        ax2 = axes[1]
+        for cname, col in (("contaminated", "#b91c1c"), ("clean", "#15803d"), ("firewall", "#1d4ed8")):
+            v = S["chain"].get(cname)
+            if not isinstance(v, dict) or "measured" not in v: continue
+            ks_ = [i + 1 for i, m in enumerate(v["measured"]) if m[0] is not None]
+            ax2.plot(ks_, [m[0] for m in v["measured"] if m[0] is not None], "o-", color=col, label=f"{cname} (measured)")
+            ax2.fill_between(ks_, [m[1] for m in v["measured"] if m[0] is not None], [m[2] for m in v["measured"] if m[0] is not None], color=col, alpha=.15)
+            if any(p is not None for p in v["markov"]): ax2.plot(ks_, [p for p in v["markov"] if p is not None], "--", color=col, alpha=.7, label=f"{cname} (Markov prediction)")
+        ax2.set_xlabel("agent position k in chain"); ax2.set_ylabel("P(agent k answers wrong)"); ax2.set_ylim(0, 1); ax2.set_title("Chain propagation"); ax2.legend(fontsize=7)
+    fig.tight_layout(); out = os.path.join(run, "contagion.png"); fig.savefig(out, dpi=150); plt.close(fig); return out
+
+def wandb_log(S, run, png):
+    if not os.environ.get("WANDB_API_KEY"): return
+    try:
+        import wandb
+        r = wandb.init(project=os.environ.get("WANDB_PROJECT", "reality-monitoring"), name=f"contagion-{os.path.basename(run)}", reinit=True, config={"model": S.get("model")})
+        flat = {f"pairwise/{k}/fold": v["fold"][0] for k, v in S["pairwise"].items() if isinstance(v, dict) and v.get("fold", (None,))[0] is not None}
+        flat.update({f"pairwise/{k}/accept": v["accept"][0] for k, v in S["pairwise"].items() if isinstance(v, dict) and v.get("accept", (None,))[0] is not None})
+        for cname, v in S["chain"].items():
+            if isinstance(v, dict) and "measured" in v:
+                for i, m in enumerate(v["measured"]):
+                    if m[0] is not None: flat[f"chain/{cname}/k{i+1}"] = m[0]
+        if png: flat["figure"] = wandb.Image(png)
+        r.log(flat); r.finish()
+    except Exception as e: print("wandb skipped:", str(e)[:80])
+
+if __name__ == "__main__" and len(sys.argv) > 1:
+    for run in sys.argv[1:]:
+        S = json.load(open(os.path.join(run, "summary.json"))); png = figure(S, run); wandb_log(S, run, png)
+        if png: print("figure:", png)
