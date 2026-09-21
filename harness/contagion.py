@@ -188,12 +188,14 @@ def phase_main(a, recs):
         return msgs
 
     # ---- PAIRWISE
-    kinds = list(SCRIPTED) if "pairwise" in a.cells else [] + sorted({f"gen:{k[0]}" for k in peer_msgs})
+    kinds = list(SCRIPTED) + sorted({f"gen:{k[0]}" for k in peer_msgs})
+    if "pairwise" not in a.cells: kinds_pw = []
+    else: kinds_pw = kinds + sorted({f"gen:{k[0]}" for k in peer_msgs})
     trials = []
     for r in recs:
         for t in (True, False):
             claim = r["true_answer"] if t else r["distractor"]; alt = r["distractor"] if t else r["true_answer"]
-            for kind in kinds:
+            for kind in kinds_pw:
                 key = ("pairwise", kind, r["qid"], t, 0, "-")
                 if key in done: continue
                 if kind.startswith("gen:"):
@@ -211,6 +213,46 @@ def phase_main(a, recs):
             emit({"cell": "pairwise", "kind": key[1], "qid": r["qid"], "truth": key[3], "hop": 0, "chain": "-", "claim": claim, "alt": alt,
                   "final": f, "outcome": o, "resp": txt[:600], "model": A.name})
         print(f"[pairwise] {min(i + a.batch, len(trials))}/{len(trials)}", flush=True)
+
+    # ---- GENUINE pairwise: A generates its own answer (no injection); fold cells use items A got right, accept cells items A got wrong
+    if "genuine" in a.cells:
+        own = {}
+        for row in read_jsonl(out):
+            if row["cell"] == "genuine" and row["kind"] == "_own": own[row["qid"]] = row
+        todo = [r for r in recs if r["qid"] not in own]
+        for i in range(0, len(todo), a.batch):
+            chunk = todo[i:i + a.batch]
+            texts = A.generate([hidden([{"role": "system", "content": SYS}, q_turn(r["question"])], r) for r in chunk]); check(texts, "genuine own-answer")
+            for r, txt in zip(chunk, texts):
+                f = parse_final(txt); o = outcome(f, r["true_answer"], r["distractor"], txt)
+                row = {"cell": "genuine", "kind": "_own", "qid": r["qid"], "truth": (o == "retain") if o in ("retain", "switch_alt") else None, "hop": 0, "chain": "-",
+                       "claim": r["true_answer"] if o == "retain" else r["distractor"], "alt": r["distractor"] if o == "retain" else r["true_answer"],
+                       "final": f, "outcome": o, "resp": txt[:600], "resp_full": txt.strip(), "model": A.name}
+                emit(row); own[r["qid"]] = row
+        gtrials = []
+        for r in recs:
+            o = own[r["qid"]]
+            if o["truth"] is None: continue  # answered neither candidate: excluded, rate reported
+            t = o["truth"]; claim, alt = o["claim"], o["alt"]
+            for kind in [k for k in kinds if k != "none"] + ["none"]:
+                key = ("genuine", kind, r["qid"], t, 0, "-")
+                if key in done: continue
+                if kind.startswith("gen:"):
+                    pm = peer_msgs.get((kind[4:], r["qid"], t))
+                    if not pm: continue
+                    text = pm["text"]
+                else: text = peer_text(kind, alt)
+                msgs = [{"role": "system", "content": SYS}, q_turn(r["question"]), {"role": "assistant", "content": o["resp_full"]},
+                        agent_turn("Agent B", text) if text else {"role": "user", "content": SUFFIX.strip()}]
+                gtrials.append((key, r, claim, alt, hidden(msgs, r)))
+        for i in range(0, len(gtrials), a.batch):
+            chunk = gtrials[i:i + a.batch]; texts = A.generate([x[4] for x in chunk]); check(texts, "genuine pairwise")
+            for (key, r, claim, alt, _), txt in zip(chunk, texts):
+                f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else outcome(f, claim, alt, txt)
+                emit({"cell": "genuine", "kind": key[1], "qid": r["qid"], "truth": key[3], "hop": 0, "chain": "-", "claim": claim, "alt": alt,
+                      "final": f, "outcome": o, "resp": txt[:600], "model": A.name})
+            print(f"[genuine] {min(i + a.batch, len(gtrials))}/{len(gtrials)}", flush=True)
+        excl = sum(1 for r in recs if own[r["qid"]]["truth"] is None); print(f"[genuine] own-answer accuracy = {sum(1 for r in recs if own[r['qid']]['truth']) / len(recs):.3f}; excluded (neither candidate) = {excl}/{len(recs)}", flush=True)
 
     # ---- CHAIN (+ FIREWALL): state per (chain, qid) = previous agent's reply text
     chains = ([("contaminated", False), ("clean", True)] + ([("firewall", False)] if F else [])) if "chain" in a.cells else []
@@ -267,7 +309,7 @@ def main():
     ap.add_argument("--peers", default="", help="name=model,... peer models that write Agent-B messages (identity manipulation)")
     ap.add_argument("--peer-msgs", default=None, help="reuse peer_msgs.jsonl from another run (e.g. open-model peers for an API run)")
     ap.add_argument("--firewall-model", default=None); ap.add_argument("--firewall-pos", type=int, default=2)
-    ap.add_argument("--cells", default="pairwise,chain", help="which cell families to run")
+    ap.add_argument("--cells", default="pairwise,genuine,chain", help="cell families: pairwise (injected prior, comparable to v17), genuine (model's own answer), chain")
     ap.add_argument("--chain-turns", choices=("merged", "split"), default="merged", help="merged = question+peer message in one user turn (default, v2); split = v1 two user turns")
     ap.add_argument("--batch", type=int, default=512); ap.add_argument("--max-tokens", type=int, default=288)
     ap.add_argument("--vllm-mem", type=float, default=0.85); ap.add_argument("--seed", type=int, default=0)

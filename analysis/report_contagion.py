@@ -58,6 +58,19 @@ def report(run):
         for k in ("reason", "conf_hi", "conf_lo"):
             if k in S["pairwise"] and S["pairwise"][k]["fold"][0] is not None:
                 print(f"   {k} - mention = {S['pairwise'][k]['fold'][0] - m:+.3f}")
+    # ---- GENUINE (model's own answer; fold = items it got right, accept = items it got wrong)
+    G = [r for r in R if r["cell"] == "genuine" and r["kind"] != "_own" and r["outcome"] not in ("unparsed", "ambiguous", "error")]
+    own = [r for r in R if r["cell"] == "genuine" and r["kind"] == "_own"]
+    if own:
+        acc = rate([r["truth"] is True for r in own]); excl = rate([r["truth"] is None for r in own])
+        print(f"-- GENUINE (own generated answer; accuracy={acc:.3f}, excluded neither-candidate={excl:.3f})")
+        print(f"{'peer kind':14s} {'fold (own right)':26s} {'accept (own wrong)':26s} {'n':>5}")
+        S["genuine"] = {"own_accuracy": acc, "excluded": excl}
+        for kind in sorted({r["kind"] for r in G}, key=lambda k: (k.startswith("gen"), k)):
+            fold = boot([(r["qid"], ab(r["outcome"])) for r in G if r["kind"] == kind and r["truth"]], rate)
+            accp = boot([(r["qid"], r["outcome"] == "switch_alt") for r in G if r["kind"] == kind and not r["truth"]], rate)
+            S["genuine"][kind] = {"fold": fold, "accept": accp, "n": sum(1 for r in G if r["kind"] == kind)}
+            print(f"{kind:14s} {fmt(fold):26s} {fmt(accp):26s} {S['genuine'][kind]['n']:>5}")
     # ---- CHAIN
     C = [r for r in R if r["cell"] == "chain"]
     if C:
@@ -76,6 +89,11 @@ def report(run):
         p_ww = boot(trans["ww"], rate) if trans["ww"] else (None, None, None); p_cw = boot(trans["cw"], rate) if trans["cw"] else (None, None, None)
         print(f"   hop transitions: P(wrong|prev wrong)={fmt(p_ww)}  P(wrong|prev correct)={fmt(p_cw)}")
         S["chain"]["p_ww"], S["chain"]["p_cw"] = p_ww, p_cw
+        if p_ww[0] is not None and p_cw[0] is not None:
+            lam = p_ww[0] - p_cw[0]; pi_inf = p_cw[0] / (p_cw[0] + 1 - p_ww[0]) if (p_cw[0] + 1 - p_ww[0]) > 0 else None
+            half = (-0.6931 / __import__("math").log(lam)) if 0 < lam < 1 else None
+            S["chain"]["lambda"], S["chain"]["pi_inf"], S["chain"]["halflife_hops"] = lam, pi_inf, half
+            print(f"   closed form: pi_k = pi_inf + (pi_1 - pi_inf) * lambda^(k-1);  lambda = p_ww - p_cw = {lam:.3f};  pi_inf = p_cw/(p_cw+1-p_ww) = {pi_inf if pi_inf is None else round(pi_inf,3)};  half-life = {half if half is None else round(half,1)} hops")
         for cname in sorted({r["chain"] for r in C}):
             meas = []
             for k in range(1, K + 1):
