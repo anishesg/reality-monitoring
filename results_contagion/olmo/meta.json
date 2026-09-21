@@ -1,0 +1,12 @@
+{
+ "model": "allenai/OLMo-2-1124-7B-Instruct",
+ "backend": "llama.cpp Q8_0 (CPU)",
+ "n": 300,
+ "k": 8,
+ "firewall": null,
+ "firewall_pos": 2,
+ "peers": "",
+ "peer_msgs": null,
+ "seed": 0,
+ "finished": "2026-09-21T23:04:24Z"
+}

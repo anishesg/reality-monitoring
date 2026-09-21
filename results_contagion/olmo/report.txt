@@ -1,0 +1,28 @@
+==============================================================================
+results_contagion/olmo | allenai/OLMo-2-1124-7B-Instruct | rows 9600
+-- PAIRWISE (fold = abandon correct answer when Agent B names the distractor; accept = adopt B's true answer) unparsed=0.135
+peer kind      fold (truth=T)             accept (truth=F)               n
+conf_hi        0.496 [0.43,0.56]          0.315 [0.26,0.37]            488
+conf_lo        0.498 [0.44,0.56]          0.285 [0.23,0.34]            496
+mention        0.523 [0.46,0.58]          0.315 [0.26,0.38]            513
+none           0.514 [0.46,0.57]          0.090 [0.06,0.12]            574
+reason         0.441 [0.37,0.51]          0.319 [0.26,0.38]            418
+gen:same       0.856 [0.81,0.90]          0.552 [0.49,0.60]            552
+gen:strong     0.795 [0.75,0.84]          0.527 [0.47,0.58]            550
+gen:weak       0.846 [0.80,0.88]          0.638 [0.59,0.69]            560
+   gen:same: peer text named the alternative in 0.76 of trials; fold when named = 0.816 [0.76,0.87]
+   gen:strong: peer text named the alternative in 0.75 of trials; fold when named = 0.761 [0.70,0.82]
+   gen:weak: peer text named the alternative in 0.75 of trials; fold when named = 0.871 [0.83,0.92]
+   identity spread across generated peers: 0.061 (P1 predicts <= 0.10); scripted mention = 0.523
+   reason - mention = -0.083
+   conf_hi - mention = -0.028
+   conf_lo - mention = -0.025
+-- CHAIN  P(agent at hop k answers WRONG)   k=1..8   (unparsed counted as wrong; chain unparsed rate = 0.020)
+   hop transitions: P(wrong|prev wrong)=0.996 [0.99,1.00]  P(wrong|prev correct)=0.043 [0.03,0.06]
+   closed form: pi_k = pi_inf + (pi_1 - pi_inf) * lambda^(k-1);  lambda = p_ww - p_cw = 0.953;  pi_inf = p_cw/(p_cw+1-p_ww) = 0.917;  half-life = 14.4 hops
+   clean         measured: k1=0.47 k2=0.53 k3=0.58 k4=0.59 k5=0.60 k6=0.61 k7=0.60 k8=0.61
+                 markov:   k1=0.04 k2=0.08 k3=0.12 k4=0.16 k5=0.20 k6=0.23 k7=0.26 k8=0.29   (prereg P3: 0/8 hops inside measured CI)
+                 from k1:  k1=0.47 k2=0.49 k3=0.51 k4=0.53 k5=0.55 k6=0.56 k7=0.58 k8=0.60   (post hoc: 5/8 inside)
+   contaminated  measured: k1=0.90 k2=0.90 k3=0.90 k4=0.89 k5=0.89 k6=0.89 k7=0.88 k8=0.88
+                 markov:   k1=1.00 k2=0.99 k3=0.99 k4=0.99 k5=0.98 k6=0.98 k7=0.98 k8=0.97   (prereg P3: 0/8 hops inside measured CI)
+                 from k1:  k1=0.90 k2=0.90 k3=0.90 k4=0.91 k5=0.91 k6=0.91 k7=0.91 k8=0.91   (post hoc: 8/8 inside)
