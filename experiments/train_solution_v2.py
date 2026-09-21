@@ -36,6 +36,15 @@ EVAL_TMPL = [
     "A quick check suggests roughly {v}% probability that the answer is {val}.",
 ]
 
+def _gpu_util(cap=0.90):
+    """Adapt vLLM memory utilization to what is actually free (shared-node co-tenants)."""
+    try:
+        import torch
+        free, total = torch.cuda.mem_get_info()
+        return max(0.35, min(cap, (free - 2 * 1024**3) / total))
+    except Exception:
+        return cap
+
 def stmt(tmpl, v, valence):
     val = "correct" if valence == "correct" else "incorrect"
     return tmpl.format(v=v, val=val)
@@ -138,6 +147,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--adapter-dir", required=True)
     ap.add_argument("--phase", choices=["train","eval","all"], default="all")
+    ap.add_argument("--mdir", default=None)
     ap.add_argument("--lr", type=float, default=8e-5)
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--replay", type=float, default=0.8)
@@ -153,7 +163,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(args.model)
     if tok.pad_token is None: tok.pad_token = tok.eos_token
 
-    mdir = os.path.join(os.environ.get("TMPDIR", "/tmp"), "merged_v2")
+    mdir = args.mdir or os.path.join(os.environ.get("TMPDIR", "/tmp"), "merged_v2")
     if args.phase == "eval":
         if not os.path.isdir(mdir):
             from peft import PeftModel
@@ -203,7 +213,7 @@ def main():
 
     # ---------------- EVAL SUITE (vLLM on merged) ----------------
     from vllm import LLM, SamplingParams
-    llm = LLM(model=mdir, dtype="bfloat16", gpu_memory_utilization=0.88, max_model_len=2048)
+    llm = LLM(model=mdir, dtype="bfloat16", gpu_memory_utilization=_gpu_util(0.88), max_model_len=2048)
     sp = SamplingParams(temperature=0.0, max_tokens=288)
     RES = open(os.path.join(args.out, "eval.jsonl"), "w")
     emit = lambda **kw: RES.write(json.dumps(kw) + "\n")

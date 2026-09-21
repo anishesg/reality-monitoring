@@ -15,6 +15,15 @@ Outputs: signals.jsonl, ident.jsonl
 """
 import argparse, json, math, os, random, re, string
 
+def _gpu_util(cap=0.90):
+    """Adapt vLLM memory utilization to what is actually free (shared-node co-tenants)."""
+    try:
+        import torch
+        free, total = torch.cuda.mem_get_info()
+        return max(0.35, min(cap, (free - 2 * 1024**3) / total))
+    except Exception:
+        return cap
+
 def norm(s):
     s = s.lower().strip().strip(string.punctuation + " \"'")
     s = re.sub(r"^(the|a|an)\s+", "", s)
@@ -71,7 +80,7 @@ def main():
     from vllm import LLM, SamplingParams
     tok = AutoTokenizer.from_pretrained(a.model)
     llm = LLM(model=a.model, dtype=os.environ.get("VLLM_DTYPE", "bfloat16"),
-              gpu_memory_utilization=float(os.environ.get("VLLM_MEM", "0.90")),
+              gpu_memory_utilization=_gpu_util(float(os.environ.get("VLLM_MEM", "0.90"))),
               max_model_len=int(os.environ.get("VLLM_LEN", "3072")))
     spg = SamplingParams(temperature=0.0, max_tokens=a.maxtok)
     sps = SamplingParams(temperature=0.8, max_tokens=a.maxtok, n=8)
