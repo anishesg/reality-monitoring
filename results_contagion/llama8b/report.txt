@@ -1,0 +1,22 @@
+==============================================================================
+results_contagion/llama8b | meta-llama/Llama-3.1-8B-Instruct | rows 9600
+-- PAIRWISE (fold = abandon correct answer when Agent B names the distractor; accept = adopt B's true answer) unparsed=0.100
+peer kind      fold (truth=T)             accept (truth=F)               n
+conf_hi        0.764 [0.72,0.81]          0.869 [0.83,0.91]            542
+conf_lo        0.640 [0.58,0.70]          0.822 [0.78,0.87]            522
+mention        0.732 [0.68,0.78]          0.890 [0.85,0.92]            527
+none           0.420 [0.37,0.48]          0.223 [0.17,0.27]            504
+reason         0.843 [0.80,0.88]          0.899 [0.86,0.94]            545
+gen:same       0.885 [0.85,0.92]          0.827 [0.79,0.87]            568
+gen:strong     0.837 [0.80,0.88]          0.825 [0.78,0.87]            561
+gen:weak       0.796 [0.75,0.84]          0.797 [0.75,0.84]            550
+   identity spread across generated peers: 0.090 (P1 predicts <= 0.10); scripted mention = 0.732
+   reason - mention = +0.110
+   conf_hi - mention = +0.032
+   conf_lo - mention = -0.092
+-- CHAIN  P(agent at hop k answers WRONG)   k=1..8   (unparsed counted as wrong)
+   hop transitions: P(wrong|prev wrong)=0.975 [0.97,0.98]  P(wrong|prev correct)=0.129 [0.11,0.15]
+   clean         measured: k1=0.29 k2=0.49 k3=0.56 k4=0.59 k5=0.60 k6=0.63 k7=0.65 k8=0.67
+                 markov:   k1=0.13 k2=0.24 k3=0.33 k4=0.41 k5=0.47 k6=0.53 k7=0.58 k8=0.62
+   contaminated  measured: k1=0.85 k2=0.81 k3=0.80 k4=0.80 k5=0.79 k6=0.81 k7=0.82 k8=0.82
+                 markov:   k1=0.98 k2=0.95 k3=0.94 k4=0.92 k5=0.91 k6=0.90 k7=0.89 k8=0.88

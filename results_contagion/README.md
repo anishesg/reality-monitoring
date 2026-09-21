@@ -10,7 +10,7 @@ peer messages shared by every model under test.
 
 | run | model | status |
 |---|---|---|
-| qwen7b | Qwen2.5-7B-Instruct (Q8) | in progress (pairwise cells partial) |
-| llama8b | Llama-3.1-8B-Instruct (Q8) | queued |
-| mistral | Mistral-7B-Instruct-v0.3 (Q8) | queued |
+| qwen7b | Qwen2.5-7B-Instruct (Q8) | complete, 9,600 trials |
+| llama8b | Llama-3.1-8B-Instruct (Q8) | complete, 9,600 trials |
+| mistral | Mistral-7B-Instruct-v0.3 (Q8) | in progress |
 | olmo | OLMo-2-1124-7B-Instruct (Q8) | queued |
