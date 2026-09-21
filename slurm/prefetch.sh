@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 # Run ONCE on a login node (internet): download every model and dataset the ladder needs into HF_HOME on scratch, and build the
 # injected/generic training data, so compute nodes can run fully offline. Idempotent.
-#   HF_HOME=/scratch/gpfs/$USER/hf bash slurm/prefetch.sh [olmo tulu olmo13 olmo32]
+#   HF_HOME=/scratch/gpfs/$USER/hf bash slurm/prefetch.sh [olmo tulu olmo13 olmo32]      # ladder backbones (+ training data)
+#   HF_HOME=/scratch/gpfs/$USER/hf bash slurm/prefetch.sh contagion                       # the 6 instruct models for slurm/submit_contagion.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
 export HF_HOME="${HF_HOME:-/scratch/gpfs/$USER/hf}"; mkdir -p "$HF_HOME"; export HF_HUB_ENABLE_HF_TRANSFER=1
 [ -f .hftok ] && export HF_TOKEN=$(cat .hftok)
 [ -d .venv ] && source .venv/bin/activate
 TAGS=("$@"); [ ${#TAGS[@]} -eq 0 ] && TAGS=(olmo tulu)
+if [ "${TAGS[0]}" = "contagion" ]; then
+  for M in Qwen/Qwen2.5-1.5B-Instruct Qwen/Qwen2.5-7B-Instruct Qwen/Qwen2.5-14B-Instruct meta-llama/Llama-3.1-8B-Instruct mistralai/Mistral-7B-Instruct-v0.3 allenai/OLMo-2-1124-7B-Instruct; do
+    python -c "import sys; from huggingface_hub import snapshot_download; print('prefetch', sys.argv[1], '->', snapshot_download(sys.argv[1], allow_patterns=['*.json','*.safetensors','*.txt','*.model','tokenizer*']))" "$M"
+  done; echo "contagion prefetch done (Llama and Mistral are gated: .hftok must hold a token that accepted their licenses)"; exit 0
+fi
 declare -A HF=([olmo]=allenai/OLMo-2-1124-7B-SFT [tulu]=allenai/Llama-3.1-Tulu-3-8B-SFT [olmo13]=allenai/OLMo-2-1124-13B-SFT [olmo32]=allenai/OLMo-2-0325-32B-SFT)
 for T in "${TAGS[@]}"; do
   python - "${HF[$T]}" <<'PY'

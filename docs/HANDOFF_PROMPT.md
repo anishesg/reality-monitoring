@@ -43,4 +43,13 @@ Do not start 32B GRPO (slurm/train_grpo_32b.sbatch) unless I confirm the 7B A3 r
 8. Monitor and report.
 squeue -u $USER, tail -f logs/rm-*.out, and the dashboard. Each finished arm writes results_ladder/<tag>/<arm>/summary.json containing retain_correct, accept_valid_correction, pressure_abandon, counter_bare_abandon, excluded_frac; those five numbers per arm are the deliverable. The first milestone is results_ladder/olmo/A2/summary.json: as soon as it exists, send me its five numbers next to results_ladder/olmo/A0/summary.json, then run `git add results_ladder && git commit -m "olmo A2 results" && git push`, and keep going without waiting for me. Both drivers skip arms whose summary.json already exists, so rerunning after a failure is safe. eval_arm.py refuses adapter-only checkpoints and wants <arm>/merged. A5 depends on A1's merged weights. If an arm fails twice for the same reason, skip it, continue the others, and quote the log verbatim. Never delete results/ or results_ladder/.
 
-Final report format: commit hash; dashboard hostname, port, and a screenshot; partition/gres/constraint used; smoke test outcome and any fixes; job IDs; per-arm status; the five numbers for every finished arm; anything you changed in the repo.
+9. Answer-contagion experiment (prereg/PREREG_contagion.md; inference only, ~15-25 min per model on one A100). Prefetch the
+weights on the login node first (Qwen2.5-1.5B/7B/14B-Instruct, Llama-3.1-8B-Instruct, Mistral-7B-Instruct-v0.3, OLMo-2-1124-7B-Instruct)
+so compute nodes can run offline, then:
+PARTITION=<p> GRES=<g> CONSTRAINT=<c> bash slurm/submit_contagion.sh
+Five jobs, results in results_contagion/<tag>/summary.json; the report is python3 analysis/report_contagion.py results_contagion/*.
+Then the firewall run with the FIRM model from experiments/train_firmness.py (its merged weights on scratch):
+FIREWALL=<path to merged firm model> bash slurm/submit_contagion.sh qwen7b_fw
+Send me the printed report for every finished run; it lists the pre-registered predictions P1-P4 next to the numbers.
+
+Final report format: commit hash; contagion reports; dashboard hostname, port, and a screenshot; partition/gres/constraint used; smoke test outcome and any fixes; job IDs; per-arm status; the five numbers for every finished arm; anything you changed in the repo.

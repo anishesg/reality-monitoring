@@ -70,6 +70,15 @@ On the cluster login node, inside the repo: `nohup python3 train/results_server.
 From your laptop: `ssh -N -L 8765:localhost:8765 <netid>@della.princeton.edu` and open http://localhost:8765 (stdlib only,
 binds to localhost, auto-refreshes every 60 s: every finished arm's five numbers, capability scores, recent job logs, figures, `/api` JSON).
 
+## 1e. Answer contagion between agents (prereg/PREREG_contagion.md)
+```
+bash slurm/submit_contagion.sh                                   # C1+C2 on 5 open models, 1 GPU each, ~20 min
+FIREWALL=<merged FIRM or STAND dir> bash slurm/submit_contagion.sh qwen7b_fw     # C3
+python3 harness/contagion.py --backend api --provider anthropic --model claude-fable-5-1 --n 150 \
+    --peer-msgs results_contagion/qwen7b/peer_msgs.jsonl --out results_contagion/fable51        # C4, laptop
+python3 analysis/report_contagion.py results_contagion/*
+```
+
 ## 2. Reading results
 `results_ladder/<tag>/<arm>/summary.json` (one row per arm) and `results_ladder/<tag>/ladder.json`. Headline columns:
 `retain_correct`, `accept_valid_correction` (the frontier), `pressure_abandon` (the DPO-installed defect), `counter_bare_abandon`
