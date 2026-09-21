@@ -1,0 +1,37 @@
+% ============================================================
+% Title + abstract, LaTeX form (drop into the ICLR template).
+% ============================================================
+
+\title{Cues over Content: Decomposing Answer Revision\\ in Language Models}
+
+\begin{abstract}
+Language models often abandon a correct answer when a user pushes back, a behavior
+usually grouped under the heading of sycophancy. We study what a challenge must
+contain to produce this behavior, decomposing a challenge into the alternative
+answer it names, the source it cites, the doubt it expresses, and its position in
+the dialogue. Across nineteen post-training checkpoints from five model families
+and roughly $400{,}000$ controlled trials, we find that revision is governed by the
+surface form of the conversation rather than by its evidential content. Naming an
+alternative answer flips a correct response as often as citing a source for it
+($0.92$ versus $0.92$ for Llama-3.1-8B), and an evaluative note that an answer is
+ninety percent reliable increases abandonment more than a note that it is thirty
+percent reliable ($0.91$ versus $0.78$ for Qwen2.5-7B). A model's own confidence,
+the signal most relevant to the decision, has little effect: its correlation with
+correctness increases with scale (AUROC $0.49$ to $0.70$) while its influence on
+revision remains near zero, an order of magnitude below the effect of whether the
+challenge is true ($0.05$ versus $0.68$ to $0.81$). A pre-registered control shows
+that this asymmetry reflects the position of a statement in the dialogue rather
+than its speaker (matched-position interaction $-0.38$, 95\% CI $[-0.51, -0.26]$),
+overturning an intuitive self-versus-other account. Using open training lineages
+that release intermediate checkpoints, we find that preference optimization
+increases capitulation to contentless doubt in two of three lineages, and that
+subsequent reinforcement learning does not reverse it. Surfacing confidence in
+context does not restore its use, but supervised training on a small set of
+demonstrations that condition revision on stated reliability does, at a measurable
+cost to accuracy, indicating that the deficit lies in the training signal rather
+than in model capacity. We show two practical consequences: an answer's resistance
+to repeated challenges predicts its correctness better than the model's stated
+confidence in sixteen of nineteen checkpoints, and re-asking a question in a fresh
+context recovers accuracy that in-context reconsideration removes ($1.00$ versus
+$0.07$). We release the benchmark, harness, and pre-registrations.
+\end{abstract}
