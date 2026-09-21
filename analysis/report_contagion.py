@@ -84,9 +84,19 @@ def report(run):
             for k in range(1, K + 1):
                 if p_ww[0] is None or p_cw[0] is None: pred.append(None); continue
                 pw = pw * p_ww[0] + (1 - pw) * p_cw[0]; pred.append(pw)
-            S["chain"][cname] = {"measured": meas, "markov": pred}
+            # post-hoc two-phase prediction: start from the MEASURED hop-1 state (the seed is a bare message, not a full agent
+            # reply), then apply the hop>=2 transition rates. Reported next to the pre-registered version, never instead of it.
+            pred2 = []; pw2 = meas[0][0] if meas and meas[0][0] is not None else None
+            for k in range(1, K + 1):
+                if pw2 is None or p_ww[0] is None: pred2.append(None); continue
+                if k > 1: pw2 = pw2 * p_ww[0] + (1 - pw2) * p_cw[0]
+                pred2.append(pw2)
+            inside = sum(1 for m, p in zip(meas, pred) if m[0] is not None and p is not None and m[1] <= p <= m[2])
+            inside2 = sum(1 for m, p in zip(meas, pred2) if m[0] is not None and p is not None and m[1] <= p <= m[2])
+            S["chain"][cname] = {"measured": meas, "markov": pred, "markov_from_k1": pred2, "hops_inside_ci": inside, "hops_inside_ci_from_k1": inside2}
             print(f"   {cname:13s} measured: " + " ".join(f"k{k+1}={m[0]:.2f}" if m[0] is not None else f"k{k+1}=—" for k, m in enumerate(meas)))
-            print(f"   {'':13s} markov:   " + " ".join(f"k{k+1}={p:.2f}" if p is not None else f"k{k+1}=—" for k, p in enumerate(pred)))
+            print(f"   {'':13s} markov:   " + " ".join(f"k{k+1}={p:.2f}" if p is not None else f"k{k+1}=—" for k, p in enumerate(pred)) + f"   (prereg P3: {inside}/{K} hops inside measured CI)")
+            print(f"   {'':13s} from k1:  " + " ".join(f"k{k+1}={p:.2f}" if p is not None else f"k{k+1}=—" for k, p in enumerate(pred2)) + f"   (post hoc: {inside2}/{K} inside)")
         if "firewall" in S["chain"] and "contaminated" in S["chain"]:
             fp = meta.get("firewall_pos", 2)
             after = [(S["chain"]["contaminated"]["measured"][k][0], S["chain"]["firewall"]["measured"][k][0]) for k in range(fp, K)]
