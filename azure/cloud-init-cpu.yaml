@@ -1,0 +1,12 @@
+#cloud-config
+# CPU inference box: llama.cpp server (OpenAI-compatible) + python venv. No GPU. Models are pulled by azure/cpu_run_contagion.sh.
+package_update: true
+packages: [git, rsync, tmux, htop, build-essential, cmake, python3-venv, python3-pip, libcurl4-openssl-dev]
+runcmd:
+  - D=$(lsblk -dn -o NAME,SIZE,TYPE | awk '$2=="256G" && $3=="disk"{print $1}' | head -1); [ -n "$D" ] && { mkfs.ext4 -F /dev/$D; mkdir -p /mnt/work; mount /dev/$D /mnt/work; echo "/dev/$D /mnt/work ext4 defaults,nofail 0 2" >> /etc/fstab; } || mkdir -p /mnt/work
+  - chown -R azureuser:azureuser /mnt/work
+  - sudo -u azureuser bash -c 'cd /mnt/work && git clone --depth 1 https://github.com/ggml-org/llama.cpp && cd llama.cpp && cmake -B build -DGGML_NATIVE=ON -DLLAMA_CURL=ON && cmake --build build --config Release -j $(nproc) --target llama-server'
+  - sudo -u azureuser bash -c 'python3 -m venv /mnt/work/venv && . /mnt/work/venv/bin/activate && pip install -q --upgrade pip && pip install -q openai anthropic huggingface_hub hf_transfer numpy scipy'
+  - sudo -u azureuser bash -c 'mkdir -p /mnt/work/reality-monitoring /mnt/work/hf'
+  - echo 'export HF_HOME=/mnt/work/hf HF_HUB_ENABLE_HF_TRANSFER=1; source /mnt/work/venv/bin/activate' >> /home/azureuser/.bashrc
+  - test -x /mnt/work/llama.cpp/build/bin/llama-server && touch /mnt/work/READY
