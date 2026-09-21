@@ -21,7 +21,7 @@ printf "%-6s %-4s %-9s %s\n" tag arm est_hours note; printf "%-6s %-4s %-9s %s\n
 for TAG in $BACKBONES; do
   BB=$(hf_of "$TAG"); CK="$ROOT/checkpoints/$TAG"; DATA="$ROOT/data/$TAG"; RES="$ROOT/results_ladder/$TAG"
   # SEED=k (k>0) puts checkpoints and results under <tag>/s<k>/ and passes --seed k to the trainers; A0 (untrained) is shared from <tag>/A0.
-  if [ "${SEED:-0}" != "0" ]; then CK="$CK/s$SEED"; RES="$RES/s$SEED"; mkdir -p "$RES"; [ -e "$RES/A0" ] || ln -s "$ROOT/results_ladder/$TAG/A0" "$RES/A0"; fi
+  if [ "${SEED:-0}" != "0" ]; then CK="$CK/s$SEED"; RES="$RES/s$SEED"; mkdir -p "$RES" "$ROOT/results_ladder/$TAG/A0"; { [ -L "$RES/A0" ] || [ -e "$RES/A0" ]; } || ln -s "$ROOT/results_ladder/$TAG/A0" "$RES/A0"; fi
   mkdir -p "$CK" "$DATA" "$RES"
   read -r TGRES TMEM TTP TEXTRA <<<"$(res_of "$TAG" | sed 's/^\([^ ]*\) \([^ ]*\) \([^ ]*\) *\(.*\)$/\1 \2 \3 \4/')"; TEXTRA="${TEXTRA:-}"
   [ "${SEED:-0}" != "0" ] && TEXTRA="$TEXTRA --seed $SEED"
