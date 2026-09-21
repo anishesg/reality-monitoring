@@ -1,8 +1,8 @@
 # Della package: what to run, in order, and what to send back
 
 Paste-ready for whoever has della access. Every command is resumable; re-running skips finished work. All GPU work is one
-80 GB A100 per job unless stated. Total if everything runs: ~95 GPU-hours; the first two items (~5 GPU-h) already give the
-paper two figures.
+80 GB A100 per job unless stated. Total if everything runs: ~175 GPU-hours (steps 1-4 ~90; steps 5-8 ~85); steps 1-2 alone
+(~25 GPU-h) already give the paper two figures. Seed rule: trained arms 3 seeds; measured checkpoints one deterministic pass.
 
 ## 0. One-time setup (login node, ~30 min)
     cd /scratch/gpfs/$USER && git clone https://github.com/anishesg/reality-monitoring.git && cd reality-monitoring
@@ -37,8 +37,22 @@ Send back: results_contagion/olmo_fw/contagion.png and report.txt (the "firewall
     for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A1"; done
 Send back: A1 summary.json files (pressure_abandon vs A0 is the number).
 
-## 5. Scale (only if time): published 13B/32B stage checkpoints, eval only (6 jobs x ~2 h; 32B needs 2 GPUs)
+## 5. Scale: published 13B/32B stage checkpoints, eval only (6 jobs x ~2 h; 32B uses 2 GPUs)  -> stage-ladder figure at scale
     bash slurm/measure_stages.sh olmo13 olmo32
+
+## 6. Contagion at 32B and 72B, unquantized (2 jobs; 72B needs 2 GPUs, ~2 h)  -> extends the chain result above 14B
+    VLLM_TP=1 MODEL=Qwen/Qwen2.5-32B-Instruct TAG=qwen32b PEERS="weak=Qwen/Qwen2.5-1.5B-Instruct,same=Qwen/Qwen2.5-32B-Instruct,strong=Qwen/Qwen2.5-72B-Instruct" sbatch --gres=gpu:1 --mem=120G --partition=$PARTITION slurm/contagion.sbatch
+    VLLM_TP=2 MODEL=Qwen/Qwen2.5-72B-Instruct TAG=qwen72b PEERS="weak=Qwen/Qwen2.5-1.5B-Instruct,same=Qwen/Qwen2.5-72B-Instruct,strong=Qwen/Qwen2.5-72B-Instruct" sbatch --gres=gpu:2 --mem=200G --partition=$PARTITION slurm/contagion.sbatch
+(prefetch first: `python -c "from huggingface_hub import snapshot_download as d; [d(m, allow_patterns=['*.json','*.safetensors','tokenizer*']) for m in ['Qwen/Qwen2.5-32B-Instruct','Qwen/Qwen2.5-72B-Instruct']]"` on the login node, ~210 GB)
+
+## 7. STAND at 32B, one seed (A0 + A2 + A3; 4 GPUs per job, ~25 GPU-h)  -> does the fix persist with scale
+    bash slurm/prefetch.sh olmo32 && bash slurm/submit_ladder.sh --backbones olmo32 --arms "A0 A2 A3"
+
+## 8. A2 hyperparameter sweep on the DEV split (5 runs x ~1.5 h)  -> appendix table; selection rule is pre-registered
+    sbatch --gres=gpu:1 --mem=80G --partition=$PARTITION --time=10:00:00 --job-name=rm-sweep --wrap="source slurm/_common.sh; bash train/sweep_a2.sh"
+
+## 9. Anish's v2 epistemic ladder, anchor models + 32B/72B only (6 jobs, ~25 GPU-h; see della/v2_epistemic_ladder/CHANGES_2026-09-21.md)
+    cd della/v2_epistemic_ladder && PROJ=/scratch/gpfs/$USER/rm_v2 bash prepare.sh   # SKIP_BIG=1 to skip 72B; then edit submit_all.sh to the 6 models and run it
 
 ## Monitoring
 `squeue -u $USER`, `tail -f logs/rm-*.out`, or the dashboard at http://localhost:8765 through the SSH tunnel. Each finished

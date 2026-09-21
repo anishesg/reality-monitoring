@@ -30,6 +30,11 @@ internet, so all downloads happen on the login node in step 1. Check `squeue` at
    for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A2 A3"; done   # 24 jobs
    If the partition walltime is under 12 h: prefix TIME_GRPO=11:30:00. If a job fails twice the same way, skip it and send me the log.
 
+3b. After step 3 is queued, submit the rest in this order (all resumable; details and prefetch commands in plan/DELLA_PACKAGE.md steps 4-9):
+   for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A1"; done   # real-recipe DPO, 12 jobs
+   bash slurm/measure_stages.sh olmo13 olmo32                                                                    # 13B/32B stage checkpoints, 6 jobs
+   contagion at 32B and 72B (step 6 of DELLA_PACKAGE.md), STAND at 32B (step 7), the A2 sweep (step 8), the v2 ladder (step 9)
+
 4. When results_ladder/olmo/A3/summary.json exists (first milestone, ~4 h after the first real submission), send me its five
    numbers next to results_ladder/olmo/A0/summary.json, then:
    FIREWALL=checkpoints/olmo/A3/merged bash slurm/submit_contagion.sh olmo_fw            # 1 job
