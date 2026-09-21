@@ -2,7 +2,7 @@
 # Chain the ladder on Slurm with --dependency=afterok, most abstract-relevant result first.
 #   bash slurm/submit_ladder.sh [--reuse-a0] [--backbones "olmo tulu olmo13 olmo32"] [--arms "A2 A1 A3 A4 A5"]
 # Tags: olmo (OLMo-2-7B-SFT), tulu (Tulu-3-8B-SFT), olmo13 (OLMo-2-13B-SFT, 1 GPU), olmo32 (OLMo-2-32B-SFT, 4 GPUs)
-# Env overrides: PARTITION (gpu), GRES (gpu:1), CONSTRAINT (e.g. a100-80g), ACCOUNT, QOS, TIME_DPO/TIME_GRPO/TIME_EVAL (walltime caps)
+# Env overrides: PARTITION (gpu), GRES (gpu:1), CONSTRAINT (e.g. a100-80g), ACCOUNT, SEED (k>0 -> <tag>/s<k>/ dirs, --seed k), QOS, TIME_DPO/TIME_GRPO/TIME_EVAL (walltime caps)
 # Recovery after preemption/failure: just re-run this script. Finished arms are skipped (summary.json), trainers resume from
 # <ckpt>/trainer/checkpoint-*, evaluators resume from <arm>/cells.jsonl. Run slurm/prefetch.sh on a login node FIRST (compute nodes are offline).
 set -euo pipefail
@@ -19,8 +19,12 @@ res_of() { case "$1" in
 sub() { sbatch --parsable --kill-on-invalid-dep=yes "${SB[@]}" "$@" | cut -d';' -f1; }
 printf "%-6s %-4s %-9s %s\n" tag arm est_hours note; printf "%-6s %-4s %-9s %s\n" olmo A2 "1.5+0.3" "revision-DPO (abstract number)"; printf "%-6s %-4s %-9s %s\n" olmo A1 "1.5+0.3" "generic-DPO control"; printf "%-6s %-4s %-9s %s\n" olmo A3 "6-9+0.3" "GRPO"; printf "%-6s %-4s %-9s %s\n" olmo A4 "6-9+0.3" "GRPO+conf"; printf "%-6s %-4s %-9s %s\n" olmo A5 "6-9+0.3" "A1->GRPO"; echo "(tulu repeats the same; jobs run in parallel across GPUs subject to queue)"
 for TAG in $BACKBONES; do
-  BB=$(hf_of "$TAG"); CK="$ROOT/checkpoints/$TAG"; DATA="$ROOT/data/$TAG"; RES="$ROOT/results_ladder/$TAG"; mkdir -p "$CK" "$DATA" "$RES"
+  BB=$(hf_of "$TAG"); CK="$ROOT/checkpoints/$TAG"; DATA="$ROOT/data/$TAG"; RES="$ROOT/results_ladder/$TAG"
+  # SEED=k (k>0) puts checkpoints and results under <tag>/s<k>/ and passes --seed k to the trainers; A0 (untrained) is shared from <tag>/A0.
+  if [ "${SEED:-0}" != "0" ]; then CK="$CK/s$SEED"; RES="$RES/s$SEED"; mkdir -p "$RES"; [ -e "$RES/A0" ] || ln -s "$ROOT/results_ladder/$TAG/A0" "$RES/A0"; fi
+  mkdir -p "$CK" "$DATA" "$RES"
   read -r TGRES TMEM TTP TEXTRA <<<"$(res_of "$TAG" | sed 's/^\([^ ]*\) \([^ ]*\) \([^ ]*\) *\(.*\)$/\1 \2 \3 \4/')"; TEXTRA="${TEXTRA:-}"
+  [ "${SEED:-0}" != "0" ] && TEXTRA="$TEXTRA --seed $SEED"
   SB=(--partition="${PARTITION:-gpu}" --gres="$TGRES" --mem="$TMEM"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT"); [ -n "${QOS:-}" ] && SB+=(--qos="$QOS")
   export VLLM_TP=$TTP; GRPO_TPL=slurm/train_grpo.sbatch; [ "$TAG" = olmo32 ] && GRPO_TPL=slurm/train_grpo_32b.sbatch
   # data build on the login node is cheap (injected mode); elicited mode needs a GPU: ELICITED=1 submits it as a job
