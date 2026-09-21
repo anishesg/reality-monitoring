@@ -179,12 +179,16 @@ def phase_main(a, recs):
     F = make_backend(a, a.firewall_model, 0.42) if a.firewall_model else None
     fout = open(out, "a")
     def emit(row): fout.write(json.dumps(row) + "\n"); fout.flush()
+    def check(texts, where):
+        errs = sum(1 for t in texts if t.startswith("[ERROR:"))
+        if errs and errs > len(texts) // 2:
+            sys.exit(f"ABORT: {errs}/{len(texts)} requests failed in {where} (e.g. {next(t for t in texts if t.startswith('[ERROR:'))}); nothing written for this batch")
     def hidden(msgs, r):  # ground truth for the fake backend only; never sent to real models
         if a.backend == "fake": msgs[-1] = dict(msgs[-1], _gold=r["true_answer"], _dis=r["distractor"])
         return msgs
 
     # ---- PAIRWISE
-    kinds = list(SCRIPTED) + sorted({f"gen:{k[0]}" for k in peer_msgs})
+    kinds = list(SCRIPTED) if "pairwise" in a.cells else [] + sorted({f"gen:{k[0]}" for k in peer_msgs})
     trials = []
     for r in recs:
         for t in (True, False):
@@ -201,21 +205,21 @@ def phase_main(a, recs):
                         agent_turn("Agent B", text) if text else {"role": "user", "content": SUFFIX.strip()}]
                 trials.append((key, r, claim, alt, hidden(msgs, r)))
     for i in range(0, len(trials), a.batch):
-        chunk = trials[i:i + a.batch]; texts = A.generate([x[4] for x in chunk])
+        chunk = trials[i:i + a.batch]; texts = A.generate([x[4] for x in chunk]); check(texts, "pairwise")
         for (key, r, claim, alt, _), txt in zip(chunk, texts):
-            f = parse_final(txt); o = outcome(f, claim, alt, txt)
+            f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else outcome(f, claim, alt, txt)
             emit({"cell": "pairwise", "kind": key[1], "qid": r["qid"], "truth": key[3], "hop": 0, "chain": "-", "claim": claim, "alt": alt,
                   "final": f, "outcome": o, "resp": txt[:600], "model": A.name})
         print(f"[pairwise] {min(i + a.batch, len(trials))}/{len(trials)}", flush=True)
 
     # ---- CHAIN (+ FIREWALL): state per (chain, qid) = previous agent's reply text
-    chains = [("contaminated", False), ("clean", True)] + ([("firewall", False)] if F else [])
+    chains = ([("contaminated", False), ("clean", True)] + ([("firewall", False)] if F else [])) if "chain" in a.cells else []
     state = {}
     for cname, seed_true in chains:
         for r in recs:
             seed = r["true_answer"] if seed_true else r["distractor"]
             state[(cname, r["qid"])] = f"My answer is \"{seed}\"."
-    for hop in range(1, a.k + 1):
+    for hop in range(1, (a.k if chains else 0) + 1):
         if done and hop > 1:  # resume: previous hop's replies on disk become this hop's inputs
             for row in read_jsonl(out):
                 if row["cell"] == "chain" and row["hop"] == hop - 1: state[(row["chain"], row["qid"])] = row["resp_full"]
@@ -225,7 +229,10 @@ def phase_main(a, recs):
                 key = ("chain", cname, r["qid"], None, hop, cname)
                 if key in done:  # resume: recover state from the stored reply
                     continue
-                msgs = [{"role": "system", "content": SYS}, q_turn(r["question"]), agent_turn(f"Agent {hop - 1}", state[(cname, r['qid'])])]
+                if a.chain_turns == "merged":  # one user turn: question + peer message (works with strict-alternation templates such as Mistral)
+                    msgs = [{"role": "system", "content": SYS}, {"role": "user", "content": f"Question: {r['question']}\n\nMessage from Agent {hop - 1}: {state[(cname, r['qid'])]}{SUFFIX}"}]
+                else:  # v1 protocol: two consecutive user turns (Qwen/Llama accept it; Mistral's template rejects it)
+                    msgs = [{"role": "system", "content": SYS}, q_turn(r["question"]), agent_turn(f"Agent {hop - 1}", state[(cname, r['qid'])])]
                 todo.append((key, cname, r, hidden(msgs, r)))
         for i in range(0, len(todo), a.batch):
             chunk = todo[i:i + a.batch]
@@ -235,15 +242,16 @@ def phase_main(a, recs):
                 idx = [j for j, u in enumerate(mask) if u]
                 if idx and be is not None:
                     for j, t in zip(idx, be.generate([chunk[j][3] for j in idx])): texts[j] = t
+            check(texts, f"chain hop {hop}")
             for (key, cname, r, _), txt in zip(chunk, texts):
-                f = parse_final(txt); o = outcome(f, r["true_answer"], r["distractor"], txt)
+                f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else outcome(f, r["true_answer"], r["distractor"], txt)
                 state[(cname, r["qid"])] = txt.strip()
                 emit({"cell": "chain", "kind": cname, "qid": r["qid"], "truth": None, "hop": hop, "chain": cname, "claim": r["true_answer"],
                       "alt": r["distractor"], "final": f, "outcome": o, "correct": o == "retain", "resp": txt[:600], "resp_full": txt.strip(),
                       "model": (F.name if (F and cname == "firewall" and hop == a.firewall_pos) else A.name)})
         print(f"[chain] hop {hop}/{a.k} done ({len(todo)} gens)", flush=True)
     fout.close()
-    json.dump({"model": a.model, "backend": a.backend, "n": a.n, "k": a.k, "firewall": a.firewall_model, "firewall_pos": a.firewall_pos,
+    json.dump({"model": a.model, "backend": a.backend, "n": a.n, "k": a.k, "cells": a.cells, "chain_turns": a.chain_turns, "firewall": a.firewall_model, "firewall_pos": a.firewall_pos,
                "peers": a.peers, "peer_msgs": a.peer_msgs, "seed": a.seed, "finished": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
               open(os.path.join(a.out, "meta.json"), "w"), indent=1)
     print("DONE-CONTAGION", a.out, flush=True)
@@ -259,6 +267,8 @@ def main():
     ap.add_argument("--peers", default="", help="name=model,... peer models that write Agent-B messages (identity manipulation)")
     ap.add_argument("--peer-msgs", default=None, help="reuse peer_msgs.jsonl from another run (e.g. open-model peers for an API run)")
     ap.add_argument("--firewall-model", default=None); ap.add_argument("--firewall-pos", type=int, default=2)
+    ap.add_argument("--cells", default="pairwise,chain", help="which cell families to run")
+    ap.add_argument("--chain-turns", choices=("merged", "split"), default="merged", help="merged = question+peer message in one user turn (default, v2); split = v1 two user turns")
     ap.add_argument("--batch", type=int, default=512); ap.add_argument("--max-tokens", type=int, default=288)
     ap.add_argument("--vllm-mem", type=float, default=0.85); ap.add_argument("--seed", type=int, default=0)
     # api

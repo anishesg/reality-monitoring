@@ -62,7 +62,9 @@ def report(run):
     C = [r for r in R if r["cell"] == "chain"]
     if C:
         K = max(r["hop"] for r in C)
-        print(f"-- CHAIN  P(agent at hop k answers WRONG)   k=1..{K}   (unparsed counted as wrong)")
+        cunp = rate([r["outcome"] == "unparsed" for r in C])
+        print(f"-- CHAIN  P(agent at hop k answers WRONG)   k=1..{K}   (unparsed counted as wrong; chain unparsed rate = {cunp:.3f})")
+        S["chain"]["unparsed_rate"] = cunp
         prev = {}  # (chain,qid,hop) -> correct
         for r in C: prev[(r["chain"], r["qid"], r["hop"])] = bool(r["correct"])
         trans = {"ww": [], "cw": []}
@@ -88,11 +90,11 @@ def report(run):
             # reply), then apply the hop>=2 transition rates. Reported next to the pre-registered version, never instead of it.
             pred2 = []; pw2 = meas[0][0] if meas and meas[0][0] is not None else None
             for k in range(1, K + 1):
-                if pw2 is None or p_ww[0] is None: pred2.append(None); continue
+                if pw2 is None or p_ww[0] is None or p_cw[0] is None: pred2.append(None); continue
                 if k > 1: pw2 = pw2 * p_ww[0] + (1 - pw2) * p_cw[0]
                 pred2.append(pw2)
-            inside = sum(1 for m, p in zip(meas, pred) if m[0] is not None and p is not None and m[1] <= p <= m[2])
-            inside2 = sum(1 for m, p in zip(meas, pred2) if m[0] is not None and p is not None and m[1] <= p <= m[2])
+            inside = sum(1 for m, p in zip(meas, pred) if m[0] is not None and p is not None and m[1] is not None and m[1] <= p <= m[2])
+            inside2 = sum(1 for m, p in zip(meas, pred2) if m[0] is not None and p is not None and m[1] is not None and m[1] <= p <= m[2])
             S["chain"][cname] = {"measured": meas, "markov": pred, "markov_from_k1": pred2, "hops_inside_ci": inside, "hops_inside_ci_from_k1": inside2}
             print(f"   {cname:13s} measured: " + " ".join(f"k{k+1}={m[0]:.2f}" if m[0] is not None else f"k{k+1}=—" for k, m in enumerate(meas)))
             print(f"   {'':13s} markov:   " + " ".join(f"k{k+1}={p:.2f}" if p is not None else f"k{k+1}=—" for k, p in enumerate(pred)) + f"   (prereg P3: {inside}/{K} hops inside measured CI)")
