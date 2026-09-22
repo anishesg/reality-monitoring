@@ -87,7 +87,7 @@ One assumption, six predictions, each tested in the section named. \textbf{P-sur
 
 \subsection{Propagation between agents}\label{sec:theory-agents}
 \begin{figure}[t]\centering
-\begin{tikzpicture}[x=0.9cm,y=0.8cm,>=Stealth,font=\small,scale=0.92,every node/.style={transform shape}]
+\begin{tikzpicture}[x=0.9cm,y=0.8cm,>=Stealth,font=\small,scale=0.84,every node/.style={transform shape}]
 \tikzset{ag/.style={circle,draw=ink,fill=soft,minimum size=8mm,inner sep=0pt,thick},
   msg/.style={->,thick,draw=ink},lab/.style={font=\scriptsize,text=ink}}
 \node[ag,fill=cue!20] (s) at (0,0) {seed};
@@ -124,7 +124,7 @@ The proof is by induction on hops and is machine-checked (Appendix~\ref{app:lean
 \section{Results: what moves a model}\label{sec:results}
 \subsection{Content without attribution does most of the work}
 Table~\ref{tab:decomp} and Figure~\ref{fig:decomp} give harmful abandonment by challenge kind. Naming an alternative with no argument and no source flips a correct claim 54--89\% of the time. Adding ``another source says'' adds nothing in the Llama family and in OLMo-2, and 0.21--0.30 in Qwen and Mistral, the largest residual contribution of authority we observe; content-free doubt alone flips 14--82\%. In the language of Definition~\ref{def:use}, $\Uz{s}$ (a named alternative versus nothing) is large in every family and $\Uz{e}$ (a source attached to it) ranges from zero to 0.30 by family. Attaching a reliability rating to the answer behaves like a cue rather than evidence: \pending{recomputed in the harmful direction; in the pooled data a note that Qwen2.5-7B's answer is ninety percent reliable raised abandonment to 0.91, above the 0.78 produced by a thirty-percent warning and far above the 0.48 baseline}.
-\begin{figure}[t]\centering\includegraphics[width=0.66\linewidth]{../figures/fig1_decomposition.pdf}
+\begin{figure}[t]\centering\includegraphics[width=0.6\linewidth]{../figures/fig1_decomposition.pdf}
 \caption{Harmful abandonment by challenge kind across checkpoints. Mere mention of an alternative drives most capitulation; attribution adds little.}\label{fig:decomp}\end{figure}
 
 \subsection{Models switch to false alternatives as readily as to true ones}\label{sec:ident}
@@ -161,7 +161,7 @@ No checkpoint exceeds 0.36 on retain-correct while all exceed 0.59 on accept-val
 Along public lineages, harmful capitulation to content-free doubt rises at the preference-optimisation checkpoint in two of three (Table~\ref{tab:decomp}, \textsc{pressure} column): OLMo-2 0.14 $\to$ 0.59, T\"ulu-3 0.34 $\to$ 0.50, Zephyr 0.62 $\to$ 0.65 (already high at SFT), and the subsequent RLVR stage does not repair it (0.57, 0.46). The model's use of its own reliability collapses at the same checkpoint in OLMo (0.23 $\to$ 0.05) and never recovers. This was pre-registered and confirmed; it is observational, and Section~\ref{sec:training} makes it causal.
 
 \section{Propagation between agents}\label{sec:agents}
-\begin{figure}[t]\centering\includegraphics[width=0.9\linewidth]{../figures/fig6_contagion.pdf}
+\begin{figure}[t]\centering\includegraphics[width=0.86\linewidth]{../figures/fig6_contagion.pdf}
 \caption{Answer contagion between agents (8-bit weights, 300 held-out questions per model). (a) An agent that holds a correct answer abandons it when a peer agent names an alternative, at the same rate whether the peer is a 1.5B model, the same model, or a 14B model. (b) A wrong answer forwarded through a chain of eight agents is retained at every hop; a right answer drifts toward the same long-run error. Dotted curves are Proposition~\ref{prop:chain} started from the measured first hop; thin lines are $\piinf$. Mistral's chain cells \pending{re-run under the merged-turn protocol}.}
 \label{fig:contagion}
 \end{figure}
