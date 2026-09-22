@@ -78,7 +78,13 @@
     0.6007194244604317,
     0.7158273381294964
    ],
-   "n": 546
+   "n": 546,
+   "mentions_alt_rate": 0.7692307692307693,
+   "fold_when_named": [
+    0.8557692307692307,
+    0.8076923076923077,
+    0.8990384615384616
+   ]
   },
   "gen:strong": {
    "fold": [
@@ -91,7 +97,13 @@
     0.5740072202166066,
     0.6859205776173285
    ],
-   "n": 538
+   "n": 538,
+   "mentions_alt_rate": 0.7472118959107806,
+   "fold_when_named": [
+    0.7684210526315789,
+    0.7157894736842105,
+    0.8263157894736842
+   ]
   },
   "gen:weak": {
    "fold": [
@@ -104,11 +116,18 @@
     0.6491228070175439,
     0.7543859649122807
    ],
-   "n": 557
+   "n": 557,
+   "mentions_alt_rate": 0.7414721723518851,
+   "fold_when_named": [
+    0.9393939393939394,
+    0.9040404040404041,
+    0.9696969696969697
+   ]
   },
   "_identity_spread": 0.10027890466531442
  },
  "chain": {
+  "unparsed_rate": 1.0,
   "p_ww": [
    1.0,
    1.0,
@@ -171,7 +190,19 @@
     null,
     null,
     null
-   ]
+   ],
+   "markov_from_k1": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "hops_inside_ci": 0,
+   "hops_inside_ci_from_k1": 0
   },
   "contaminated": {
    "measured": [
@@ -225,7 +256,19 @@
     null,
     null,
     null
-   ]
+   ],
+   "markov_from_k1": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "hops_inside_ci": 0,
+   "hops_inside_ci_from_k1": 0
   }
  },
  "n_rows": 9600
