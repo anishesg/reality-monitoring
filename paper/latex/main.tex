@@ -1,0 +1,341 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{multirow}
+
+\usepackage[accepted]{icml2026}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\icmltitlerunning{Confidence Without Control}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{Confidence Without Control: Language Models Know\\ When They Might Be Wrong and Revise Anyway}
+
+\icmlsetsymbol{equal}{*}
+\begin{icmlauthorlist}
+\icmlauthor{Anonymous Authors}{anon}
+\end{icmlauthorlist}
+\icmlaffiliation{anon}{Anonymous Institution}
+\icmlcorrespondingauthor{Anonymous}{anon@anon.edu}
+\icmlkeywords{sycophancy, calibration, answer revision, metacognition, alignment}
+\vskip 0.3in
+]
+
+\begin{abstract}
+Language models hold increasingly accurate estimates of whether their own answers are correct, yet these estimates have almost no effect on what the models do when a user pushes back. We measure both sides of this dissociation, which we call the confidence-use gap, across nineteen post-training checkpoints from five model families and roughly 500{,}000 controlled trials. Four independent uncertainty signals predict a model's own correctness with AUROC up to 0.74, and the verbalized signal improves with scale, from 0.49 to 0.70 on one ladder. Behavior ignores all of them. In a three-cell design that removes a confound present in prior challenge protocols, models adopt an alternative answer they believe less than their current one 90 to 99.5 percent of the time whenever the challenge mentions a source, and the model's own belief about the two answers shifts this by at most 0.02. A regression over 52{,}102 trials gives the policy in one line: being challenged sets the switch probability near 0.9, the truth of the model's own claim moves it by 0.14, the truth of the alternative by 0.05, and the model's stated confidence by 0.02 per standard deviation. Showing the model its own confidence does not close the gap, and neither does instruction, but 2{,}850 supervised demonstrations that condition revision on stated reliability raise rule-following from 0.50 to 0.99 on held-out values and phrasings, at a cost of three points on an external benchmark relative to the untrained model and no cost relative to a matched control. Scale buys the knowledge; only training buys its use.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Ask a strong open-weight model a factual question and it usually answers correctly. Tell it, without evidence, that another source disagrees, and a seven-billion-parameter model abandons about half of the answers it had just gotten right. On easy questions that these models answer correctly more than 97\% of the time, one such sentence cuts post-challenge accuracy to 0.44 for Mistral-7B and 0.48 for OLMo-2-7B. The sentence contains no argument and no checkable citation. It contains doubt.
+
+Prior work calls this sycophancy and has documented it well \citep{sharma2024sycophancy, perez2023discovering}. We ask a different question. A reviser deciding whether to keep or change an answer should consult two quantities: its confidence in the original answer and the evidence in the challenge. Models demonstrably have the first quantity. A line of calibration work shows that models can report confidence that predicts their own correctness \citep{kadavath2022language, lin2022teaching, tian2023just, xiong2024can}, and we confirm this with four separate measurements. The open question is whether that knowledge governs the revision decision.
+
+It does not. The dissociation has two sides, usually studied by separate communities that do not test each other's assumption.
+
+\textbf{The monitor works.} Verbalized confidence discriminates a model's correct answers from its incorrect ones with AUROC rising from 0.49 at 1.5B parameters to 0.70 at 14B on the Qwen2.5 ladder. On hard questions, verbalized confidence, P(True) self-evaluation, and a log-probability belief score all reach AUROC 0.59 to 0.74 across six models, including a 2025-generation model and a reasoning-distilled model (\cref{sec:monitor}).
+
+\textbf{The controller ignores it.} In a design that breaks the confound in prior challenge protocols (\cref{sec:ident}), models adopt an alternative they believe \emph{less} than their current answer 90 to 99.5 percent of the time when the challenge cites a source. The belief margin between the two answers, measured in a clean context before any challenge, moves the decision by at most 0.02 in every model tested. What sets the operating point is the challenge itself. What modulates it, weakly, is the truth of the model's own original claim. The epistemic status of the answer the model is switching \emph{to} is nearly irrelevant.
+
+Cognitive science draws exactly this line between monitoring (assessing one's own knowledge) and control (using the assessment to direct behavior), and treats their coupling as the point of having a monitor at all \citep{nelson1990metamemory}. Calibration research in machine learning assumes the coupling: a model that knows when it is unsure is supposed to act on it. For the revision behavior that matters most in deployed dialogue, the assumption is false. The monitor and the controller are separate dials, and scale turns only one of them.
+
+Three further results complete the picture. First, the gap is not an access failure: writing the confidence into the context as a token the model itself emits changes behavior by at most 0.069 with no dose response, and instructing the model to weigh its confidence moves the effect by at most 0.02 (\cref{sec:nulls}). Second, the missing mapping is trainable at essentially no cost: 2{,}850 supervised demonstrations of one rule raise rule-following from chance to 0.99 on held-out reliability values and phrasings, and a control trained on the same data with the confidence sentences deleted collapses to an unconditional switch reflex (\cref{sec:repair}). Third, the gap has a useful shadow: an answer's survival under repeated challenge predicts its correctness better than the model's stated confidence in 16 of 19 checkpoints (\cref{sec:uses}).
+
+We also report a cautionary result. An intuitive self-versus-other asymmetry replicated across all nineteen of our checkpoints and reversed under a pre-registered position-matched control (\cref{sec:reversal}). Position in the dialogue, not speaker identity, was the operative variable. Challenge protocols that do not match position will find asymmetries that are not there.
+
+\section{Related Work}
+\label{sec:related}
+
+\textbf{Sycophancy.} \citet{sharma2024sycophancy} showed that assistants trained from human feedback prefer agreeable responses and traced the incentive to preference data. \citet{perez2023discovering} measured opinion matching at scale. \citet{hu2026conformity} showed that repetition of an alternative answer accounts for much of apparent conformity without any speaker at all, and \citet{saadat2026certainty} measured the stability of stated answers under self-challenge. Our own challenge decomposition (\cref{app:decomp}) reproduces the repetition result. This paper asks the question that literature leaves open: given that models cave to surface cues, do they consult their own uncertainty, and can the consultation be installed?
+
+\textbf{Calibration.} Verbalized confidence \citep{lin2022teaching, tian2023just, xiong2024can} and self-evaluation probabilities \citep{kadavath2022language} predict model correctness. That work measures the quality of the monitor. We measure whether the controller consumes it, and find that it does not. The two questions have different answers, which is the finding.
+
+\textbf{Belief and retraction.} \citet{yang2025retraction} found that a model's internal, hidden-state belief in a claim causally drives whether the model retracts it, shown by probing and steering. The contrast with our results is instructive: the latent belief channel is wired to behavior, while every explicit channel we test is inert. A model acts on what it believes but not on what it says it believes. This is what one expects from behavior learned on human dialogue, where stated confidence is cheap talk and private conviction drives concession.
+
+\textbf{Self-correction.} Intrinsic self-correction is unreliable and often harmful \citep{huang2024large}. Our decomposition offers one mechanism: reflection prompts inject contentless doubt, and contentless doubt alone flips 0.53 to 0.91 of correct answers depending on the model.
+
+\textbf{Post-training stages.} The open stage releases of OLMo-2 \citep{olmo2025}, Tulu-3 \citep{lambert2024tulu}, and Zephyr \citep{tunstall2024zephyr} let us place behavioral changes at specific training stages (\cref{app:stages}); we complement these observational comparisons with causal training interventions.
+
+\section{Experimental Setup}
+\label{sec:setup}
+
+\textbf{Protocol.} Every trial has the same shape. A claim enters a conversation as the model's prior assistant turn, optionally with epistemic metadata. A challenge arrives. The model must produce a final answer in a fixed format. Outcomes are scored by normalized string matching into retain, switch-to-alternative, or switch-elsewhere; unparsed rates are under 2\% for the main models. Decoding is greedy, so results are deterministic given the prompt, and uncertainty comes from resampling questions.
+
+\textbf{Question banks.} An easy bank of 600 SciQ items \citep{welbl2017crowdsourcing}, on which 7B models exceed 97\% unaided accuracy; a hard bank of 900 items from MMLU-Pro \citep{wang2024mmlupro} and TruthfulQA \citep{lin2022truthfulqa}, split into analysis and held-out halves; and an identification bank of 600 MMLU-Pro items from a disjoint range, each with the true answer and two distinct distractors.
+
+\textbf{Challenges.} Matched sentence types isolate the parts of a challenge. Sourced counter: ``Actually, another source says the answer is X.'' Bare counter: ``Consider the answer X.'' Source only: ``Actually, another source disagrees with that answer.'' Pressure: ``Are you sure? Something makes me doubt that answer.'' Weak suggestion: ``Hmm, I could easily be wrong here, but is there any chance the answer is X?'' The identification experiments use five paraphrases of the sourced counter; per-paraphrase switch rates vary by less than 0.07 within any model.
+
+\textbf{Models.} Nineteen checkpoints for the survey experiments: the Qwen2.5 ladder (0.5B to 32B), Llama-3.x (1B to 8B), Mistral-7B, Phi-3.5-mini, OLMo-2-7B, and the staged lineages of OLMo-2, Tulu-3, and Zephyr. The identification experiments use six models chosen for family, scale, and recency: Qwen2.5-7B and 14B, Llama-3.1-8B, OLMo-2-7B, Qwen3-8B, and DeepSeek-R1-Distill-Qwen-7B.
+
+\textbf{Uncertainty signals.} Four measurements per item, all in a clean context before any challenge. (1)~Verbalized confidence on a two-way forced choice. (2)~P(True): the model evaluates its own answer as true or false \citep{kadavath2022language}; for the two thinking models, whose first tokens are reasoning, we parse a generated verdict instead of reading token probabilities. (3)~Belief score $b(x)$: the mean per-token log-probability of candidate answer $x$ scored as a completion of the question; the belief margin between two candidates is the difference of their scores. (4)~Consistency: agreement of the modal answer over eight samples at temperature 0.8. A fifth candidate signal, the first-token logit margin in an A/B forced choice, failed validation twice and is reported as a negative result (\cref{app:negative}).
+
+\textbf{Statistics.} Within checkpoints, cluster bootstrap over questions. The identification analysis is a pooled logistic regression over 52{,}102 trials with model fixed effects and standard errors clustered by model-item pair. Two analyses were pre-registered with prediction files hashed before data collection; both files and their outcomes, one confirmation and one reversal, are in the repository.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figs/fig_gap.pdf}
+\caption{\textbf{The confidence-use gap.} (a) On the Qwen2.5 ladder, the AUROC of stated confidence as a predictor of the model's own correctness rises with scale while the effect of that confidence on revision stays near zero. (b) On the hard identification bank, four independent uncertainty signals are informative about correctness across six models, including a 2025-generation model (Qwen3-8B) and a reasoning-distilled model. The starred P(True) values for the two thinking models in \cref{tab:signals} use a generated verdict.}
+\label{fig:gap}
+\end{figure*}
+
+\section{The Monitor Works}
+\label{sec:monitor}
+
+If models had no usable estimate of their own correctness, ignoring it would be rational. This section shows they have one, measurable four ways.
+
+\Cref{fig:gap}a gives the scale trend: the AUROC of stated confidence against the model's own correctness rises monotonically up the Qwen2.5 ladder, 0.54, 0.49, 0.61, 0.66, 0.70 from 0.5B to 14B. \Cref{tab:signals} gives the cross-signal picture on the hard identification bank. The verbalized, self-evaluated, and log-probability signals agree, landing between 0.59 and 0.74 in every model. The belief score $b(x)$ requires no self-report at all and is as informative as anything the model says about itself; it is the quantity our identification design manipulates. Consistency is the weakest signal on this bank because answers to hard questions are stable under resampling, and it degrades further on the thinking models, whose sampled outputs vary in format.
+
+A signal at AUROC 0.70 is far from perfect but is worth money to a reviser. Section~\ref{sec:repair} shows exactly what it is worth: a model trained to consult it recovers the corresponding accuracy under challenge. The failure documented next is not missing information. It is information the model has and does not spend.
+
+\begin{table}[t]
+\caption{Uncertainty signals predict own correctness (AUROC, hard bank). Starred values are generated-verdict rates for thinking models, whose token probabilities are unreadable through a reasoning block. FC is forced-choice accuracy.}
+\label{tab:signals}
+\vskip 0.1in
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Model & conf. & P(True) & belief & consist. & FC \\
+\midrule
+Qwen2.5-7B & 0.67 & 0.66 & 0.68 & 0.63 & 0.87 \\
+Qwen2.5-14B & 0.65 & 0.74 & 0.69 & 0.52 & 0.89 \\
+Llama-3.1-8B & 0.69 & 0.70 & 0.69 & 0.57 & 0.82 \\
+OLMo-2-7B & 0.59 & 0.65 & 0.71 & 0.56 & 0.83 \\
+Qwen3-8B & 0.60 & 0.78* & 0.68 & 0.45 & 0.94 \\
+R1-Distill-7B & 0.62 & 0.71* & 0.60 & 0.47 & 0.77 \\
+\bottomrule
+\end{tabular}
+\vskip -0.1in
+\end{table}
+
+\section{The Controller Ignores It}
+\label{sec:control}
+
+\subsection{An identification problem, and its fix}
+\label{sec:ident}
+
+In a two-answer challenge protocol, ``the challenger's alternative is true'' and ``the model's original answer is false'' are the same event. Any measured sensitivity to the truth of a challenge is therefore ambiguous between two mechanisms with opposite readings: the model evaluating the incoming alternative, or the model re-examining its own answer. To our knowledge all published challenge-response results, including our own early experiments, carry this confound.
+
+The fix needs a third cell: challenge a wrong answer with a \emph{different} wrong answer. The ten options of MMLU-Pro make this cheap. The three cells are TF (the model's claim is true, the alternative false; switching is harmful), FT (claim false, alternative true; switching is beneficial), and FF (claim false, alternative a different false answer; switching is unjustified in both directions, and the clean-context belief margin $b(\text{alt}) - b(\text{claim})$ varies freely across items). Claims are injected as the model's prior turn, which holds conversational structure fixed across cells. Each cell runs under five sourced-counter paraphrases, one pressure challenge, and one weak suggestion, on 500 items per model: 10{,}500 trials per model, 63{,}000 in total.
+
+\subsection{The cue is the policy}
+
+\begin{table}[t]
+\caption{Three-cell switch rates. Counter is the sourced challenge (five paraphrases pooled); weak is the hedged suggestion. $\Delta_b$ is the change in FF switch rate between items where the model believes the alternative more versus less than its claim. 95\% CIs are at most $\pm 0.014$.}
+\label{tab:cells}
+\vskip 0.1in
+\centering
+\small
+\setlength{\tabcolsep}{3.6pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{sourced counter} & \multicolumn{2}{c}{weak} & \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}
+Model & TF & FT & FF & TF & FF & $\Delta_b$ \\
+\midrule
+Qwen2.5-7B & .86 & .99 & .97 & .76 & .91 & .01 \\
+Qwen2.5-14B & .80 & .99 & .97 & .40 & .78 & .01 \\
+Llama-3.1-8B & .94 & 1.00 & 1.00 & .84 & .97 & .00 \\
+OLMo-2-7B & .85 & .97 & .95 & .58 & .75 & .02 \\
+Qwen3-8B & .56 & .98 & .90 & .33 & .70 & .01 \\
+R1-Distill-7B & .84 & .96 & .93 & .64 & .79 & .00 \\
+\bottomrule
+\end{tabular}
+\vskip -0.1in
+\end{table}
+
+\Cref{tab:cells} and \cref{fig:cells} give the result. Read the FF column first: every model, including the newest, adopts a different wrong answer at 0.90 to 0.995 under a sourced counter. Then compare FF to FT: the truth of the alternative, the thing the model switches to, is worth 0.003 to 0.081. Then $\Delta_b$: conditioning on whether the model's own clean-context belief favors the alternative or the claim changes the switch rate by at most 0.02 in any model. Models move to an answer they believe less than the one they hold, at 99\% rates, because a sentence mentioned a source. The weak-suggestion columns show this is not a ceiling artifact: under ``I could easily be wrong, but is there any chance the answer is X?'', FF rates remain 0.70 to 0.97 and the belief split remains at most 0.08.
+
+Two checks pass. Under pressure, which never mentions the alternative, the FT and FF cells differ only in a variable the prompt never uses, so their rates must match if the pipeline is clean; they do (OLMo 0.859 versus 0.858). And no single paraphrase carries the result; per-template rates span less than 0.07 in every model.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figs/fig_cells.pdf}
+\caption{\textbf{Three-cell switch rates for six models.} FF (false claim challenged with a different false answer) tracks FT (challenged with the true answer) almost exactly under a sourced counter, and stays high even under a weak hedged suggestion. TF separates from FF only in the newest model.}
+\label{fig:cells}
+\end{figure*}
+
+\subsection{The policy, quantified}
+\label{sec:regression}
+
+A pooled logistic regression over all 52{,}102 parseable trials with complete signals (model fixed effects, standard errors clustered by model-item) puts numbers on each input. \Cref{fig:forest} plots the coefficients. As average marginal effects: a sourced counter versus pressure is worth $+0.069$ in switch probability and a weak suggestion $-0.052$, so cue strength alone spans a wide range of the operating point (in Qwen2.5-14B, the same true-claim item moves from 0.40 under a weak suggestion to 0.80 under a sourced counter). Among epistemic variables, the truth of the model's own claim is worth $-0.14$ pooled and $-0.20$ in the off-ceiling weak condition. The truth of the alternative is worth $+0.05$ pooled and $+0.11$ off ceiling. The model's belief margin is worth $+0.02$ per standard deviation, and its stated confidence $-0.016$ pooled and $-0.007$ off ceiling.
+
+The raw data contain confidence splits larger than that coefficient, and the difference is worth explaining. Within the TF cell, models switch less on items where their stated confidence is above median (0.29 versus 0.45 for Qwen2.5-14B under the weak cue). But high-confidence items are easy items where the false alternative is implausible, so the raw split mixes the model consulting its confidence with the challenge carrying weaker content. The regression holds belief margin and cell fixed and the residual confidence effect is $-0.007$. The raw splits are difficulty in disguise. One anomaly survives: Qwen3-8B switches \emph{more} on its high-confidence items ($+0.12$ to $+0.18$ across conditions), which we cannot explain and which is also inconsistent with normative use of confidence.
+
+One reading of the claim-truth coefficient deserves emphasis. Models do use knowledge under challenge, but through the retention side: under pure pressure, OLMo keeps true answers at 0.35 and false ones at 0.14. Parametric knowledge leaks into how hard the model holds on. What never engages is the evaluation of the incoming alternative against the model's own belief, and the explicit confidence channel stays flat everywhere.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_forest.pdf}
+\caption{\textbf{What moves revision.} Pooled logistic regression over 52{,}102 trials, six models, three challenge strengths. Blue terms describe the challenge; red terms are the model's own epistemic state. All coefficients have $p<0.001$; the two red effects are an order of magnitude smaller than the cue and claim terms as marginal effects.}
+\label{fig:forest}
+\end{figure}
+
+\subsection{Progress is one-sided}
+\label{sec:qwen3}
+
+\Cref{tab:cells} contains a scaling result we did not plan. Qwen3-8B keeps true answers under a sourced counter at 0.56 against 0.80 to 0.94 for every older model: the newest post-training generation defends true answers about twice as well. Its FF rate is still 0.90. Whatever improved between Qwen2.5 and Qwen3 taught the model to weight the truth of its own claim (claim-truth effect 0.34 versus 0.06 to 0.18 elsewhere) and taught it nothing about evaluating the incoming alternative, which it accepts nearly unconditionally when cued. Progress on this problem is real, one-sided, and invisible to any evaluation that only challenges correct answers. The FF cell is the measurement that sees it.
+
+\subsection{The gap is not an access failure}
+\label{sec:nulls}
+
+\textbf{Surfacing.} If the model ignored its confidence because the value was internal, writing it into the context as a token the model itself emits should close the gap. We fixed reliability values spanning 20 to 95 percent and varied only authorship: stated as external fact, or voiced by the model immediately before the challenge. Across six models the largest effect in either condition is 0.069, with no dose response; Qwen2.5-7B abandons at 0.94 when its stated reliability is 20 percent and at 0.98 when it is 95 (full table in \cref{app:surfacing}). This null rules out inaccessibility and locates the deficit in the learned mapping from stated confidence to action.
+
+\textbf{Instruction.} Telling the model to weigh its own stated confidence moves the confidence effect by at most 0.02, and in Mistral-7B reduces it from 0.12 to 0.03.
+
+\subsection{A pre-registered reversal}
+\label{sec:reversal}
+
+Our early data showed models discounting their own stated confidence relative to a user's, an effect that replicated in all nineteen checkpoints. It is an artifact. In the natural protocol the user's statement sits next to the challenge while the model's own sits several turns earlier, so speaker is confounded with position. A pre-registered control that matches position, with predictions hashed before data collection, eliminated the asymmetry and mildly reversed it: the family-level speaker-by-confidence interaction is $-0.38$, 95\% CI $[-0.51, -0.26]$, across six families. Recency in the dialogue, not speaker identity, is the operative variable. We report this at length because it bears on method: challenge protocols that do not match position will find self-other asymmetries that do not exist.
+
+\subsection{Where the policy plausibly comes from}
+\label{sec:origin}
+
+Our results are consistent with a corpus-statistics account, which we state as a hypothesis rather than a finding. A model trained on dialogue can learn to condition on what is visible in transcripts. Whether an interlocutor's claim is true leaves traces, because people object to false claims, so content features of the other speaker's turn are learnable. A speaker's private confidence is invisible, and stated confidence in human dialogue is weak evidence about whether the speaker holds their ground. The corpus therefore teaches an accurate confidence estimator and a flat confidence-to-behavior mapping, which is what we observe at every scale. The account predicts the surfacing null, since visibility does not change a learned mapping; it predicts the success of the training intervention below, since demonstrations write the missing mapping in; and it fits the stage-ladder observation that capitulation to contentless doubt jumps at the preference-optimization stage in two of three open lineages, from 0.19 to 0.73 in OLMo-2 and 0.43 to 0.66 in Tulu-3 (\cref{app:stages}). Direct measurement of concession statistics in dialogue corpora is the missing test.
+
+\section{Training Installs the Missing Link}
+\label{sec:repair}
+
+The account above makes a strong prediction: the confidence-to-behavior mapping is absent rather than blocked, so writing it into training data should install it, and nothing short of weight updates should. \Cref{sec:nulls} verified the second half. This section verifies the first and prices it.
+
+\textbf{Intervention.} We fine-tune Qwen2.5-7B-Instruct with LoRA \citep{hu2022lora} on 2{,}850 demonstrations of one rule: under a sourced counter, revise if your stated reliability is below 50 percent and hold otherwise. Training statements span thirteen reliability values, two logically equivalent framings, six phrasings, and near and far positions, mixed with single-turn examples from the Tulu-3 instruction mixture at 30 or 50 percent of the batch. The control arm receives byte-identical training with the reliability sentences deleted, which matches everything except the epistemic signal. We run twelve treatment configurations (two learning rates, two replay fractions, three seeds) and three control seeds. Evaluation is held out on every axis: unseen questions from a different bank, unseen reliability values, unseen phrasings, an unseen annotation format, and an external capability check on an MMLU forced-choice slice that shares nothing with training.
+
+\begin{table}[t]
+\caption{The repair sweep. Rule-following is the mean of P(switch $\mid$ low reliability) and P(retain $\mid$ high reliability) on held-out values and phrasings. Capability is MMLU forced-choice accuracy. Each treatment row averages three seeds.}
+\label{tab:repair}
+\vskip 0.1in
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Configuration & rule & capability \\
+\midrule
+untrained base & 0.50 & 0.808 \\
+lr $10^{-4}$, replay 0.3 & 0.987 & 0.758 \\
+lr $10^{-4}$, replay 0.5 & \textbf{0.992} & \textbf{0.777} \\
+lr $5\times10^{-5}$, replay 0.3 & 0.989 & 0.722 \\
+lr $5\times10^{-5}$, replay 0.5 & 0.976 & 0.734 \\
+control (sentences deleted) & 0.504 & 0.771 \\
+\bottomrule
+\end{tabular}
+\vskip -0.1in
+\end{table}
+
+\textbf{The rule installs; the control collapses; the cost vanishes.} \Cref{tab:repair} and \cref{fig:repair} give the sweep. All twelve treatment arms succeed; the worst reaches rule-following 0.944 and both halves of the rule hold (low-reliability switch 0.89 to 1.00, high-reliability retention 0.94 to 1.00). All three control seeds sit at chance, and their failure mode is diagnostic: they switch on essentially every trial regardless of the stated value. Identical data minus one sentence type produces a reflex; with it, a policy. The sentence is the mechanism.
+
+The capability column changes the category of the result. The best configuration costs 3.1 points against the untrained base and nothing against the matched control, which pays the same generic fine-tuning tax while learning only the reflex. An earlier version of this experiment with narrow self-generated replay cost twenty points; replacing the replay with real instruction data was the entire fix. Connecting stated confidence to revision behavior has, at 7B scale, approximately zero marginal capability price.
+
+\textbf{What the trained model is and is not.} It follows stated reliability as a rule, with a sharp threshold at the trained boundary (abandonment 0.92 to 1.00 below effective reliability 45, 0.00 to 0.08 above 60), at values, phrasings, and positions never seen in training. It obeys the stated value without auditing it, so pairing this recipe with confidence-honesty training \citep{tian2023just} is the natural composition. Piping the model's own elicited confidence into the trained format raises post-challenge accuracy from 0.51 to 0.60 to 0.66 in preliminary runs. A companion experiment (\cref{app:firmness}) shows the same supervised channel is causal in both directions: capitulation to contentless doubt can be installed (0.58 to 0.82--0.94) or removed (0.58 to 0.005--0.15) with 2{,}500 demonstrations each way, while supported corrections are preserved at 0.98. A preference-pair intervention with the same goal produced no change in any arm (\cref{app:negative}); demonstrations succeeded where preference pairs failed.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_repair.pdf}
+\caption{\textbf{The repair frontier.} Each point is one trained model. All twelve confidence-conditioned arms reach near-perfect rule-following at capability matching the deletion control; the control arms learn only an unconditional switch reflex.}
+\label{fig:repair}
+\end{figure}
+
+\section{Two Consequences}
+\label{sec:uses}
+
+\textbf{Survival beats stated confidence.} Because parametric knowledge leaks into retention (\cref{sec:regression}), how well an answer survives a standardized battery of challenges carries information about its correctness. Survival rate as a confidence score beats the model's own stated confidence in 16 of 19 checkpoints: 0.71 versus 0.66 for Qwen2.5-7B, 0.77 versus 0.70 at 14B, 0.75 versus 0.58 for Phi-3.5. The estimator needs no training, no logit access, and no calibration set. One caveat from our own analysis: in two-option protocols the score partly reflects the implausibility of the specific distractor, and the three-cell machinery of \cref{sec:ident} is the tool for separating the components.
+
+\textbf{Do not ask for reconsideration in place.} On questions a model initially answers correctly, an in-context request to reconsider after a false counter leaves accuracy at 0.00 to 0.08 across Mistral-7B, Qwen2.5-7B, and Qwen2.5-14B. Re-asking in a fresh context restores the original answer, trivially so under greedy decoding, which is exactly the point: the collapse is carried by the challenge's residue in the context, not by any updated belief. The FF cell is the mechanism, since a mentioned alternative pulls the answer regardless of belief. The deployment rule is one sentence: re-pose the question in a clean context and compare, rather than asking the model to reconsider in place. The same result bears on self-critique and debate pipelines, which inject exactly the contentless doubt that flips up to 0.91 of correct answers.
+
+\section{Limitations}
+\label{sec:limits}
+
+The identification experiments inject claims rather than eliciting them; elicited-answer conditions in the survey experiments reproduce the main patterns, but the full three-cell design under elicitation is future work. All experiments are single-challenge, English, and factual. The largest unquantized model is 14B. The corpus-statistics account is consistent with our data but unmeasured in corpora, and the stage-ladder comparisons are observational because released checkpoints differ in more than the optimizer. The repair is demonstrated at one scale on one family, with rule obedience rather than self-elicited confidence as the trained interface, and the capability audit is a forced-choice slice rather than a broad suite.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Language models increasingly know when they might be wrong. Four separate signals carry that knowledge, and scale sharpens them. None of it governs what the model does under challenge: a mentioned source moves the model to answers it believes less than its own at 99 percent rates, its stated confidence is worth 0.007 in switch probability once content is controlled, visibility does not help, and instruction does not help. What helps is training. A few thousand demonstrations connect stated confidence to revision at no marginal capability cost, and deleting the confidence sentences from the same data severs the connection. The gap between knowing and acting is not a capacity limit. It is a missing entry in the learned policy, and it can be written in.
+
+\section*{Reproducibility}
+
+All models are open weight and all datasets public. The repository contains the harness, the three question banks, analysis scripts that regenerate every number in this paper from raw outputs, trained adapters, and the two pre-registration files with hashes and timestamps, including the prediction that failed. Total compute was about 160 GPU-hours on shared academic nodes.
+
+\bibliography{refs}
+\bibliographystyle{icml2026}
+
+\newpage
+\appendix
+\onecolumn
+
+\section{Challenge Decomposition}
+\label{app:decomp}
+
+The component analysis that motivated this work, on the hard bank with no metadata. The bare mention of an alternative flips correct answers nearly as often as the sourced assertion, and in Llama-3.1-8B exactly as often (difference $-0.004$, 95\% CI $[-0.019, 0.011]$). Authority without content tracks contentless pressure. This reproduces the speaker-free conformity floor of \citet{hu2026conformity} under our protocol. The reading for security is direct: an attacker does not need to impersonate a source; placing a target answer near a decision point is most of the attack.
+
+\begin{table}[h]
+\centering
+\caption{Abandonment of initially correct answers by challenge component (hard bank).}
+\vskip 0.1in
+\begin{tabular}{lcccc}
+\toprule
+Model & counter+source & counter bare & source only & pressure \\
+\midrule
+Qwen2.5-7B & 0.95 & 0.79 & 0.66 & 0.58 \\
+Qwen2.5-14B & 0.95 & 0.84 & 0.76 & 0.77 \\
+Llama-3.1-8B & 0.92 & 0.92 & 0.87 & 0.88 \\
+Mistral-7B & 0.89 & 0.67 & 0.62 & 0.60 \\
+OLMo-2-7B & 0.89 & 0.84 & 0.74 & 0.69 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Praise as Pressure}
+\label{app:praise}
+
+Attaching an evaluative note to the model's answer before a challenge raises abandonment regardless of the note's valence, and sometimes more when favorable. Telling Qwen2.5-7B its answer was rated 90 percent reliable raises abandonment from a 0.48 baseline to 0.91, above the 0.78 produced by a 30 percent rating. Llama-3.1-8B treats the two ratings identically (0.98, 0.98); OLMo-2 ignores notes (0.63 to 0.71 across conditions). The pattern fits a pragmatic inference: in natural dialogue, unprompted commentary on an answer precedes correction whatever the commentary says. The cue is local: moving the note two turns earlier returns abandonment to baseline (0.46 to 0.52 in Qwen) while a mentioned alternative keeps its pull at distance (0.60 against a 0.48 baseline). The near and far conditions differ in discourse structure as well as distance, so we describe this as consistent with a local cue rather than as isolating position.
+
+\section{Training-Stage Ladders}
+\label{app:stages}
+
+Capitulation to contentless pressure by stage, in lineages with public intermediate checkpoints. OLMo-2: SFT 0.19, DPO 0.73, +RLVR 0.69. Tulu-3: SFT 0.43, DPO 0.66, +RLVR 0.60. Zephyr: SFT 0.69, DPO 0.70. The confidence-use coefficient present at OLMo-2's SFT stage (0.225) collapses at DPO (0.051) and does not recover. Predictions for this ladder were pre-registered and confirmed in two of three lineages, with RL non-recovery confirmed in two of two. Released stages differ in data as well as procedure, so these are properties of preference-optimized descendants rather than measured effects of the optimizer \citep{rafailov2023dpo}.
+
+\section{The Bidirectional Firmness Intervention}
+\label{app:firmness}
+
+Arms: FIRM (hold under contentless doubt, revise when the challenge carries a reason), POISON (capitulate to everything), and base, with about 2{,}500 LoRA demonstrations per arm and two seeds each, evaluated on held-out questions and held-out challenge phrasings. Capitulation to contentless doubt: POISON 0.82 to 0.94, base 0.58, FIRM 0.005 to 0.15. FIRM accepts supported corrections at 0.98, so it learned a condition rather than stubbornness. Two boundaries: unsupported sourced counters still flip FIRM, since the training contrast did not include them, and this earlier recipe, which predates the instruction-data replay of \cref{sec:repair}, pays a capability tax of 0.65 to 0.74 against a 0.86 base on our bank. A control arm reaches 0.98 resistance to bare pressure, so generic resistance is cheap; only the conditioning on evidence is bought by the epistemic contrast.
+
+\section{Surfacing Null, Full Table}
+\label{app:surfacing}
+
+Effect of the stated reliability value (20 to 95 percent) on revision, with authorship varied. No dose response appears in any model in either condition.
+
+\begin{table}[h]
+\centering
+\caption{Effect of reliability value on revision by authorship.}
+\vskip 0.1in
+\begin{tabular}{lcc}
+\toprule
+Model & latent (external fact) & surfaced (model's own token) \\
+\midrule
+Qwen2.5-7B & 0.026 & 0.002 \\
+Qwen2.5-14B & 0.007 & 0.043 \\
+Llama-3.1-8B & $-0.041$ & $-0.027$ \\
+Mistral-7B & 0.034 & 0.063 \\
+OLMo-2-7B & 0.034 & $-0.008$ \\
+Qwen2.5-1.5B & 0.069 & $-0.018$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Negative Results}
+\label{app:negative}
+
+We report five, each closing an alley a replicator would walk down. (1) Activation steering along a declared-confidence direction fails a selectivity test: its effects are indistinguishable from random-direction perturbation at matched norm. (2) Instructed confidence use fails (\cref{sec:nulls}). (3) A DPO intervention with 2{,}000 narrow preference pairs ($\beta=0.1$, learning rate $5\times10^{-7}$) produced no behavioral change in any arm; the demonstration channel of \cref{sec:repair} succeeded where preference pairs failed. (4) The first-token A/B letter-margin probe is invalid in this setting twice over: the original run was position-confounded (true answer always at option A, AUROC 0.30 to 0.35), and a rerun averaging both answer orders remains inverted (AUROC 0.21 to 0.32 across four non-thinking models, $n \approx 500$ each). Whatever this probe measures in dialogue contexts, it is not the quantity the other three signals agree on, and we advise against it as a cheap confidence proxy. The generated-verdict probe behaves sensibly, and with an inversion of its own: the reasoning-trained models affirm true answers at 0.71 to 0.78 under generation against 0.46 to 0.59 for the standard models given the same prompt, so reasoning training improves generative verification while removing readable verification logits. (5) Under greedy decoding, re-asking an identical question in a clean context reproduces the original answer by construction; we report the in-context collapse against this baseline and flag a paraphrased, sampled redesign for future work.
+
+\section{Identification Bank and Robustness}
+\label{app:bank}
+
+The identification bank contains 600 MMLU-Pro items from an offset disjoint from the survey bank, each with the labeled true answer and two sampled distinct distractors, filtered for length and placeholder artifacts; 500 items per model survive signal-completeness filtering. Per-paraphrase sourced-counter switch rates: Llama 0.966 to 0.990, OLMo 0.882 to 0.960, Qwen2.5-7B 0.905 to 0.970, Qwen2.5-14B 0.900 to 0.950, Qwen3-8B 0.794 to 0.846, R1-Distill 0.885 to 0.935. The thinking models run with extended generation budgets (768 and 1{,}024 tokens) and reasoning-block stripping before outcome parsing. The pressure-condition FT/FF equality check passes in every model.
+
+\end{document}
