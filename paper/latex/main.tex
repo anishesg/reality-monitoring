@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{amsmath}
+\usepackage{amssymb} % V: for \mathbb in eq:price
 \usepackage{multirow}
 
 \usepackage[accepted]{icml2026}
@@ -92,6 +93,14 @@ If models had no usable estimate of their own correctness, ignoring it would be 
 \Cref{fig:gap}a gives the scale trend: the AUROC of stated confidence against the model's own correctness rises monotonically up the Qwen2.5 ladder, 0.54, 0.49, 0.61, 0.66, 0.70 from 0.5B to 14B. \Cref{tab:signals} gives the cross-signal picture on the hard identification bank. The verbalized, self-evaluated, and log-probability signals agree, landing between 0.59 and 0.74 in every model. The belief score $b(x)$ requires no self-report at all and is as informative as anything the model says about itself; it is the quantity our identification design manipulates. Consistency is the weakest signal on this bank because answers to hard questions are stable under resampling, and it degrades further on the thinking models, whose sampled outputs vary in format.
 
 A signal at AUROC 0.70 is far from perfect but is worth money to a reviser. Section~\ref{sec:repair} shows exactly what it is worth: a model trained to consult it recovers the corresponding accuracy under challenge. The failure documented next is not missing information. It is information the model has and does not spend.
+
+% --- V (2026-09-22): the price of the gap; source paper/contrib/prop2_price.tex, analysis in Section 2 of paper/main_v3.tex
+\paragraph{What ignoring the monitor costs.} The gap has a price that follows from the decision alone. Consider a content-free challenge on a two-candidate item, a reviser whose reliability $r$ is calibrated ($\Pr[\text{correct}\mid r]=r$) with pre-challenge accuracy $A=\mathbb{E}[r]$, and a policy that switches with probability $\pi$ independently of $r$, which is what the next section measures. Holding yields expected correctness $r$ and switching $1-r$, so a Bayesian reviser takes $\max(r,1-r)$ and the cue-follower $(1-\pi)r+\pi(1-r)$; subtracting and taking expectations,
+\begin{equation}
+\mathbb{E}[\max(r,1-r)]-\big((1-\pi)A+\pi(1-A)\big)=\mathbb{E}\big[(1-2r)^{+}\big]+\pi\,(2A-1).
+\label{eq:price}
+\end{equation}
+The first term is the value of consulting reliability at all, zero only for a reviser never below even odds; the second is the price of the cue: for a model that is right more often than not, every unit of cue-driven switching on an evidence-free challenge costs $2A-1$ in post-challenge accuracy, and nothing in the challenge can pay for it. For Qwen2.5-7B on the identification bank ($A=0.87$, pressure-cell switch rate $0.63$) the second term alone is $0.47$. \Cref{eq:price} is what makes the monitor's AUROC in \Cref{tab:signals} a quantity with a cost rather than a curiosity: the model forgoes it every time it is challenged.
 
 \begin{table}[t]
 \caption{Uncertainty signals predict own correctness (AUROC, hard bank). Starred values are generated-verdict rates for thinking models, whose token probabilities are unreadable through a reasoning block. FC is forced-choice accuracy.}
@@ -192,7 +201,7 @@ One reading of the claim-truth coefficient deserves emphasis. Models do use know
 \subsection{A pre-registered reversal}
 \label{sec:reversal}
 
-Our early data showed models discounting their own stated confidence relative to a user's, an effect that replicated in all nineteen checkpoints. It is an artifact. In the natural protocol the user's statement sits next to the challenge while the model's own sits several turns earlier, so speaker is confounded with position. A pre-registered control that matches position, with predictions hashed before data collection, eliminated the asymmetry and mildly reversed it: the family-level speaker-by-confidence interaction is $-0.38$, 95\% CI $[-0.51, -0.26]$, across six families. Recency in the dialogue, not speaker identity, is the operative variable. We report this at length because it bears on method: challenge protocols that do not match position will find self-other asymmetries that do not exist.
+Our early data showed models discounting their own stated confidence relative to a user's, an effect that replicated in all nineteen checkpoints. It is an artifact. In the natural protocol the user's statement sits next to the challenge while the model's own sits several turns earlier, so speaker is confounded with position. A pre-registered control that matches position, with predictions hashed before data collection, eliminated the asymmetry and mildly reversed it: the family-level speaker-by-confidence interaction is $-0.38$, 95\% CI $[-0.51, -0.26]$, across six families. With six families the DerSimonian--Laird interval is optimistic; the Hartung--Knapp interval, which uses the $t_{5}$ reference distribution and the empirical between-family variance, is $[-0.54,-0.22]$ ($p=.002$), and dropping any single family leaves both intervals excluding zero (leave-one-family-out Hartung--Knapp upper bounds $-0.16$ to $-0.27$). Recency in the dialogue, not speaker identity, is the operative variable. We report this at length because it bears on method: challenge protocols that do not match position will find self-other asymmetries that do not exist.
 
 \subsection{Where the policy plausibly comes from}
 \label{sec:origin}
