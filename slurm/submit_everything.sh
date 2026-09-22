@@ -12,14 +12,14 @@ say() { printf '\n== %s\n' "$*"; }
 [ -f data/olmo/revision.jsonl ] && [ -f data/tulu/revision.jsonl ] || { echo "run 'bash slurm/prefetch.sh olmo tulu' on the login node first"; exit 1; }
 
 say "1. contagion replication (5 jobs)";              bash slurm/submit_contagion.sh
-say "2. STAND + DPO control, 3 seeds x 2 backbones";  for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A2 A3"; done
-say "3. firewall, queued after the seed-0 olmo A3 training job"
+say "2. real-recipe DPO (A1), 3 seeds x 2 backbones  [makes the stage-ladder claim causal]";  for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A1"; done
+say "3. STAND + DPO control, 3 seeds x 2 backbones";  for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A2 A3"; done
+say "4. firewall, queued after the seed-0 olmo A3 training job"
 A3=$(squeue -u "$USER" -h -n rm-grpo-olmo-A3 -o %i | head -1)
 if [ -n "$A3" ]; then
   sbatch --parsable "${SBX[@]}" --gres="$GRES" --dependency=afterok:"$A3" --job-name=rm-ctg-olmo_fw \
     --export="ALL,MODEL=allenai/OLMo-2-1124-7B-Instruct,TAG=olmo_fw,PEERS=weak=Qwen/Qwen2.5-1.5B-Instruct,same=allenai/OLMo-2-1124-7B-Instruct,strong=Qwen/Qwen2.5-14B-Instruct,N=300,K=8,FIREWALL=$ROOT/checkpoints/olmo/A3/merged,FIREWALL_POS=2,PEER_MSGS=results_contagion/olmo/peer_msgs.jsonl" slurm/contagion.sbatch
 else echo "   (no olmo A3 job in queue; run later: FIREWALL=checkpoints/olmo/A3/merged bash slurm/submit_contagion.sh olmo_fw)"; fi
-say "4. real-recipe DPO (A1), 3 seeds x 2 backbones";  for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A1"; done
 [ $CORE_ONLY = 1 ] && { say "core queue submitted; strengthening set skipped (--core-only)"; squeue -u "$USER" -o "%.10i %.22j %.2t %.8M" | head -40; exit 0; }
 
 say "5. 13B/32B stage checkpoints, eval only";         bash slurm/measure_stages.sh olmo13 olmo32

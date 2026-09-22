@@ -33,7 +33,7 @@ summary.json files. First milestone worth a message: results_ladder/olmo/A3/summ
     FIREWALL=checkpoints/olmo/A3/merged bash slurm/submit_contagion.sh olmo_fw
 Send back: results_contagion/olmo_fw/contagion.png and report.txt (the "firewall" line in the chain block).
 
-## 4. Real-recipe DPO: does the public preference recipe install the behavior? (12 jobs x ~1.5 h)
+## 2. Real-recipe DPO: does the public preference recipe install the behavior? (12 jobs x ~1.5 h) -- FIRST training job: it makes the stage-ladder claim causal
     for S in 0 1 2; do SEED=$S bash slurm/submit_ladder.sh --reuse-a0 --backbones "olmo tulu" --arms "A1"; done
 Send back: A1 summary.json files (pressure_abandon vs A0 is the number).
 
@@ -53,6 +53,11 @@ Send back: A1 summary.json files (pressure_abandon vs A0 is the number).
 
 ## 9. Anish's v2 epistemic ladder, anchor models + 32B/72B only (6 jobs, ~25 GPU-h; see della/v2_epistemic_ladder/CHANGES_2026-09-21.md)
     cd della/v2_epistemic_ladder && PROJ=/scratch/gpfs/$USER/rm_v2 bash prepare.sh   # SKIP_BIG=1 to skip 72B; then edit submit_all.sh to the 6 models and run it
+
+## 10. Elicited three-cell identification (6 jobs x ~40 min)  -> closes the paper's stated limitation
+    python experiments/claimbank_3cell.py            # login node, builds claims3.jsonl (same bank as Anish's identification runs)
+    CLAIMS=$PWD/claims3.jsonl bash slurm/submit_ident_elicited.sh
+Send back: results_ident_elicited/*/summary.json and ident.jsonl (responses are stored for the judge check).
 
 ## Monitoring
 `squeue -u $USER`, `tail -f logs/rm-*.out`, or the dashboard at http://localhost:8765 through the SSH tunnel. Each finished

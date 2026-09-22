@@ -14,3 +14,7 @@ PM=results_contagion/qwen7b/peer_msgs.jsonl
 python3 harness/contagion.py --backend api --provider anthropic --model claude-fable-5-1 --effort low --n 150 --peers "same=claude-fable-5-1" --peer-msgs $PM --out results_contagion/fable51 --workers 8
 python3 harness/contagion.py --backend api --provider openai    --model gpt-6-astra      --effort low --n 150 --peers "same=gpt-6-astra"      --peer-msgs $PM --out results_contagion/astra   --workers 8
 python3 analysis/report_contagion.py results_contagion/fable51 results_contagion/astra
+# three-cell identification (injected + elicited) on the same two models; needs claims3.jsonl from experiments/claimbank_3cell.py
+[ -f claims3.jsonl ] || python3 experiments/claimbank_3cell.py
+python3 experiments/run_identification_api.py --provider anthropic --model claude-fable-5-1 --effort low --claims claims3.jsonl --n 150 --out results_ident_api/fable51
+python3 experiments/run_identification_api.py --provider openai    --model gpt-6-astra      --effort low --claims claims3.jsonl --n 150 --out results_ident_api/astra

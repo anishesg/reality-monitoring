@@ -1,0 +1,8 @@
+% Drop-in: end of Section 4 ("The Monitor Works"). Requires \usepackage{amsthm} and \newtheorem{proposition}{Proposition}.
+\paragraph{What ignoring the monitor costs.} The gap has a price that follows from the decision alone. Consider a content-free challenge on a two-candidate item, a reviser whose reliability $r$ is calibrated ($\Pr[\text{correct}\mid r]=r$) with pre-challenge accuracy $A=\mathbb{E}[r]$, and a policy that switches with probability $\pi$ independently of $r$, which is what Section~5 measures. Holding yields expected correctness $r$ and switching $1-r$, so the Bayes reviser takes $\max(r,1-r)$ and the cue-follower $(1-\pi)r+\pi(1-r)$; subtracting and taking expectations,
+\begin{equation}
+\underbrace{\mathbb{E}[\max(r,1-r)]}_{\text{Bayes accuracy}}-\underbrace{\big((1-\pi)A+\pi(1-A)\big)}_{\text{cue-following accuracy}}
+=\mathbb{E}\big[(1-2r)^{+}\big]+\pi\,(2A-1).
+\label{eq:price}
+\end{equation}
+The first term is the value of consulting reliability at all, zero only for a reviser never below even odds; the second is the price of the cue: for a model that is right more often than not, every unit of cue-driven switching on an evidence-free challenge costs $2A-1$ in post-challenge accuracy, and nothing in the challenge can pay for it. For Qwen2.5-7B on the identification bank ($A=0.87$, pressure-cell switch rate $\pi=0.63$) the second term alone is $0.47$. Equation~\ref{eq:price} is what makes the monitor's AUROC in Table~1 a quantity with a dollar value rather than a curiosity: the model forgoes it every time it is challenged.
