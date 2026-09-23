@@ -12,7 +12,7 @@ import json, os, threading, time
 PRICES = {  # USD per 1M tokens (input, output), list price, standard tier
     "gpt-6-astra": (10.0, 50.0), "gpt-6-sol": (10.0, 50.0), "gpt-6-luna": (10.0, 50.0),
     "gpt-5.4": (2.5, 15.0), "gpt-5.4-mini": (0.75, 4.5), "gpt-5-mini": (0.25, 2.0),
-    "claude-fable-5-1": (15.0, 75.0), "claude-opus-5": (5.0, 25.0), "claude-sonnet-5": (3.0, 15.0),
+    "claude-fable-5-1": (10.0, 50.0), "claude-fable-5": (10.0, 50.0), "claude-opus-5": (5.0, 25.0), "claude-sonnet-5": (3.0, 15.0),
 }
 DEFAULT_CAP = {"openai": 250.0, "anthropic": 250.0}
 DIR = os.path.expanduser("~/.rm_spend")

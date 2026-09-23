@@ -15,11 +15,28 @@ NAMES = {"i_qwen7b": "Qwen2.5-7B", "i_llama8b": "Llama-3.1-8B", "i_olmo": "OLMo-
          "qwen7b": "Qwen2.5-7B", "llama8b": "Llama-3.1-8B", "mistral": "Mistral-7B", "olmo": "OLMo-2-7B",
          "astra": "GPT-6 Astra", "fable51": "Claude Fable 5.1"}
 FRONTIER = {"astra", "fable51"}
-COL = {"open": "#6b7280", "astra": "#b91c1c", "fable51": "#b45309"}
-VALID = ("retain", "switch_alt", "switch_other")
+COL = {"open": "#6b7280", "astra": "#b91c1c", "fable51": "#d97706"}
+OPEN_PALETTE = ["#64748b", "#0f766e", "#6d28d9", "#1d4ed8", "#4d7c0f", "#9f1239", "#0e7490", "#7c2d12"]  # distinct muted colours for open models in multi-series panels
+def color_multi(tag, i): return COL[tag] if tag in COL else OPEN_PALETTE[i % len(OPEN_PALETTE)]
+VALID = ("retain", "switch_alt", "switch_other", "switch_true")  # switch_true only exists after the judge (ident F->F cells)
 random.seed(0)
 
 def jl(p): return [json.loads(l) for l in open(p)] if os.path.exists(p) else []
+GRADING = os.environ.get("RM_GRADING", "judged")  # judged = apply <run>/judged.jsonl (LLM equivalence re-grade of switch_other/ambiguous rows) when present
+def judged(rows, d, kind):
+    """Overlay outcome_judged from <d>/judged.jsonl; keeps the string outcome in r['outcome_string']. Returns (rows, n_overlaid)."""
+    J = {json.dumps(j["key"]): j["outcome_judged"] for j in jl(os.path.join(d, "judged.jsonl"))}
+    if not J or GRADING != "judged": return rows, 0
+    def key(r):
+        if kind == "v17": return json.dumps(r["i"])
+        if kind == "ident": return json.dumps([r["claim_src"], r["cell"], r["qid"], r["tmpl"], r["chal"]])
+        return json.dumps([r["cell"], r["kind"], r["qid"], r["truth"], r["hop"], r["chain"]])
+    n = 0
+    for r in rows:
+        k = key(r)
+        if k in J: r["outcome_string"] = r["outcome"]; r["outcome"] = J[k]; n += 1
+    return rows, n
+JUDGED_N = {}
 def rate(xs): return sum(xs) / len(xs) if xs else None
 def boot(rows, sel, val, reps=400):
     byq = defaultdict(list)
@@ -36,19 +53,29 @@ def label(tag): return NAMES.get(tag, tag)
 S = {"ident": {}, "decomp": {}, "contagion": {}}
 # ---------------- three-cell identification
 for d in sorted(glob.glob(os.path.join(ROOT, "results_ident", "i_*")) + glob.glob(os.path.join(ROOT, "results_ident_api", "*"))):
-    tag = os.path.basename(d); rows = [r for r in jl(os.path.join(d, "ident.jsonl")) if r["outcome"] in VALID]
+    tag = os.path.basename(d); rows, nj = judged(jl(os.path.join(d, "ident.jsonl")), d, "ident"); JUDGED_N[("ident", tag)] = nj
+    rows = [r for r in rows if r["outcome"] in VALID]
     if not rows: continue
     out = {}
     for src in sorted({r.get("claim_src", "injected") for r in rows}):
         for cell in ("TF", "FT", "FF"):
             for chal in ("counter", "pressure"):
-                out[f"{src}/{cell}/{chal}"] = boot(rows, lambda r, s=src, c=cell, h=chal: r.get("claim_src", "injected") == s and r["cell"] == c and r["chal"] == h, lambda r: r["outcome"] != "retain")
+                sel = lambda r, s=src, c=cell, h=chal: r.get("claim_src", "injected") == s and r["cell"] == c and r["chal"] == h
+                # TF: any switch = abandons a correct answer. FT/FF: switch to the NAMED alternative = accepts the correction / follows the cue.
+                # paper definition (Anish, Sec. 5): TF and FF = any switch away from the held claim; FT = switch to the named true answer.
+                # The judge-only split of FF into cue (switch_alt) vs recomputation (switch_true) is stored alongside.
+                out[f"{src}/{cell}/{chal}"] = boot(rows, sel, (lambda r: r["outcome"] == "switch_alt") if cell == "FT" else (lambda r: r["outcome"] != "retain"))
+                out[f"{src}/{cell}/{chal}/to_cue"] = boot(rows, sel, lambda r: r["outcome"] == "switch_alt")
+                out[f"{src}/{cell}/{chal}/any_switch"] = boot(rows, sel, lambda r: r["outcome"] != "retain")
+                out[f"{src}/{cell}/{chal}/to_truth"] = boot(rows, sel, lambda r: r["outcome"] == "switch_true")
+                out[f"{src}/{cell}/{chal}/n_q"] = len({r["qid"] for r in rows if sel(r)})
     own = jl(os.path.join(d, "own.jsonl"))
     if own: out["own_accuracy"] = rate([o.get("answered") == "true_answer" for o in own])
     S["ident"][tag] = out
 # ---------------- v17 decomposition (self origin)
 for d in sorted(glob.glob(os.path.join(ROOT, "results", "results_v17_cells", "c_*")) + glob.glob(os.path.join(ROOT, "results_api", "*"))):
-    tag = os.path.basename(d); rows = [r for r in jl(os.path.join(d, "cells.jsonl")) if r["outcome"] in VALID and r["origin"] == "self"]
+    tag = os.path.basename(d); rows, nj = judged(jl(os.path.join(d, "cells.jsonl")), d, "v17"); JUDGED_N[("decomp", tag)] = nj
+    rows = [r for r in rows if r["outcome"] in VALID and r["origin"] == "self"]
     if not rows: continue
     out = {}
     ab = lambda r: r["outcome"] != "retain"
@@ -63,6 +90,7 @@ for d in sorted(glob.glob(os.path.join(ROOT, "results_contagion", "*"))):
     tag = os.path.basename(d)
     if tag.startswith("_") or tag.startswith("pilot") or tag.endswith("_chain2") or tag.endswith("_genuine"): continue
     rows = jl(os.path.join(d, "contagion.jsonl")) + jl(os.path.join(ROOT, "results_contagion", tag + "_chain2", "contagion.jsonl")) + jl(os.path.join(ROOT, "results_contagion", tag + "_genuine", "contagion.jsonl"))
+    rows, nj = judged(rows, d, "contagion"); JUDGED_N[("contagion", tag)] = nj
     rows = [r for r in rows if r["outcome"] in VALID]
     if not rows: continue
     out = {"pairwise": {}, "chain": {}}
@@ -74,7 +102,9 @@ for d in sorted(glob.glob(os.path.join(ROOT, "results_contagion", "*"))):
         out["chain"][cname] = [boot(ch, lambda r, c=cname, h=hop: r["chain"] == c and r["hop"] == hop, lambda r: r["outcome"] != "retain") for hop in range(1, 9)]
     S["contagion"][tag] = out
 os.makedirs(os.path.join(ROOT, "results"), exist_ok=True); os.makedirs(os.path.join(ROOT, "figures"), exist_ok=True)
+S["judged_rows"] = {f"{a}/{b}": n for (a, b), n in JUDGED_N.items() if n}; S["grading"] = GRADING
 json.dump(S, open(os.path.join(ROOT, "results", "frontier_summary.json"), "w"), indent=1)
+print(f"grading={GRADING}; judge-overlaid rows: {S['judged_rows']}")
 
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.right": False})
@@ -92,8 +122,13 @@ def bars(ax, tags, get, title, ylabel=None):
 tags = [t for t in S["ident"] if not is_front(t)] + [t for t in S["ident"] if is_front(t)]
 if tags:
     fig, axs = plt.subplots(1, 3, figsize=(10, 3.2), sharey=True)
-    for ax, cell, ttl in zip(axs, ("TF", "FF", "FT"), ("T→F: abandons a correct answer", "F→F: follows the cue (both wrong)", "F→T: accepts a true correction")):
+    for ax, cell, ttl in zip(axs, ("TF", "FF", "FT"), ("T→F: abandons a correct answer", "F→F: leaves a wrong answer when a wrong alternative is named", "F→T: accepts a true correction")):
         bars(ax, tags, lambda t, c=cell: S["ident"][t].get(f"injected/{c}/counter"), ttl, "switch rate" if cell == "TF" else None)
+        if cell == "FF":  # stacked: switches to the TRUE answer instead of the cue (only detectable with the judge; open-model runs are string-graded)
+            for x, t in enumerate(tags):
+                e, tt = S["ident"][t].get(f"injected/{cell}/counter"), S["ident"][t].get(f"injected/{cell}/counter/to_truth")
+                if e and tt and tt[0]: ax.bar(x, tt[0], bottom=e[0] - tt[0], color="white", edgecolor=color(t), hatch="///", width=0.7, lw=0.8)
+            ax.text(0.5, -0.62, "hatched: switched to the TRUE answer rather than the cue (judge-graded; open-model runs are string-graded)", transform=ax.transAxes, fontsize=6.5, ha="center")
     fig.suptitle("Three-cell identification, injected claim, counter-argument challenge (95% question-bootstrap CIs; red = frontier, reasoning effort low)", fontsize=9)
     fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_ident.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_ident.png"), dpi=160); plt.close(fig)
     # elicited vs injected for frontier
@@ -134,23 +169,23 @@ if tags:
         P = S["contagion"][t]["pairwise"]
         xs = [k + (i - len(tags) / 2 + 0.5) * w for k in range(len(kinds))]
         ys = [P.get(k, (0,))[0] or 0 for k in kinds]
-        axs[0].bar(xs, ys, width=w, color=color(t), alpha=0.95 if is_front(t) else 0.35 + 0.15 * i / max(1, len(tags)), label=label(t))
+        axs[0].bar(xs, ys, width=w, color=color_multi(t, i), alpha=0.95 if is_front(t) else 0.6, label=label(t))
     axs[0].set_xticks(range(len(kinds))); axs[0].set_xticklabels(kinds, rotation=30, ha="right"); axs[0].set_ylim(0, 1); axs[0].set_ylabel("abandon correct answer"); axs[0].legend(fontsize=7, frameon=False, ncol=2)
     axs[0].set_title("Pairwise: receiver holds a correct answer; sender names the alternative", fontsize=9)
-    for t in tags:
+    for i, t in enumerate(tags):
         C = S["contagion"][t]["chain"]
         for cname, ls in (("contaminated", "-"), ("clean", "--")):
             if cname in C:
                 ys = [e[0] if e and e[0] is not None else float("nan") for e in C[cname]]
-                axs[1].plot(range(1, 9), ys, ls, color=color(t), lw=1.6 if is_front(t) else 1, marker="o", ms=2.5, label=f"{label(t)} {cname}" if is_front(t) or cname == "contaminated" else None)
-    axs[1].set_ylim(0, 1); axs[1].set_xlabel("hop"); axs[1].set_ylabel("P(agent wrong)"); axs[1].legend(fontsize=6.5, frameon=False, ncol=2); axs[1].set_title("Chains of 8 agents: wrong seed (solid) vs right seed (dashed)", fontsize=9)
+                axs[1].plot(range(1, 9), ys, ls, color=color_multi(t, i), lw=1.8 if is_front(t) else 1.1, marker="o", ms=2.5, label=label(t) if cname == "contaminated" else None)
+    axs[1].set_ylim(0, 1); axs[1].set_xlabel("hop"); axs[1].set_ylabel("P(agent wrong)"); axs[1].legend(fontsize=7, frameon=False, loc="center right"); axs[1].set_title("Chains of 8 agents: wrong seed (solid) vs right seed (dashed)", fontsize=9)
     fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.png"), dpi=160); plt.close(fig)
 
 # table
 print("three-cell (injected, counter): TF / FF / FT")
 for t, o in S["ident"].items():
     f = lambda k: f"{o[k][0]:.3f}" if o.get(k) and o[k][0] is not None else "  —  "
-    print(f"  {label(t):18s} {f('injected/TF/counter')} {f('injected/FF/counter')} {f('injected/FT/counter')}" + (f"   elicited TF {f('elicited/TF/counter')} FF {f('elicited/FF/counter')} FT {f('elicited/FT/counter')}  own-acc {o.get('own_accuracy', float('nan')):.3f}" if "elicited/TF/counter" in o else ""))
+    print(f"  {label(t):18s} {f('injected/TF/counter')} {f('injected/FF/counter')} {f('injected/FT/counter')}  (FF: to cue {f('injected/FF/counter/to_cue')}, to truth {f('injected/FF/counter/to_truth')})" + (f"   elicited TF {f('elicited/TF/counter')} [q={o.get('elicited/TF/counter/n_q')}] FF {f('elicited/FF/counter')} FT {f('elicited/FT/counter')}  own-acc {o.get('own_accuracy', float('nan')):.3f}" if "elicited/TF/counter" in o else ""))
 print("decomposition (correct self claims): counter_src / counter_bare / src_only / pressure  | conf low→high (counter_src)")
 for t, o in S["decomp"].items():
     f = lambda k: f"{o[k][0]:.3f}" if o.get(k) and o[k][0] is not None else "  —  "

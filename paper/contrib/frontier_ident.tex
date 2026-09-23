@@ -1,0 +1,24 @@
+% Drop-in: Section 5 (after the open-model three-cell results) or Section 8. Numbers from results/frontier_summary.json (analysis/figures_frontier.py),
+% GPT-6 Astra, reasoning effort low, one deterministic pass through the OpenAI Batch API, 2026-09-22. Fable 5.1 numbers: FILL when results_ident_api/fable51 lands.
+% Grading: exact-match on FINAL as for the open models, then an LLM equivalence judge re-grades every row the string grader called
+% "switched to something else" or "ambiguous" (frontier models restate a retained answer in new words; 6,777 of 11,280 identification rows
+% and 3,686 of 10,800 decomposition rows were re-graded; analysis/judge_equiv.py). String-graded rates are in Appendix~X.
+\paragraph{The gap at the frontier.} The identification design runs unchanged on API models. On GPT-6 Astra (500 held-out questions, 12{,}000 challenge
+trials) the \emph{level} of the gap collapses: a correct injected answer is abandoned under a counter-argument at $0.22$ [$0.18,0.25$] against $0.80$--$0.94$
+for the 7B--14B open models, and under content-free pressure at $0.21$ [$0.18,0.25$]; a true correction is accepted at $0.95$ [$0.94,0.97$]. The
+\emph{structure} does not. Stated confidence is still not consulted (abandonment $0.16$ at low versus $0.16$ at high confidence on sourced counter-arguments),
+the source of a counter-argument still adds nothing ($0.16$ [$0.13,0.20$] sourced versus $0.15$ [$0.13,0.19$] bare), and content-free source pressure
+($0.21$) is as effective as a full counter-argument. What changes is what happens in the F$\to$F cell. Open models leave a wrong answer for the named wrong
+alternative $0.90$--$0.995$ of the time; Astra leaves it $0.96$ [$0.95,0.98$] of the time, but only $0.23$ [$0.20,0.27$] of trials go to the cue and
+$0.57$ [$0.53,0.62$] go to the \emph{true} answer, which neither turn named. At the frontier a challenge acts less as a cue to be followed and more as a
+trigger to recompute; the residual cue-following ($0.23$, five times the rate at which a correct answer is abandoned to the same cue) is the gap that remains.
+The elicited variant, in which the challenged claim is the model's own reasoned reply rather than an injected line (Section~X), gives the same picture:
+abandonment $0.19$ [$0.15,0.22$] under counter-argument and $0.13$ [$0.09,0.16$] under pressure over 357 questions whose own answer matched a bank candidate.
+Between agents (Section~7 protocol, 300 questions, 14{,}259 trials) the sender invariance is exact: with a correct answer injected, Astra folds to a peer
+naming the alternative at $0.12$ / $0.11$ / $0.12$ / $0.12$ whether the peer is a 1.5B, 7B or 14B open model or Astra itself (spread $0.015$), and no more
+often than with no message at all ($0.15$ [$0.11,0.19$]): at the frontier a named alternative is not a cue, it is an occasion to re-derive. With its own
+reasoned answer in context it folds at $0.00$--$0.03$. The chain dynamics keep their form with different constants: a bare wrong seed is rejected by the
+first agent $0.81$ of the time, but once an agent in the chain is wrong \emph{with its reasoning}, the next agent is wrong with probability
+$\pww=0.96$ [$0.93,0.98$] against $\pcw=0.01$ from a correct predecessor, so $\lambda=0.95$, $\piinf=0.21$ and both chains sit at $0.19$ (wrong seed)
+and $0.10\to0.14$ (right seed) for eight hops; the closed form from the measured first hop places 8/8 hops inside the interval for both. A reasoned
+wrong answer is as contagious at the frontier as at 7B; what changed is how often one is produced. \textbf{[Fable 5.1: FILL.]}

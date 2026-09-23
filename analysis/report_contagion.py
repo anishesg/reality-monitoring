@@ -24,6 +24,13 @@ ab = lambda o: o in ("switch_alt", "switch_other")
 
 def report(run):
     R = [json.loads(l) for l in open(os.path.join(run, "contagion.jsonl"))]
+    jp = os.path.join(run, "judged.jsonl")  # LLM equivalence re-grade of switch_other/ambiguous rows (analysis/judge_equiv.py); frontier runs only
+    if os.path.exists(jp) and os.environ.get("RM_GRADING", "judged") == "judged":
+        J = {json.dumps(j["key"]): j["outcome_judged"] for j in (json.loads(l) for l in open(jp))}; nj = 0
+        for r in R:
+            k = json.dumps([r["cell"], r["kind"], r["qid"], r["truth"], r["hop"], r["chain"]])
+            if k in J: r["outcome_string"] = r["outcome"]; r["outcome"] = J[k]; r["correct"] = J[k] == "retain"; nj += 1
+        print(f"[judged grading: {nj} rows overlaid from judged.jsonl]")
     meta = json.load(open(os.path.join(run, "meta.json"))) if os.path.exists(os.path.join(run, "meta.json")) else {}
     S = {"run": run, "model": meta.get("model"), "pairwise": {}, "chain": {}, "n_rows": len(R)}
     print("=" * 78); print(run, "|", meta.get("model"), "| rows", len(R))

@@ -13,11 +13,16 @@ import spend
 
 class BatchBackend:
     def __init__(self, model, effort=None, max_tokens=288, seed=0, batch_size=500, poll=20, state_dir=".", provider="openai", api_key_env=None, inflight=None):
-        import openai
-        key = os.environ.get(api_key_env or "OPENAI_API_KEY")
+        key = os.environ.get(api_key_env or ("ANTHROPIC_API_KEY" if provider == "anthropic" else "OPENAI_API_KEY"))
         if not key:
-            sys.exit("missing OPENAI_API_KEY (source ~/.rm_keys)")
-        self.c = openai.OpenAI(api_key=key); self.model, self.effort, self.max_tokens, self.seed = model, effort, max_tokens, seed
+            sys.exit(f"missing API key for {provider} (source ~/.rm_keys)")
+        if provider == "anthropic":
+            import anthropic
+            self.c = anthropic.Anthropic(api_key=key)
+        else:
+            import openai
+            self.c = openai.OpenAI(api_key=key)
+        self.model, self.effort, self.max_tokens, self.seed = model, effort, max_tokens, seed
         self.batch_size, self.poll, self.provider, self.name = batch_size, poll, provider, model
         # org-wide limit: 900,000 enqueued tokens at once (all runners share it) -> keep few jobs in flight per runner
         self.inflight = int(inflight or os.environ.get("RM_BATCH_INFLIGHT", 2))
@@ -29,6 +34,11 @@ class BatchBackend:
         self.snapshot = None
 
     def _body(self, msgs):
+        if self.provider == "anthropic":  # Fable/Opus 5: no sampling params; thinking always on, depth via output_config.effort; thinking counts toward max_tokens
+            b = {"model": self.model, "max_tokens": max(self.max_tokens, 8192), "system": msgs[0]["content"], "messages": msgs[1:]}
+            if self.effort:
+                b["output_config"] = {"effort": self.effort}
+            return b
         b = {"model": self.model, "messages": msgs, "seed": self.seed, "prompt_cache_key": os.environ.get("RM_SPEND_TAG", "rm") + ":" + self.model}
         if self.effort:
             b["reasoning_effort"] = self.effort; b["max_completion_tokens"] = self.max_tokens + 2048  # low effort used ~80 output tokens in the pilot
@@ -44,20 +54,67 @@ class BatchBackend:
         if key in self.state and self.state[key].get("id"):
             return self.state[key]["id"]
         spend.check(self.provider)
-        lines = [json.dumps({"custom_id": cid, "method": "POST", "url": "/v1/chat/completions", "body": self._body(m)}) for cid, m in chunk]
         for attempt in range(30):
             try:
-                f = self.c.files.create(file=(f"{key}.jsonl", io.BytesIO("\n".join(lines).encode())), purpose="batch")
-                b = self.c.batches.create(input_file_id=f.id, endpoint="/v1/chat/completions", completion_window="24h",
-                                          metadata={"tag": os.environ.get("RM_SPEND_TAG", "rm"), "key": key})
+                if self.provider == "anthropic":
+                    b = self.c.messages.batches.create(requests=[{"custom_id": cid, "params": self._body(m)} for cid, m in chunk])
+                else:
+                    lines = [json.dumps({"custom_id": cid, "method": "POST", "url": "/v1/chat/completions", "body": self._body(m)}) for cid, m in chunk]
+                    f = self.c.files.create(file=(f"{key}.jsonl", io.BytesIO("\n".join(lines).encode())), purpose="batch")
+                    b = self.c.batches.create(input_file_id=f.id, endpoint="/v1/chat/completions", completion_window="24h",
+                                              metadata={"tag": os.environ.get("RM_SPEND_TAG", "rm"), "key": key})
                 self.state[key] = {"id": b.id, "n": len(chunk)}; self._save()
                 return b.id
-            except Exception as e:  # enqueued-token limit or transient: wait and retry
-                msg = str(e)[:200]; print(f"[batch] submit retry {attempt}: {msg}", flush=True); time.sleep(min(300, 30 * (attempt + 1)))
+            except Exception as e:  # enqueued-token limit or transient: wait and retry; an exhausted credit balance is final
+                msg = str(e)[:200]
+                if "credit balance" in msg.lower() or "billing" in msg.lower():
+                    sys.exit(f"[batch] STOP: provider refused the request on billing grounds ({msg}); no card is on file, so this is the $0 stop")
+                print(f"[batch] submit retry {attempt}: {msg}", flush=True); time.sleep(min(300, 30 * (attempt + 1)))
         sys.exit("[batch] could not submit after 30 attempts")
+
+    def _collect_anthropic(self, key, bid):
+        try:
+            b = self.c.messages.batches.retrieve(bid)
+        except Exception as e:
+            print(f"[batch] retrieve error {bid}: {str(e)[:120]}", flush=True); return None, None
+        if b.processing_status != "ended":
+            rc = b.request_counts; done = rc.succeeded + rc.errored + rc.expired + rc.canceled; age = (time.time() - self.started.get(key, time.time())) / 60
+            if b.processing_status == "in_progress" and self.state[key]["n"] and done >= 0.9 * self.state[key]["n"] and age >= self.straggler_min and not self.state[key].get("cancelling"):
+                print(f"[batch] {bid} straggling at {done}/{self.state[key]['n']} after {age:.0f} min; cancelling and resubmitting the rest", flush=True)
+                try:
+                    self.c.messages.batches.cancel(bid); self.state[key]["cancelling"] = True; self._save()
+                except Exception as e:
+                    print(f"[batch] cancel failed: {str(e)[:100]}", flush=True)
+            return None, None
+        out, n_ok, tin, tout, tcached = {}, 0, 0, 0, 0
+        for r in self.c.messages.batches.results(bid):
+            if r.result.type == "succeeded":
+                m = r.result.message; u = m.usage
+                tin += u.input_tokens + (getattr(u, "cache_read_input_tokens", 0) or 0) + (getattr(u, "cache_creation_input_tokens", 0) or 0); tout += u.output_tokens
+                tcached += getattr(u, "cache_read_input_tokens", 0) or 0; self.snapshot = m.model
+                if m.stop_reason == "refusal":
+                    out[r.custom_id] = f"[REFUSAL:{getattr(getattr(m, 'stop_details', None), 'category', None)}]"
+                else:
+                    out[r.custom_id] = "".join(bl.text for bl in m.content if getattr(bl, "type", "") == "text")
+                n_ok += 1
+            elif r.result.type == "errored":
+                err = r.result.error; msg = str(getattr(err, "error", err))[:200]
+                if "credit balance" in msg.lower(): print(f"[batch] billing refusal inside batch: {msg}", flush=True)
+                out[r.custom_id] = f"[ERROR:{getattr(getattr(err, 'error', None), 'type', None) or 'errored'}]"
+            else:
+                out[r.custom_id] = f"[ERROR:{r.result.type}]"
+        if n_ok and not self.state.get(key, {}).get("charged"):
+            spend.charge(self.provider, self.model, tin, tout, cached=tcached, batch=True, bid=bid, n=n_ok)
+            self.state.setdefault(key, {})["charged"] = True; self._save()
+        status = "cancelled" if self.state[key].get("cancelling") else "completed"
+        self.state[key]["done"] = status; self._save()
+        print(f"[batch] {bid} {status}: {n_ok}/{self.state[key]['n']} ok  spend ${spend.total(self.provider):.2f}", flush=True)
+        return status, out
 
     def _collect(self, key, bid):
         """Returns (status, {custom_id: text}) once the job has ended, else (None, None)."""
+        if self.provider == "anthropic":
+            return self._collect_anthropic(key, bid)
         try:
             b = self.c.batches.retrieve(bid)
         except Exception as e:

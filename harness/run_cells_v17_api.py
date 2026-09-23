@@ -166,7 +166,7 @@ def main():
     todo = [i for i in range(len(trials)) if i not in done]
     if a.batch:
         import batch_api
-        bb = batch_api.BatchBackend(a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env)
+        bb = batch_api.BatchBackend(a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env, provider=a.provider)
         texts = bb.generate([trials[i][1] for i in todo])
         for i, text in zip(todo, texts):
             t = trials[i]

@@ -26,7 +26,7 @@ def main():
     recs = [json.loads(l) for l in open(a.claims)][: a.n]
     if a.batch:  # OpenAI Batch API: one job set per phase, resumable via <out>/batches.json
         import sys as _s; _s.path.insert(0, os.path.join(HERE, "..", "harness")); import batch_api
-        bb = batch_api.BatchBackend(a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env)
+        bb = batch_api.BatchBackend(a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env, provider=a.provider)
         gen = bb.generate; CH = 10 ** 6
     else:
         be = api.Backend(a); CH = 64
@@ -50,8 +50,9 @@ def main():
             x, y = r["true_answer"], r["d1"]
             if random.Random(r["qid"]).random() < 0.5: x, y = y, x
             msgs.append([{"role": "system", "content": SYS}, {"role": "user", "content": f"Question: {r['question']}\nWhich answer is correct: \"{x}\" or \"{y}\"? Give your choice AND your confidence (50-100). End with a line: FINAL: <answer> and a line: CONFIDENCE: <number>"}])
+        texts = gen(msgs)  # generate first, then write: an empty signals.jsonl must never be left behind on interruption
         with open(sigp, "w") as f:
-            for r, t in zip(recs, gen(msgs)):
+            for r, t in zip(recs, texts):
                 ans = pfinal(t); res = outc(ans, r["true_answer"], r["d1"]) if ans else None
                 f.write(json.dumps({"qid": r["qid"], "fc_answer": ans, "conf": ident.pconf(t), "fc_correct": True if res == "retain" else (False if res == "switch_alt" else None)}) + "\n")
     # ---- own answers (elicited source)
@@ -90,7 +91,7 @@ def main():
     with open(outp, "a") as R:
         for i in range(0, len(msgs), CH):
             for t, txt in zip(trials[i:i + CH], gen(msgs[i:i + CH])):
-                t["outcome"] = "error" if txt.startswith("[ERROR:") else outc(pfinal(txt), t["claim"], t["alt"], txt); t["resp"] = txt[-300:]; t["model"] = a.model
+                t["outcome"] = "error" if txt.startswith("[ERROR:") else "refusal" if txt.startswith("[REFUSAL:") else outc(pfinal(txt), t["claim"], t["alt"], txt); t["resp"] = txt[-300:]; t["model"] = a.model
                 R.write(json.dumps(t) + "\n")
             R.flush(); print(f"  {min(i + CH, len(msgs))}/{len(msgs)}", flush=True)
     print("DONE-IDENT-API", a.out, flush=True)

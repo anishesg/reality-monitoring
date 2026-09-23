@@ -1,0 +1,14 @@
+{
+ "model": "gpt-6-astra",
+ "backend": "batch",
+ "n": 300,
+ "k": 8,
+ "cells": "pairwise,genuine,chain",
+ "chain_turns": "merged",
+ "firewall": null,
+ "firewall_pos": 2,
+ "peers": "astra=gpt-6-astra",
+ "peer_msgs": null,
+ "seed": 0,
+ "finished": "2026-09-23T03:25:40Z"
+}

@@ -140,7 +140,7 @@ def make_backend(a, model=None, mem=None):
     if a.backend == "fake": return FakeBackend(model or "fake", seed=a.seed)
     if a.backend == "batch":
         bapi = _load("batchapi", os.path.join(HERE, "batch_api.py"))
-        return bapi.BatchBackend(model or a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env)
+        return bapi.BatchBackend(model or a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env, provider=a.provider)
     if a.backend == "hf": return HfBackend(model or a.model, a.max_tokens, a.hf_batch)
     if a.backend == "api":
         b = argparse.Namespace(**vars(a)); b.model = model or a.model; return ApiBackend(b)
@@ -212,7 +212,7 @@ def phase_main(a, recs):
     for i in range(0, len(trials), a.batch):
         chunk = trials[i:i + a.batch]; texts = A.generate([x[4] for x in chunk]); check(texts, "pairwise")
         for (key, r, claim, alt, _), txt in zip(chunk, texts):
-            f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else outcome(f, claim, alt, txt)
+            f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else "refusal" if txt.startswith("[REFUSAL:") else outcome(f, claim, alt, txt)
             emit({"cell": "pairwise", "kind": key[1], "qid": r["qid"], "truth": key[3], "hop": 0, "chain": "-", "claim": claim, "alt": alt,
                   "final": f, "outcome": o, "resp": txt[:600], "model": A.name})
         print(f"[pairwise] {min(i + a.batch, len(trials))}/{len(trials)}", flush=True)
@@ -251,7 +251,7 @@ def phase_main(a, recs):
         for i in range(0, len(gtrials), a.batch):
             chunk = gtrials[i:i + a.batch]; texts = A.generate([x[4] for x in chunk]); check(texts, "genuine pairwise")
             for (key, r, claim, alt, _), txt in zip(chunk, texts):
-                f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else outcome(f, claim, alt, txt)
+                f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else "refusal" if txt.startswith("[REFUSAL:") else outcome(f, claim, alt, txt)
                 emit({"cell": "genuine", "kind": key[1], "qid": r["qid"], "truth": key[3], "hop": 0, "chain": "-", "claim": claim, "alt": alt,
                       "final": f, "outcome": o, "resp": txt[:600], "model": A.name})
             print(f"[genuine] {min(i + a.batch, len(gtrials))}/{len(gtrials)}", flush=True)
@@ -289,7 +289,7 @@ def phase_main(a, recs):
                     for j, t in zip(idx, be.generate([chunk[j][3] for j in idx])): texts[j] = t
             check(texts, f"chain hop {hop}")
             for (key, cname, r, _), txt in zip(chunk, texts):
-                f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else outcome(f, r["true_answer"], r["distractor"], txt)
+                f = parse_final(txt); o = "error" if txt.startswith("[ERROR:") else "refusal" if txt.startswith("[REFUSAL:") else outcome(f, r["true_answer"], r["distractor"], txt)
                 state[(cname, r["qid"])] = txt.strip()
                 emit({"cell": "chain", "kind": cname, "qid": r["qid"], "truth": None, "hop": hop, "chain": cname, "claim": r["true_answer"],
                       "alt": r["distractor"], "final": f, "outcome": o, "correct": o == "retain", "resp": txt[:600], "resp_full": txt.strip(),
