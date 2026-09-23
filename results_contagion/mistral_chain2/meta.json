@@ -1,0 +1,14 @@
+{
+ "model": "mistralai/Mistral-7B-Instruct-v0.3",
+ "backend": "api",
+ "n": 300,
+ "k": 8,
+ "cells": "chain",
+ "chain_turns": "merged",
+ "firewall": null,
+ "firewall_pos": 2,
+ "peers": "",
+ "peer_msgs": null,
+ "seed": 0,
+ "finished": "2026-09-22T00:34:04Z"
+}
