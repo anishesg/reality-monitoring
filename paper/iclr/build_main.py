@@ -79,7 +79,7 @@ head = r'''\documentclass{article}
 \newcommand{\pcw}{p_{\mathrm{cw}}}
 \newcommand{\piinf}{\pi_{\infty}}
 
-\title{Confidence Without Control: Language Models Know\\When They Might Be Wrong and Revise Anyway}
+\title{Confidence Without Control:\\Language Models Know When They Might Be Wrong\\and Revise Anyway}
 
 \author{Anonymous authors\\Paper under double-blind review}
 
