@@ -14,7 +14,7 @@ PRICES = {  # USD per 1M tokens (input, output), list price, standard tier
     "gpt-5.4": (2.5, 15.0), "gpt-5.4-mini": (0.75, 4.5), "gpt-5-mini": (0.25, 2.0),
     "claude-fable-5-1": (10.0, 50.0), "claude-fable-5": (10.0, 50.0), "claude-opus-5": (5.0, 25.0), "claude-sonnet-5": (3.0, 15.0),
 }
-DEFAULT_CAP = {"openai": 250.0, "anthropic": 250.0}
+DEFAULT_CAP = {"openai": 250.0, "anthropic": 1000.0}  # anthropic: user rule 2026-09-23 = the prepaid balance is the stop (no card on file); ledger cap is a sanity guard only
 DIR = os.path.expanduser("~/.rm_spend")
 _lock = threading.Lock()
 _cache = {}

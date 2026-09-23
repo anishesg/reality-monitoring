@@ -53,6 +53,8 @@ class BatchBackend:
         """chunk: list of (custom_id, msgs). Returns batch id (reattaches if this exact chunk was submitted before)."""
         if key in self.state and self.state[key].get("id"):
             return self.state[key]["id"]
+        if os.environ.get("RM_NO_SUBMIT"):  # collect-only mode: reattach to registered jobs, never create a new one
+            sys.exit(f"[batch] RM_NO_SUBMIT set: refusing to submit new job {key} ({len(chunk)} requests)")
         spend.check(self.provider)
         for attempt in range(30):
             try:

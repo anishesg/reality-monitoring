@@ -15,6 +15,7 @@ NAMES = {"i_qwen7b": "Qwen2.5-7B", "i_llama8b": "Llama-3.1-8B", "i_olmo": "OLMo-
          "qwen7b": "Qwen2.5-7B", "llama8b": "Llama-3.1-8B", "mistral": "Mistral-7B", "olmo": "OLMo-2-7B",
          "astra": "GPT-6 Astra", "fable51": "Claude Fable 5.1"}
 FRONTIER = {"astra", "fable51"}
+EXCLUDE = set(os.environ.get("RM_EXCLUDE", "fable51").split(","))  # Fable 5.1 dropped from the paper 2026-09-23 (partial run); data kept in the repo
 COL = {"open": "#6b7280", "astra": "#b91c1c", "fable51": "#d97706"}
 OPEN_PALETTE = ["#64748b", "#0f766e", "#6d28d9", "#1d4ed8", "#4d7c0f", "#9f1239", "#0e7490", "#7c2d12"]  # distinct muted colours for open models in multi-series panels
 def color_multi(tag, i): return COL[tag] if tag in COL else OPEN_PALETTE[i % len(OPEN_PALETTE)]
@@ -53,7 +54,9 @@ def label(tag): return NAMES.get(tag, tag)
 S = {"ident": {}, "decomp": {}, "contagion": {}}
 # ---------------- three-cell identification
 for d in sorted(glob.glob(os.path.join(ROOT, "results_ident", "i_*")) + glob.glob(os.path.join(ROOT, "results_ident_api", "*"))):
-    tag = os.path.basename(d); rows, nj = judged(jl(os.path.join(d, "ident.jsonl")), d, "ident"); JUDGED_N[("ident", tag)] = nj
+    tag = os.path.basename(d)
+    if tag in EXCLUDE: continue
+    rows, nj = judged(jl(os.path.join(d, "ident.jsonl")), d, "ident"); JUDGED_N[("ident", tag)] = nj
     rows = [r for r in rows if r["outcome"] in VALID]
     if not rows: continue
     out = {}
@@ -74,7 +77,9 @@ for d in sorted(glob.glob(os.path.join(ROOT, "results_ident", "i_*")) + glob.glo
     S["ident"][tag] = out
 # ---------------- v17 decomposition (self origin)
 for d in sorted(glob.glob(os.path.join(ROOT, "results", "results_v17_cells", "c_*")) + glob.glob(os.path.join(ROOT, "results_api", "*"))):
-    tag = os.path.basename(d); rows, nj = judged(jl(os.path.join(d, "cells.jsonl")), d, "v17"); JUDGED_N[("decomp", tag)] = nj
+    tag = os.path.basename(d)
+    if tag in EXCLUDE: continue
+    rows, nj = judged(jl(os.path.join(d, "cells.jsonl")), d, "v17"); JUDGED_N[("decomp", tag)] = nj
     rows = [r for r in rows if r["outcome"] in VALID and r["origin"] == "self"]
     if not rows: continue
     out = {}
@@ -88,7 +93,7 @@ for d in sorted(glob.glob(os.path.join(ROOT, "results", "results_v17_cells", "c_
 # ---------------- contagion
 for d in sorted(glob.glob(os.path.join(ROOT, "results_contagion", "*"))):
     tag = os.path.basename(d)
-    if tag.startswith("_") or tag.startswith("pilot") or tag.endswith("_chain2") or tag.endswith("_genuine"): continue
+    if tag.startswith("_") or tag.startswith("pilot") or tag.endswith("_chain2") or tag.endswith("_genuine") or tag in EXCLUDE: continue
     rows = jl(os.path.join(d, "contagion.jsonl")) + jl(os.path.join(ROOT, "results_contagion", tag + "_chain2", "contagion.jsonl")) + jl(os.path.join(ROOT, "results_contagion", tag + "_genuine", "contagion.jsonl"))
     rows, nj = judged(rows, d, "contagion"); JUDGED_N[("contagion", tag)] = nj
     rows = [r for r in rows if r["outcome"] in VALID]
@@ -128,8 +133,6 @@ if tags:
             for x, t in enumerate(tags):
                 e, tt = S["ident"][t].get(f"injected/{cell}/counter"), S["ident"][t].get(f"injected/{cell}/counter/to_truth")
                 if e and tt and tt[0]: ax.bar(x, tt[0], bottom=e[0] - tt[0], color="white", edgecolor=color(t), hatch="///", width=0.7, lw=0.8)
-            ax.text(0.5, -0.62, "hatched: switched to the TRUE answer rather than the cue (judge-graded; open-model runs are string-graded)", transform=ax.transAxes, fontsize=6.5, ha="center")
-    fig.suptitle("Three-cell identification, injected claim, counter-argument challenge (95% question-bootstrap CIs; red = frontier, reasoning effort low)", fontsize=9)
     fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_ident.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_ident.png"), dpi=160); plt.close(fig)
     # elicited vs injected for frontier
     fr = [t for t in tags if is_front(t) and any(k.startswith("elicited/") for k in S["ident"][t])]
@@ -149,7 +152,6 @@ if tags:
     bars(axs[0], tags, lambda t: S["decomp"][t].get("counter_src/T"), "sourced counter-argument", "abandon correct answer")
     bars(axs[1], tags, lambda t: S["decomp"][t].get("counter_bare/T"), "bare counter-argument (same content, no source)")
     bars(axs[2], tags, lambda t: S["decomp"][t].get("pressure/T"), "content-free pressure ('are you sure?')")
-    fig.suptitle("Decomposition of revision on correct self-authored claims (v17 protocol; red = frontier)", fontsize=9)
     fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_decomp.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_decomp.png"), dpi=160); plt.close(fig)
     fig, ax = plt.subplots(figsize=(5.5, 3))
     for x, t in enumerate(tags):
@@ -180,6 +182,26 @@ if tags:
                 axs[1].plot(range(1, 9), ys, ls, color=color_multi(t, i), lw=1.8 if is_front(t) else 1.1, marker="o", ms=2.5, label=label(t) if cname == "contaminated" else None)
     axs[1].set_ylim(0, 1); axs[1].set_xlabel("hop"); axs[1].set_ylabel("P(agent wrong)"); axs[1].legend(fontsize=7, frameon=False, loc="center right"); axs[1].set_title("Chains of 8 agents: wrong seed (solid) vs right seed (dashed)", fontsize=9)
     fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.png"), dpi=160); plt.close(fig)
+
+# Figure 4: the level collapses, the structure survives (decomposition runs: abandon level vs. the two invariances)
+tags = [t for t in S["decomp"] if not is_front(t)] + [t for t in S["decomp"] if is_front(t)]
+if tags:
+    fig, axs = plt.subplots(1, 3, figsize=(10, 2.9))
+    order = sorted(tags, key=lambda t: (is_front(t), S["decomp"][t]["counter_src/T"][0] or 0))
+    for x, t in enumerate(order):
+        e = S["decomp"][t]["counter_src/T"]; axs[0].bar(x, e[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, width=0.7)
+        axs[0].errorbar(x, e[0], yerr=[[e[0] - e[1]], [e[2] - e[0]]], color="k", lw=0.8, capsize=2)
+    axs[0].set_xticks(range(len(order))); axs[0].set_xticklabels([label(t) for t in order], rotation=60, ha="right", fontsize=7); axs[0].set_ylim(0, 1)
+    axs[0].set_ylabel("abandon correct answer (sourced counter)"); axs[0].set_title("The level: sorted by abandonment", fontsize=9)
+    for ax, (num, den, ttl, yl) in zip(axs[1:], ((("counter_src/conf_low", "counter_src/conf_high"), None, "Own confidence: low − high", "Δ abandon (low − high stated confidence)"),
+                                                (("counter_src/T", "counter_bare/T"), None, "Source: sourced − bare counter", "Δ abandon (source − no source)"))):
+        for x, t in enumerate(order):
+            a, b = S["decomp"][t][num[0]], S["decomp"][t][num[1]]
+            if a[0] is None or b[0] is None: continue
+            ax.bar(x, a[0] - b[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, width=0.7)
+        ax.axhline(0, color="k", lw=0.6); ax.set_xticks(range(len(order))); ax.set_xticklabels([label(t) for t in order], rotation=60, ha="right", fontsize=7); ax.set_ylim(-0.3, 0.5)
+        ax.set_title(ttl, fontsize=9); ax.set_ylabel(yl, fontsize=8)
+    fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.png"), dpi=160); plt.close(fig)
 
 # table
 print("three-cell (injected, counter): TF / FF / FT")

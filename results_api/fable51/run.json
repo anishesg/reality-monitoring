@@ -1,0 +1,12 @@
+{
+ "model": "claude-fable-5-1",
+ "provider": "anthropic",
+ "effort": "low",
+ "n": 10800,
+ "queried": "2026-09-23T04:51:05Z",
+ "cells": "all",
+ "n_questions": 450,
+ "qid_start": 0,
+ "tokens_in": 0,
+ "tokens_out": 0
+}
