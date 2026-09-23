@@ -36,7 +36,7 @@ def report(run):
     print("=" * 78); print(run, "|", meta.get("model"), "| rows", len(R))
     P = [r for r in R if r["cell"] == "pairwise" and r["outcome"] not in ("unparsed", "ambiguous")]
     unp = rate([r["outcome"] in ("unparsed", "ambiguous") for r in R if r["cell"] == "pairwise"])
-    print(f"-- PAIRWISE (fold = abandon correct answer when Agent B names the distractor; accept = adopt B's true answer) unparsed={unp:.3f}")
+    print(f"-- PAIRWISE (fold = abandon correct answer when Agent B names the distractor; accept = adopt B's true answer) unparsed={(unp or 0):.3f}")
     print(f"{'peer kind':14s} {'fold (truth=T)':26s} {'accept (truth=F)':26s} {'n':>5}")
     for kind in sorted({r["kind"] for r in P}, key=lambda k: (k.startswith("gen"), k)):
         fold = boot([(r["qid"], ab(r["outcome"])) for r in P if r["kind"] == kind and r["truth"]], rate)
