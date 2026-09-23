@@ -13,6 +13,7 @@ Resumable: finished trial indices are read back from <out>/cells.jsonl. Response
 check (train/judge_check.py). Analyse with `python3 analysis/analyze_v17.py results_api` (expects <out>/cells.jsonl).
 """
 import argparse, concurrent.futures as cf, datetime, importlib.util, json, os, sys, threading, time
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import spend  # hard USD cap, see harness/spend.py
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location("v17", os.path.join(HERE, "run_cells_v17.py"))
@@ -64,6 +65,13 @@ class Backend:
             self.client = openai.OpenAI(api_key=key, base_url=a.api_base) if a.api_base else openai.OpenAI(api_key=key)
 
     def complete(self, msgs):
+        spend.check(self.a.provider)
+        self.last_cached = 0
+        text, snap, n_in, n_out = self._complete(msgs)
+        spend.charge(self.a.provider, self.a.model, n_in, n_out, cached=self.last_cached)
+        return text, snap, n_in, n_out
+
+    def _complete(self, msgs):
         a = self.a
         if a.provider == "anthropic":
             # Claude 4.6+ API: no temperature/top_p/top_k (400), no assistant prefill, no budget_tokens. On Fable 5 / 5.1 and
@@ -80,13 +88,16 @@ class Backend:
                 return f"[REFUSAL:{cat}]", r.model, r.usage.input_tokens, r.usage.output_tokens
             text = "".join(b.text for b in r.content if getattr(b, "type", "") == "text")
             return text, r.model, r.usage.input_tokens, r.usage.output_tokens
-        kw = dict(model=a.model, messages=msgs, temperature=0.0, seed=a.seed)
+        kw = dict(model=a.model, messages=msgs, temperature=0.0, seed=a.seed,
+                  prompt_cache_key=os.environ.get("RM_SPEND_TAG", "rm") + ":" + a.model)  # route shared prefixes to one cache
         kw["max_completion_tokens" if a.effort else "max_tokens"] = a.max_tokens if not a.effort else a.max_tokens + 8192
         if a.effort:
             kw["reasoning_effort"] = a.effort
             kw.pop("temperature", None)  # reasoning models reject temperature
         r = self.client.chat.completions.create(**kw)
         u = r.usage
+        cached = getattr(getattr(u, "prompt_tokens_details", None), "cached_tokens", 0) or 0
+        self.last_cached = cached
         return r.choices[0].message.content or "", r.model, u.prompt_tokens, u.completion_tokens
 
 
@@ -110,6 +121,7 @@ def main():
     ap.add_argument("--price-in", type=float, default=None, help="USD per 1M input tokens (dry-run estimate)")
     ap.add_argument("--price-out", type=float, default=None)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--batch", action="store_true", help="use the OpenAI Batch API (50%% price, separate rate limits)"); ap.add_argument("--batch-size", type=int, default=500)
     a = ap.parse_args()
 
     recs = [json.loads(l) for l in open(a.claims)][a.qid_start: a.qid_start + a.n_questions]
@@ -152,12 +164,22 @@ def main():
         return n_in, n_out
 
     todo = [i for i in range(len(trials)) if i not in done]
+    if a.batch:
+        import batch_api
+        bb = batch_api.BatchBackend(a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env)
+        texts = bb.generate([trials[i][1] for i in todo])
+        for i, text in zip(todo, texts):
+            t = trials[i]
+            rec = dict(t[0], i=i, outcome=("error" if text.startswith("[ERROR:") else "refusal" if text.startswith("[REFUSAL:") else v17.outcome(v17.parse_final(text), t[0]["claim"], t[0]["alt"], text)),
+                       resp=text, model=a.model, model_snapshot=bb.snapshot, effort=a.effort, temperature=(None if a.effort else 0.0), queried=stamp, batch=True)
+            f.write(json.dumps(rec) + "\n")
+        f.close(); todo = []
     with cf.ThreadPoolExecutor(a.concurrency) as ex:
         for k, (n_in, n_out) in enumerate(ex.map(work, todo), 1):
             tot_in += n_in; tot_out += n_out
             if k % 200 == 0:
                 print(f"  {k}/{len(todo)} done  tokens in={tot_in} out={tot_out}", flush=True)
-    f.close()
+    if not f.closed: f.close()
     json.dump({"model": a.model, "provider": a.provider, "effort": a.effort, "n": len(trials), "queried": stamp,
                "cells": a.cells, "n_questions": len(recs), "qid_start": a.qid_start, "tokens_in": tot_in, "tokens_out": tot_out},
               open(os.path.join(a.out, "run.json"), "w"), indent=1)

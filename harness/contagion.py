@@ -138,6 +138,9 @@ class FakeBackend:
 
 def make_backend(a, model=None, mem=None):
     if a.backend == "fake": return FakeBackend(model or "fake", seed=a.seed)
+    if a.backend == "batch":
+        bapi = _load("batchapi", os.path.join(HERE, "batch_api.py"))
+        return bapi.BatchBackend(model or a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env)
     if a.backend == "hf": return HfBackend(model or a.model, a.max_tokens, a.hf_batch)
     if a.backend == "api":
         b = argparse.Namespace(**vars(a)); b.model = model or a.model; return ApiBackend(b)
@@ -300,7 +303,8 @@ def phase_main(a, recs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--backend", choices=("vllm", "hf", "api", "fake"), default="vllm")
+    ap.add_argument("--backend", choices=("vllm", "hf", "api", "batch", "fake"), default="vllm")
+    ap.add_argument("--batch-size", type=int, default=500, help="batch backend: requests per Batch API job")
     ap.add_argument("--hf-batch", type=int, default=8)
     ap.add_argument("--model", default="fake"); ap.add_argument("--out", required=True)
     ap.add_argument("--phase", choices=("peers", "main", "all"), default="all")
@@ -322,6 +326,14 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     recs = [json.loads(l) for l in open(CLAIMS)][:a.n]
     if a.backend == "api": a.batch = max(a.batch, 64)
+    if a.backend == "batch": a.batch = 10 ** 6  # one generate() call per phase -> one set of Batch jobs
+    if a.dry_run:  # count calls with the scripted backend; no model is loaded and no API request is made
+        a.backend = "fake"; n_calls = [0]; gen0 = FakeBackend.generate
+        FakeBackend.generate = lambda self, batch: (n_calls.__setitem__(0, n_calls[0] + len(batch)), gen0(self, batch))[1]
+        phase_peers(a, recs) if a.peers else None; peers_calls = n_calls[0]
+        phase_main(a, recs)
+        print(f"DRY-RUN model={a.model} n={a.n} cells={a.cells} k={a.k}: peer calls={peers_calls} main calls={n_calls[0] - peers_calls} total={n_calls[0]}", flush=True)
+        return
     if a.phase in ("peers", "all") and a.peers: phase_peers(a, recs)
     if a.phase in ("main", "all"): phase_main(a, recs)
 

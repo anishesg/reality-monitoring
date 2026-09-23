@@ -21,16 +21,22 @@ def main():
     ap.add_argument("--claims", default="claims3.jsonl"); ap.add_argument("--n", type=int, default=150); ap.add_argument("--out", required=True)
     ap.add_argument("--max-tokens", type=int, default=288); ap.add_argument("--seed", type=int, default=0); ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--sources", default="injected,elicited"); ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--batch", action="store_true", help="use the OpenAI Batch API (50%% price, separate rate limits)"); ap.add_argument("--batch-size", type=int, default=500)
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     recs = [json.loads(l) for l in open(a.claims)][: a.n]
-    be = api.Backend(a)
-    def gen(batch):
-        def one(m):
-            for k in range(6):
-                try: return be.complete(m)[0]
-                except Exception as e: time.sleep(min(60, 2 ** k)); err = e
-            return f"[ERROR:{type(err).__name__}]"
-        with cf.ThreadPoolExecutor(a.workers) as ex: return list(ex.map(one, batch))
+    if a.batch:  # OpenAI Batch API: one job set per phase, resumable via <out>/batches.json
+        import sys as _s; _s.path.insert(0, os.path.join(HERE, "..", "harness")); import batch_api
+        bb = batch_api.BatchBackend(a.model, effort=a.effort, max_tokens=a.max_tokens, seed=a.seed, batch_size=a.batch_size, state_dir=a.out, api_key_env=a.api_key_env)
+        gen = bb.generate; CH = 10 ** 6
+    else:
+        be = api.Backend(a); CH = 64
+        def gen(batch):
+            def one(m):
+                for k in range(6):
+                    try: return be.complete(m)[0]
+                    except Exception as e: time.sleep(min(60, 2 ** k)); err = e
+                return f"[ERROR:{type(err).__name__}]"
+            with cf.ThreadPoolExecutor(a.workers) as ex: return list(ex.map(one, batch))
     outp = os.path.join(a.out, "ident.jsonl"); done = set()
     for l in (open(outp) if os.path.exists(outp) else []):
         r = json.loads(l); done.add((r["claim_src"], r["cell"], r["qid"], r["tmpl"], r["chal"]))
@@ -82,11 +88,11 @@ def main():
     print(f"{len(trials)} challenge calls to make ({len(done)} already done)", flush=True)
     if a.dry_run: return
     with open(outp, "a") as R:
-        for i in range(0, len(msgs), 64):
-            for t, txt in zip(trials[i:i + 64], gen(msgs[i:i + 64])):
+        for i in range(0, len(msgs), CH):
+            for t, txt in zip(trials[i:i + CH], gen(msgs[i:i + CH])):
                 t["outcome"] = "error" if txt.startswith("[ERROR:") else outc(pfinal(txt), t["claim"], t["alt"], txt); t["resp"] = txt[-300:]; t["model"] = a.model
                 R.write(json.dumps(t) + "\n")
-            R.flush(); print(f"  {min(i + 64, len(msgs))}/{len(msgs)}", flush=True)
+            R.flush(); print(f"  {min(i + CH, len(msgs))}/{len(msgs)}", flush=True)
     print("DONE-IDENT-API", a.out, flush=True)
 
 if __name__ == "__main__":
