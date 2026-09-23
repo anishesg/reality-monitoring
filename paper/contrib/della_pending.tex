@@ -2,21 +2,21 @@
 % (analysis/report_ladder.py, analysis/figures_ladder.py) as jobs return; the text around the blanks is written so only numbers change.
 \section{Where the Policy Comes From, Causally}
 \label{sec:ladder}
-\Cref{sec:origin} states the corpus-statistics account as a hypothesis and \cref{sec:repair} shows that a targeted rule can be written in. Both leave the origin question open: does ordinary post-training \emph{install} cue-following, and can a training signal that scores the outcome of a revision rather than a rule remove it? We answer both with a pre-registered ladder (\texttt{prereg/PREREG\_causal\_ladder.md}, hypotheses H1--H8 and the frozen run list hashed before the first job) on two SFT-only backbones, OLMo-2-7B-SFT and Tulu-3-8B-SFT, three seeds per arm, evaluated on the held-out TEST split (450 questions) with the frozen v17 battery and MMLU, GSM8K and IFEval for capability.
+\Cref{sec:origin} states the corpus-statistics account as a hypothesis and \cref{sec:repair} shows that a targeted rule can be written in. Both leave the origin question open: does ordinary post-training \emph{install} cue-following, and can a training signal that scores the outcome of a revision rather than a rule remove it? We answer both with a pre-registered ladder (pre-registration document in the supplementary material; hypotheses H1--H8 and the frozen run list were hashed before the first job) on two SFT-only backbones, OLMo-2-7B-SFT and Tulu-3-8B-SFT, three seeds per arm, evaluated on the held-out TEST split (450 questions) with the frozen v17 battery and MMLU, GSM8K and IFEval for capability.
 
-\textbf{Arms.} A0 is the untouched SFT checkpoint. A1 applies the backbone's own published preference recipe (10k pairs from the Tulu-3 preference mixture, DPO, the released hyperparameters) with nothing about challenges in the data; if cue-following is a by-product of generic preference tuning, A1 should raise pressure-only abandonment by at least $0.15$ over A0 (H1). A2 is revision-DPO, preference pairs on post-challenge turns in which the preferred completion is whichever answer is correct, which supplies the same signal through the same optimizer as A1 and serves as the control for A3. A3 (STAND) is GRPO with a single reward, post-challenge correctness, so the model is never told to hold or to switch, only scored on whether its final answer is right after the challenge; H2 and H3 require retention of correct answers $\geq 0.6$ and acceptance of valid corrections $\geq 0.7$ at capability within one point of A0.
+\textbf{Arms.} A0 is the untouched SFT checkpoint. A1 applies the backbone's own published preference recipe (10k Tulu-3 preference pairs, DPO, released hyperparameters) with nothing about challenges in the data; H1 predicts a rise in pressure-only abandonment of at least $0.15$. A2 is revision-DPO on post-challenge turns with the correct answer preferred, the same signal through the same optimizer as A1 and the control for A3. A3 (STAND) is GRPO with one reward, post-challenge correctness: the model is never told to hold or switch, only scored on being right afterwards; H2 and H3 require retention $\geq 0.6$ and acceptance $\geq 0.7$ at capability within one point of A0.
 
 \begin{table}[t]
 \caption{The causal ladder. Retain: P(keep a correct answer $\mid$ sourced counter). Accept: P(adopt the true alternative $\mid$ claim false). Pressure: P(abandon a correct answer $\mid$ ``are you sure?''). Capability: MMLU. Mean over three seeds with the range in brackets. Blanks are filled as jobs return from the cluster.}
 \label{tab:ladder}
 \vskip 0.1in
-\centering\small
+\centering\footnotesize
 \begin{tabular}{llcccc}
 \toprule
 backbone & arm & retain & accept & pressure & MMLU \\
 \midrule
-OLMo-2-7B-SFT & A0 base & \pending{0.xx} & \pending{0.xx} & \pending{0.xx} & \pending{0.xxx} \\
- & A1 real-recipe DPO & \pending{0.xx [..]} & \pending{0.xx [..]} & \pending{0.xx [..]} & \pending{0.xxx} \\
+OLMo-2-7B-SFT & A0 base & \pending{} & \pending{} & \pending{} & \pending{} \\
+ & A1 real-recipe DPO & \pending{} & \pending{} & \pending{} & \pending{} \\
  & A2 revision-DPO & \pending{} & \pending{} & \pending{} & \pending{} \\
  & A3 STAND (GRPO) & \pending{} & \pending{} & \pending{} & \pending{} \\
 \midrule
@@ -29,15 +29,10 @@ Tulu-3-8B-SFT & A0 base & \pending{} & \pending{} & \pending{} & \pending{} \\
 \vskip -0.1in
 \end{table}
 
-\textbf{Generic preference tuning installs the cue.} \pending{H1 result: A1 raises pressure-only abandonment from 0.xx to 0.xx on OLMo and from 0.xx to 0.xx on Tulu (all three seeds; smallest seed-level rise 0.xx), with retention of correct answers falling from 0.xx to 0.xx while acceptance of true corrections is unchanged (0.xx to 0.xx). One sentence on capability: MMLU moves by x.x points.} This is the observation of \cref{app:stages} made causal: the same data, the same optimizer and the same schedule that a released DPO checkpoint receives, applied by us to its SFT parent, reproduce the released checkpoint's reflex.
+\textbf{Generic preference tuning installs the cue.} \pending{H1: A1 raises pressure-only abandonment from 0.xx to 0.xx (OLMo) and 0.xx to 0.xx (Tulu), all seeds; retention falls 0.xx to 0.xx; acceptance unchanged; MMLU moves x.x points.} This is the observation of \cref{app:stages} made causal: the released recipe, applied by us to the SFT parent, reproduces the released checkpoint's reflex.
 
-\textbf{Scoring the outcome removes it.} \pending{H2/H3 result: A3 reaches retain 0.xx and accept 0.xx at MMLU 0.xxx (A0: 0.xxx), against A2's 0.xx / 0.xx / 0.xxx; the seed ranges; whether the capability bound of one point holds. If A3 fails H2 or H3, say so here and keep the supervised repair of \cref{sec:repair} as the demonstrated fix.} \Cref{fig:ladder} places every arm on the retain--accept plane with A0 as the origin of each arrow.
+\textbf{Scoring the outcome removes it.} \pending{H2/H3: A3 reaches retain 0.xx and accept 0.xx at MMLU 0.xxx (A0 0.xxx) against A2's 0.xx / 0.xx / 0.xxx, seed ranges; if A3 fails, say so and keep \cref{sec:repair} as the demonstrated fix.} 
 
-\begin{figure}[t]
-\centering
-\fbox{\parbox{0.9\linewidth}{\centering\vspace{2.2em}\pending{figures/ladder\_frontier.pdf (analysis/figures\_ladder.py): retain vs.\ accept, one marker per arm and backbone, seeds averaged with range bars, arrows from A0; companion panel with per-arm MMLU/GSM8K/IFEval deltas}\vspace{2.2em}}}
-\caption{\textbf{The ladder on the retain--accept plane.} \pending{caption once the figure exists.}}
-\label{fig:ladder}
-\end{figure}
+\pending{Figure (fig:ladder) once results exist: every arm on the retain--accept plane, arrows from A0, seeds as range bars; companion panel with capability deltas.}
 
-\textbf{Three further results from the same queue.} \pending{(i) Elicited three-cell identification on the six open models (\texttt{experiments/run\_identification\_elicited.py}, 500 items each): the model's own reasoned answer as the challenged turn; report T$\to$F, F$\to$F and F$\to$T against the injected rows of \cref{tab:cells}, mirroring the frontier comparison of \cref{sec:frontier}. (ii) Contagion at bf16 on the four 7B models and at 32B/72B (Qwen2.5), replacing the 8-bit CPU numbers of \cref{sec:agents} and adding the scale curve between 7B and the frontier. (iii) The firewall chain: one A3 agent inserted at position two of a contaminated Qwen2.5-7B chain, pre-registered to cut downstream error by at least 0.40 (P4); the reset-and-reconverge prediction of \cref{app:lean} is tested directly.}
+\textbf{Three further results from the same queue.} \pending{(i) elicited three-cell identification on the six open models against the injected rows of \cref{tab:cells}; (ii) contagion at bf16 and at 32B/72B, the scale curve between 7B and the frontier; (iii) the firewall chain, one A3 agent at position two of a contaminated chain, pre-registered to cut downstream error by $\geq 0.40$ (\cref{app:lean}).}
