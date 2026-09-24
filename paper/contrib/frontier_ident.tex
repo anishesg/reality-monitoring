@@ -6,11 +6,11 @@ The \emph{structure} does not. Stated confidence is still not consulted (abandon
 
 What changes is what the model does with a cue. In the F$\to$F cell open models leave a wrong answer for the named wrong alternative $0.90$--$0.99$ of the time; Astra leaves it $0.96$ [$0.95,0.98$] of the time and Fable $0.89$ [$0.86,0.91$], but only $0.23$ [$0.20,0.27$] and $0.16$ [$0.14,0.19$] of trials go to the cue, while $0.57$ [$0.53,0.62$] and $0.61$ [$0.57,0.64$] go to the \emph{true} answer, which neither turn named. At the frontier a challenge acts less as a cue to be followed than as a trigger to recompute, and the residual cue-following ($0.23$ and $0.16$, about the rates at which a correct answer is abandoned to the same cue) is the gap that remains; the two models agree on every one of these quantities to within a few points.
 
-The elicited variant, with the model's own reasoned reply as the challenged turn, gives the same picture (Astra: abandonment $0.19$ [$0.15,0.22$] under counter-argument and $0.13$ under pressure on 357 questions; Fable: $0.16$ [$0.13,0.19$] and $0.09$ on 389). The signatures of \cref{sec:control} are all present in the two strongest models we can measure; what scale bought is a lower operating point and the habit of re-deriving, not a controller that consults the monitor.
+Challenging the model's own reasoned reply instead of an injected line gives the same picture (abandonment under counter-argument $0.19$ for Astra and $0.16$ for Fable; \cref{tab:cells}). The signatures of \cref{sec:control} are all present in the two strongest models we can measure; what scale bought is a lower operating point and the habit of re-deriving, not a controller that consults the monitor.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.66\linewidth]{figs/frontier_structure.pdf}
+\includegraphics[width=\linewidth]{figs/frontier_structure.pdf}
 \caption{\textbf{The level collapses, the structure survives.} Seventeen open checkpoints, GPT-6 Astra (red) and Claude Fable 5.1 (orange) on the decomposition protocol of \cref{app:decomp}, correct self-authored claims under a sourced counter-argument. Left: abandonment, sorted. Middle: what stated confidence adds (abandonment at low minus high stated confidence). Right: what the source adds (sourced minus bare counter-argument). The frontier models abandon a fifth (Astra) and a tenth (Fable) as often as a 7B model and use their confidence and the source exactly as little.}
 \label{fig:structure}
 \end{figure}

@@ -7,7 +7,7 @@
 \textbf{Arms.} A0 is the untouched SFT checkpoint. A1 applies the backbone's own published preference recipe (10k Tulu-3 preference pairs, DPO, released hyperparameters) with nothing about challenges in the data; H1 predicts a rise in pressure-only abandonment of at least $0.15$. A2 is revision-DPO on post-challenge turns with the correct answer preferred, the same signal through the same optimizer as A1 and the control for A3. A3 (STAND) is GRPO with one reward, post-challenge correctness: the model is never told to hold or switch, only scored on being right afterwards; H2 and H3 require retention $\geq 0.6$ and acceptance $\geq 0.7$ at capability within one point of A0.
 
 \begin{table}[t]
-\caption{The causal ladder. Retain: P(keep a correct answer $\mid$ sourced counter). Accept: P(adopt the true alternative $\mid$ claim false). Pressure: P(abandon a correct answer $\mid$ ``are you sure?''). Capability: MMLU. Mean over three seeds with the range in brackets. Blanks are filled as jobs return from the cluster.}
+\caption{The causal ladder. Retain: P(keep a correct answer $\mid$ sourced counter). Accept: P(adopt the true alternative $\mid$ claim false). Pressure: P(abandon a correct answer $\mid$ ``are you sure?''). Capability: MMLU. Mean over three seeds with the range in brackets. Dashes are filled as training jobs return.}
 \label{tab:ladder}
 \vskip 0.1in
 \centering\footnotesize
@@ -15,15 +15,15 @@
 \toprule
 backbone & arm & retain & accept & pressure & MMLU \\
 \midrule
-OLMo-2-7B-SFT & A0 base & \pending{} & \pending{} & \pending{} & \pending{} \\
- & A1 real-recipe DPO & \pending{} & \pending{} & \pending{} & \pending{} \\
- & A2 revision-DPO & \pending{} & \pending{} & \pending{} & \pending{} \\
- & A3 STAND (GRPO) & \pending{} & \pending{} & \pending{} & \pending{} \\
+OLMo-2-7B-SFT & A0 base & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
+ & A1 real-recipe DPO & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
+ & A2 revision-DPO & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
+ & A3 STAND (GRPO) & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
 \midrule
-Tulu-3-8B-SFT & A0 base & \pending{} & \pending{} & \pending{} & \pending{} \\
- & A1 real-recipe DPO & \pending{} & \pending{} & \pending{} & \pending{} \\
- & A2 revision-DPO & \pending{} & \pending{} & \pending{} & \pending{} \\
- & A3 STAND (GRPO) & \pending{} & \pending{} & \pending{} & \pending{} \\
+Tulu-3-8B-SFT & A0 base & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
+ & A1 real-recipe DPO & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
+ & A2 revision-DPO & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
+ & A3 STAND (GRPO) & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} & \textcolor{black!40}{--} \\
 \bottomrule
 \end{tabular}
 \vskip -0.1in
@@ -35,4 +35,4 @@ Tulu-3-8B-SFT & A0 base & \pending{} & \pending{} & \pending{} & \pending{} \\
 
 \pending{Figure (fig:ladder) once results exist: every arm on the retain--accept plane, arrows from A0, seeds as range bars; companion panel with capability deltas.}
 
-\textbf{Three further results from the same queue.} \pending{(i) elicited three-cell identification on the six open models against the injected rows of \cref{tab:cells}; (ii) contagion at bf16 and at 32B/72B, the scale curve between 7B and the frontier; (iii) the firewall chain, one A3 agent at position two of a contaminated chain, pre-registered to cut downstream error by $\geq 0.40$ (\cref{app:lean}).}
+% (three further queued results, elicited open models / bf16 contagion / firewall chain, are added here when they land)

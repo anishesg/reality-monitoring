@@ -40,6 +40,11 @@ Two controls, reported in full in \cref{app:controls}, rule out the easy explana
 body = body.replace("\\subsection{Where the policy plausibly comes from}", summary + "\\subsection{Where the policy plausibly comes from}")
 controls_app = "\n\\section{Two Controls in Full}\n\\label{app:controls}\n" + nulls.replace("\\subsection{The gap is not an access failure}\n\\label{sec:nulls}\n", "\\paragraph{The gap is not an access failure.}") + reversal.replace("\\subsection{A pre-registered reversal}\n\\label{sec:reversal}\n", "\\paragraph{A pre-registered reversal.}")
 appx = appx + controls_app
+# Table 1 (uncertainty-signal AUROCs) -> appendix
+i = body.index("\\begin{table}"); j = body.index("\\end{table}", i) + len("\\end{table}")
+tab1 = body[i:j]; assert "AUROC" in tab1 and "tab:signals" in tab1, tab1[:200]
+body = body[:i] + body[j:]
+appx = appx + "\n\\section{Uncertainty Signals}\n\\label{app:signals}\n" + tab1
 # page limit: move fig_forest and fig_repair to the appendix; 5.3 keeps its first paragraph; 5.4 becomes one sentence
 def cutfig(body, filename):
     i = body.rfind("\\begin{figure", 0, body.index(filename)); j = body.index("\\end{figure", i); j = body.index("}", j) + 1
@@ -51,14 +56,12 @@ quant_paras = quant.split("\n\n")
 quant_main = "\n\n".join(quant_paras[:2]).rstrip() + " The raw confidence splits are larger than the regression coefficient and are difficulty in disguise; \\cref{app:quant} gives the analysis and the coefficient plot.\n\n"
 body = body.replace("\\subsection{Progress is one-sided}", quant_main + "\\subsection{Progress is one-sided}")
 body, progress = cut(body, "\\subsection{Progress is one-sided}", "\\subsection{Two controls: access and position}")
-body = body.replace("\\subsection{Two controls: access and position}", "\\paragraph{Progress is one-sided.}\\label{sec:qwen3}Qwen3-8B keeps true answers under a sourced counter at $0.56$ against $0.80$ to $0.94$ for every older model, yet its F$\\to$F rate is still $0.90$: the newest post-training generation learned to weight the truth of its own claim (claim-truth effect $0.34$ versus $0.06$ to $0.18$) and nothing about evaluating the incoming alternative. Progress is real, one-sided, and invisible to any protocol without the third cell (\\cref{app:quant}).\n\n\\subsection{Two controls: access and position}")
+body = body.replace("\\subsection{Two controls: access and position}", "\\paragraph{Progress is one-sided.}\\label{sec:qwen3}Qwen3-8B, the newest checkpoint, keeps true answers under a sourced counter at $0.56$ against $0.80$--$0.94$ for every older model, yet its F$\\to$F rate is still $0.90$: it learned to weight the truth of its own claim and nothing about evaluating the alternative (\\cref{app:quant}).\n\n\\subsection{Two controls: access and position}")
 appx = appx + "\n\\section{The Policy, Quantified: Full Analysis}\n\\label{app:quant}\n" + "\n\n".join(quant_paras[2:]).replace("\\label{sec:regression}", "") + "\n" + fig_forest.replace("[width=0.6\\linewidth]", "[width=0.7\\linewidth]") + "\n\\paragraph{Progress is one-sided, in full.}" + progress.replace("\\subsection{Progress is one-sided}\n\\label{sec:qwen3}\n", "") + "\n" + fig_repair.replace("[width=0.55\\linewidth]", "[width=0.6\\linewidth]")
-body = body.replace("[width=0.9\\linewidth]{figs/fig_cells", "[width=0.5\\linewidth]{figs/fig_cells").replace("[width=\\textwidth]{figs/fig_cells", "[width=0.5\\linewidth]{figs/fig_cells")
+body = body.replace("[width=0.9\\linewidth]{figs/fig_cells", "[width=\\linewidth]{figs/fig_cells").replace("[width=\\textwidth]{figs/fig_cells", "[width=\\linewidth]{figs/fig_cells")
 # 5.7 origin hypothesis -> compressed (the ladder section tests it)
 body, origin = cut(body, "\\subsection{Where the policy plausibly comes from}", "\\section{Training Installs the Missing Link}")
-origin_short = r'''\subsection{Where the policy plausibly comes from}
-\label{sec:origin}
-Our results fit a corpus-statistics account, stated as a hypothesis: dialogue data lets a model condition on what is visible in transcripts, and whether an interlocutor's claim is true leaves traces (people object to false claims) while a speaker's private confidence is invisible and stated confidence is weak evidence of holding ground. The corpus therefore teaches an accurate confidence estimator and a flat confidence-to-behavior mapping. The account predicts the surfacing null, predicts that training installs the mapping (\cref{sec:repair}), and fits the stage-ladder observation that capitulation to contentless doubt jumps at the preference-optimization stage in two of three lineages (\cref{app:stages}); \cref{sec:ladder} tests it causally. The full statement is in \cref{app:origin}.
+origin_short = r'''\paragraph{Where the policy plausibly comes from.}\label{sec:origin}Our results fit a corpus-statistics account, stated as a hypothesis: in dialogue data, whether an interlocutor's claim is true leaves traces (people object to false claims) while a speaker's private confidence is invisible, so the corpus teaches an accurate confidence estimator and a flat confidence-to-behavior mapping. The account predicts the surfacing null and that training installs the mapping (\cref{sec:repair}); \cref{sec:ladder} tests it causally and \cref{app:origin} states it in full.
 
 '''
 body = body.replace("\\section{Training Installs the Missing Link}", origin_short + "\\section{Training Installs the Missing Link}")
@@ -74,7 +77,7 @@ The open-model identification experiments inject claims; the elicited design is 
 i = body.index("\\section{Conclusion}"); j = body.index("\\end{abstract}") if False else len(body)
 body = body[:i] + r'''\section{Conclusion}
 \label{sec:conclusion}
-Language models increasingly know when they might be wrong, and none of that knowledge governs what they do under challenge: a mentioned source moves a model to answers it believes less than its own at 99 percent rates and its stated confidence is worth $0.007$ in switch probability once content is controlled; the structure is the same at the frontier, at a fifth of the level. What helps is training: a few thousand demonstrations connect stated confidence to revision at no marginal capability cost, and deleting the confidence sentences from the same data severs the connection. The gap between knowing and acting is not a capacity limit. It is a missing entry in the learned policy, and it can be written in.
+Language models increasingly know when they might be wrong, and none of that knowledge governs what they do under challenge: a mentioned source moves a model to answers it believes less than its own at 99 percent rates and its stated confidence is worth $0.007$ in switch probability once content is controlled, and the structure is the same at the frontier. What helps is training: a few thousand demonstrations connect stated confidence to revision at no marginal capability cost, and deleting the confidence sentences from the same data severs the connection. The gap between knowing and acting is not a capacity limit. It is a missing entry in the learned policy, and it can be written in.
 
 '''
 # two consequences -> one-sentence summaries in the main text, full paragraphs in the appendix
@@ -110,8 +113,8 @@ body = body.replace("\\section{Training Installs the Missing Link}", frontier.rs
 body = body.replace("The identification experiments inject claims rather than eliciting them; elicited-answer conditions in the survey experiments reproduce the main patterns, but the full three-cell design under elicitation is future work.",
  "The identification experiments on open models inject claims rather than eliciting them; the elicited three-cell design is run on the two frontier models (\\cref{sec:frontier}) and reproduces the injected pattern, and remains to be run on the open models.")
 body = body.replace("The largest unquantized model is 14B.", "The largest open model is 14B; the two frontier models are measured in a single deterministic pass at low reasoning effort, and their responses are graded with an equivalence judge whose agreement with exact-match grading is reported in \\cref{app:frontier}.")
-body = body.replace("[width=\\textwidth]{figs/fig_gap", "[width=0.56\\linewidth]{figs/fig_gap").replace("[width=\\columnwidth]{figs/fig_forest", "[width=0.6\\linewidth]{figs/fig_forest").replace("[width=\\columnwidth]{figs/fig_repair", "[width=0.55\\linewidth]{figs/fig_repair").replace("[width=\\textwidth]{figs/fig_cells", "[width=0.9\\linewidth]{figs/fig_cells").replace("[width=\\columnwidth]{figs/fig_cells", "[width=0.9\\linewidth]{figs/fig_cells")
-body = body.replace("\\label{tab:cells}\n\\vskip 0.1in\n\\centering\n\\small", "\\label{tab:cells}\n\\vskip 0.05in\n\\centering\n\\scriptsize")
+body = body.replace("[width=\\textwidth]{figs/fig_gap", "[width=\\linewidth]{figs/fig_gap").replace("[width=\\columnwidth]{figs/fig_forest", "[width=0.6\\linewidth]{figs/fig_forest").replace("[width=\\columnwidth]{figs/fig_repair", "[width=0.55\\linewidth]{figs/fig_repair").replace("[width=\\textwidth]{figs/fig_cells", "[width=0.9\\linewidth]{figs/fig_cells").replace("[width=\\columnwidth]{figs/fig_cells", "[width=0.9\\linewidth]{figs/fig_cells")
+body = body.replace("\\label{tab:cells}\n\\vskip 0.1in\n\\centering\n\\small", "\\label{tab:cells}\n\\vskip 0.05in\n\\centering\n\\small")
 body = body.replace("\\columnwidth", "\\linewidth").replace("\\begin{figure*}", "\\begin{figure}").replace("\\end{figure*}", "\\end{figure}")
 appx = appx.replace("\\columnwidth", "\\linewidth")
 # ---- frontier appendix
@@ -151,7 +154,7 @@ head = r'''\documentclass{article}
 \usepackage{multirow}
 \usepackage[capitalize,noabbrev]{cleveref}
 \usepackage{xcolor}
-\newcommand{\pending}[1]{\textcolor{blue!65!black}{[\,#1\,]}}
+\newcommand{\pending}[1]{{\color{black!45}\itshape #1}}
 \newtheorem{proposition}{Proposition}
 \newcommand{\pww}{p_{\mathrm{ww}}}
 \newcommand{\pcw}{p_{\mathrm{cw}}}

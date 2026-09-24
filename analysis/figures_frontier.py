@@ -112,7 +112,9 @@ json.dump(S, open(os.path.join(ROOT, "results", "frontier_summary.json"), "w"), 
 print(f"grading={GRADING}; judge-overlaid rows: {S['judged_rows']}")
 
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.right": False})
+plt.rcParams.update({"font.size": 7.5, "axes.titlesize": 8, "axes.labelsize": 7.5, "xtick.labelsize": 6.5, "ytick.labelsize": 6.5, "legend.fontsize": 6.5,
+                     "axes.spines.top": False, "axes.spines.right": False, "pdf.fonttype": 42, "font.family": "sans-serif",
+                     "axes.linewidth": 0.7, "xtick.major.width": 0.7, "ytick.major.width": 0.7})  # matches experiments/make_figs.py (paper-wide style)
 def bars(ax, tags, get, title, ylabel=None):
     xs = range(len(tags))
     for x, t in zip(xs, tags):
@@ -165,43 +167,43 @@ if tags:
 # Figure 3: contagion, gen-peer fold + chains
 tags = [t for t in S["contagion"] if not is_front(t)] + [t for t in S["contagion"] if is_front(t)]
 if tags:
-    fig, axs = plt.subplots(1, 2, figsize=(10, 3.4))
+    fig, axs = plt.subplots(1, 2, figsize=(5.5, 2.3), gridspec_kw={"width_ratios": [1.25, 1]})
     kinds = ["none", "mention", "reason", "conf_hi", "gen:weak", "gen:same", "gen:strong"]; w = 0.8 / len(tags)
     for i, t in enumerate(tags):
         P = S["contagion"][t]["pairwise"]
         xs = [k + (i - len(tags) / 2 + 0.5) * w for k in range(len(kinds))]
         ys = [P.get(k, (0,))[0] or 0 for k in kinds]
         axs[0].bar(xs, ys, width=w, color=color_multi(t, i), alpha=0.95 if is_front(t) else 0.6, label=label(t))
-    axs[0].set_xticks(range(len(kinds))); axs[0].set_xticklabels(kinds, rotation=30, ha="right"); axs[0].set_ylim(0, 1); axs[0].set_ylabel("abandon correct answer"); axs[0].legend(fontsize=7, frameon=False, ncol=2)
-    axs[0].set_title("Pairwise: receiver holds a correct answer; sender names the alternative", fontsize=9)
+    axs[0].set_xticks(range(len(kinds))); axs[0].set_xticklabels(kinds, rotation=30, ha="right"); axs[0].set_ylim(0, 1.28); axs[0].set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0]); axs[0].set_ylabel("abandon correct answer"); axs[0].legend(fontsize=6, frameon=False, ncol=3, loc="upper left", columnspacing=0.8, handlelength=1.2)
+    axs[0].set_title("Pairwise: sender names the alternative", fontsize=7.5)
     for i, t in enumerate(tags):
         C = S["contagion"][t]["chain"]
         for cname, ls in (("contaminated", "-"), ("clean", "--")):
             if cname in C:
                 ys = [e[0] if e and e[0] is not None else float("nan") for e in C[cname]]
                 axs[1].plot(range(1, 9), ys, ls, color=color_multi(t, i), lw=1.8 if is_front(t) else 1.1, marker="o", ms=2.5, label=label(t) if cname == "contaminated" else None)
-    axs[1].set_ylim(0, 1); axs[1].set_xlabel("hop"); axs[1].set_ylabel("P(agent wrong)"); axs[1].legend(fontsize=7, frameon=False, loc="center right"); axs[1].set_title("Chains of 8 agents: wrong seed (solid) vs right seed (dashed)", fontsize=9)
-    fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.png"), dpi=160); plt.close(fig)
+    axs[1].set_ylim(0, 1); axs[1].set_xlabel("hop"); axs[1].set_ylabel("P(agent wrong)"); axs[1].set_title("Chains of 8: wrong seed (solid), right seed (dashed)", fontsize=7.5)
+    fig.tight_layout(w_pad=0.8); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.pdf"), bbox_inches="tight"); fig.savefig(os.path.join(ROOT, "figures", "frontier_contagion.png"), dpi=160); plt.close(fig)
 
 # Figure 4: the level collapses, the structure survives (decomposition runs: abandon level vs. the two invariances)
 tags = [t for t in S["decomp"] if not is_front(t)] + [t for t in S["decomp"] if is_front(t)]
 if tags:
-    fig, axs = plt.subplots(1, 3, figsize=(10, 2.9))
+    fig, axs = plt.subplots(1, 3, figsize=(5.5, 2.3), gridspec_kw={"width_ratios": [1.1, 1, 1]})
     order = sorted(tags, key=lambda t: (is_front(t), S["decomp"][t]["counter_src/T"][0] or 0))
     for x, t in enumerate(order):
         e = S["decomp"][t]["counter_src/T"]; axs[0].bar(x, e[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, width=0.7)
         axs[0].errorbar(x, e[0], yerr=[[e[0] - e[1]], [e[2] - e[0]]], color="k", lw=0.8, capsize=2)
-    axs[0].set_xticks(range(len(order))); axs[0].set_xticklabels([label(t) for t in order], rotation=60, ha="right", fontsize=7); axs[0].set_ylim(0, 1)
-    axs[0].set_ylabel("abandon correct answer (sourced counter)"); axs[0].set_title("The level: sorted by abandonment", fontsize=9)
-    for ax, (num, den, ttl, yl) in zip(axs[1:], ((("counter_src/conf_low", "counter_src/conf_high"), None, "Own confidence: low − high", "Δ abandon (low − high stated confidence)"),
-                                                (("counter_src/T", "counter_bare/T"), None, "Source: sourced − bare counter", "Δ abandon (source − no source)"))):
+    axs[0].set_xticks(range(len(order))); axs[0].set_xticklabels([label(t) for t in order], rotation=90, fontsize=5); axs[0].set_ylim(0, 1)
+    axs[0].set_ylabel("abandon correct answer"); axs[0].set_title("Level: sourced counter", fontsize=7.5)
+    for ax, (num, den, ttl, yl) in zip(axs[1:], ((("counter_src/conf_low", "counter_src/conf_high"), None, "Confidence effect (low − high)", "Δ abandon"),
+                                                (("counter_src/T", "counter_bare/T"), None, "Source effect (sourced − bare)", "Δ abandon"))):
         for x, t in enumerate(order):
             a, b = S["decomp"][t][num[0]], S["decomp"][t][num[1]]
             if a[0] is None or b[0] is None: continue
             ax.bar(x, a[0] - b[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, width=0.7)
-        ax.axhline(0, color="k", lw=0.6); ax.set_xticks(range(len(order))); ax.set_xticklabels([label(t) for t in order], rotation=60, ha="right", fontsize=7); ax.set_ylim(-0.3, 0.5)
-        ax.set_title(ttl, fontsize=9); ax.set_ylabel(yl, fontsize=8)
-    fig.tight_layout(); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.pdf")); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.png"), dpi=160); plt.close(fig)
+        ax.axhline(0, color="k", lw=0.6); ax.set_xticks(range(len(order))); ax.set_xticklabels([label(t) for t in order], rotation=90, fontsize=5); ax.set_ylim(-0.3, 0.5)
+        ax.set_title(ttl, fontsize=7.5); ax.set_ylabel(yl if ax is axs[1] else "", fontsize=7)
+    fig.tight_layout(w_pad=0.6); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.pdf"), bbox_inches="tight"); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.png"), dpi=160); plt.close(fig)
 
 # table
 print("three-cell (injected, counter): TF / FF / FT")
