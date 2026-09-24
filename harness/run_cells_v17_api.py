@@ -65,10 +65,11 @@ class Backend:
             self.client = openai.OpenAI(api_key=key, base_url=a.api_base) if a.api_base else openai.OpenAI(api_key=key)
 
     def complete(self, msgs):
-        spend.check(self.a.provider)
+        local = bool(getattr(self.a, "api_base", None)) and any(h in self.a.api_base for h in ("127.0.0.1", "localhost"))  # llama-server etc.: no USD ledger
+        if not local: spend.check(self.a.provider)
         self.last_cached = 0
         text, snap, n_in, n_out = self._complete(msgs)
-        spend.charge(self.a.provider, self.a.model, n_in, n_out, cached=self.last_cached)
+        if not local: spend.charge(self.a.provider, self.a.model, n_in, n_out, cached=self.last_cached)
         return text, snap, n_in, n_out
 
     def _complete(self, msgs):
