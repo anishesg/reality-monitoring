@@ -15,7 +15,7 @@ NAMES = {"i_qwen7b": "Qwen2.5-7B", "i_llama8b": "Llama-3.1-8B", "i_olmo": "OLMo-
          "qwen7b": "Qwen2.5-7B", "llama8b": "Llama-3.1-8B", "mistral": "Mistral-7B", "olmo": "OLMo-2-7B",
          "astra": "GPT-6 Astra", "fable51": "Claude Fable 5.1"}
 FRONTIER = {"astra", "fable51"}
-EXCLUDE = set(os.environ.get("RM_EXCLUDE", "fable51").split(","))  # Fable 5.1 dropped from the paper 2026-09-23 (partial run); data kept in the repo
+EXCLUDE = set(x for x in os.environ.get("RM_EXCLUDE", "").split(",") if x)  # Fable 5.1 re-included 2026-09-24: identification + decomposition complete and judged; its contagion run is empty and is skipped by the row filter
 COL = {"open": "#6b7280", "astra": "#b91c1c", "fable51": "#d97706"}
 OPEN_PALETTE = ["#64748b", "#0f766e", "#6d28d9", "#1d4ed8", "#4d7c0f", "#9f1239", "#0e7490", "#7c2d12"]  # distinct muted colours for open models in multi-series panels
 def color_multi(tag, i): return COL[tag] if tag in COL else OPEN_PALETTE[i % len(OPEN_PALETTE)]
