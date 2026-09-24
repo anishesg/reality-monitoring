@@ -25,8 +25,10 @@ Defaults are for della (A100 80GB: `CONSTRAINT=gpu80`, HF cache at `/scratch/gpf
 
 ## On 48 GB GPUs (A6000, L40, A40)
 ```
-GPU=a6000 CONSTRAINT=<your a6000 constraint> bash RUN_ME.sh      # add PARTITION=/ACCOUNT= if the cluster needs them
+SEEDS="0" GPU=a6000 CONSTRAINT=<your a6000 constraint> bash RUN_ME.sh    # one seed of everything: ~100 GPU-h, ~20 h wall clock on 6+ GPUs
+GPU=a6000 CONSTRAINT=<your a6000 constraint> bash RUN_ME.sh              # three seeds: ~185 GPU-h, ~24 h on 8 GPUs
 ```
+Add `PARTITION=` / `ACCOUNT=` if the cluster needs them. Seeds 1 and 2 can be added later by re-running with `SEEDS="1 2"`; finished work is never repeated.
 This switches GRPO jobs to two GPUs each (one serves rollouts with `trl vllm-serve`, one trains; same hyperparameters as the
 80 GB template) and raises the wall-time caps (DPO 8 h, GRPO 30 h, eval 4 h). DPO and eval jobs use one GPU. If your partition's
 maximum wall time is below 30 h, set `TIME_GRPO=<max>`; jobs requeue and resume from checkpoints.
