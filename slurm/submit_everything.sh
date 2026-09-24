@@ -6,8 +6,8 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"; mkdir -p logs
 CORE_ONLY=0; [ "${1:-}" = "--core-only" ] && CORE_ONLY=1
-export PARTITION="${PARTITION:-gpu}" GRES="${GRES:-gpu:1}"
-SBX=(--partition="$PARTITION"); [ -n "${CONSTRAINT:-}" ] && SBX+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SBX+=(--account="$ACCOUNT")
+export PARTITION="${PARTITION:-}" GRES="${GRES:-gpu:1}"
+SBX=(); [ -n "$PARTITION" ] && SBX+=(--partition="$PARTITION"); [ -n "${CONSTRAINT:-}" ] && SBX+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SBX+=(--account="$ACCOUNT")
 say() { printf '\n== %s\n' "$*"; }
 [ -f data/olmo/revision.jsonl ] && [ -f data/tulu/revision.jsonl ] || { echo "run 'bash slurm/prefetch.sh olmo tulu' on the login node first"; exit 1; }
 

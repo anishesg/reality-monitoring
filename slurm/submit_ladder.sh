@@ -9,7 +9,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"; mkdir -p logs
 REUSE=0; BACKBONES="olmo tulu"; ARMS="A2 A1 A3 A4 A5"
 while [ $# -gt 0 ]; do case "$1" in --reuse-a0) REUSE=1;; --backbones) BACKBONES=$2; shift;; --arms) ARMS=$2; shift;; esac; shift; done
-SB=(--partition="${PARTITION:-gpu}" --gres="${GRES:-gpu:1}"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT")
+SB=(--gres="${GRES:-gpu:1}"); [ -n "${PARTITION:-}" ] && SB+=(--partition="$PARTITION"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT")
 hf_of() { case "$1" in olmo) echo allenai/OLMo-2-1124-7B-SFT;; tulu) echo allenai/Llama-3.1-Tulu-3-8B-SFT;; olmo13) echo allenai/OLMo-2-1124-13B-SFT;; olmo32) echo allenai/OLMo-2-0325-32B-SFT;; *) echo "$1";; esac; }
 # per-size resources: gres, mem, VLLM_TP for eval, extra trainer flags. GRES env still overrides for 7-8B.
 res_of() { case "$1" in
@@ -25,7 +25,7 @@ for TAG in $BACKBONES; do
   mkdir -p "$CK" "$DATA" "$RES"
   read -r TGRES TMEM TTP TEXTRA <<<"$(res_of "$TAG" | sed 's/^\([^ ]*\) \([^ ]*\) \([^ ]*\) *\(.*\)$/\1 \2 \3 \4/')"; TEXTRA="${TEXTRA:-}"
   [ "${SEED:-0}" != "0" ] && TEXTRA="$TEXTRA --seed $SEED"
-  SB=(--partition="${PARTITION:-gpu}" --gres="$TGRES" --mem="$TMEM"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT"); [ -n "${QOS:-}" ] && SB+=(--qos="$QOS")
+  SB=(--gres="$TGRES" --mem="$TMEM"); [ -n "${PARTITION:-}" ] && SB+=(--partition="$PARTITION"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT"); [ -n "${QOS:-}" ] && SB+=(--qos="$QOS")
   export VLLM_TP=$TTP; GRPO_TPL=slurm/train_grpo.sbatch; [ "$TAG" = olmo32 ] && GRPO_TPL=slurm/train_grpo_32b.sbatch
   # data build on the login node is cheap (injected mode); elicited mode needs a GPU: ELICITED=1 submits it as a job
   if [ ! -f "$DATA/revision.jsonl" ]; then

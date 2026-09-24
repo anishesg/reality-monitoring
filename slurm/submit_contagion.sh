@@ -6,7 +6,7 @@
 # model under test. Prefetch all weights on a login node first: bash slurm/prefetch.sh (compute nodes are offline).
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"; mkdir -p logs results_contagion
-SB=(--partition="${PARTITION:-gpu}" --gres="${GRES:-gpu:1}"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT")
+SB=(--gres="${GRES:-gpu:1}"); [ -n "${PARTITION:-}" ] && SB+=(--partition="$PARTITION"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT")
 declare -A M=( [qwen7b]=Qwen/Qwen2.5-7B-Instruct [qwen14b]=Qwen/Qwen2.5-14B-Instruct [llama8b]=meta-llama/Llama-3.1-8B-Instruct
                [mistral]=mistralai/Mistral-7B-Instruct-v0.3 [olmo]=allenai/OLMo-2-1124-7B-Instruct )
 WEAK=Qwen/Qwen2.5-1.5B-Instruct; STRONG=Qwen/Qwen2.5-14B-Instruct
