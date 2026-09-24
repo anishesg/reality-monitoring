@@ -27,6 +27,8 @@ for TAG in $BACKBONES; do
   [ "${SEED:-0}" != "0" ] && TEXTRA="$TEXTRA --seed $SEED"
   SB=(--gres="$TGRES" --mem="$TMEM"); [ -n "${PARTITION:-}" ] && SB+=(--partition="$PARTITION"); [ -n "${CONSTRAINT:-}" ] && SB+=(--constraint="$CONSTRAINT"); [ -n "${ACCOUNT:-}" ] && SB+=(--account="$ACCOUNT"); [ -n "${QOS:-}" ] && SB+=(--qos="$QOS")
   export VLLM_TP=$TTP; GRPO_TPL=slurm/train_grpo.sbatch; [ "$TAG" = olmo32 ] && GRPO_TPL=slurm/train_grpo_32b.sbatch
+  # GPU=a6000 (48 GB cards): GRPO runs on 2 GPUs (vllm-serve + trainer) with the same hyperparameters; DPO and eval fit on one
+  GG=(); [ "${GPU:-a100}" = a6000 ] && [ "$TAG" != olmo32 ] && { GRPO_TPL=slurm/train_grpo_2gpu.sbatch; GG=(--gres=gpu:2 --mem=120G); }
   # data build on the login node is cheap (injected mode); elicited mode needs a GPU: ELICITED=1 submits it as a job
   if [ ! -f "$DATA/revision.jsonl" ]; then
     if [ "${ELICITED:-0}" = "1" ]; then DJ=$(sub --job-name=rm-data --time=01:00:00 --mem=40G --wrap="source slurm/_common.sh; python train/build_data.py --mode elicited --model $BB --out $DATA/revision.jsonl --per-cell 600");
@@ -59,12 +61,12 @@ PY
           EJ=$(sub --job-name=rm-eval-$TAG-A1 --export=ALL,MODEL=$CK/A1/merged,ARM=A1,RES=$RES --dependency=afterok:$TJ ${TIME_EVAL:+--time=$TIME_EVAL} slurm/eval_arm.sbatch); echo "$TAG A1 train $TJ -> eval $EJ";;
       A2) TJ=$(sub --job-name=rm-dpo-$TAG-A2 --export=ALL,BACKBONE=$BB,DATA=$DATA/revision.jsonl,OUT=$CK/A2,EXTRA="$TEXTRA" "${DEP[@]}" ${TIME_DPO:+--time=$TIME_DPO} slurm/train_dpo.sbatch)
           EJ=$(sub --job-name=rm-eval-$TAG-A2 --export=ALL,MODEL=$CK/A2/merged,ARM=A2,RES=$RES --dependency=afterok:$TJ ${TIME_EVAL:+--time=$TIME_EVAL} slurm/eval_arm.sbatch); echo "$TAG A2 train $TJ -> eval $EJ";;
-      A3) TJ=$(sub --job-name=rm-grpo-$TAG-A3 --export=ALL,BACKBONE=$BB,DATA=$DATA/revision.jsonl,OUT=$CK/A3,EXTRA="$TEXTRA" "${DEP[@]}" ${TIME_GRPO:+--time=$TIME_GRPO} $GRPO_TPL)
+      A3) TJ=$(sub "${GG[@]}" --job-name=rm-grpo-$TAG-A3 --export=ALL,BACKBONE=$BB,DATA=$DATA/revision.jsonl,OUT=$CK/A3,EXTRA="$TEXTRA" "${DEP[@]}" ${TIME_GRPO:+--time=$TIME_GRPO} $GRPO_TPL)
           EJ=$(sub --job-name=rm-eval-$TAG-A3 --export=ALL,MODEL=$CK/A3/merged,ARM=A3,RES=$RES --dependency=afterok:$TJ ${TIME_EVAL:+--time=$TIME_EVAL} slurm/eval_arm.sbatch); echo "$TAG A3 train $TJ -> eval $EJ";;
-      A4) TJ=$(sub --job-name=rm-grpo-$TAG-A4 --export=ALL,BACKBONE=$BB,DATA=$DATA/revision.jsonl,OUT=$CK/A4,EXTRA="--conf $TEXTRA" "${DEP[@]}" ${TIME_GRPO:+--time=$TIME_GRPO} $GRPO_TPL)
+      A4) TJ=$(sub "${GG[@]}" --job-name=rm-grpo-$TAG-A4 --export=ALL,BACKBONE=$BB,DATA=$DATA/revision.jsonl,OUT=$CK/A4,EXTRA="--conf $TEXTRA" "${DEP[@]}" ${TIME_GRPO:+--time=$TIME_GRPO} $GRPO_TPL)
           EJ=$(sub --job-name=rm-eval-$TAG-A4 --export=ALL,MODEL=$CK/A4/merged,ARM=A4,RES=$RES --dependency=afterok:$TJ ${TIME_EVAL:+--time=$TIME_EVAL} slurm/eval_arm.sbatch); echo "$TAG A4 train $TJ -> eval $EJ";;
       A5) D5=(); [ -n "${JOB[A1]:-}" ] && D5=(--dependency=afterok:${JOB[A1]})
-          TJ=$(sub --job-name=rm-grpo-$TAG-A5 --export=ALL,BACKBONE=$CK/A1/merged,DATA=$DATA/revision.jsonl,OUT=$CK/A5,EXTRA="$TEXTRA" "${D5[@]}" ${TIME_GRPO:+--time=$TIME_GRPO} $GRPO_TPL)
+          TJ=$(sub "${GG[@]}" --job-name=rm-grpo-$TAG-A5 --export=ALL,BACKBONE=$CK/A1/merged,DATA=$DATA/revision.jsonl,OUT=$CK/A5,EXTRA="$TEXTRA" "${D5[@]}" ${TIME_GRPO:+--time=$TIME_GRPO} $GRPO_TPL)
           EJ=$(sub --job-name=rm-eval-$TAG-A5 --export=ALL,MODEL=$CK/A5/merged,ARM=A5,RES=$RES --dependency=afterok:$TJ ${TIME_EVAL:+--time=$TIME_EVAL} slurm/eval_arm.sbatch); echo "$TAG A5 train $TJ -> eval $EJ";;
     esac
   done
