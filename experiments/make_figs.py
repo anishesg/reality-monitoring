@@ -6,8 +6,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-BASE = os.path.expanduser("~/reality-monitoring-repo")
-OUT = os.path.expanduser("~/Desktop/confidence_without_control/figs")
+BASE = os.environ.get("RM_BASE", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+OUT = os.environ.get("RM_FIGS", os.path.join(BASE, "paper", "latex", "figs"))
 os.makedirs(OUT, exist_ok=True)
 
 C = {"blue": "#0072B2", "orange": "#E69F00", "green": "#009E73",
@@ -44,7 +44,7 @@ def auroc(pairs):
 DATA = {t: load(t) for t in MODELS}
 
 # ---------------- Figure 1: the gap ----------------
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.75, 2.1))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(5.5, 2.15))
 sizes = [0.5, 1.5, 3, 7, 14]
 aur = [0.54, 0.49, 0.61, 0.66, 0.70]
 eff = [-0.00, -0.01, 0.01, 0.05, 0.04]
@@ -53,12 +53,12 @@ ax1.plot(sizes, eff, "s-", color=C["verm"], lw=1.4, ms=3.5, label="effect of con
 ax1.fill_between(sizes, eff, aur, color=C["grey"], alpha=0.10)
 ax1.set_xscale("log"); ax1.set_xticks(sizes); ax1.set_xticklabels(["0.5B", "1.5B", "3B", "7B", "14B"])
 ax1.set_xlabel("Qwen2.5 model size"); ax1.set_ylabel("value")
-ax1.set_ylim(-0.08, 0.85); ax1.axhline(0, color="k", lw=0.5, alpha=0.4)
+ax1.set_ylim(-0.08, 1.02); ax1.set_yticks([0, 0.2, 0.4, 0.6, 0.8]); ax1.axhline(0, color="k", lw=0.5, alpha=0.4)
 ax1.text(2.4, 0.36, "the confidence-use gap", fontsize=7.5, color=C["grey"], style="italic")
-ax1.legend(frameon=False, loc="upper left", handlelength=1.6)
+ax1.legend(frameon=False, loc="upper left", handlelength=1.6, borderaxespad=0.2)
 ax1.set_title("(a) Scale improves the signal, not its use", loc="left")
 
-keys = [("conf", "verbalized\nconfidence"), ("p_true", "P(True)"),
+keys = [("conf", "stated\nconfidence"), ("p_true", "P(True)"),
         ("bmargin", "belief\nmargin"), ("consistency", "consistency")]
 xs = np.arange(len(keys))
 cols = [C["blue"], C["green"], C["orange"], C["purple"], C["sky"], C["verm"]]
@@ -76,16 +76,16 @@ for i, t in enumerate(MODELS):
     ax2.scatter(xs + (i - 2.5) * 0.09, v, s=12, color=cols[i], label=NAMES[t], zorder=3)
 ax2.axhline(0.5, color="k", lw=0.6, ls=":", alpha=0.6)
 ax2.text(3.42, 0.505, "chance", fontsize=6.5, color="k", alpha=0.6)
-ax2.set_xticks(xs); ax2.set_xticklabels([n for _, n in keys])
+ax2.set_xticks(xs); ax2.set_xticklabels([n for _, n in keys], fontsize=7); ax2.set_xlim(-0.45, 3.45)
 ax2.set_ylabel("AUROC vs. own correctness"); ax2.set_ylim(0.40, 0.80)
-ax2.legend(frameon=False, ncol=2, loc="lower left", handletextpad=0.1, columnspacing=0.7, markerscale=0.9)
+ax2.legend(frameon=False, ncol=2, loc="lower left", handletextpad=0.1, columnspacing=0.6, markerscale=0.9, fontsize=6.3)
 ax2.set_title("(b) Four signals, one monitor (hard bank)", loc="left")
 fig.tight_layout(w_pad=2.0)
 fig.savefig(f"{OUT}/fig_gap.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ---------------- Figure 2: three-cell design ----------------
-fig, axes = plt.subplots(1, 2, figsize=(6.75, 2.0), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(5.5, 2.2), sharey=True)
 cells = ["TF", "FT", "FF"]
 labels = {"TF": "true claim, false alt.", "FT": "false claim, true alt.", "FF": "false claim, false alt."}
 ccol = {"TF": C["blue"], "FT": C["green"], "FF": C["verm"]}
@@ -100,8 +100,9 @@ for ax, chal, rowsidx, title in [(axes[0], "counter", 1, "(a) Sourced counter"),
     ax.set_xticklabels([NAMES[t].replace("-Instruct", "") for t in MODELS], rotation=28, ha="right")
     ax.set_ylim(0, 1.04); ax.set_title(title, loc="left")
 axes[0].set_ylabel("P(switch answer)")
-axes[0].legend(frameon=False, loc="lower left", fontsize=6.5)
-fig.tight_layout(w_pad=1.6)
+h, l = axes[0].get_legend_handles_labels()
+fig.legend(h, l, frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.02), fontsize=7, handlelength=1.2, columnspacing=1.4)
+fig.tight_layout(w_pad=1.6, rect=(0, 0, 1, 0.93))
 fig.savefig(f"{OUT}/fig_cells.pdf", bbox_inches="tight")
 plt.close(fig)
 

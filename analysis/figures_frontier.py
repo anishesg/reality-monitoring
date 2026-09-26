@@ -188,22 +188,24 @@ if tags:
 # Figure 4: the level collapses, the structure survives (decomposition runs: abandon level vs. the two invariances)
 tags = [t for t in S["decomp"] if not is_front(t)] + [t for t in S["decomp"] if is_front(t)]
 if tags:
-    fig, axs = plt.subplots(1, 3, figsize=(5.5, 2.3), gridspec_kw={"width_ratios": [1.1, 1, 1]})
-    order = sorted(tags, key=lambda t: (is_front(t), S["decomp"][t]["counter_src/T"][0] or 0))
-    for x, t in enumerate(order):
-        e = S["decomp"][t]["counter_src/T"]; axs[0].bar(x, e[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, width=0.7)
-        axs[0].errorbar(x, e[0], yerr=[[e[0] - e[1]], [e[2] - e[0]]], color="k", lw=0.8, capsize=2)
-    axs[0].set_xticks(range(len(order))); axs[0].set_xticklabels([label(t) for t in order], rotation=90, fontsize=5); axs[0].set_ylim(0, 1)
-    axs[0].set_ylabel("abandon correct answer"); axs[0].set_title("Level: sourced counter", fontsize=7.5)
-    for ax, (num, den, ttl, yl) in zip(axs[1:], ((("counter_src/conf_low", "counter_src/conf_high"), None, "Confidence effect (low − high)", "Δ abandon"),
-                                                (("counter_src/T", "counter_bare/T"), None, "Source effect (sourced − bare)", "Δ abandon"))):
-        for x, t in enumerate(order):
+    # horizontal layout: one shared, readable model axis; level on the left, the two structural effects on the right
+    order = sorted(tags, key=lambda t: (is_front(t), S["decomp"][t]["counter_src/T"][0] or 0))[::-1]   # largest at the top, frontier at the bottom
+    fig, axs = plt.subplots(1, 3, figsize=(5.5, 3.6), sharey=True, gridspec_kw={"width_ratios": [1.5, 1, 1]})
+    ys = list(range(len(order)))
+    for y, t in zip(ys, order):
+        e = S["decomp"][t]["counter_src/T"]; axs[0].barh(y, e[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, height=0.72)
+        axs[0].errorbar(e[0], y, xerr=[[e[0] - e[1]], [e[2] - e[0]]], color="k", lw=0.7, capsize=1.5)
+    axs[0].set_yticks(ys); axs[0].set_yticklabels([label(t) for t in order], fontsize=6.8); axs[0].set_xlim(0, 1.0); axs[0].invert_yaxis()
+    axs[0].set_xlabel("P(abandon correct answer)"); axs[0].set_title("Level: sourced counter", fontsize=8)
+    for ax, (num, ttl) in zip(axs[1:], ((("counter_src/conf_low", "counter_src/conf_high"), "Confidence effect\n(low − high stated)"),
+                                        (("counter_src/T", "counter_bare/T"), "Source effect\n(sourced − bare)"))):
+        for y, t in zip(ys, order):
             a, b = S["decomp"][t][num[0]], S["decomp"][t][num[1]]
             if a[0] is None or b[0] is None: continue
-            ax.bar(x, a[0] - b[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, width=0.7)
-        ax.axhline(0, color="k", lw=0.6); ax.set_xticks(range(len(order))); ax.set_xticklabels([label(t) for t in order], rotation=90, fontsize=5); ax.set_ylim(-0.3, 0.5)
-        ax.set_title(ttl, fontsize=7.5); ax.set_ylabel(yl if ax is axs[1] else "", fontsize=7)
-    fig.tight_layout(w_pad=0.6); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.pdf"), bbox_inches="tight"); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.png"), dpi=160); plt.close(fig)
+            ax.barh(y, a[0] - b[0], color=color(t), alpha=0.95 if is_front(t) else 0.55, height=0.72)
+        ax.axvline(0, color="k", lw=0.6); ax.set_xlim(-0.25, 0.5); ax.set_xlabel("Δ P(abandon)"); ax.set_title(ttl, fontsize=8)
+    for ax in axs: ax.tick_params(axis="x", labelsize=6.8); ax.grid(axis="x", lw=0.3, alpha=0.4)
+    fig.tight_layout(w_pad=0.8); fig.savefig(os.path.join(ROOT, "figures", "frontier_structure.pdf"), bbox_inches="tight")
 
 # table
 print("three-cell (injected, counter): TF / FF / FT")
