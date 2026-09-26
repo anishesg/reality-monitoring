@@ -109,4 +109,77 @@ theorem threshold_policy_optimal (r : ℝ) :
   · rw [max_eq_right (by linarith : r ≤ 1 - r)]; ring
   · rw [max_eq_left (by linarith : 1 - r ≤ r)]; ring
 
+
+/-! ## Value of the monitor -/
+
+/-- Bayesian correctness equals reliability plus the positive part of `1 - 2r`. -/
+theorem bayesAcc_eq (r : ℝ) : bayesAcc r = r + max (1 - 2 * r) 0 := by
+  unfold bayesAcc
+  rcases le_or_gt r (1 / 2) with h | h
+  · rw [max_eq_right (by linarith : r ≤ 1 - r), max_eq_left (by linarith : (0 : ℝ) ≤ 1 - 2 * r)]; ring
+  · rw [max_eq_left (by linarith : 1 - r ≤ r), max_eq_right (by linarith : 1 - 2 * r ≤ (0 : ℝ))]; ring
+
+/-- `E[max(r, 1-r)] = A + E[(1-2r)⁺]`. -/
+theorem sum_bayes_eq :
+    (∑ i ∈ s, w i * bayesAcc (r i)) = (∑ i ∈ s, w i * r i) + ∑ i ∈ s, w i * max (1 - 2 * r i) 0 := by
+  rw [← sum_add_distrib]
+  apply sum_congr rfl
+  intro i _
+  rw [bayesAcc_eq]; ring
+
+/-- **Value of the monitor** for the revision decision: the Bayesian reviser's expected correctness minus
+the best achievable with the average reliability alone, `max(A, 1-A)`. -/
+noncomputable def voi : ℝ :=
+  (∑ i ∈ s, w i * bayesAcc (r i)) - max (∑ i ∈ s, w i * r i) (1 - ∑ i ∈ s, w i * r i)
+
+/-- **Every monitor-insensitive policy forgoes at least the value of the monitor.** -/
+theorem price_ge_voi (π : ℝ) (hw : ∑ i ∈ s, w i = 1) (hπ0 : 0 ≤ π) (hπ1 : π ≤ 1) :
+    voi s w r ≤ (∑ i ∈ s, w i * bayesAcc (r i))
+      - ((1 - π) * (∑ i ∈ s, w i * r i) + π * (1 - ∑ i ∈ s, w i * r i)) := by
+  rw [price_eq1 s w r π hw]
+  unfold voi
+  rw [sum_bayes_eq]
+  rcases le_or_gt (1 / 2 : ℝ) (∑ i ∈ s, w i * r i) with h | h
+  · rw [max_eq_left (by linarith : 1 - (∑ i ∈ s, w i * r i) ≤ ∑ i ∈ s, w i * r i)]
+    nlinarith [mul_nonneg hπ0 (by linarith : (0 : ℝ) ≤ 2 * (∑ i ∈ s, w i * r i) - 1)]
+  · rw [max_eq_right (by linarith : (∑ i ∈ s, w i * r i) ≤ 1 - ∑ i ∈ s, w i * r i)]
+    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - π) (by linarith : (0 : ℝ) ≤ 1 - 2 * (∑ i ∈ s, w i * r i))]
+
+/-- **The best monitor-insensitive policy forgoes exactly the value of the monitor**: switching always
+when `A < 1/2` and never otherwise attains the bound. -/
+theorem best_constant_eq_voi (hw : ∑ i ∈ s, w i = 1) :
+    (∑ i ∈ s, w i * bayesAcc (r i))
+      - ((1 - (if (∑ i ∈ s, w i * r i) < 1 / 2 then (1 : ℝ) else 0)) * (∑ i ∈ s, w i * r i)
+         + (if (∑ i ∈ s, w i * r i) < 1 / 2 then (1 : ℝ) else 0) * (1 - ∑ i ∈ s, w i * r i))
+      = voi s w r := by
+  rw [price_eq1 s w r _ hw]
+  unfold voi
+  rw [sum_bayes_eq]
+  split_ifs with h
+  · rw [max_eq_right (by linarith : (∑ i ∈ s, w i * r i) ≤ 1 - ∑ i ∈ s, w i * r i)]; ring
+  · rw [max_eq_left (by linarith : 1 - (∑ i ∈ s, w i * r i) ≤ ∑ i ∈ s, w i * r i)]; ring
+
+/-- The value of the monitor is nonnegative (the finite Jensen inequality for `max`). -/
+theorem voi_nonneg (hw : ∑ i ∈ s, w i = 1) (hw0 : ∀ i ∈ s, 0 ≤ w i) : 0 ≤ voi s w r := by
+  have h := price_ge_voi s w r (if (∑ i ∈ s, w i * r i) < 1 / 2 then (1 : ℝ) else 0) hw
+    (by split_ifs <;> norm_num) (by split_ifs <;> norm_num)
+  rw [best_constant_eq_voi s w r hw] at h
+  -- `h : voi ≤ voi` gives nothing; argue directly: both summands of the price are nonnegative.
+  unfold voi
+  rw [sum_bayes_eq]
+  have hS : 0 ≤ ∑ i ∈ s, w i * max (1 - 2 * r i) 0 :=
+    sum_nonneg (fun k hk => mul_nonneg (hw0 k hk) (le_max_right _ _))
+  rcases le_or_gt (1 / 2 : ℝ) (∑ i ∈ s, w i * r i) with h1 | h1
+  · rw [max_eq_left (by linarith : 1 - (∑ i ∈ s, w i * r i) ≤ ∑ i ∈ s, w i * r i)]; linarith
+  · rw [max_eq_right (by linarith : (∑ i ∈ s, w i * r i) ≤ 1 - ∑ i ∈ s, w i * r i)]
+    -- need S ≥ 1 - 2A: since (1-2r)⁺ ≥ 1-2r pointwise and Σ w = 1
+    have : (1 - 2 * ∑ i ∈ s, w i * r i) ≤ ∑ i ∈ s, w i * max (1 - 2 * r i) 0 := by
+      have : ∑ i ∈ s, w i * (1 - 2 * r i) ≤ ∑ i ∈ s, w i * max (1 - 2 * r i) 0 :=
+        sum_le_sum (fun k hk => mul_le_mul_of_nonneg_left (le_max_left _ _) (hw0 k hk))
+      have e : ∑ i ∈ s, w i * (1 - 2 * r i) = 1 - 2 * ∑ i ∈ s, w i * r i := by
+        rw [show (∑ i ∈ s, w i * (1 - 2 * r i)) = ∑ i ∈ s, (w i - 2 * (w i * r i)) from
+          sum_congr rfl (fun i _ => by ring), sum_sub_distrib, ← mul_sum, hw]
+      linarith
+    linarith
+
 end RealityMonitoring.Price

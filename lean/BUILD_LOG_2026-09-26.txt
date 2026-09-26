@@ -1,6 +1,6 @@
-== Sat Sep 26 06:24:17 UTC 2026 lake build (RmTheory: Basic, Identification, Price)
-Build completed successfully (8928 jobs).
-== sorry count:
+== Sat Sep 26 07:06:41 UTC 2026 lake build (RmTheory: Basic, Theory, Identification, Price)
+Build completed successfully (8929 jobs).
+== sorry count per file:
 RmTheory/Basic.lean:0
 RmTheory/Identification.lean:0
 RmTheory/Price.lean:0
@@ -16,3 +16,10 @@ RmTheory/Theory.lean:0
 'RealityMonitoring.Price.price_eq1' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RealityMonitoring.Price.constant_policy_suboptimal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RealityMonitoring.Price.threshold_policy_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.price_ge_voi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.best_constant_eq_voi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.voi_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.proposition_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.band_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.closed_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.piInfMixed_anti' depends on axioms: [propext, Classical.choice, Quot.sound]
