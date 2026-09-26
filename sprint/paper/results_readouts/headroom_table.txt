@@ -1,0 +1,36 @@
+checkpoint      n    A0    s   | gain over random (pts): model  conf  P(True)  oracle | H_rate conf | thr-policy vs model (held-out)
+h_llama3b       377 0.73 0.76 |   +9.0   +1.7   +1.1  +12.7 |  -7.3 | 0.687 vs 0.451 (keep-all 0.687)
+h_llama8b       575 0.81 0.65 |   +9.6   +5.3   -0.2  +13.1 |  -4.3 | 0.738 vs 0.577 (keep-all 0.756)
+h_mistral       805 0.69 0.27 |   -2.9   -2.5   -2.4  +37.6 |  +0.4 | 0.718 vs 0.502 (keep-all 0.718)
+h_olmo_dpo      352 0.82 0.54 |  +10.1   +3.3   -6.5  +16.3 |  -6.7 | 0.789 vs 0.578 (keep-all 0.789)
+h_olmo_rlvr     385 0.78 0.55 |  +13.0   +0.4   -3.9  +19.3 | -12.7 | 0.756 vs 0.633 (keep-all 0.756)
+h_olmo_sft      229 0.67 0.62 |   +8.9   +0.0   +1.9  +25.5 |  -8.9 | 0.677 vs 0.479 (keep-all 0.677)
+h_phi35         701 0.72 0.48 |  +17.8   +3.7   +4.7  +28.9 | -14.1 | 0.711 vs 0.680 (keep-all 0.698)
+h_qwen05        265 0.51 0.92 |   -2.0   +0.8   +0.3   +7.8 |  +2.8 | 0.500 vs 0.387 (keep-all 0.566)
+h_qwen14b       596 0.91 0.55 |   +4.8   +3.7   +3.6   +8.5 |  -1.1 | 0.876 vs 0.530 (keep-all 0.876)
+h_qwen15        183 0.58 0.77 |   -0.6   -0.2   +1.6  +19.1 |  +0.5 | 0.595 vs 0.456 (keep-all 0.595)
+h_qwen32b       603 0.92 0.36 |   +6.9   +5.5   +3.5  +10.9 |  -1.4 | 0.901 vs 0.663 (keep-all 0.901)
+h_qwen3b        262 0.83 0.65 |   +7.3   +2.5   +1.4  +11.9 |  -4.8 | 0.712 vs 0.519 (keep-all 0.712)
+h_qwen7b        589 0.86 0.60 |   +9.3   +3.9   +2.5  +11.4 |  -5.4 | 0.817 vs 0.549 (keep-all 0.817)
+h_tulu_dpo      650 0.76 0.44 |  +12.1   +3.7   +2.2  +27.1 |  -8.3 | 0.686 vs 0.665 (keep-all 0.686)
+h_tulu_rlvr     707 0.72 0.46 |  +13.5   +1.8   +0.5  +30.8 | -11.8 | 0.661 vs 0.692 (keep-all 0.661)
+h_tulu_sft      827 0.64 0.62 |  +11.7   +0.1   +1.7  +27.6 | -11.5 | 0.632 vs 0.598 (keep-all 0.632)
+h_zephyr_dpo    490 0.68 0.65 |  +11.1   -0.0   +0.5  +22.1 | -11.1 | 0.696 vs 0.568 (keep-all 0.696)
+h_zephyr_sft    861 0.61 0.87 |   +4.6   -0.3   +1.8  +10.4 |  -4.9 | 0.630 vs 0.504 (keep-all 0.630)
+
+median over 18 checkpoints: model gain +9.1pt, conf gain +1.7pt, P(True) gain +1.5pt, oracle gain +17.7pt
+share of oracle-attainable targeting captured: model 0.53, conf-allocation 0.11, P(True)-allocation 0.08
+
+ident (counter / weak), gains over random in pts: model | conf | P(True) | b-margin | oracle
+i_llama8b   counter n=251 A0=0.81 s=0.93 |  +2.0 |  +1.6 |  +1.8 |  -1.3 |  +2.7
+i_llama8b   weak    n=248 A0=0.81 s=0.84 |  +4.3 |  +3.5 |  +4.2 |  +1.0 |  +6.0
+i_olmo      counter n=193 A0=0.83 s=0.87 |  +4.0 |  +0.7 |  +3.3 |  +0.9 |  +4.6
+i_olmo      weak    n=193 A0=0.83 s=0.60 |  +1.2 |  +4.3 |  +5.1 |  -0.1 | +13.6
+i_qwen14b   counter n=457 A0=0.89 s=0.77 |  +3.4 |  +1.6 |  +3.1 |  +1.8 |  +4.8
+i_qwen14b   weak    n=457 A0=0.89 s=0.35 |  +7.4 |  +4.2 |  +7.1 |  +1.9 | +13.6
+i_qwen3_8b  counter n=361 A0=0.94 s=0.47 |  +2.3 |  +1.8 |  +nan |  +0.7 |  +6.8
+i_qwen3_8b  weak    n=357 A0=0.94 s=0.25 |  -0.9 |  +1.8 |  +nan |  -0.3 |  +9.2
+i_qwen7b    counter n=454 A0=0.87 s=0.84 |  +2.5 |  +2.4 |  +2.8 |  +1.1 |  +4.2
+i_qwen7b    weak    n=454 A0=0.87 s=0.72 |  +2.9 |  +4.3 |  +4.5 |  +1.6 |  +7.3
+i_r1_7b     counter n=121 A0=0.77 s=0.72 |  +8.5 |  +4.5 |  +nan |  -6.4 | +12.8
+i_r1_7b     weak    n=120 A0=0.77 s=0.53 |  +8.8 |  +5.8 |  +nan |  -3.0 | +22.2

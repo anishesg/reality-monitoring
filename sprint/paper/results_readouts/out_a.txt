@@ -1,0 +1,30 @@
+================ llama8b 12216
+[weak     claim=T] none 0.89 | latent: 0.89 0.88 0.90 0.89 0.86 slope -0.030[-0.06,+0.00] lo-hi +0.014 | surfaced: 0.88 0.89 0.88 0.86 0.87 slope -0.026[-0.06,+0.01] lo-hi +0.019 |
+[weak     claim=F] none 0.99 | latent: 1.00 1.00 1.00 1.00 0.99 slope -0.001[-0.01,+0.01] lo-hi +0.000 | surfaced: 1.00 1.00 1.00 1.00 1.00 slope -0.002[-0.01,+0.00] lo-hi +0.002 |
+[pressure claim=T] none 0.78 | latent: 0.78 0.81 0.80 0.79 0.79 slope -0.001[-0.04,+0.04] lo-hi +0.006 | surfaced: 0.79 0.79 0.78 0.75 0.76 slope -0.042[-0.08,-0.00] lo-hi +0.027 |
+[pressure claim=F] none 0.97 | latent: 0.95 0.96 0.96 0.96 0.94 slope +0.000[-0.03,+0.03] lo-hi +0.001 | surfaced: 0.92 0.91 0.91 0.92 0.91 slope -0.010[-0.04,+0.02] lo-hi +0.004 |
+================ mistral7b 13146
+[weak     claim=T] none 0.73 | latent: 0.80 0.79 0.78 0.78 0.76 slope -0.044[-0.09,+0.00] lo-hi +0.024 | surfaced: 0.65 0.68 0.60 0.61 0.57 slope -0.120[-0.16,-0.07] lo-hi +0.075 |
+[weak     claim=F] none 0.86 | latent: 0.92 0.92 0.90 0.88 0.88 slope -0.060[-0.10,-0.02] lo-hi +0.037 | surfaced: 0.79 0.79 0.76 0.75 0.72 slope -0.103[-0.15,-0.06] lo-hi +0.060 |
+[pressure claim=T] none 0.54 | latent: 0.56 0.59 0.56 0.55 0.54 slope -0.045[-0.11,+0.02] lo-hi +0.032 | surfaced: 0.25 0.27 0.26 0.27 0.26 slope +0.011[-0.05,+0.07] lo-hi -0.005 |
+[pressure claim=F] none 0.69 | latent: 0.71 0.71 0.67 0.68 0.69 slope -0.030[-0.09,+0.02] lo-hi +0.021 | surfaced: 0.40 0.44 0.42 0.43 0.46 slope +0.051[-0.01,+0.11] lo-hi -0.022 |
+================ olmo 12207
+[weak     claim=T] none 0.46 | latent: 0.45 0.46 0.49 0.47 0.47 slope +0.022[-0.05,+0.09] lo-hi -0.011 | surfaced: 0.39 0.38 0.36 0.37 0.37 slope -0.024[-0.07,+0.03] lo-hi +0.013 |
+[weak     claim=F] none 0.74 | latent: 0.77 0.78 0.79 0.79 0.72 slope -0.042[-0.10,+0.02] lo-hi +0.020 | surfaced: 0.58 0.59 0.61 0.58 0.53 slope -0.058[-0.13,+0.00] lo-hi +0.032 |
+[pressure claim=T] none 0.54 | latent: 0.56 0.52 0.55 0.57 0.55 slope +0.016[-0.05,+0.07] lo-hi -0.019 | surfaced: 0.48 0.47 0.48 0.47 0.47 slope -0.014[-0.07,+0.04] lo-hi +0.006 |
+[pressure claim=F] none 0.76 | latent: 0.81 0.80 0.82 0.80 0.80 slope -0.014[-0.06,+0.03] lo-hi +0.007 | surfaced: 0.66 0.68 0.68 0.67 0.66 slope -0.002[-0.05,+0.05] lo-hi +0.003 |
+================ qwen14b 8346
+[weak     claim=T] none 0.45 | latent: 0.57 0.57 0.52 0.48 0.45 slope -0.186[-0.27,-0.10] lo-hi +0.113 | surfaced: 0.57 0.58 0.56 0.43 0.38 slope -0.278[-0.35,-0.19] lo-hi +0.173 |
+[weak     claim=F] none 0.97 | latent: 0.97 0.98 0.97 0.96 0.95 slope -0.025[-0.06,+0.00] lo-hi +0.016 | surfaced: 0.94 0.95 0.91 0.93 0.89 slope -0.062[-0.11,-0.01] lo-hi +0.037 |
+[pressure claim=T] none 0.50 | latent: 0.53 0.50 0.55 0.52 0.50 slope -0.019[-0.08,+0.04] lo-hi +0.005 | surfaced: 0.53 0.52 0.53 0.54 0.54 slope +0.022[-0.03,+0.08] lo-hi -0.017 |
+[pressure claim=F] none 0.96 | latent: 0.99 1.00 0.99 0.98 0.97 slope -0.025[-0.05,-0.00] lo-hi +0.016 | surfaced: 0.94 0.93 0.96 0.96 0.94 slope +0.015[-0.02,+0.06] lo-hi -0.013 |
+================ qwen1_5b 12501
+[weak     claim=T] none 0.52 | latent: 0.60 0.62 0.49 0.62 0.51 slope -0.102[-0.26,+0.05] lo-hi +0.051 | surfaced: 0.49 0.45 0.52 0.44 0.42 slope -0.074[-0.15,+0.00] lo-hi +0.040 |
+[weak     claim=F] none 0.70 | latent: 0.73 0.75 0.62 0.59 0.56 slope -0.257[-0.42,-0.09] lo-hi +0.164 | surfaced: 0.53 0.57 0.57 0.54 0.54 slope -0.003[-0.09,+0.08] lo-hi +0.009 |
+[pressure claim=T] none 0.55 | latent: 0.52 0.54 0.55 0.55 0.53 slope +0.017[-0.09,+0.12] lo-hi -0.011 | surfaced: 0.64 0.64 0.64 0.64 0.58 slope -0.058[-0.13,+0.01] lo-hi +0.029 |
+[pressure claim=F] none 0.75 | latent: 0.69 0.67 0.66 0.70 0.68 slope +0.011[-0.10,+0.12] lo-hi -0.014 | surfaced: 0.76 0.73 0.76 0.77 0.81 slope +0.071[+0.01,+0.13] lo-hi -0.043 |
+================ qwen7b 12758
+[weak     claim=T] none 0.50 | latent: 0.64 0.65 0.62 0.57 0.48 slope -0.205[-0.27,-0.15] lo-hi +0.120 | surfaced: 0.57 0.58 0.52 0.49 0.44 slope -0.182[-0.25,-0.12] lo-hi +0.109 |
+[weak     claim=F] none 0.95 | latent: 0.98 0.98 0.98 0.98 0.95 slope -0.028[-0.07,+0.00] lo-hi +0.016 | surfaced: 0.94 0.93 0.90 0.87 0.87 slope -0.100[-0.15,-0.05] lo-hi +0.062 |
+[pressure claim=T] none 0.28 | latent: 0.36 0.38 0.38 0.36 0.33 slope -0.036[-0.09,+0.02] lo-hi +0.024 | surfaced: 0.34 0.34 0.33 0.28 0.26 slope -0.119[-0.18,-0.06] lo-hi +0.070 |
+[pressure claim=F] none 0.69 | latent: 0.75 0.76 0.77 0.76 0.71 slope -0.036[-0.09,+0.01] lo-hi +0.019 | surfaced: 0.73 0.71 0.68 0.62 0.62 slope -0.163[-0.23,-0.11] lo-hi +0.099 |

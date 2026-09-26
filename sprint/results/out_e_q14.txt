@@ -1,0 +1,37 @@
+model        init       none       raw     calib  shuffled    oracle   | switch|right  switch|wrong (calib)
+base         0.890     0.278     0.281     0.282     0.284     0.272   | 0.790  0.961
+own_s0       0.819     0.830     0.814     0.827     0.827     0.944   | 0.003  0.058
+own_s1       0.840     0.839     0.839     0.840     0.840     0.886   | 0.000  0.000
+shuffled_s0  0.840     0.504     0.669     0.694     0.693     0.704   | 0.297  0.649
+shuffled_s1  0.840     0.806     0.838     0.838     0.838     0.844   | 0.033  0.160
+
+Pooled over seeds (paired item bootstrap, 95% CI):
+  base         calib-shuffled -0.002 [-0.016,+0.012] n=929
+  base           raw-shuffled -0.003 [-0.020,+0.014] n=929
+  base         calib-none     +0.004 [-0.016,+0.026] n=929
+  base        oracle-calib    -0.010 [-0.024,+0.004] n=929
+  own          calib-shuffled +0.000 [+0.000,+0.000] n=977
+  own            raw-shuffled -0.007 [-0.011,-0.003] n=977
+  own          calib-none     -0.003 [-0.015,+0.010] n=977
+  own         oracle-calib    +0.084 [+0.069,+0.100] n=977
+  own        calib - base(no note) +0.567 [+0.527,+0.607]
+  shuffled     calib-shuffled +0.002 [-0.004,+0.008] n=845
+  shuffled       raw-shuffled -0.012 [-0.021,-0.004] n=845
+  shuffled     calib-none     +0.134 [+0.110,+0.159] n=845
+  shuffled    oracle-calib    +0.008 [+0.000,+0.017] n=845
+  shuffled   calib - base(no note) +0.503 [+0.459,+0.545]
+  ARM own vs shuffled [calib]: +0.089 [+0.060,+0.118] n=803
+  ARM own vs shuffled [raw]: +0.095 [+0.064,+0.125] n=803
+  ARM own vs shuffled [none]: +0.222 [+0.188,+0.258] n=803
+  ARM own vs shuffled [shuffled]: +0.091 [+0.062,+0.121] n=803
+  ARM own vs shuffled [oracle]: +0.156 [+0.132,+0.182] n=803
+  ARM own vs base [calib]: +0.565 [+0.523,+0.606] n=875
+  ARM own vs base [raw]: +0.559 [+0.518,+0.601] n=875
+  ARM own vs base [none]: +0.574 [+0.535,+0.615] n=875
+  ARM own vs base [shuffled]: +0.562 [+0.521,+0.604] n=875
+  ARM own vs base [oracle]: +0.647 [+0.610,+0.683] n=875
+  ARM shuffled vs base [calib]: +0.491 [+0.447,+0.533] n=739
+  ARM shuffled vs base [raw]: +0.482 [+0.437,+0.524] n=739
+  ARM shuffled vs base [none]: +0.359 [+0.317,+0.401] n=739
+  ARM shuffled vs base [shuffled]: +0.488 [+0.445,+0.530] n=739
+  ARM shuffled vs base [oracle]: +0.510 [+0.469,+0.552] n=739

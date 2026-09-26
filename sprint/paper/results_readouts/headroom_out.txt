@@ -1,0 +1,140 @@
+=== (1) IDENTIFICATION BANK (results_ident; natural mix; claim = model's own 2-way FC answer) ===
+[i_llama8b | counter]
+  conf       n= 251 A0=0.813 s=0.929 Acc(m)=0.252 Acc(rnd)=0.232 Acc(sig)=0.248 Acc(orc)=0.259 | H_rate=-0.4pt [-1.5,+0.6] U=+1.28 [+0.65,+2.73] | thr held-out: policy 0.835 keep-all 0.835 model 0.236
+  P(True)    n= 254 A0=0.815 s=0.929 Acc(m)=0.250 Acc(rnd)=0.230 Acc(sig)=0.248 Acc(orc)=0.256 | H_rate=-0.2pt [-2.0,+1.3] U=+1.09 [-3.29,+6.04] | thr held-out: policy 0.865 keep-all 0.835 model 0.236
+  b-margin   n= 254 A0=0.815 s=0.929 Acc(m)=0.250 Acc(rnd)=0.230 Acc(sig)=0.217 Acc(orc)=0.256 | H_rate=-3.3pt [-6.5,+0.0] U=-1.54 [-21.23,+16.20] | thr held-out: policy 0.835 keep-all 0.835 model 0.236
+[i_llama8b | weak]
+  conf       n= 248 A0=0.810 s=0.843 Acc(m)=0.331 Acc(rnd)=0.287 Acc(sig)=0.322 Acc(orc)=0.347 | H_rate=-0.8pt [-3.6,+2.1] U=+1.24 [+0.50,+3.17] | thr held-out: policy 0.832 keep-all 0.832 model 0.321
+  P(True)    n= 251 A0=0.813 s=0.845 Acc(m)=0.327 Acc(rnd)=0.284 Acc(sig)=0.327 Acc(orc)=0.343 | H_rate=+0.0pt [-3.2,+3.2] U=+1.00 [+0.33,+3.00] | thr held-out: policy 0.863 keep-all 0.832 model 0.321
+  b-margin   n= 251 A0=0.813 s=0.845 Acc(m)=0.327 Acc(rnd)=0.284 Acc(sig)=0.295 Acc(orc)=0.343 | H_rate=-3.2pt [-7.2,+0.0] U=+4.07 [-27.71,+30.19] | thr held-out: policy 0.832 keep-all 0.832 model 0.321
+[i_olmo | counter]
+  conf       n= 193 A0=0.829 s=0.866 Acc(m)=0.299 Acc(rnd)=0.259 Acc(sig)=0.266 Acc(orc)=0.305 | H_rate=-3.3pt [-5.9,-0.9] U=+5.72 [-42.31,+50.34] | thr held-out: policy 0.820 keep-all 0.820 model 0.294
+  P(True)    n= 426 A0=0.833 s=0.831 Acc(m)=0.311 Acc(rnd)=0.279 Acc(sig)=0.312 Acc(orc)=0.335 | H_rate=+0.1pt [-2.6,+2.3] U=+0.97 [+0.45,+3.17] | thr held-out: policy 0.835 keep-all 0.853 model 0.290
+  b-margin   n= 426 A0=0.833 s=0.831 Acc(m)=0.311 Acc(rnd)=0.279 Acc(sig)=0.288 Acc(orc)=0.335 | H_rate=-2.3pt [-4.8,+0.3] U=+3.44 [-22.65,+20.27] | thr held-out: policy 0.853 keep-all 0.853 model 0.290
+[i_olmo | weak]
+  conf       n= 193 A0=0.829 s=0.601 Acc(m)=0.446 Acc(rnd)=0.434 Acc(sig)=0.477 Acc(orc)=0.570 | H_rate=+3.1pt [-3.4,+9.3] U=+0.28 [-4.79,+3.79] | thr held-out: policy 0.820 keep-all 0.820 model 0.440
+  P(True)    n= 422 A0=0.834 s=0.531 Acc(m)=0.512 Acc(rnd)=0.479 Acc(sig)=0.531 Acc(orc)=0.635 | H_rate=+1.9pt [-2.8,+7.1] U=+0.63 [-0.02,+2.11] | thr held-out: policy 0.837 keep-all 0.856 model 0.493
+  b-margin   n= 422 A0=0.834 s=0.531 Acc(m)=0.512 Acc(rnd)=0.479 Acc(sig)=0.479 Acc(orc)=0.635 | H_rate=-3.3pt [-6.6,+2.4] U=-43.76 [-27.25,+20.93] | thr held-out: policy 0.856 keep-all 0.856 model 0.493
+[i_qwen14b | counter]
+  conf       n= 457 A0=0.895 s=0.771 Acc(m)=0.320 Acc(rnd)=0.286 Acc(sig)=0.302 Acc(orc)=0.334 | H_rate=-1.8pt [-3.3,-0.4] U=+2.10 [+1.09,+8.41] | thr held-out: policy 0.917 keep-all 0.908 model 0.324
+  P(True)    n= 460 A0=0.893 s=0.773 Acc(m)=0.320 Acc(rnd)=0.285 Acc(sig)=0.316 Acc(orc)=0.334 | H_rate=-0.4pt [-1.6,+0.8] U=+1.12 [+0.76,+1.73] | thr held-out: policy 0.904 keep-all 0.904 model 0.327
+  b-margin   n= 460 A0=0.893 s=0.773 Acc(m)=0.320 Acc(rnd)=0.285 Acc(sig)=0.303 Acc(orc)=0.334 | H_rate=-1.7pt [-4.0,+0.3] U=+1.92 [-6.94,+14.15] | thr held-out: policy 0.904 keep-all 0.904 model 0.327
+[i_qwen14b | weak]
+  conf       n= 457 A0=0.895 s=0.354 Acc(m)=0.689 Acc(rnd)=0.615 Acc(sig)=0.657 Acc(orc)=0.751 | H_rate=-3.2pt [-6.4,-0.2] U=+1.76 [+1.02,+3.98] | thr held-out: policy 0.917 keep-all 0.908 model 0.697
+  P(True)    n= 460 A0=0.893 s=0.359 Acc(m)=0.687 Acc(rnd)=0.611 Acc(sig)=0.683 Acc(orc)=0.748 | H_rate=-0.4pt [-3.5,+3.0] U=+1.06 [+0.65,+1.63] | thr held-out: policy 0.904 keep-all 0.904 model 0.699
+  b-margin   n= 460 A0=0.893 s=0.359 Acc(m)=0.687 Acc(rnd)=0.611 Acc(sig)=0.630 Acc(orc)=0.748 | H_rate=-5.7pt [-9.1,-1.7] U=+3.94 [-36.30,+30.98] | thr held-out: policy 0.904 keep-all 0.904 model 0.699
+[i_qwen3_8b | counter]
+  conf       n= 361 A0=0.936 s=0.467 Acc(m)=0.552 Acc(rnd)=0.529 Acc(sig)=0.547 Acc(orc)=0.597 | H_rate=-0.5pt [-2.9,+1.8] U=+1.31 [-4.08,+11.40] | thr held-out: policy 0.953 keep-all 0.953 model 0.551
+  b-margin   n= 361 A0=0.936 s=0.467 Acc(m)=0.552 Acc(rnd)=0.529 Acc(sig)=0.536 Acc(orc)=0.597 | H_rate=-1.6pt [-4.9,+1.0] U=+3.33 [-18.10,+22.61] | thr held-out: policy 0.953 keep-all 0.953 model 0.551
+[i_qwen3_8b | weak]
+  conf       n= 357 A0=0.938 s=0.255 Acc(m)=0.706 Acc(rnd)=0.715 Acc(sig)=0.733 Acc(orc)=0.807 | H_rate=+2.7pt [+0.7,+5.2] U=-0.49 [-7.86,+6.98] | thr held-out: policy 0.958 keep-all 0.958 model 0.716
+  b-margin   n= 357 A0=0.938 s=0.255 Acc(m)=0.706 Acc(rnd)=0.715 Acc(sig)=0.711 Acc(orc)=0.807 | H_rate=+0.6pt [-2.8,+3.4] U=+2.65 [-11.68,+14.06] | thr held-out: policy 0.958 keep-all 0.958 model 0.716
+[i_qwen7b | counter]
+  conf       n= 454 A0=0.870 s=0.839 Acc(m)=0.274 Acc(rnd)=0.249 Acc(sig)=0.274 Acc(orc)=0.291 | H_rate=-0.1pt [-1.4,+1.2] U=+1.03 [+0.56,+1.91] | thr held-out: policy 0.889 keep-all 0.898 model 0.250
+  P(True)    n= 455 A0=0.870 s=0.839 Acc(m)=0.274 Acc(rnd)=0.249 Acc(sig)=0.277 Acc(orc)=0.291 | H_rate=+0.3pt [-0.8,+1.4] U=+0.88 [+0.53,+1.44] | thr held-out: policy 0.899 keep-all 0.899 model 0.248
+  b-margin   n= 455 A0=0.870 s=0.839 Acc(m)=0.274 Acc(rnd)=0.249 Acc(sig)=0.260 Acc(orc)=0.291 | H_rate=-1.4pt [-3.9,+0.3] U=+2.28 [-22.20,+15.22] | thr held-out: policy 0.899 keep-all 0.899 model 0.248
+[i_qwen7b | weak]
+  conf       n= 454 A0=0.870 s=0.718 Acc(m)=0.368 Acc(rnd)=0.339 Acc(sig)=0.381 Acc(orc)=0.412 | H_rate=+1.3pt [-1.6,+4.2] U=+0.69 [+0.11,+1.55] | thr held-out: policy 0.889 keep-all 0.898 model 0.336
+  P(True)    n= 455 A0=0.870 s=0.719 Acc(m)=0.367 Acc(rnd)=0.338 Acc(sig)=0.383 Acc(orc)=0.411 | H_rate=+1.6pt [-1.2,+4.1] U=+0.64 [+0.10,+1.41] | thr held-out: policy 0.899 keep-all 0.899 model 0.335
+  b-margin   n= 455 A0=0.870 s=0.719 Acc(m)=0.367 Acc(rnd)=0.338 Acc(sig)=0.354 Acc(orc)=0.411 | H_rate=-1.3pt [-4.8,+2.2] U=+1.83 [-13.04,+21.76] | thr held-out: policy 0.899 keep-all 0.899 model 0.335
+[i_r1_7b | counter]
+  conf       n= 121 A0=0.769 s=0.724 Acc(m)=0.464 Acc(rnd)=0.380 Acc(sig)=0.425 Acc(orc)=0.507 | H_rate=-4.0pt [-7.7,-0.2] U=+1.88 [+0.95,+5.38] | thr held-out: policy 0.857 keep-all 0.857 model 0.387
+  b-margin   n= 122 A0=0.770 s=0.725 Acc(m)=0.462 Acc(rnd)=0.378 Acc(sig)=0.315 Acc(orc)=0.505 | H_rate=-14.7pt [-22.6,-6.6] U=-1.32 [-8.70,+5.81] | thr held-out: policy 0.860 keep-all 0.860 model 0.384
+[i_r1_7b | weak]
+  conf       n= 120 A0=0.767 s=0.525 Acc(m)=0.575 Acc(rnd)=0.487 Acc(sig)=0.544 Acc(orc)=0.708 | H_rate=-3.1pt [-11.2,+5.4] U=+1.54 [-0.26,+11.45] | thr held-out: policy 0.854 keep-all 0.854 model 0.500
+  b-margin   n= 121 A0=0.769 s=0.529 Acc(m)=0.570 Acc(rnd)=0.484 Acc(sig)=0.455 Acc(orc)=0.702 | H_rate=-11.6pt [-24.8,-1.7] U=-2.87 [-17.35,+15.69] | thr held-out: policy 0.857 keep-all 0.857 model 0.490
+
+=== (2) SURVEY CHECKPOINTS (results_v16/h_*; hard bank; own elicited answer + stated confidence visible; one sourced counter) ===
+[h_llama1b] insufficient counter trials (24)
+[h_llama3b] counter trials=378 switch_other share=0.090 actual post-counter acc (strict)=0.442
+  conf       n= 377 A0=0.735 s=0.761 Acc(m)=0.467 Acc(rnd)=0.377 Acc(sig)=0.394 Acc(orc)=0.504 | H_rate=-7.3pt [-10.6,-4.1] U=+5.32 [-30.34,+41.69] | thr held-out: policy 0.687 keep-all 0.687 model 0.451
+  conf_ph    n= 378 A0=0.735 s=0.759 Acc(m)=0.468 Acc(rnd)=0.378 Acc(sig)=0.382 Acc(orc)=0.505 | H_rate=-8.6pt [-11.6,-5.4] U=+20.33 [-156.02,+130.15] | thr held-out: policy 0.565 keep-all 0.687 model 0.451
+  P(True)    n= 378 A0=0.735 s=0.759 Acc(m)=0.468 Acc(rnd)=0.378 Acc(sig)=0.389 Acc(orc)=0.505 | H_rate=-7.9pt [-11.7,-3.2] U=+8.23 [-58.86,+54.27] | thr held-out: policy 0.687 keep-all 0.687 model 0.451
+[h_llama8b] counter trials=576 switch_other share=0.040 actual post-counter acc (strict)=0.497
+  conf       n= 575 A0=0.812 s=0.652 Acc(m)=0.501 Acc(rnd)=0.405 Acc(sig)=0.458 Acc(orc)=0.536 | H_rate=-4.3pt [-6.8,-2.0] U=+1.81 [+1.32,+2.69] | thr held-out: policy 0.738 keep-all 0.756 model 0.577
+  conf_ph    n= 576 A0=0.812 s=0.653 Acc(m)=0.500 Acc(rnd)=0.405 Acc(sig)=0.429 Acc(orc)=0.535 | H_rate=-7.1pt [-9.7,-4.7] U=+3.91 [+2.43,+8.25] | thr held-out: policy 0.756 keep-all 0.756 model 0.577
+  P(True)    n= 576 A0=0.812 s=0.653 Acc(m)=0.500 Acc(rnd)=0.405 Acc(sig)=0.403 Acc(orc)=0.535 | H_rate=-9.7pt [-13.6,-6.6] U=-55.00 [-105.19,+89.56] | thr held-out: policy 0.756 keep-all 0.756 model 0.577
+[h_mistral] counter trials=805 switch_other share=0.102 actual post-counter acc (strict)=0.544
+  conf       n= 805 A0=0.694 s=0.271 Acc(m)=0.560 Acc(rnd)=0.589 Acc(sig)=0.564 Acc(orc)=0.965 | H_rate=+0.4pt [-3.0,+3.9] U=+1.15 [-0.27,+6.05] | thr held-out: policy 0.718 keep-all 0.718 model 0.502
+  conf_ph    n= 800 A0=0.694 s=0.271 Acc(m)=0.560 Acc(rnd)=0.589 Acc(sig)=0.585 Acc(orc)=0.965 | H_rate=+2.5pt [-0.9,+6.0] U=+8.43 [-32.39,+21.66] | thr held-out: policy 0.704 keep-all 0.717 model 0.504
+  P(True)    n= 805 A0=0.694 s=0.271 Acc(m)=0.560 Acc(rnd)=0.589 Acc(sig)=0.565 Acc(orc)=0.965 | H_rate=+0.5pt [-3.6,+4.7] U=+1.21 [-7.05,+9.82] | thr held-out: policy 0.718 keep-all 0.718 model 0.502
+[h_olmo_dpo] counter trials=428 switch_other share=0.159 actual post-counter acc (strict)=0.547
+  conf       n= 352 A0=0.824 s=0.537 Acc(m)=0.577 Acc(rnd)=0.476 Acc(sig)=0.509 Acc(orc)=0.639 | H_rate=-6.7pt [-10.8,-2.8] U=+3.04 [+1.49,+13.40] | thr held-out: policy 0.789 keep-all 0.789 model 0.578
+  conf_ph    n= 428 A0=0.815 s=0.542 Acc(m)=0.563 Acc(rnd)=0.473 Acc(sig)=0.491 Acc(orc)=0.643 | H_rate=-7.2pt [-11.0,-4.1] U=+5.04 [-18.96,+40.55] | thr held-out: policy 0.785 keep-all 0.785 model 0.562
+  P(True)    n= 428 A0=0.815 s=0.542 Acc(m)=0.563 Acc(rnd)=0.473 Acc(sig)=0.409 Acc(orc)=0.643 | H_rate=-15.4pt [-20.6,-10.3] U=-1.39 [-3.35,-0.71] | thr held-out: policy 0.785 keep-all 0.785 model 0.562
+[h_olmo_rlvr] counter trials=471 switch_other share=0.134 actual post-counter acc (strict)=0.567
+  conf       n= 385 A0=0.784 s=0.553 Acc(m)=0.600 Acc(rnd)=0.470 Acc(sig)=0.473 Acc(orc)=0.662 | H_rate=-12.7pt [-17.2,-8.3] U=+36.77 [-168.46,+118.26] | thr held-out: policy 0.756 keep-all 0.756 model 0.633
+  conf_ph    n= 471 A0=0.769 s=0.552 Acc(m)=0.594 Acc(rnd)=0.472 Acc(sig)=0.477 Acc(orc)=0.679 | H_rate=-11.8pt [-15.6,-8.1] U=+27.29 [-153.86,+186.96] | thr held-out: policy 0.746 keep-all 0.743 model 0.619
+  P(True)    n= 471 A0=0.769 s=0.552 Acc(m)=0.594 Acc(rnd)=0.472 Acc(sig)=0.433 Acc(orc)=0.679 | H_rate=-16.1pt [-21.7,-11.0] U=-3.14 [-18.50,+7.42] | thr held-out: policy 0.743 keep-all 0.743 model 0.619
+[h_olmo_sft] counter trials=462 switch_other share=0.110 actual post-counter acc (strict)=0.502
+  conf       n= 229 A0=0.668 s=0.616 Acc(m)=0.550 Acc(rnd)=0.461 Acc(sig)=0.461 Acc(orc)=0.716 | H_rate=-8.9pt [-15.2,-2.9] U=+224.41 [-79.25,+139.66] | thr held-out: policy 0.677 keep-all 0.677 model 0.479
+  conf_ph    n= 456 A0=0.629 s=0.601 Acc(m)=0.555 Acc(rnd)=0.474 Acc(sig)=0.458 Acc(orc)=0.770 | H_rate=-9.6pt [-13.6,-5.2] U=-5.20 [-50.68,+12.08] | thr held-out: policy 0.635 keep-all 0.635 model 0.537
+  P(True)    n= 462 A0=0.630 s=0.600 Acc(m)=0.554 Acc(rnd)=0.474 Acc(sig)=0.494 Acc(orc)=0.771 | H_rate=-6.1pt [-13.0,-0.9] U=+4.13 [-40.09,+42.50] | thr held-out: policy 0.623 keep-all 0.632 model 0.534
+[h_phi35] counter trials=702 switch_other share=0.157 actual post-counter acc (strict)=0.640
+  conf       n= 701 A0=0.720 s=0.484 Acc(m)=0.685 Acc(rnd)=0.507 Acc(sig)=0.544 Acc(orc)=0.796 | H_rate=-14.1pt [-18.0,-10.4] U=+4.86 [+2.81,+14.18] | thr held-out: policy 0.711 keep-all 0.698 model 0.680
+  conf_ph    n= 702 A0=0.721 s=0.483 Acc(m)=0.685 Acc(rnd)=0.508 Acc(sig)=0.531 Acc(orc)=0.796 | H_rate=-15.4pt [-19.7,-11.3] U=+7.64 [-39.67,+79.80] | thr held-out: policy 0.698 keep-all 0.698 model 0.680
+  P(True)    n= 702 A0=0.721 s=0.483 Acc(m)=0.685 Acc(rnd)=0.508 Acc(sig)=0.554 Acc(orc)=0.796 | H_rate=-13.1pt [-17.1,-8.5] U=+3.81 [+2.09,+11.64] | thr held-out: policy 0.698 keep-all 0.698 model 0.680
+[h_qwen05] counter trials=388 switch_other share=0.013 actual post-counter acc (strict)=0.451
+  conf       n= 265 A0=0.509 s=0.921 Acc(m)=0.472 Acc(rnd)=0.492 Acc(sig)=0.500 Acc(orc)=0.570 | H_rate=+2.8pt [-0.8,+6.4] U=-2.70 [-29.82,+34.75] | thr held-out: policy 0.500 keep-all 0.566 model 0.387
+  conf_ph    n= 388 A0=0.531 s=0.925 Acc(m)=0.456 Acc(rnd)=0.474 Acc(sig)=0.452 Acc(orc)=0.544 | H_rate=-0.4pt [-3.4,+2.6] U=+0.82 [-0.97,+4.42] | thr held-out: policy 0.507 keep-all 0.569 model 0.424
+  P(True)    n= 388 A0=0.531 s=0.925 Acc(m)=0.456 Acc(rnd)=0.474 Acc(sig)=0.477 Acc(orc)=0.544 | H_rate=+2.1pt [-1.5,+5.7] U=-5.63 [-18.32,+20.08] | thr held-out: policy 0.549 keep-all 0.569 model 0.424
+[h_qwen14b] counter trials=601 switch_other share=0.013 actual post-counter acc (strict)=0.509
+  conf       n= 596 A0=0.906 s=0.550 Acc(m)=0.507 Acc(rnd)=0.459 Acc(sig)=0.496 Acc(orc)=0.544 | H_rate=-1.1pt [-3.0,+1.0] U=+1.29 [+0.75,+2.42] | thr held-out: policy 0.876 keep-all 0.876 model 0.530
+  conf_ph    n= 601 A0=0.905 s=0.549 Acc(m)=0.509 Acc(rnd)=0.460 Acc(sig)=0.485 Acc(orc)=0.546 | H_rate=-2.4pt [-4.8,-0.2] U=+1.96 [+0.90,+7.18] | thr held-out: policy 0.877 keep-all 0.877 model 0.528
+  P(True)    n= 601 A0=0.905 s=0.549 Acc(m)=0.509 Acc(rnd)=0.460 Acc(sig)=0.496 Acc(orc)=0.546 | H_rate=-1.3pt [-4.0,+1.7] U=+1.37 [+0.67,+3.66] | thr held-out: policy 0.861 keep-all 0.877 model 0.528
+[h_qwen15] counter trials=183 switch_other share=0.011 actual post-counter acc (strict)=0.443
+  conf       n= 183 A0=0.585 s=0.770 Acc(m)=0.448 Acc(rnd)=0.454 Acc(sig)=0.453 Acc(orc)=0.645 | H_rate=+0.5pt [-5.1,+6.8] U=+4.02 [-73.36,+85.91] | thr held-out: policy 0.595 keep-all 0.595 model 0.456
+  conf_ph    n= 183 A0=0.585 s=0.770 Acc(m)=0.448 Acc(rnd)=0.454 Acc(sig)=0.453 Acc(orc)=0.645 | H_rate=+0.5pt [-5.3,+6.3] U=+4.02 [-78.97,+95.83] | thr held-out: policy 0.595 keep-all 0.595 model 0.456
+  P(True)    n= 183 A0=0.585 s=0.770 Acc(m)=0.448 Acc(rnd)=0.454 Acc(sig)=0.470 Acc(orc)=0.645 | H_rate=+2.2pt [-6.6,+9.8] U=-0.39 [-8.38,+12.73] | thr held-out: policy 0.544 keep-all 0.595 model 0.456
+[h_qwen32b] counter trials=610 switch_other share=0.007 actual post-counter acc (strict)=0.692
+  conf       n= 603 A0=0.915 s=0.357 Acc(m)=0.688 Acc(rnd)=0.619 Acc(sig)=0.674 Acc(orc)=0.728 | H_rate=-1.4pt [-3.5,+0.4] U=+1.26 [+0.93,+1.88] | thr held-out: policy 0.901 keep-all 0.901 model 0.663
+  conf_ph    n= 610 A0=0.915 s=0.354 Acc(m)=0.692 Acc(rnd)=0.621 Acc(sig)=0.652 Acc(orc)=0.731 | H_rate=-4.0pt [-6.6,-1.5] U=+2.30 [+1.32,+6.73] | thr held-out: policy 0.906 keep-all 0.901 model 0.663
+  P(True)    n= 610 A0=0.915 s=0.354 Acc(m)=0.692 Acc(rnd)=0.621 Acc(sig)=0.656 Acc(orc)=0.731 | H_rate=-3.6pt [-6.6,-1.0] U=+2.04 [+1.22,+5.48] | thr held-out: policy 0.901 keep-all 0.901 model 0.663
+[h_qwen3b] counter trials=265 switch_other share=0.045 actual post-counter acc (strict)=0.457
+  conf       n= 262 A0=0.832 s=0.645 Acc(m)=0.477 Acc(rnd)=0.404 Acc(sig)=0.429 Acc(orc)=0.523 | H_rate=-4.8pt [-8.5,-0.9] U=+2.93 [+1.08,+13.96] | thr held-out: policy 0.712 keep-all 0.712 model 0.519
+  conf_ph    n= 265 A0=0.830 s=0.649 Acc(m)=0.475 Acc(rnd)=0.402 Acc(sig)=0.400 Acc(orc)=0.521 | H_rate=-7.6pt [-11.1,-3.9] U=-40.46 [-182.23,-16.04] | thr held-out: policy 0.717 keep-all 0.717 model 0.509
+  P(True)    n= 265 A0=0.830 s=0.649 Acc(m)=0.475 Acc(rnd)=0.402 Acc(sig)=0.415 Acc(orc)=0.521 | H_rate=-6.0pt [-11.3,-0.8] U=+5.46 [-49.67,+51.02] | thr held-out: policy 0.717 keep-all 0.717 model 0.509
+[h_qwen7b] counter trials=596 switch_other share=0.042 actual post-counter acc (strict)=0.517
+  conf       n= 589 A0=0.857 s=0.601 Acc(m)=0.521 Acc(rnd)=0.428 Acc(sig)=0.467 Acc(orc)=0.542 | H_rate=-5.4pt [-7.5,-3.1] U=+2.37 [+1.65,+3.87] | thr held-out: policy 0.817 keep-all 0.817 model 0.549
+  conf_ph    n= 596 A0=0.859 s=0.602 Acc(m)=0.518 Acc(rnd)=0.427 Acc(sig)=0.446 Acc(orc)=0.539 | H_rate=-7.2pt [-9.3,-5.0] U=+4.65 [+2.90,+10.61] | thr held-out: policy 0.818 keep-all 0.818 model 0.550
+  P(True)    n= 596 A0=0.859 s=0.602 Acc(m)=0.518 Acc(rnd)=0.427 Acc(sig)=0.451 Acc(orc)=0.539 | H_rate=-6.7pt [-10.4,-3.7] U=+3.70 [-34.70,+32.94] | thr held-out: policy 0.806 keep-all 0.818 model 0.550
+[h_tulu_dpo] counter trials=652 switch_other share=0.026 actual post-counter acc (strict)=0.643
+  conf       n= 650 A0=0.757 s=0.442 Acc(m)=0.651 Acc(rnd)=0.530 Acc(sig)=0.567 Acc(orc)=0.802 | H_rate=-8.3pt [-12.4,-4.0] U=+3.24 [+1.71,+9.27] | thr held-out: policy 0.686 keep-all 0.686 model 0.665
+  conf_ph    n= 652 A0=0.758 s=0.442 Acc(m)=0.650 Acc(rnd)=0.530 Acc(sig)=0.539 Acc(orc)=0.801 | H_rate=-11.1pt [-15.3,-6.8] U=+13.54 [-118.33,+99.27] | thr held-out: policy 0.687 keep-all 0.687 model 0.666
+  P(True)    n= 652 A0=0.758 s=0.442 Acc(m)=0.650 Acc(rnd)=0.530 Acc(sig)=0.552 Acc(orc)=0.801 | H_rate=-9.8pt [-14.4,-4.9] U=+5.44 [-60.69,+48.77] | thr held-out: policy 0.687 keep-all 0.687 model 0.666
+[h_tulu_rlvr] counter trials=708 switch_other share=0.023 actual post-counter acc (strict)=0.645
+  conf       n= 707 A0=0.716 s=0.458 Acc(m)=0.653 Acc(rnd)=0.518 Acc(sig)=0.536 Acc(orc)=0.826 | H_rate=-11.8pt [-15.6,-8.1] U=+7.55 [-10.32,+40.76] | thr held-out: policy 0.661 keep-all 0.661 model 0.692
+  conf_ph    n= 708 A0=0.716 s=0.459 Acc(m)=0.653 Acc(rnd)=0.518 Acc(sig)=0.515 Acc(orc)=0.825 | H_rate=-13.7pt [-17.4,-9.8] U=-53.10 [-224.60,+175.28] | thr held-out: policy 0.662 keep-all 0.662 model 0.690
+  P(True)    n= 708 A0=0.716 s=0.459 Acc(m)=0.653 Acc(rnd)=0.518 Acc(sig)=0.523 Acc(orc)=0.825 | H_rate=-13.0pt [-17.8,-8.8] U=+27.54 [-136.88,+118.19] | thr held-out: policy 0.662 keep-all 0.662 model 0.690
+[h_tulu_sft] counter trials=829 switch_other share=0.034 actual post-counter acc (strict)=0.568
+  conf       n= 827 A0=0.641 s=0.615 Acc(m)=0.584 Acc(rnd)=0.467 Acc(sig)=0.469 Acc(orc)=0.744 | H_rate=-11.5pt [-14.4,-8.6] U=+83.64 [-726.77,+546.65] | thr held-out: policy 0.632 keep-all 0.632 model 0.598
+  conf_ph    n= 829 A0=0.639 s=0.615 Acc(m)=0.584 Acc(rnd)=0.468 Acc(sig)=0.465 Acc(orc)=0.745 | H_rate=-11.8pt [-14.8,-8.8] U=-45.72 [-271.38,+197.31] | thr held-out: policy 0.629 keep-all 0.629 model 0.598
+  P(True)    n= 829 A0=0.639 s=0.615 Acc(m)=0.584 Acc(rnd)=0.468 Acc(sig)=0.485 Acc(orc)=0.745 | H_rate=-9.9pt [-14.2,-6.0] U=+6.81 [-74.60,+63.98] | thr held-out: policy 0.519 keep-all 0.629 model 0.598
+[h_zephyr_dpo] counter trials=491 switch_other share=0.189 actual post-counter acc (strict)=0.491
+  conf       n= 490 A0=0.684 s=0.651 Acc(m)=0.555 Acc(rnd)=0.445 Acc(sig)=0.444 Acc(orc)=0.665 | H_rate=-11.1pt [-14.8,-7.6] U=-846.18 [-349.00,+286.78] | thr held-out: policy 0.696 keep-all 0.696 model 0.568
+  conf_ph    n= 491 A0=0.682 s=0.652 Acc(m)=0.556 Acc(rnd)=0.445 Acc(sig)=0.446 Acc(orc)=0.666 | H_rate=-11.0pt [-14.3,-7.5] U=+126.52 [-623.23,+598.66] | thr held-out: policy 0.693 keep-all 0.693 model 0.570
+  P(True)    n= 491 A0=0.682 s=0.652 Acc(m)=0.556 Acc(rnd)=0.445 Acc(sig)=0.450 Acc(orc)=0.666 | H_rate=-10.6pt [-15.5,-4.9] U=+20.55 [-74.26,+79.13] | thr held-out: policy 0.654 keep-all 0.693 model 0.570
+[h_zephyr_sft] counter trials=861 switch_other share=0.012 actual post-counter acc (strict)=0.461
+  conf       n= 861 A0=0.609 s=0.868 Acc(m)=0.466 Acc(rnd)=0.420 Acc(sig)=0.417 Acc(orc)=0.524 | H_rate=-4.9pt [-6.9,-3.0] U=-14.03 [-143.40,+110.66] | thr held-out: policy 0.630 keep-all 0.630 model 0.504
+  conf_ph    n= 861 A0=0.609 s=0.868 Acc(m)=0.466 Acc(rnd)=0.420 Acc(sig)=0.419 Acc(orc)=0.524 | H_rate=-4.7pt [-6.7,-2.6] U=-27.83 [-312.21,+303.22] | thr held-out: policy 0.630 keep-all 0.630 model 0.504
+  P(True)    n= 861 A0=0.609 s=0.868 Acc(m)=0.466 Acc(rnd)=0.420 Acc(sig)=0.438 Acc(orc)=0.524 | H_rate=-2.8pt [-5.6,+0.5] U=+2.57 [-10.23,+19.72] | thr held-out: policy 0.588 keep-all 0.630 model 0.504
+
+=== SUMMARY ===
+survey|h_          conf     k=18  U median +2.98 range [-846.18,+224.41]  H_rate median -6.1pt range [-14.1,+2.8]
+survey|h_          conf_ph  k=18  U median +3.96 range [-53.10,+126.52]  H_rate median -7.4pt range [-15.4,+2.5]
+survey|h_          P(True)  k=18  U median +3.14 range [-55.00,+27.54]  H_rate median -7.3pt range [-16.1,+2.2]
+ident counter  conf     k=6  U median +1.59 range [+1.03,+5.72]  H_rate median -1.2pt range [-4.0,-0.1]
+ident counter  P(True)  k=4  U median +1.03 range [+0.88,+1.12]  H_rate median -0.0pt range [-0.4,+0.3]
+ident counter  b-margin k=6  U median +2.10 range [-1.54,+3.44]  H_rate median -2.0pt range [-14.7,-1.4]
+ident weak     conf     k=6  U median +0.96 range [-0.49,+1.76]  H_rate median +0.2pt range [-3.2,+3.1]
+ident weak     P(True)  k=4  U median +0.82 range [+0.63,+1.06]  H_rate median +0.8pt range [-0.4,+1.9]
+ident weak     b-margin k=6  U median +2.24 range [-43.76,+4.07]  H_rate median -3.3pt range [-11.6,+0.6]
+
+Qwen2.5 ladder (survey, verbal conf):
+  h_qwen05   n= 265 U=-2.70 [-29.82,+34.75]  H_rate=+2.8pt  s=0.92 A0=0.51
+  h_qwen15   n= 183 U=+4.02 [-73.36,+85.91]  H_rate=+0.5pt  s=0.77 A0=0.58
+  h_qwen3b   n= 262 U=+2.93 [+1.08,+13.96]  H_rate=-4.8pt  s=0.65 A0=0.83
+  h_qwen7b   n= 589 U=+2.37 [+1.65,+3.87]  H_rate=-5.4pt  s=0.60 A0=0.86
+  h_qwen14b  n= 596 U=+1.29 [+0.75,+2.42]  H_rate=-1.1pt  s=0.55 A0=0.91
+  h_qwen32b  n= 603 U=+1.26 [+0.93,+1.88]  H_rate=-1.4pt  s=0.36 A0=0.92
+  h_qwen72b  missing

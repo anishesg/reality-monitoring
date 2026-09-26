@@ -1,0 +1,112 @@
+===== base  n=918  initial acc=0.852
+  none   acc 0.236   oracle acc 0.235
+  syn target 0.50  realized AUROC 0.469  acc 0.235  best-possible 0.852  keep-all 0.852  efficiency +nan
+  syn target 0.60  realized AUROC 0.598  acc 0.234  best-possible 0.852  keep-all 0.852  efficiency +nan
+  syn target 0.70  realized AUROC 0.680  acc 0.237  best-possible 0.852  keep-all 0.852  efficiency +nan
+  syn target 0.80  realized AUROC 0.809  acc 0.234  best-possible 0.865  keep-all 0.852  efficiency +nan
+  syn target 0.90  realized AUROC 0.891  acc 0.238  best-possible 0.894  keep-all 0.852  efficiency -14.64
+  syn target 0.95  realized AUROC 0.946  acc 0.235  best-possible 0.927  keep-all 0.852  efficiency -8.21
+  syn target 0.99  realized AUROC 0.993  acc 0.237  best-possible 0.969  keep-all 0.852  efficiency -5.25
+  real verbal  AUROC 0.636  acc 0.237 [0.212,0.264]  curve-predicted 0.235
+  real ptrue   AUROC 0.587  acc 0.234 [0.208,0.264]  curve-predicted 0.234
+  real belief  AUROC 0.547  acc 0.241 [0.215,0.270]  curve-predicted 0.234
+  real letter  AUROC 0.798  acc 0.234 [0.208,0.265]  curve-predicted 0.234
+  synthetic slope: +0.004 accuracy per unit AUROC (0.5->1.0 span +0.002)
+===== own_s0  n=935  initial acc=0.743
+  none   acc 0.744   oracle acc 0.918
+  syn target 0.50  realized AUROC 0.512  acc 0.746  best-possible 0.743  keep-all 0.743  efficiency +nan
+  syn target 0.60  realized AUROC 0.630  acc 0.749  best-possible 0.744  keep-all 0.743  efficiency +nan
+  syn target 0.70  realized AUROC 0.708  acc 0.761  best-possible 0.754  keep-all 0.743  efficiency +nan
+  syn target 0.80  realized AUROC 0.777  acc 0.782  best-possible 0.776  keep-all 0.743  efficiency +1.18
+  syn target 0.90  realized AUROC 0.905  acc 0.827  best-possible 0.857  keep-all 0.743  efficiency +0.73
+  syn target 0.95  realized AUROC 0.941  acc 0.849  best-possible 0.889  keep-all 0.743  efficiency +0.73
+  syn target 0.99  realized AUROC 0.988  acc 0.891  best-possible 0.957  keep-all 0.743  efficiency +0.69
+  real verbal  AUROC 0.534  acc 0.745 [0.717,0.773]  curve-predicted 0.746
+  real ptrue   AUROC 0.684  acc 0.750 [0.722,0.778]  curve-predicted 0.758
+  real belief  AUROC 0.531  acc 0.750 [0.722,0.776]  curve-predicted 0.746
+  real letter  AUROC 0.834  acc 0.788 [0.761,0.814]  curve-predicted 0.802
+  synthetic slope: +0.299 accuracy per unit AUROC (0.5->1.0 span +0.149)
+===== own_s1  n=925  initial acc=0.763
+  none   acc 0.751   oracle acc 0.968
+  syn target 0.50  realized AUROC 0.499  acc 0.768  best-possible 0.763  keep-all 0.763  efficiency +nan
+  syn target 0.60  realized AUROC 0.590  acc 0.767  best-possible 0.764  keep-all 0.763  efficiency +nan
+  syn target 0.70  realized AUROC 0.680  acc 0.776  best-possible 0.769  keep-all 0.763  efficiency +nan
+  syn target 0.80  realized AUROC 0.783  acc 0.817  best-possible 0.797  keep-all 0.763  efficiency +1.59
+  syn target 0.90  realized AUROC 0.891  acc 0.857  best-possible 0.864  keep-all 0.763  efficiency +0.93
+  syn target 0.95  realized AUROC 0.941  acc 0.881  best-possible 0.890  keep-all 0.763  efficiency +0.93
+  syn target 0.99  realized AUROC 0.993  acc 0.940  best-possible 0.965  keep-all 0.763  efficiency +0.88
+  real verbal  AUROC 0.524  acc 0.767 [0.740,0.795]  curve-predicted 0.767
+  real ptrue   AUROC 0.677  acc 0.766 [0.739,0.792]  curve-predicted 0.776
+  real belief  AUROC 0.512  acc 0.765 [0.739,0.791]  curve-predicted 0.767
+  real letter  AUROC 0.832  acc 0.796 [0.770,0.822]  curve-predicted 0.835
+  synthetic slope: +0.334 accuracy per unit AUROC (0.5->1.0 span +0.167)
+===== own_s2  n=556  initial acc=0.745
+  none   acc 0.516   oracle acc 0.865
+  syn target 0.50  realized AUROC 0.470  acc 0.683  best-possible 0.745  keep-all 0.745  efficiency +nan
+  syn target 0.60  realized AUROC 0.582  acc 0.689  best-possible 0.746  keep-all 0.745  efficiency +nan
+  syn target 0.70  realized AUROC 0.674  acc 0.712  best-possible 0.750  keep-all 0.745  efficiency +nan
+  syn target 0.80  realized AUROC 0.772  acc 0.733  best-possible 0.781  keep-all 0.745  efficiency -0.33
+  syn target 0.90  realized AUROC 0.886  acc 0.790  best-possible 0.851  keep-all 0.745  efficiency +0.42
+  syn target 0.95  realized AUROC 0.941  acc 0.834  best-possible 0.893  keep-all 0.745  efficiency +0.60
+  syn target 0.99  realized AUROC 0.992  acc 0.870  best-possible 0.960  keep-all 0.745  efficiency +0.58
+  real verbal  AUROC 0.575  acc 0.679 [0.637,0.720]  curve-predicted 0.689
+  real ptrue   AUROC 0.656  acc 0.692 [0.653,0.730]  curve-predicted 0.708
+  real belief  AUROC 0.577  acc 0.674 [0.635,0.712]  curve-predicted 0.689
+  real letter  AUROC 0.867  acc 0.736 [0.698,0.770]  curve-predicted 0.780
+  synthetic slope: +0.359 accuracy per unit AUROC (0.5->1.0 span +0.180)
+===== rule_s0  n=909  initial acc=0.744
+  none   acc 0.553   oracle acc 0.997
+  syn target 0.50  realized AUROC 0.505  acc 0.743  best-possible 0.744  keep-all 0.744  efficiency +nan
+  syn target 0.60  realized AUROC 0.601  acc 0.743  best-possible 0.744  keep-all 0.744  efficiency +nan
+  syn target 0.70  realized AUROC 0.684  acc 0.746  best-possible 0.744  keep-all 0.744  efficiency +nan
+  syn target 0.80  realized AUROC 0.795  acc 0.781  best-possible 0.784  keep-all 0.744  efficiency +0.91
+  syn target 0.90  realized AUROC 0.901  acc 0.848  best-possible 0.850  keep-all 0.744  efficiency +0.98
+  syn target 0.95  realized AUROC 0.936  acc 0.878  best-possible 0.879  keep-all 0.744  efficiency +0.99
+  syn target 0.99  realized AUROC 0.992  acc 0.959  best-possible 0.961  keep-all 0.744  efficiency +0.99
+  real verbal  AUROC 0.496  acc 0.729 [0.695,0.762]  curve-predicted 0.743
+  real ptrue   AUROC 0.652  acc 0.739 [0.710,0.768]  curve-predicted 0.745
+  real belief  AUROC 0.574  acc 0.737 [0.707,0.766]  curve-predicted 0.743
+  real letter  AUROC 0.864  acc 0.807 [0.781,0.832]  curve-predicted 0.824
+  synthetic slope: +0.415 accuracy per unit AUROC (0.5->1.0 span +0.207)
+===== rule_s1  n=919  initial acc=0.732
+  none   acc 0.487   oracle acc 0.990
+  syn target 0.50  realized AUROC 0.535  acc 0.732  best-possible 0.732  keep-all 0.732  efficiency +nan
+  syn target 0.60  realized AUROC 0.599  acc 0.732  best-possible 0.732  keep-all 0.732  efficiency +nan
+  syn target 0.70  realized AUROC 0.715  acc 0.750  best-possible 0.750  keep-all 0.732  efficiency +nan
+  syn target 0.80  realized AUROC 0.786  acc 0.776  best-possible 0.780  keep-all 0.732  efficiency +0.91
+  syn target 0.90  realized AUROC 0.904  acc 0.854  best-possible 0.856  keep-all 0.732  efficiency +0.98
+  syn target 0.95  realized AUROC 0.935  acc 0.880  best-possible 0.882  keep-all 0.732  efficiency +0.99
+  syn target 0.99  realized AUROC 0.991  acc 0.954  best-possible 0.961  keep-all 0.732  efficiency +0.97
+  real verbal  AUROC 0.592  acc 0.680 [0.636,0.723]  curve-predicted 0.732
+  real ptrue   AUROC 0.662  acc 0.734 [0.707,0.763]  curve-predicted 0.742
+  real belief  AUROC 0.554  acc 0.729 [0.701,0.758]  curve-predicted 0.732
+  real letter  AUROC 0.860  acc 0.814 [0.788,0.839]  curve-predicted 0.825
+  synthetic slope: +0.461 accuracy per unit AUROC (0.5->1.0 span +0.231)
+===== rule_s2  n=959  initial acc=0.769
+  none   acc 0.263   oracle acc 0.999
+  syn target 0.50  realized AUROC 0.496  acc 0.769  best-possible 0.769  keep-all 0.769  efficiency +nan
+  syn target 0.60  realized AUROC 0.604  acc 0.769  best-possible 0.769  keep-all 0.769  efficiency +nan
+  syn target 0.70  realized AUROC 0.714  acc 0.775  best-possible 0.776  keep-all 0.769  efficiency +nan
+  syn target 0.80  realized AUROC 0.789  acc 0.798  best-possible 0.796  keep-all 0.769  efficiency +1.10
+  syn target 0.90  realized AUROC 0.890  acc 0.859  best-possible 0.859  keep-all 0.769  efficiency +1.00
+  syn target 0.95  realized AUROC 0.951  acc 0.904  best-possible 0.904  keep-all 0.769  efficiency +1.00
+  syn target 0.99  realized AUROC 0.989  acc 0.959  best-possible 0.962  keep-all 0.769  efficiency +0.99
+  real verbal  AUROC 0.609  acc 0.771 [0.746,0.799]  curve-predicted 0.769
+  real ptrue   AUROC 0.650  acc 0.769 [0.740,0.797]  curve-predicted 0.771
+  real belief  AUROC 0.532  acc 0.769 [0.741,0.795]  curve-predicted 0.769
+  real letter  AUROC 0.828  acc 0.801 [0.777,0.827]  curve-predicted 0.822
+  synthetic slope: +0.372 accuracy per unit AUROC (0.5->1.0 span +0.186)
+===== shuffled_s0  n=992  initial acc=0.770
+  none   acc 0.732   oracle acc 0.760
+  syn target 0.50  realized AUROC 0.537  acc 0.755  best-possible 0.770  keep-all 0.770  efficiency +nan
+  syn target 0.60  realized AUROC 0.575  acc 0.753  best-possible 0.770  keep-all 0.770  efficiency +nan
+  syn target 0.70  realized AUROC 0.702  acc 0.752  best-possible 0.775  keep-all 0.770  efficiency +nan
+  syn target 0.80  realized AUROC 0.792  acc 0.753  best-possible 0.802  keep-all 0.770  efficiency -0.55
+  syn target 0.90  realized AUROC 0.895  acc 0.756  best-possible 0.857  keep-all 0.770  efficiency -0.16
+  syn target 0.95  realized AUROC 0.934  acc 0.758  best-possible 0.895  keep-all 0.770  efficiency -0.10
+  syn target 0.99  realized AUROC 0.990  acc 0.758  best-possible 0.965  keep-all 0.770  efficiency -0.06
+  real verbal  AUROC 0.577  acc 0.732 [0.697,0.768]  curve-predicted 0.753
+  real ptrue   AUROC 0.652  acc 0.758 [0.730,0.784]  curve-predicted 0.752
+  real belief  AUROC 0.541  acc 0.756 [0.728,0.781]  curve-predicted 0.755
+  real letter  AUROC 0.843  acc 0.753 [0.726,0.779]  curve-predicted 0.754
+  synthetic slope: +0.009 accuracy per unit AUROC (0.5->1.0 span +0.005)
