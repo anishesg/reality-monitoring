@@ -25,7 +25,7 @@
 
 \begin{abstract}
 Language models hold increasingly accurate estimates of whether their own answers are correct, yet these estimates have almost no effect on what the models do when a user pushes back. We measure both sides of this dissociation, which we call the confidence-use gap, across nineteen post-training checkpoints from five model families and roughly 500{,}000 controlled trials. Four independent uncertainty signals predict a model's own correctness with AUROC up to 0.74, and the verbalized signal improves with scale, from 0.49 to 0.70 on one ladder. Behavior ignores all of them. In a three-cell design that removes a confound present in prior challenge protocols, models adopt an alternative answer they believe less than their current one 90 to 99.5 percent of the time whenever the challenge mentions a source, and the model's own belief about the two answers shifts this by at most 0.02. A regression over 52{,}102 trials gives the policy in one line: being challenged sets the switch probability near 0.9, the truth of the model's own claim moves it by 0.14, the truth of the alternative by 0.05, and the model's stated confidence by 0.02 per standard deviation. Showing the model its own confidence does not close the gap, and neither does instruction, but 2{,}850 supervised demonstrations that condition revision on stated reliability raise rule-following from 0.50 to 0.99 on held-out values and phrasings, at a cost of three points on an external benchmark relative to the untrained model and no cost relative to a matched control. Scale buys the knowledge; only training buys its use.
-Three machine-checked propositions make the claims exact: only a three-cell protocol identifies the mechanism, a policy that ignores its monitor is strictly suboptimal at a price we compute, and the propagation of a wrong answer through a chain of agents has a closed form that the data follow. \end{abstract}
+Three propositions make the claims exact: only a three-cell protocol identifies the mechanism, a policy that ignores its monitor is strictly suboptimal at a price we compute, and the propagation of a wrong answer through a chain of agents has a closed form that the data follow. \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
@@ -83,14 +83,11 @@ Let a content-free challenge arrive on a two-candidate item, let the reviser's r
 \label{eq:price}
 \end{equation}
 \end{proposition}
-\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\max(r,1-r)$ and the cue-follower $(1-\pi)r+\pi(1-r)$; subtract and take expectations. \qed\ \Cref{prop:price-general} gives the general form and shows that any policy ignoring $r$ is strictly suboptimal. The first term is the value of consulting reliability at all, zero only for a reviser never below even odds; the second is the price of the cue: for a model that is right more often than not, every unit of cue-driven switching on an evidence-free challenge costs $2A-1$ in post-challenge accuracy, and nothing in the challenge can pay for it. For Qwen2.5-7B on the identification bank ($A=0.87$, pressure-cell switch rate $0.63$) the second term alone is $0.47$.
+\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\max(r,1-r)$ and the cue-follower $(1-\pi)r+\pi(1-r)$; subtract and take expectations. \qed\ \Cref{prop:price-general} gives the general form. The first term is the value of consulting reliability at all, zero only for a reviser never below even odds; the second is the price of the cue: for a model that is right more often than not, every unit of cue-driven switching on an evidence-free challenge costs $2A-1$ in post-challenge accuracy, and nothing in the challenge can pay for it. For Qwen2.5-7B on the identification bank ($A=0.87$, pressure-cell switch rate $0.63$) the second term alone is $0.47$.
 
 
 
-\begin{proposition}[Bayesian reviser]\label{prop:bayes}
-Let the challenge carry evidence of likelihood ratio $\ell>0$ for the alternative. A Bayesian reviser with prior reliability $r\in(0,1)$ switches iff $\ell>r/(1-r)$. For every $\ell$ and every $r_{\mathrm{lo}}<r_{\mathrm{hi}}$ whose prior odds bracket $\ell$ it switches at $r_{\mathrm{lo}}$ and holds at $r_{\mathrm{hi}}$, and such a bracketing band exists for every pair $r_{\mathrm{lo}}<r_{\mathrm{hi}}$.
-\end{proposition}
-No evidence strength makes reliability irrelevant, and a content-free challenge ($\ell=1$) reduces to the threshold policy of \cref{prop:price-general}; the best policy that ignores the monitor forgoes exactly the value of the monitor (\cref{prop:voi}). These are the baselines the next section measures against.
+A Bayesian reviser with evidence of any finite strength still consults $r$ on a band of reliabilities (\cref{prop:bayes}), so no strength of a source makes the monitor irrelevant, and the best policy that ignores the monitor forgoes exactly the value of the monitor for the decision (\cref{prop:voi}).
 
 \section{The Controller Ignores It}
 \label{sec:control}
@@ -105,7 +102,7 @@ The fix needs a third cell: challenge a wrong answer with a \emph{different} wro
 \begin{proposition}[Identification]\label{prop:ident}
 Let $\pi(t_{\mathrm{own}},t_{\mathrm{alt}})$ be the switch probability as a function of the truth of the model's claim and of the named alternative; a two-cell protocol observes $\pi(1,0)$ and $\pi(0,1)$ only. (i) A truth-tracker, $\pi=\mathbf{1}[t_{\mathrm{alt}}]$, and a self-doubter, $\pi=\mathbf{1}[\neg t_{\mathrm{own}}]$, are indistinguishable in those two cells and differ by one in the F$\to$F cell $\pi(0,0)$. (ii) For any observed pair $(a,b)\in[0,1]^2$ and any $\delta\in[b-1,b]$ there is a policy with values in $[0,1]$ realising $(a,b)$ whose alternative-truth effect $\pi(0,1)-\pi(0,0)$ equals $\delta$. (iii) The three cells determine both the alternative-truth effect and the own-falsity effect $\pi(0,0)-\pi(1,0)$.
 \end{proposition}
-Proofs are in \cref{app:theory}, machine-checked; (iii) makes the F$\to$F rate a measurement of mechanism.
+Proofs are in \cref{app:theory}; (iii) makes the F$\to$F rate a measurement of mechanism.
 
 \subsection{The cue is the policy}
 
@@ -206,7 +203,7 @@ The dynamics have a closed form (\cref{prop:chain}; proof in \cref{app:lean}, ma
 
 \section{Limitations}
 \label{sec:limits}
-The open-model identification experiments inject claims; the elicited design, with the model's own reasoned answer as the challenged turn, requires an equivalence judge for free-form answers and is left to future work. All experiments are single-challenge, English and factual; the largest model is 14B. The released-checkpoint comparisons are observational. The pre-registered training ladder that would make them causal (\cref{app:ladder}) is the natural next step; under our compute constraints we have not yet run it, and we plan to include it in a future version. The repair is demonstrated at one scale on one family, with rule obedience rather than genuine confidence use.
+The open-model identification experiments inject claims; the elicited design, with the model's own reasoned answer as the challenged turn, requires an equivalence judge for free-form answers and is left to future work. All experiments are single-challenge, English and factual; the largest model is 14B. The released-checkpoint comparisons are observational. The pre-registered training ladder that would make them causal (\cref{app:ladder}) is the natural next step; under our compute constraints we have not yet run it, and we plan to include it in a future version. The repair is demonstrated at one scale on one family, with rule obedience rather than genuine confidence use. The theory characterises the revision decision, its cost and its propagation; it does not derive the policy from training, and the account of where the policy comes from remains a hypothesis (\cref{app:origin}).
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -405,49 +402,26 @@ Our results are consistent with a corpus-statistics account, which we state as a
 \label{app:ladder}
 \Cref{sec:origin} states the corpus-statistics account as a hypothesis and \cref{sec:repair} shows that a targeted rule can be written in; neither shows which training stage installs the cue-following policy, nor whether a reward alone removes it. We pre-registered a training ladder to answer both (predictions and the frozen run list were hashed before any arm was trained; the document is in the supplementary material). Under our compute constraints we have not yet run it; we anticipated it as the natural next step, report the design here so that the predictions are on record, and plan to include the results in a future version. Backbones: OLMo-2-7B-SFT and Tulu-3-8B-SFT, the stage before preference tuning. Arms: A0, the untouched SFT checkpoint; A1, the backbone's own published preference recipe (10k Tulu-3 preference pairs, DPO, released hyperparameters) with nothing about challenges in the data; A2, revision-DPO on post-challenge turns with the correct answer preferred, the same signal through the same optimizer as A3; A3, GRPO with a single reward, post-challenge correctness, so the model is never told to hold or to switch. Evaluation: the challenge battery of \cref{sec:setup} on 450 held-out questions plus MMLU, GSM8K and IFEval, three seeds per arm. Predictions: H1, A1 raises pressure-only abandonment by at least $0.15$ over A0 in both backbones (generic preference tuning installs the cue); H2/H3, A3 retains correct answers at $\geq 0.6$ and accepts valid corrections at $\geq 0.7$ at capability within one point of A0 while A2 does not reach both (a reward on the outcome, not a demonstration, installs the judgment); H5, no arm other than A1 moves capability by more than one point. A pre-registered chain experiment places one A3 agent at position two of a contaminated chain and predicts from \cref{prop:chain} a downstream error reduction of at least $0.40$.
 
-\section{Theory: Statements and Machine-Checked Proofs}
+\section{Theory: Proofs and Further Statements}
 \label{app:theory}
-Every proposition in the paper is formalised in Lean~4 with Mathlib (directory \texttt{lean/} in the supplementary material). \texttt{lake build} completes with no \texttt{sorry}, and every theorem depends only on the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. The formal names are given in \cref{tab:lean}.
-
 \textbf{Setting.} A finite set of items $i$ with weights $w_i\geq 0$, $\sum_i w_i=1$, and calibrated reliabilities $r_i\in[0,1]$ ($\Pr[\text{correct}\mid r]=r$). A reviser that switches with probability $\pi$ on an item of reliability $r$ has expected post-challenge correctness $\mathrm{acc}(r,\pi)=(1-\pi)r+\pi(1-r)$; the Bayesian reviser attains $\max(r,1-r)$. Write $x^{+}=\max(x,0)$ and $A=\sum_i w_i r_i$.
 
 \begin{proposition}[Price of the cue, general form]\label{prop:price-general}
-(i) For every $r$ and $\pi$, $\max(r,1-r)-\mathrm{acc}(r,\pi)=(1-\pi)(1-2r)^{+}+\pi(2r-1)^{+}$. (ii) Hence for a policy that switches with the same $\pi$ on every item, $\sum_i w_i\max(r_i,1-r_i)-\sum_i w_i\,\mathrm{acc}(r_i,\pi)=(1-\pi)\sum_i w_i(1-2r_i)^{+}+\pi\sum_i w_i(2r_i-1)^{+}=\sum_i w_i(1-2r_i)^{+}+\pi(2A-1)$, which is \cref{eq:price}. (iii) If some item with positive weight has $r_i<\tfrac12$ and some other has $r_j>\tfrac12$, this quantity is strictly positive for every $\pi\in[0,1]$: no monitor-insensitive policy is optimal. (iv) The threshold policy, switch iff $r<\tfrac12$, attains $\max(r,1-r)$ pointwise, so its price is zero.
+(i) For every $r$ and $\pi$, $\max(r,1-r)-\mathrm{acc}(r,\pi)=(1-\pi)(1-2r)^{+}+\pi(2r-1)^{+}$. (ii) For a policy that switches with the same $\pi$ on every item, $\sum_i w_i\max(r_i,1-r_i)-\sum_i w_i\,\mathrm{acc}(r_i,\pi)=\sum_i w_i(1-2r_i)^{+}+\pi(2A-1)$, which is \cref{eq:price}. (iii) If some item with positive weight has $r_i<\tfrac12$ and another has $r_j>\tfrac12$, this quantity is strictly positive for every $\pi\in[0,1]$. (iv) The threshold policy, switch iff $r<\tfrac12$, attains $\max(r,1-r)$ pointwise.
 \end{proposition}
-\emph{Proof.} (i) is a case split on $r\leq\tfrac12$; (ii) is linearity of the sum and $(2r-1)^{+}-(1-2r)^{+}=2r-1$; (iii) bounds each sum below by its $i$-th or $j$-th term; (iv) is a case split. All four are the Lean theorems listed in \cref{tab:lean}. \qed
+\emph{Proof.} (i) is a case split on $r\leq\tfrac12$. (ii) is linearity and $(2r-1)^{+}-(1-2r)^{+}=2r-1$. (iii) bounds each of the two sums in (i) below by its $i$-th or $j$-th term. (iv) is a case split. \qed
 
 \begin{proposition}[Value of the monitor]\label{prop:voi}
-Let $V=\sum_i w_i\max(r_i,1-r_i)-\max(A,1-A)$ be what knowing each item's reliability is worth over knowing only the average. Then $V\geq 0$, every monitor-insensitive policy pays at least $V$, and the best one (switch on every item iff $A<\tfrac12$) pays exactly $V$.
+Let $V=\sum_i w_i\max(r_i,1-r_i)-\max(A,1-A)$. Then $V\geq 0$, every policy that switches with the same $\pi$ on every item pays at least $V$ relative to the Bayesian reviser, and the best such policy (switch on every item iff $A<\tfrac12$) pays exactly $V$.
 \end{proposition}
 \emph{Proof.} $\max(r,1-r)=r+(1-2r)^{+}$ pointwise, so $\sum_i w_i\max(r_i,1-r_i)=A+\sum_i w_i(1-2r_i)^{+}$; substitute into \cref{prop:price-general}(ii) and split on $A\gtrless\tfrac12$. Nonnegativity uses $(1-2r)^{+}\geq 1-2r$. \qed
 
-\Cref{prop:bayes} (Bayesian reviser) follows from writing the posterior odds of the alternative as $\ell\,(1-r)/r$; the band statement is \texttt{proposition\_one} and its non-emptiness \texttt{band\_nonempty}. \Cref{prop:ident} (identification) is stated in \cref{sec:ident}; its three parts are the theorems \texttt{two\_cells\_confound}, \texttt{two\_cells\_do\_not\_identify\_prob} and \texttt{three\_cells\_identify}, where a policy is a function $\{0,1\}^2\to\mathbb{R}$ and the cells are its values. \Cref{prop:chain} (chain dynamics) is stated and discussed in \cref{app:lean}.
+\begin{proposition}[Bayesian reviser]\label{prop:bayes}
+Let the challenge carry evidence of likelihood ratio $\ell>0$ for the alternative. A Bayesian reviser with prior reliability $r\in(0,1)$ switches iff $\ell>r/(1-r)$. For every $\ell$ and every $r_{\mathrm{lo}}<r_{\mathrm{hi}}$ whose prior odds bracket $\ell$ it switches at $r_{\mathrm{lo}}$ and holds at $r_{\mathrm{hi}}$, and such a band exists for every pair $r_{\mathrm{lo}}<r_{\mathrm{hi}}$.
+\end{proposition}
+\emph{Proof.} The posterior odds of the alternative are $\ell(1-r)/r$; the switching rule is that they exceed one. Prior odds $r/(1-r)$ are strictly increasing in $r$, so the band between two of them is non-empty. \qed
 
-\begin{table}[h]
-\caption{Formal statements and their Lean theorems (namespace \texttt{RealityMonitoring}).}
-\label{tab:lean}
-\vskip 0.05in
-\centering\small
-\begin{tabular}{lll}
-\toprule
-paper statement & Lean theorem & file \\
-\midrule
-\cref{prop:ident}(i) two cells confound & \texttt{Identification.two\_cells\_confound} & \texttt{Identification.lean} \\
-\cref{prop:ident}(ii) two cells do not identify & \texttt{Identification.two\_cells\_do\_not\_identify\_prob} & \\
-\cref{prop:ident}(iii) three cells identify & \texttt{Identification.three\_cells\_identify} & \\
-\cref{prop:price-general}(i) pointwise price & \texttt{Price.price\_pointwise} & \texttt{Price.lean} \\
-\cref{prop:price-general}(ii) expectation, \cref{eq:price} & \texttt{Price.price\_expect}, \texttt{Price.price\_eq1} & \\
-\cref{prop:price-general}(iii) strict suboptimality & \texttt{Price.constant\_policy\_suboptimal} & \\
-\cref{prop:price-general}(iv) threshold is optimal & \texttt{Price.threshold\_policy\_optimal} & \\
-\cref{prop:voi} value of the monitor & \texttt{Price.sum\_bayes\_eq}, \texttt{Price.price\_ge\_voi}, \texttt{Price.best\_constant\_eq\_voi}, \texttt{Price.voi\_nonneg} & \\
-\cref{prop:bayes} Bayesian reviser & \texttt{switches\_iff}, \texttt{proposition\_one}, \texttt{band\_nonempty} & \texttt{Theory.lean} \\
-\cref{prop:chain} closed form, seed independence & \texttt{closed\_form}, \texttt{seed\_independence} & \texttt{Theory.lean} \\
-\cref{prop:chain} decay, firewall reset, mixture & \texttt{seed\_influence\_decays}, \texttt{firewall\_reset}, \texttt{piInfMixed\_anti} & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{What the theory does and does not license.} \Cref{prop:ident} says that the F$\to$F rates in \cref{tab:cells} measure the mechanism: because F$\to$F equals F$\to$T to within $0.08$ in every model, the alternative-truth effect is at most $0.08$ and the policy is ``switch to whatever is named.'' \Cref{prop:price-general} says that a policy which does not respond to the monitor, which is what \cref{sec:control} measures ($0.007$ per standard deviation of stated confidence), is strictly suboptimal whenever the monitor separates items on both sides of even odds, which \cref{sec:monitor} shows it does (AUROC $0.59$--$0.74$), and it gives the size of the loss ($0.47$ for Qwen2.5-7B under pressure); \cref{prop:voi} identifies that loss, for the best such policy, with the value of information of the monitor, and \cref{prop:bayes} shows that no strength of evidence in the challenge removes the need to consult it. \Cref{prop:chain} turns the measured first hop into a prediction for every later hop, which the agent-chain experiment confirms at 8/8, 6/8 and 8/8 hops. The theory does not derive the value of $\pi$ from training data: the account of where the policy comes from (\cref{app:origin}) is a hypothesis with a pre-registered test (\cref{app:ladder}), not a theorem.
+\Cref{prop:ident} is proved by exhibiting the two policies in (i), the policy $\pi(1,\cdot)=a$, $\pi(0,1)=b$, $\pi(0,0)=b-\delta$ in (ii), and by definition of the two effects in (iii). Every proposition in the paper, including \cref{prop:chain}, is also formalised and checked in Lean~4 with Mathlib; the sources and build log are in the supplementary material.
 
 \section{Chain Dynamics: Closed Form and Machine-Checked Proofs}
 \label{app:lean}

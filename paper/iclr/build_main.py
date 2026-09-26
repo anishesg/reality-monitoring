@@ -30,14 +30,14 @@ _i = body.index("The fix needs a third cell"); _e = body.index("\n\n", _i)
 prop_ident = r"""\begin{proposition}[Identification]\label{prop:ident}
 Let $\pi(t_{\mathrm{own}},t_{\mathrm{alt}})$ be the switch probability as a function of the truth of the model's claim and of the named alternative; a two-cell protocol observes $\pi(1,0)$ and $\pi(0,1)$ only. (i) A truth-tracker, $\pi=\mathbf{1}[t_{\mathrm{alt}}]$, and a self-doubter, $\pi=\mathbf{1}[\neg t_{\mathrm{own}}]$, are indistinguishable in those two cells and differ by one in the F$\to$F cell $\pi(0,0)$. (ii) For any observed pair $(a,b)\in[0,1]^2$ and any $\delta\in[b-1,b]$ there is a policy with values in $[0,1]$ realising $(a,b)$ whose alternative-truth effect $\pi(0,1)-\pi(0,0)$ equals $\delta$. (iii) The three cells determine both the alternative-truth effect and the own-falsity effect $\pi(0,0)-\pi(1,0)$.
 \end{proposition}
-Proofs are in \cref{app:theory}, machine-checked; (iii) makes the F$\to$F rate a measurement of mechanism."""
+Proofs are in \cref{app:theory}; (iii) makes the F$\to$F rate a measurement of mechanism."""
 body = body[:_e] + "\n\n" + prop_ident + body[_e:]
 old_price = "\\paragraph{What ignoring the monitor costs.} The gap has a price that follows from the decision alone. Consider a content-free challenge on a two-candidate item, a reviser whose reliability $r$ is calibrated ($\\Pr[\\text{correct}\\mid r]=r$) with pre-challenge accuracy $A=\\mathbb{E}[r]$, and a policy that switches with probability $\\pi$ independently of $r$, which is what the next section measures. Holding yields expected correctness $r$ and switching $1-r$, so a Bayesian reviser takes $\\max(r,1-r)$ and the cue-follower $(1-\\pi)r+\\pi(1-r)$; subtracting and taking expectations,\n\\begin{equation}"
 assert body.count(old_price) == 1, body.count(old_price)
 body = body.replace(old_price, "\\paragraph{What ignoring the monitor costs.} The gap has a price that follows from the decision alone.\n\\begin{proposition}[Price of the cue]\\label{prop:price}\nLet a content-free challenge arrive on a two-candidate item, let the reviser's reliability $r$ be calibrated ($\\Pr[\\text{correct}\\mid r]=r$) with pre-challenge accuracy $A=\\mathbb{E}[r]$, and let it switch with probability $\\pi$ independently of $r$ (the policy the next section measures). The expected post-challenge accuracy of the Bayesian reviser exceeds that of the cue-follower by\n\\begin{equation}")
 old_tail = "\\label{eq:price}\n\\end{equation}\nThe first term is the value"
 assert body.count(old_tail) == 1, body.count(old_tail)
-body = body.replace(old_tail, "\\label{eq:price}\n\\end{equation}\n\\end{proposition}\n\\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\\max(r,1-r)$ and the cue-follower $(1-\\pi)r+\\pi(1-r)$; subtract and take expectations. \\qed\\ \\Cref{prop:price-general} gives the general form and shows that any policy ignoring $r$ is strictly suboptimal. The first term is the value")
+body = body.replace(old_tail, "\\label{eq:price}\n\\end{equation}\n\\end{proposition}\n\\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\\max(r,1-r)$ and the cue-follower $(1-\\pi)r+\\pi(1-r)$; subtract and take expectations. \\qed\\ \\Cref{prop:price-general} gives the general form. The first term is the value")
 import re as _re
 # reproducibility: no compute hours, no repository specifics; becomes the ICLR "Reproducibility statement" (does not count toward the limit)
 body = _re.sub(r"\\section\*\{Reproducibility\}.*?(?=\Z)", "", body, flags=_re.S)
@@ -55,10 +55,7 @@ appx = appx + controls_app
 # Bayesian reviser proposition after the price discussion; drop the closing sentence of that discussion
 body = body.replace(" \\Cref{eq:price} is what makes the monitor's AUROC in \\Cref{tab:signals} a quantity with a cost rather than a curiosity: the model forgoes it every time it is challenged.", "")
 _k = body.index("\\section{The Controller Ignores It}")
-prop_bayes = r"""\begin{proposition}[Bayesian reviser]\label{prop:bayes}
-Let the challenge carry evidence of likelihood ratio $\ell>0$ for the alternative. A Bayesian reviser with prior reliability $r\in(0,1)$ switches iff $\ell>r/(1-r)$. For every $\ell$ and every $r_{\mathrm{lo}}<r_{\mathrm{hi}}$ whose prior odds bracket $\ell$ it switches at $r_{\mathrm{lo}}$ and holds at $r_{\mathrm{hi}}$, and such a bracketing band exists for every pair $r_{\mathrm{lo}}<r_{\mathrm{hi}}$.
-\end{proposition}
-No evidence strength makes reliability irrelevant, and a content-free challenge ($\ell=1$) reduces to the threshold policy of \cref{prop:price-general}; the best policy that ignores the monitor forgoes exactly the value of the monitor (\cref{prop:voi}). These are the baselines the next section measures against.
+prop_bayes = r"""A Bayesian reviser with evidence of any finite strength still consults $r$ on a band of reliabilities (\cref{prop:bayes}), so no strength of a source makes the monitor irrelevant, and the best policy that ignores the monitor forgoes exactly the value of the monitor for the decision (\cref{prop:voi}).
 
 """
 body = body[:_k] + prop_bayes + body[_k:]
@@ -92,7 +89,7 @@ appx = appx + "\n\\section{The Corpus-Statistics Account in Full}\n\\label{app:o
 i = body.index("\\section{Limitations}"); j = body.index("\\section{Conclusion}")
 body = body[:i] + r'''\section{Limitations}
 \label{sec:limits}
-The open-model identification experiments inject claims; the elicited design is run on the frontier models (\cref{sec:frontier}), and running it on open models requires an equivalence judge for their free-form answers, which we leave to future work. All experiments are single-challenge, English and factual; the largest open model is 14B, and the frontier model is measured in one deterministic pass at low reasoning effort with grading agreement reported in \cref{app:frontier}. The released-checkpoint comparisons are observational. The pre-registered training ladder that would make them causal (\cref{app:ladder}) is the natural next step; under our compute constraints we have not yet run it, and we plan to include it in a future version. The repair is demonstrated at one scale on one family, with rule obedience rather than genuine confidence use.
+The open-model identification experiments inject claims; the elicited design is run on the frontier models (\cref{sec:frontier}), and running it on open models requires an equivalence judge for their free-form answers, which we leave to future work. All experiments are single-challenge, English and factual; the largest open model is 14B, and the frontier model is measured in one deterministic pass at low reasoning effort with grading agreement reported in \cref{app:frontier}. The released-checkpoint comparisons are observational. The pre-registered training ladder that would make them causal (\cref{app:ladder}) is the natural next step; under our compute constraints we have not yet run it, and we plan to include it in a future version. The repair is demonstrated at one scale on one family, with rule obedience rather than genuine confidence use. The theory characterises the revision decision, its cost and its propagation; it does not derive the policy from training, and the account of where the policy comes from remains a hypothesis (\cref{app:origin}).
 
 ''' + body[j:]
 # conclusion: tighter
@@ -130,7 +127,7 @@ Every trial has the same shape: a claim enters as the model's prior assistant tu
 assert "\\begin{figure*}" in body and "\\section{The Monitor Works}" in body
 body = body.replace("\\begin{figure*}", related_short + setup_short + "\\begin{figure*}", 1)  # right after the Introduction
 appx = appx + "\n\\section{Extended Related Work}\n\\label{app:related}\n" + related_full.replace("\\section{Related Work}\n\\label{sec:related}\n", "") + "\n\\section{Setup Details}\n\\label{app:setup}\n" + setup_full.replace("\\section{Experimental Setup}\n\\label{sec:setup}\n", "")
-body = body.replace("\\end{abstract}", "Three machine-checked propositions make the claims exact: only a three-cell protocol identifies the mechanism, a policy that ignores its monitor is strictly suboptimal at a price we compute, and the propagation of a wrong answer through a chain of agents has a closed form that the data follow. \\end{abstract}")
+body = body.replace("\\end{abstract}", "Three propositions make the claims exact: only a three-cell protocol identifies the mechanism, a policy that ignores its monitor is strictly suboptimal at a price we compute, and the propagation of a wrong answer through a chain of agents has a closed form that the data follow. \\end{abstract}")
 if not NF: body = body.replace("\\end{abstract}", "The same structure holds at the frontier: two frontier models from different developers abandon a correct answer a fifth and a tenth as often as a 7B model and use their own confidence, and the source of a challenge, exactly as little; a wrong answer that one agent reasons its way to is passed down a chain of agents at the frontier as reliably as at 7B.\n\\end{abstract}")
 body = body.replace("\\section{Conclusion}\n\\label{sec:conclusion}\n\n", "\\section{Conclusion}\n\\label{sec:conclusion}\n\n")
 body = body.replace("\\section{Two Consequences}", "\\section{Three Consequences}")
@@ -174,49 +171,26 @@ $\pi_{k+1}=\pcw+(\pww-\pcw)\,\pi_k$, hence $\pi_k=\piinf+(\pi_1-\piinf)\lambda^{
 The one-step law is the law of total probability; the closed form follows by induction on $k$. These statements, the decay bound and the firewall reset are formalised and checked in Lean~4 with Mathlib (repository directory \texttt{lean/}, \texttt{lake build} with no \texttt{sorry}); formalisation caught one gap in the informal statement, the hypothesis $\pcw>0$, without which $\lambda=1$ is admissible and nothing decays. \Cref{fig:contagion} plots the closed form from the measured first hop against the measured curve for every model.
 '''
 appx_theory = r"""
-\section{Theory: Statements and Machine-Checked Proofs}
+\section{Theory: Proofs and Further Statements}
 \label{app:theory}
-Every proposition in the paper is formalised in Lean~4 with Mathlib (directory \texttt{lean/} in the supplementary material). \texttt{lake build} completes with no \texttt{sorry}, and every theorem depends only on the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. The formal names are given in \cref{tab:lean}.
-
 \textbf{Setting.} A finite set of items $i$ with weights $w_i\geq 0$, $\sum_i w_i=1$, and calibrated reliabilities $r_i\in[0,1]$ ($\Pr[\text{correct}\mid r]=r$). A reviser that switches with probability $\pi$ on an item of reliability $r$ has expected post-challenge correctness $\mathrm{acc}(r,\pi)=(1-\pi)r+\pi(1-r)$; the Bayesian reviser attains $\max(r,1-r)$. Write $x^{+}=\max(x,0)$ and $A=\sum_i w_i r_i$.
 
 \begin{proposition}[Price of the cue, general form]\label{prop:price-general}
-(i) For every $r$ and $\pi$, $\max(r,1-r)-\mathrm{acc}(r,\pi)=(1-\pi)(1-2r)^{+}+\pi(2r-1)^{+}$. (ii) Hence for a policy that switches with the same $\pi$ on every item, $\sum_i w_i\max(r_i,1-r_i)-\sum_i w_i\,\mathrm{acc}(r_i,\pi)=(1-\pi)\sum_i w_i(1-2r_i)^{+}+\pi\sum_i w_i(2r_i-1)^{+}=\sum_i w_i(1-2r_i)^{+}+\pi(2A-1)$, which is \cref{eq:price}. (iii) If some item with positive weight has $r_i<\tfrac12$ and some other has $r_j>\tfrac12$, this quantity is strictly positive for every $\pi\in[0,1]$: no monitor-insensitive policy is optimal. (iv) The threshold policy, switch iff $r<\tfrac12$, attains $\max(r,1-r)$ pointwise, so its price is zero.
+(i) For every $r$ and $\pi$, $\max(r,1-r)-\mathrm{acc}(r,\pi)=(1-\pi)(1-2r)^{+}+\pi(2r-1)^{+}$. (ii) For a policy that switches with the same $\pi$ on every item, $\sum_i w_i\max(r_i,1-r_i)-\sum_i w_i\,\mathrm{acc}(r_i,\pi)=\sum_i w_i(1-2r_i)^{+}+\pi(2A-1)$, which is \cref{eq:price}. (iii) If some item with positive weight has $r_i<\tfrac12$ and another has $r_j>\tfrac12$, this quantity is strictly positive for every $\pi\in[0,1]$. (iv) The threshold policy, switch iff $r<\tfrac12$, attains $\max(r,1-r)$ pointwise.
 \end{proposition}
-\emph{Proof.} (i) is a case split on $r\leq\tfrac12$; (ii) is linearity of the sum and $(2r-1)^{+}-(1-2r)^{+}=2r-1$; (iii) bounds each sum below by its $i$-th or $j$-th term; (iv) is a case split. All four are the Lean theorems listed in \cref{tab:lean}. \qed
+\emph{Proof.} (i) is a case split on $r\leq\tfrac12$. (ii) is linearity and $(2r-1)^{+}-(1-2r)^{+}=2r-1$. (iii) bounds each of the two sums in (i) below by its $i$-th or $j$-th term. (iv) is a case split. \qed
 
 \begin{proposition}[Value of the monitor]\label{prop:voi}
-Let $V=\sum_i w_i\max(r_i,1-r_i)-\max(A,1-A)$ be what knowing each item's reliability is worth over knowing only the average. Then $V\geq 0$, every monitor-insensitive policy pays at least $V$, and the best one (switch on every item iff $A<\tfrac12$) pays exactly $V$.
+Let $V=\sum_i w_i\max(r_i,1-r_i)-\max(A,1-A)$. Then $V\geq 0$, every policy that switches with the same $\pi$ on every item pays at least $V$ relative to the Bayesian reviser, and the best such policy (switch on every item iff $A<\tfrac12$) pays exactly $V$.
 \end{proposition}
 \emph{Proof.} $\max(r,1-r)=r+(1-2r)^{+}$ pointwise, so $\sum_i w_i\max(r_i,1-r_i)=A+\sum_i w_i(1-2r_i)^{+}$; substitute into \cref{prop:price-general}(ii) and split on $A\gtrless\tfrac12$. Nonnegativity uses $(1-2r)^{+}\geq 1-2r$. \qed
 
-\Cref{prop:bayes} (Bayesian reviser) follows from writing the posterior odds of the alternative as $\ell\,(1-r)/r$; the band statement is \texttt{proposition\_one} and its non-emptiness \texttt{band\_nonempty}. \Cref{prop:ident} (identification) is stated in \cref{sec:ident}; its three parts are the theorems \texttt{two\_cells\_confound}, \texttt{two\_cells\_do\_not\_identify\_prob} and \texttt{three\_cells\_identify}, where a policy is a function $\{0,1\}^2\to\mathbb{R}$ and the cells are its values. \Cref{prop:chain} (chain dynamics) is stated and discussed in \cref{app:lean}.
+\begin{proposition}[Bayesian reviser]\label{prop:bayes}
+Let the challenge carry evidence of likelihood ratio $\ell>0$ for the alternative. A Bayesian reviser with prior reliability $r\in(0,1)$ switches iff $\ell>r/(1-r)$. For every $\ell$ and every $r_{\mathrm{lo}}<r_{\mathrm{hi}}$ whose prior odds bracket $\ell$ it switches at $r_{\mathrm{lo}}$ and holds at $r_{\mathrm{hi}}$, and such a band exists for every pair $r_{\mathrm{lo}}<r_{\mathrm{hi}}$.
+\end{proposition}
+\emph{Proof.} The posterior odds of the alternative are $\ell(1-r)/r$; the switching rule is that they exceed one. Prior odds $r/(1-r)$ are strictly increasing in $r$, so the band between two of them is non-empty. \qed
 
-\begin{table}[h]
-\caption{Formal statements and their Lean theorems (namespace \texttt{RealityMonitoring}).}
-\label{tab:lean}
-\vskip 0.05in
-\centering\small
-\begin{tabular}{lll}
-\toprule
-paper statement & Lean theorem & file \\
-\midrule
-\cref{prop:ident}(i) two cells confound & \texttt{Identification.two\_cells\_confound} & \texttt{Identification.lean} \\
-\cref{prop:ident}(ii) two cells do not identify & \texttt{Identification.two\_cells\_do\_not\_identify\_prob} & \\
-\cref{prop:ident}(iii) three cells identify & \texttt{Identification.three\_cells\_identify} & \\
-\cref{prop:price-general}(i) pointwise price & \texttt{Price.price\_pointwise} & \texttt{Price.lean} \\
-\cref{prop:price-general}(ii) expectation, \cref{eq:price} & \texttt{Price.price\_expect}, \texttt{Price.price\_eq1} & \\
-\cref{prop:price-general}(iii) strict suboptimality & \texttt{Price.constant\_policy\_suboptimal} & \\
-\cref{prop:price-general}(iv) threshold is optimal & \texttt{Price.threshold\_policy\_optimal} & \\
-\cref{prop:voi} value of the monitor & \texttt{Price.sum\_bayes\_eq}, \texttt{Price.price\_ge\_voi}, \texttt{Price.best\_constant\_eq\_voi}, \texttt{Price.voi\_nonneg} & \\
-\cref{prop:bayes} Bayesian reviser & \texttt{switches\_iff}, \texttt{proposition\_one}, \texttt{band\_nonempty} & \texttt{Theory.lean} \\
-\cref{prop:chain} closed form, seed independence & \texttt{closed\_form}, \texttt{seed\_independence} & \texttt{Theory.lean} \\
-\cref{prop:chain} decay, firewall reset, mixture & \texttt{seed\_influence\_decays}, \texttt{firewall\_reset}, \texttt{piInfMixed\_anti} & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{What the theory does and does not license.} \Cref{prop:ident} says that the F$\to$F rates in \cref{tab:cells} measure the mechanism: because F$\to$F equals F$\to$T to within $0.08$ in every model, the alternative-truth effect is at most $0.08$ and the policy is ``switch to whatever is named.'' \Cref{prop:price-general} says that a policy which does not respond to the monitor, which is what \cref{sec:control} measures ($0.007$ per standard deviation of stated confidence), is strictly suboptimal whenever the monitor separates items on both sides of even odds, which \cref{sec:monitor} shows it does (AUROC $0.59$--$0.74$), and it gives the size of the loss ($0.47$ for Qwen2.5-7B under pressure); \cref{prop:voi} identifies that loss, for the best such policy, with the value of information of the monitor, and \cref{prop:bayes} shows that no strength of evidence in the challenge removes the need to consult it. \Cref{prop:chain} turns the measured first hop into a prediction for every later hop, which the agent-chain experiment confirms at 8/8, 6/8 and 8/8 hops. The theory does not derive the value of $\pi$ from training data: the account of where the policy comes from (\cref{app:origin}) is a hypothesis with a pre-registered test (\cref{app:ladder}), not a theorem.
+\Cref{prop:ident} is proved by exhibiting the two policies in (i), the policy $\pi(1,\cdot)=a$, $\pi(0,1)=b$, $\pi(0,0)=b-\delta$ in (ii), and by definition of the two effects in (iii). Every proposition in the paper, including \cref{prop:chain}, is also formalised and checked in Lean~4 with Mathlib; the sources and build log are in the supplementary material.
 """
 appx = appx + ("" if NF else appx_front.replace("\\textbf{Tables.}", frontier_fig + "\n\\textbf{Tables.}")) + appx_theory + appx_lean
 head = r'''\documentclass{article}
