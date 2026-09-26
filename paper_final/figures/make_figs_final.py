@@ -33,7 +33,7 @@ def figure1():
     base = [("Qwen\n7B", parse_base("out_e_qwen7b.txt")), ("Llama\n8B", parse_base("out_e_llama.txt")),
             ("Qwen\n14B", parse_base("out_base_q14.txt"))]
     H = parse_out_h()
-    fig, axes = plt.subplots(1, 3, figsize=(5.5, 2.15), gridspec_kw={"width_ratios": [1.0, 0.95, 1.25], "wspace": 0.5})
+    fig, axes = plt.subplots(1, 3, figsize=(5.2, 2.6), gridspec_kw={"width_ratios": [0.92, 1.18, 1.1], "wspace": 0.8})
 
     # (a) they know
     ax = axes[0]
@@ -51,7 +51,7 @@ def figure1():
 
     # (b) they don't act
     ax = axes[1]
-    x = np.arange(len(base)) * 1.2
+    x = np.arange(len(base)) * 1.45
     for xi, (n, d) in zip(x, base):
         ax.plot([xi, xi], [d["init"], d["none"]], color="#f3c1c0", lw=2.2, zorder=1, solid_capstyle="round")
         ax.plot(xi, d["init"], "o", ms=5, color="white", mec=INK, mew=1.1, zorder=3)
@@ -60,9 +60,9 @@ def figure1():
     d0 = base[0][1]
     ax.text(x[0] - 0.14, d0["init"], "before", fontsize=7, color=INK, ha="right", va="center")
     ax.text(x[0] - 0.14, d0["none"] + 0.02, "after", fontsize=7, color=CORAL, ha="right", va="center")
-    ax.text(x[2] + 0.25, base[2][1]["oracle"] - 0.07, "perfect\nnote", fontsize=7, color=TEAL, ha="center", va="top", linespacing=0.95)
-    ax.set_xticks(x); ax.set_xticklabels([n for n, _ in base], color=INK); ax.tick_params(axis="x", length=0)
-    ax.set_xlim(-0.95, 2.85); ax.set_ylim(0, 1.0); ax.set_yticks([0, 0.5, 1.0])
+    ax.text(x[2] + 0.28, base[2][1]["oracle"] - 0.08, "perfect\nnote", fontsize=7, color=TEAL, ha="center", va="top", linespacing=0.95)
+    ax.set_xticks(x); ax.set_xticklabels([n for n, _ in base], color=INK, fontsize=7); ax.tick_params(axis="x", length=0)
+    ax.set_xlim(-0.95, 3.25); ax.set_ylim(0, 1.0); ax.set_yticks([0, 0.5, 1.0])
     for yv in (0.5, 1.0): ax.axhline(yv, color=GRID, lw=0.6, zorder=0)
     ax.spines["left"].set_visible(False)
     ax.set_ylabel("accuracy")
@@ -83,13 +83,13 @@ def figure1():
     ax.plot(best[:, 0], best[:, 1], color=INK, lw=0.9, ls=(0, (3, 2)), zorder=5)
     ax.plot(unt[:, 0], unt[:, 1], color=CORAL, lw=2.0, zorder=3)
     R = 1.01
-    ax.text(R, 0.975, "trained, rule", fontsize=7, color=NAVY, va="center")
-    ax.text(R, 0.875, "trained, own\nconfidence", fontsize=7, color="#b87a12", va="center")
+    ax.text(R, 0.985, "rule-\ntrained", fontsize=7, color=NAVY, va="center", linespacing=0.95)
+    ax.text(R, 0.83, "own-\nconfidence", fontsize=7, color="#b87a12", va="center", linespacing=0.95)
     ax.text(R, unt[-1, 1], "untrained", fontsize=7, color=CORAL, va="center")
     ax.text(0.73, 0.905, "best possible", fontsize=7, color=INK, ha="center")
-    ax.set_xlim(0.48, 1.0); ax.set_ylim(0.15, 1.02); ax.set_xticks([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    ax.set_xlim(0.48, 1.0); ax.set_ylim(0.15, 1.04); ax.set_xticks([0.5, 0.75, 1.0])
     ax.set_yticks([0.25, 0.5, 0.75, 1.0]); ax.spines["left"].set_visible(False)
-    ax.set_xlabel("AUROC of the confidence note"); ax.set_ylabel("accuracy after challenge")
+    ax.set_xlabel("AUROC of confidence note"); ax.set_ylabel("accuracy after challenge", labelpad=2)
     title(ax, "c", "Training makes them act")
     save(fig, "fig1_overview")
 
