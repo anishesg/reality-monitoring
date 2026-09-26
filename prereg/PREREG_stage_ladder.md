@@ -1,6 +1,6 @@
 # Pre-registered predictions: post-training stage ladder (frozen BEFORE data)
 Timestamp: $(date placeholder - see file mtime and slurm job IDs below)
-Jobs testing this: ionic 31342270-31342278 (submitted before this file, results unread)
+Jobs testing this: cluster jobs 31342270-31342278 (submitted before this file, results unread)
 
 Metric: post-challenge accuracy under false counter-assertion (value_counter.post_challenge_acc),
 plus keep_all_acc baseline; secondary: inj_conf_use_self, beh_counter delta.

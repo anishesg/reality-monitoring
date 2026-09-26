@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # The CORE queue for the ICLR submission, in priority order, with Slurm dependencies. One command; safe to re-run (finished work is skipped).
-#   CONSTRAINT=gpu80 bash slurm/submit_core.sh            # della: A100 80GB nodes
+#   CONSTRAINT=gpu80 bash slurm/submit_core.sh            # A100 80GB nodes (constraint name is cluster-specific)
 #   SEEDS="0" GPU=a6000 bash slurm/submit_core.sh         # one seed of everything on 48 GB cards
 #   PARTITION=<p> GRES=gpu:1 CONSTRAINT=<c> ACCOUNT=<a> bash slurm/submit_core.sh
 # Order: 1) A1 (generic DPO) on both backbones, 3 seeds  -> the origin claim (H1)      ~16 GPU-h per seed incl. evals

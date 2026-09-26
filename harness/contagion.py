@@ -15,7 +15,7 @@ comparable to the paper's decomposition table (peer_mention == counter_src with 
             computed in analysis/report_contagion.py.
   FIREWALL  same contaminated chain, but the agent at position --firewall-pos is model --firewall-model (FIRM / STAND).
 
-Backends: vllm (della), hf (transformers on CPU/Metal/small CUDA, pilots), api (openai/anthropic, laptop), fake (scripted policies).
+Backends: vllm (GPU cluster), hf (transformers on CPU/Metal/small CUDA, pilots), api (openai/anthropic, laptop), fake (scripted policies).
 Phases:   peers  -> generate Agent-B messages with each peer model into <out>/peer_msgs.jsonl (one subprocess per model)
           main   -> everything else (loads A, plus the firewall model if given)
           all    -> peers then main (default). Peer messages from another run can be reused with --peer-msgs.
@@ -71,7 +71,7 @@ class VllmBackend:
         return [o.outputs[0].text for o in outs]
 
 class HfBackend:
-    """transformers backend for CPU / Apple Metal / small CUDA boxes (pilots only; della uses vLLM)."""
+    """transformers backend for CPU / Apple Metal / small CUDA boxes (pilots only; the GPU cluster uses vLLM)."""
     def __init__(self, model, max_tokens, batch=8):
         import torch
         from transformers import AutoTokenizer, AutoModelForCausalLM

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Submit the ENTIRE della queue in priority order with dependencies, in one command. Resumable: every launcher skips finished
+# Submit the ENTIRE Slurm queue in priority order with dependencies, in one command. Resumable: every launcher skips finished
 # work, so re-running this after failures only re-queues what is missing.
 #   PARTITION=<p> GRES=gpu:1 CONSTRAINT=<a100-80g> bash slurm/submit_everything.sh [--core-only]
 # --core-only stops after step 4 (what the paper needs by the deadline). Steps 5-9 are the strengthening set.
@@ -31,5 +31,5 @@ for spec in "Qwen/Qwen2.5-32B-Instruct|qwen32b|1|120G|1" "Qwen/Qwen2.5-72B-Instr
 done
 say "7. STAND at 32B, one seed";                       [ -f data/olmo32/revision.jsonl ] && bash slurm/submit_ladder.sh --backbones olmo32 --arms "A0 A2 A3" || echo "   (prefetch olmo32 first: bash slurm/prefetch.sh olmo32)"
 say "8. A2 sweep on the DEV split";                    [ -f results_ladder/olmo/sweep/sweep_selection.json ] || sbatch --parsable "${SBX[@]}" --gres="$GRES" --mem=80G --time=10:00:00 --job-name=rm-sweep --wrap="source slurm/_common.sh; bash train/sweep_a2.sh"
-say "9. v2 epistemic ladder: run separately (della/v2_epistemic_ladder/README.md); not auto-submitted"
+say "9. v2 epistemic ladder: run separately; not auto-submitted"
 say "queued. squeue:"; squeue -u "$USER" -o "%.10i %.22j %.2t %.8M %R" | head -60

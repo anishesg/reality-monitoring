@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Run ONCE on a login node (internet): download every model and dataset the ladder needs into HF_HOME on scratch, and build the
 # injected/generic training data, so compute nodes can run fully offline. Idempotent.
-#   HF_HOME=/scratch/gpfs/$USER/hf bash slurm/prefetch.sh [olmo tulu olmo13 olmo32]      # ladder backbones (+ training data)
-#   HF_HOME=/scratch/gpfs/$USER/hf bash slurm/prefetch.sh contagion                       # the 6 instruct models for slurm/submit_contagion.sh
+#   HF_HOME=${SCRATCH:-$HOME/scratch}/hf bash slurm/prefetch.sh [olmo tulu olmo13 olmo32]      # ladder backbones (+ training data)
+#   HF_HOME=${SCRATCH:-$HOME/scratch}/hf bash slurm/prefetch.sh contagion                       # the 6 instruct models for slurm/submit_contagion.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
-export HF_HOME="${HF_HOME:-/scratch/gpfs/$USER/hf}"; mkdir -p "$HF_HOME"; export HF_HUB_ENABLE_HF_TRANSFER=1
+export HF_HOME="${HF_HOME:-${SCRATCH:-$HOME/scratch}/hf}"; mkdir -p "$HF_HOME"; export HF_HUB_ENABLE_HF_TRANSFER=1
 [ -f .hftok ] && export HF_TOKEN=$(cat .hftok)
 [ -d .venv ] && source .venv/bin/activate
 TAGS=("$@"); [ ${#TAGS[@]} -eq 0 ] && TAGS=(olmo tulu)

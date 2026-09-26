@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Submit the answer-contagion experiment (prereg/PREREG_contagion.md) for the pre-registered open models on della.
+# Submit the answer-contagion experiment (prereg/PREREG_contagion.md) for the pre-registered open models on a Slurm cluster.
 #   PARTITION=gpu GRES=gpu:1 CONSTRAINT=a100-80g bash slurm/submit_contagion.sh            # C1: 5 open models, peers weak/same/strong
 #   FIREWALL=checkpoints/qwen7b_firm/merged bash slurm/submit_contagion.sh qwen7b_fw      # C3: chain with a trained firewall agent
 # Peer models (identity manipulation) are fixed for every model under test: weak = Qwen2.5-1.5B, strong = Qwen2.5-14B, same = the

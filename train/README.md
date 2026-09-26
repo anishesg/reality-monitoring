@@ -45,7 +45,7 @@ bash azure/teardown.sh --yes                                                    
 `run_ladder.sh` is idempotent (skips arms whose `summary.json` exists). `QUICK=1` runs 4-step arms for a pipeline check.
 `ELICITED=1` builds A2/A3 data on the model's own forced-choice answers instead of injected claims.
 
-## 1b. della / ionic (Slurm)
+## 1b. Slurm cluster
 ```
 cd /path/to/reality-monitoring            # git layout: harness/, analysis/, train/, slurm/
 echo "$HF_TOKEN" > .hftok
@@ -67,7 +67,7 @@ Priority if queue time is scarce: measure_stages (cheap, gives H7) -> olmo32 A2 
 
 ## 1d. Live dashboard through an SSH tunnel
 On the cluster login node, inside the repo: `nohup python3 train/results_server.py --port 8765 > logs/dashboard.log 2>&1 &`
-From your laptop: `ssh -N -L 8765:localhost:8765 <netid>@della.princeton.edu` and open http://localhost:8765 (stdlib only,
+From your laptop: `ssh -N -L 8765:localhost:8765 <user>@<cluster-login-node>` and open http://localhost:8765 (stdlib only,
 binds to localhost, auto-refreshes every 60 s: every finished arm's five numbers, capability scores, recent job logs, figures, `/api` JSON).
 
 ## 1e. Answer contagion between agents (prereg/PREREG_contagion.md)

@@ -4,7 +4,7 @@ Produced by `harness/contagion.py`; report + figure by `analysis/report_contagio
 `contagion.jsonl` (every trial), `peer_msgs.jsonl` (messages written by peer agents), `summary.json`, `contagion.png`, and
 `meta.json` once the run is complete. Runs WITHOUT `meta.json` are partial (committed as they accumulate).
 
-Compute: Azure CPU VM (Standard_D64s_v7) serving Q8_0 GGUF checkpoints through llama.cpp; the della GPU run with bf16 weights
+Compute: Azure CPU VM (Standard_D64s_v7) serving Q8_0 GGUF checkpoints through llama.cpp; the GPU-cluster run with bf16 weights
 (`slurm/submit_contagion.sh`) is the canonical replication. `_peers/` holds the weak (Qwen2.5-1.5B) and strong (Qwen2.5-14B)
 peer messages shared by every model under test.
 

@@ -17,10 +17,9 @@ epistemic state (confidence, verification status, source) when revising claims u
    Receipts in prereg/ (md5-timestamped before data).
 
 ## Layout
-- harness/   claim banks + experiment generators (vLLM) + slurm job templates (Princeton ionic)
+- harness/   claim banks + experiment generators (vLLM) + slurm job templates (a Slurm cluster)
 - analysis/  stdlib analyzers, bootstrap CIs, GEE + random-effects meta (statsmodels)
 - mech/      probe + activation-steering (transformers hooks) - null result, appendix
-- della/     scaled v2 package for the della cluster (scale ladder 0.5B-72B)
 - prereg/    frozen predictions with hashes, BEFORE data
 - results/   aggregate JSONs only (per-trial jsonl too large; on cluster)
 

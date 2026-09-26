@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Live results dashboard for the ladder. Stdlib only; binds to localhost, view through an SSH tunnel.
   python3 train/results_server.py --port 8765            # on the cluster login node, inside the repo
-  ssh -L 8765:localhost:8765 <user>@della.princeton.edu   # from your laptop, then open http://localhost:8765
+  ssh -L 8765:localhost:8765 <user>@<cluster-login-node>   # from your laptop, then open http://localhost:8765
 Shows results_ladder/<tag>/<arm>/summary.json (auto-refresh 60 s), job logs, and figures/.
 """
 import argparse, glob, html, json, os, sys, time
