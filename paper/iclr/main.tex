@@ -49,13 +49,13 @@ We also report a cautionary result. An intuitive self-versus-other asymmetry rep
 
 \section{Related Work}
 \label{sec:related}
-Sycophancy is documented and traced to preference data \citep{sharma2024sycophancy, perez2023discovering}; repetition of an alternative accounts for much apparent conformity without any speaker \citep{hu2026conformity}, and stated answers are unstable under self-challenge \citep{saadat2026certainty}. Calibration work shows that verbalized confidence and self-evaluation predict correctness \citep{lin2022teaching, tian2023just, xiong2024can, kadavath2022language}; that literature measures the monitor, we measure whether the controller consumes it. \citet{yang2025retraction} find that a hidden-state belief causally drives retraction, the contrast to our result that every \emph{explicit} channel is inert. Intrinsic self-correction is unreliable \citep{huang2024large}; contentless doubt alone flips $0.53$ to $0.91$ of correct answers. Staged releases \citep{olmo2025, lambert2024tulu, tunstall2024zephyr} place changes at training stages (\cref{app:stages}); we add causal interventions (full discussion in \cref{app:related}).
+Sycophancy is documented and traced to preference data \citep{sharma2024sycophancy, perez2023discovering}; repetition of an alternative accounts for much apparent conformity without any speaker \citep{hu2026conformity}, and stated answers are unstable under self-challenge \citep{saadat2026certainty}. Calibration work shows that verbalized confidence and self-evaluation predict correctness \citep{lin2022teaching, tian2023just, xiong2024can, kadavath2022language}; that literature measures the monitor, we measure whether the controller consumes it. \citet{yang2025retraction} find that a hidden-state belief causally drives retraction, the contrast to our result that every \emph{explicit} channel is inert. Intrinsic self-correction is unreliable \citep{huang2024large}. Staged releases \citep{olmo2025, lambert2024tulu, tunstall2024zephyr} place changes at training stages (\cref{app:stages}); we add causal interventions (full discussion in \cref{app:related}).
 
 \section{Experimental Setup}
 \label{sec:setup}
 Every trial has the same shape: a claim enters as the model's prior assistant turn, optionally with epistemic metadata; a challenge arrives; the model answers in a fixed format; the outcome is scored by normalized string matching into retain, switch-to-alternative or switch-elsewhere (unparsed under 2\%). Decoding is greedy, so uncertainty comes from resampling questions. Three banks: 600 easy SciQ items \citep{welbl2017crowdsourcing}, 900 hard MMLU-Pro and TruthfulQA items \citep{wang2024mmlupro, lin2022truthfulqa} split into analysis and held-out halves, and an identification bank of 600 MMLU-Pro items with the true answer and two distinct distractors. Challenges are matched sentence types (sourced counter, bare counter, source only, pressure, weak suggestion; \cref{app:setup} gives the wording). Nineteen open checkpoints span the Qwen2.5 ladder (0.5B--32B), Llama-3.x, Mistral-7B, Phi-3.5-mini, OLMo-2-7B and the staged OLMo-2, Tulu-3 and Zephyr lineages; the identification experiments use six of them and, in \cref{sec:frontier}, one frontier model. Four uncertainty signals are measured per item in a clean context: verbalized confidence, P(True) \citep{kadavath2022language}, a completion-log-probability belief score, and eight-sample consistency. Within checkpoints we use the cluster bootstrap over questions; the identification analysis is a pooled logistic regression over 52{,}102 trials with model fixed effects and errors clustered by model-item. Two analyses were pre-registered with prediction files hashed before data collection.
 
-\paragraph{Framework.} Write $\pi(x)$ for the probability that the model abandons its current answer in context $x$, and decompose $x$ into the cue $u$ (that a challenge occurred, and its surface form), the monitor $s$ (stated confidence, or any of the four signals above), and the latent truth values $t_{\mathrm{own}}$ and $t_{\mathrm{alt}}$ of the current answer and of the named alternative. The monitor is good to the extent that $s$ predicts $t_{\mathrm{own}}$, which we report as AUROC; the controller uses it to the extent that $\pi$ depends on $s$ with $u$ held fixed. The confidence-use gap is the conjunction: AUROC well above chance with $\partial\pi/\partial s\approx 0$. A challenge protocol identifies the controller only if it varies $t_{\mathrm{alt}}$ separately from $u$; the three-cell design of \cref{sec:control} does so, and the pooled regression there estimates the four partial effects of $u$, $t_{\mathrm{own}}$, $t_{\mathrm{alt}}$ and $s$ directly. \Cref{prop:price} prices the gap and \cref{prop:chain} propagates it through a population of agents.
+\paragraph{Framework.} Write $\pi(x)$ for the probability that the model abandons its current answer in context $x$, and decompose $x$ into the cue $u$ (that a challenge occurred, and its surface form), the monitor $s$ (stated confidence, or any of the four signals above), and the latent truth values $t_{\mathrm{own}}$ and $t_{\mathrm{alt}}$ of the current answer and of the named alternative. The monitor is good to the extent that $s$ predicts $t_{\mathrm{own}}$, which we report as AUROC; the controller uses it to the extent that $\pi$ depends on $s$ with $u$ held fixed. The confidence-use gap is the conjunction: AUROC well above chance with $\partial\pi/\partial s\approx 0$. \Cref{prop:ident} says which protocols identify the controller, \cref{prop:price} prices the gap, and \cref{prop:chain} propagates it through a population of agents.
 
 \begin{figure}[t]
 \centering
@@ -82,7 +82,7 @@ Let a content-free challenge arrive on a two-candidate item, let the reviser's r
 \label{eq:price}
 \end{equation}
 \end{proposition}
-\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\max(r,1-r)$ and the cue-follower $(1-\pi)r+\pi(1-r)$; subtract and take expectations. \qed\ The first term is the value of consulting reliability at all, zero only for a reviser never below even odds; the second is the price of the cue: for a model that is right more often than not, every unit of cue-driven switching on an evidence-free challenge costs $2A-1$ in post-challenge accuracy, and nothing in the challenge can pay for it. For Qwen2.5-7B on the identification bank ($A=0.87$, pressure-cell switch rate $0.63$) the second term alone is $0.47$. \Cref{eq:price} is what makes the monitor's AUROC in \Cref{tab:signals} a quantity with a cost rather than a curiosity: the model forgoes it every time it is challenged.
+\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\max(r,1-r)$ and the cue-follower $(1-\pi)r+\pi(1-r)$; subtract and take expectations. \qed\ The identity holds pointwise for any policy, and a policy that ignores $r$ is strictly suboptimal as soon as reliability has mass on both sides of one half (\cref{prop:price-general}, machine-checked). The first term is the value of consulting reliability at all, zero only for a reviser never below even odds; the second is the price of the cue: for a model that is right more often than not, every unit of cue-driven switching on an evidence-free challenge costs $2A-1$ in post-challenge accuracy, and nothing in the challenge can pay for it. For Qwen2.5-7B on the identification bank ($A=0.87$, pressure-cell switch rate $0.63$) the second term alone is $0.47$. \Cref{eq:price} is what makes the monitor's AUROC in \Cref{tab:signals} a quantity with a cost rather than a curiosity: the model forgoes it every time it is challenged.
 
 \begin{table}[t]
 \caption{Uncertainty signals predict own correctness (AUROC, hard bank). Starred values are generated-verdict rates for thinking models, whose token probabilities are unreadable through a reasoning block. FC is forced-choice accuracy.}
@@ -114,6 +114,11 @@ R1-Distill-7B & 0.62 & 0.71* & 0.60 & 0.47 & 0.77 \\
 In a two-answer challenge protocol, ``the challenger's alternative is true'' and ``the model's original answer is false'' are the same event. Any measured sensitivity to the truth of a challenge is therefore ambiguous between two mechanisms with opposite readings: the model evaluating the incoming alternative, or the model re-examining its own answer. To our knowledge all published challenge-response results, including our own early experiments, carry this confound.
 
 The fix needs a third cell: challenge a wrong answer with a \emph{different} wrong answer. The ten options of MMLU-Pro make this cheap. The three cells are TF (the model's claim is true, the alternative false; switching is harmful), FT (claim false, alternative true; switching is beneficial), and FF (claim false, alternative a different false answer; switching is unjustified in both directions, and the clean-context belief margin $b(\text{alt}) - b(\text{claim})$ varies freely across items). Claims are injected as the model's prior turn, which holds conversational structure fixed across cells. Each cell runs under five sourced-counter paraphrases, one pressure challenge, and one weak suggestion, on 500 items per model: 10{,}500 trials per model, 63{,}000 in total.
+
+\begin{proposition}[Identification]\label{prop:ident}
+Let $\pi(t_{\mathrm{own}},t_{\mathrm{alt}})$ be the switch probability as a function of the truth of the model's claim and of the named alternative; a two-cell protocol observes $\pi(1,0)$ and $\pi(0,1)$ only. (i) A truth-tracker, $\pi=\mathbf{1}[t_{\mathrm{alt}}]$, and a self-doubter, $\pi=\mathbf{1}[\neg t_{\mathrm{own}}]$, are indistinguishable in those two cells and differ by one in the F$\to$F cell $\pi(0,0)$. (ii) For any observed pair $(a,b)\in[0,1]^2$ and any $\delta\in[b-1,b]$ there is a policy with values in $[0,1]$ realising $(a,b)$ whose alternative-truth effect $\pi(0,1)-\pi(0,0)$ equals $\delta$. (iii) The three cells determine both the alternative-truth effect and the own-falsity effect $\pi(0,0)-\pi(1,0)$.
+\end{proposition}
+Proofs are elementary and machine-checked (\cref{app:theory}); (iii) is what makes the F$\to$F rate a measurement of mechanism, and (ii) why no two-cell result can bear on it.
 
 \subsection{The cue is the policy}
 
@@ -157,19 +162,17 @@ Two checks pass. Under pressure, which never mentions the alternative, the FT an
 
 A pooled logistic regression over all 52{,}102 parseable trials with complete signals (model fixed effects, standard errors clustered by model-item) puts numbers on each input. \Cref{fig:forest} plots the coefficients. As average marginal effects: a sourced counter versus pressure is worth $+0.069$ in switch probability and a weak suggestion $-0.052$, so cue strength alone spans a wide range of the operating point (in Qwen2.5-14B, the same true-claim item moves from 0.40 under a weak suggestion to 0.80 under a sourced counter). Among epistemic variables, the truth of the model's own claim is worth $-0.14$ pooled and $-0.20$ in the off-ceiling weak condition. The truth of the alternative is worth $+0.05$ pooled and $+0.11$ off ceiling. The model's belief margin is worth $+0.02$ per standard deviation, and its stated confidence $-0.016$ pooled and $-0.007$ off ceiling. The raw confidence splits are larger than the regression coefficient and are difficulty in disguise; \cref{app:quant} gives the analysis and the coefficient plot.
 
-\paragraph{Progress is one-sided.}\label{sec:qwen3}Qwen3-8B, the newest checkpoint, keeps true answers under a sourced counter at $0.56$ against $0.80$--$0.94$ for every older model, yet its F$\to$F rate is still $0.90$: it learned to weight the truth of its own claim and nothing about evaluating the alternative (\cref{app:quant}).
-
 \subsection{Two controls: access and position}
 \label{sec:nulls}\label{sec:reversal}
 Two controls, reported in full in \cref{app:controls}, rule out the easy explanations. \emph{Access}: writing the model's reliability into the context as a token it emits itself, at values from 20 to 95 percent, moves abandonment by at most $0.069$ with no dose response (Qwen2.5-7B abandons at $0.94$ when its stated reliability is 20 percent and at $0.98$ when it is 95), and instructing the model to weigh its stated confidence moves the confidence effect by at most $0.02$; the gap is not inaccessibility. \emph{Position}: an apparent discounting of the model's own confidence relative to a user's, replicated in all nineteen checkpoints, is a position artifact; a pre-registered matched-position control eliminates it and mildly reverses it (family-level speaker-by-confidence interaction $-0.38$, Hartung--Knapp 95\% CI $[-0.54,-0.22]$, every leave-one-family-out interval excluding zero). Recency, not speaker identity, is the operative variable.
 
-\paragraph{Where the policy plausibly comes from.}\label{sec:origin}Our results fit a corpus-statistics account, stated as a hypothesis: in dialogue data, whether an interlocutor's claim is true leaves traces (people object to false claims) while a speaker's private confidence is invisible, so the corpus teaches an accurate confidence estimator and a flat confidence-to-behavior mapping. The account predicts the surfacing null and that training installs the mapping (\cref{sec:repair}); \cref{app:ladder} gives the pre-registered test and \cref{app:origin} states it in full.
+\paragraph{Where the policy plausibly comes from.}\label{sec:origin}Our results fit a corpus-statistics account, stated as a hypothesis: in dialogue data, whether an interlocutor's claim is true leaves traces (people object to false claims) while a speaker's private confidence is invisible, so the corpus teaches an accurate confidence estimator and a flat confidence-to-behavior mapping. It predicts the surfacing null and that training installs the mapping (\cref{sec:repair}); \cref{app:ladder} gives its pre-registered test and \cref{app:origin} the full statement.
 
 \subsection{The gap at the frontier}
 \label{sec:frontier}
  Everything above is measured on open models of at most 14B parameters. We ran the identification design unchanged on two frontier models from different developers, GPT-6 Astra and Claude Fable 5.1 (the same 500-question bank and challenge texts, 12{,}000 trials each) together with the full decomposition of \cref{app:decomp} (450 questions, twelve cells, 10{,}800 trials each), one deterministic pass at low reasoning effort. Grading is described in \cref{app:frontier}. \Cref{fig:frontier} and \cref{fig:structure} give the result. The \emph{level} of the gap collapses: a correct injected answer is abandoned under a counter-argument at $0.22$ [$0.18,0.25$] (Astra) and $0.10$ [$0.08,0.12$] (Fable) against $0.56$--$0.94$ for the open models in \cref{tab:cells}, under content-free pressure at $0.21$ and $0.08$, and a true correction is accepted at $0.95$ by both.
 
-The \emph{structure} does not. Stated confidence is still not consulted (abandonment at low minus high stated confidence under a sourced counter: $-0.01$ for Astra, $+0.03$ for Fable, against $-0.02$ to $+0.22$ across the seventeen open checkpoints), and the source of a counter-argument adds nothing ($0.16$ sourced versus $0.15$ bare for Astra, $0.08$ versus $0.10$ for Fable, against source effects of up to $0.42$ in open models).
+The \emph{structure} does not. Stated confidence is still not consulted (confidence effect $-0.01$ for Astra and $+0.03$ for Fable, against $-0.02$ to $+0.22$ across the open checkpoints) and the source of a counter-argument adds nothing ($+0.01$ and $-0.01$, against up to $0.42$ in open models).
 
 What changes is what the model does with a cue. In the F$\to$F cell open models leave a wrong answer for the named wrong alternative $0.90$--$0.99$ of the time; Astra leaves it $0.96$ [$0.95,0.98$] of the time and Fable $0.89$ [$0.86,0.91$], but only $0.23$ [$0.20,0.27$] and $0.16$ [$0.14,0.19$] of trials go to the cue, while $0.57$ [$0.53,0.62$] and $0.61$ [$0.57,0.64$] go to the \emph{true} answer, which neither turn named. At the frontier a challenge acts less as a cue to be followed than as a trigger to recompute, and the residual cue-following ($0.23$ and $0.16$, about the rates at which a correct answer is abandoned to the same cue) is the gap that remains; the two models agree on every one of these quantities to within a few points.
 
@@ -221,7 +224,7 @@ The capability column changes the category of the result. The best configuration
 \section{Three Consequences}
 \label{sec:uses}
 
-\textbf{Two deployment consequences}, survival under a standardized battery of challenges as a confidence score that beats the model's stated confidence in 16 of 19 checkpoints, and the collapse of in-place reconsideration after a false counter (accuracy $0.00$--$0.08$ on questions first answered correctly, restored by re-asking in a fresh context), are given in full in \cref{app:conseq}.
+\textbf{Two deployment consequences}, in full in \cref{app:conseq}: survival under a standardized battery of challenges beats the model's stated confidence as a confidence score in 16 of 19 checkpoints, and asking a model to reconsider in place after a false counter collapses its accuracy ($0.00$--$0.08$) where re-asking in a fresh context restores it.
 
 \subsection{The gap propagates between agents}
 \label{sec:agents}
@@ -357,7 +360,7 @@ One reading of the claim-truth coefficient deserves emphasis. Models do use know
 \caption{\textbf{What moves revision.} Pooled logistic regression over 52{,}102 trials, six models, three challenge strengths. Blue terms describe the challenge; red terms are the model's own epistemic state. All coefficients have $p<0.001$; the two red effects are an order of magnitude smaller than the cue and claim terms as marginal effects.}
 \label{fig:forest}
 \end{figure}
-\paragraph{Progress is one-sided, in full.}
+\paragraph{Progress is one-sided.}\label{sec:qwen3}
 \Cref{tab:cells} contains a scaling result we did not plan. Qwen3-8B keeps true answers under a sourced counter at 0.56 against 0.80 to 0.94 for every older model: the newest post-training generation defends true answers about twice as well. Its FF rate is still 0.90. Whatever improved between Qwen2.5 and Qwen3 taught the model to weight the truth of its own claim (claim-truth effect 0.34 versus 0.06 to 0.18 elsewhere) and taught it nothing about evaluating the incoming alternative, which it accepts nearly unconditionally when cued. Progress on this problem is real, one-sided, and invisible to any evaluation that only challenges correct answers. The FF cell is the measurement that sees it.
 
 
@@ -484,6 +487,43 @@ Qwen2.5-7B & 0.80 [0.75,0.84] & 0.80 [0.75,0.85] & 0.80 [0.74,0.85] & 0.88 [0.84
 \bottomrule
 \end{tabular}
 \end{center}
+
+\section{Theory: Statements and Machine-Checked Proofs}
+\label{app:theory}
+Every proposition in the paper is formalised in Lean~4 with Mathlib (directory \texttt{lean/} in the supplementary material). \texttt{lake build} completes with no \texttt{sorry}, and every theorem depends only on the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. The formal names are given in \cref{tab:lean}.
+
+\textbf{Setting.} A finite set of items $i$ with weights $w_i\geq 0$, $\sum_i w_i=1$, and calibrated reliabilities $r_i\in[0,1]$ ($\Pr[\text{correct}\mid r]=r$). A reviser that switches with probability $\pi$ on an item of reliability $r$ has expected post-challenge correctness $\mathrm{acc}(r,\pi)=(1-\pi)r+\pi(1-r)$; the Bayesian reviser attains $\max(r,1-r)$. Write $x^{+}=\max(x,0)$ and $A=\sum_i w_i r_i$.
+
+\begin{proposition}[Price of the cue, general form]\label{prop:price-general}
+(i) For every $r$ and $\pi$, $\max(r,1-r)-\mathrm{acc}(r,\pi)=(1-\pi)(1-2r)^{+}+\pi(2r-1)^{+}$. (ii) Hence for a policy that switches with the same $\pi$ on every item, $\sum_i w_i\max(r_i,1-r_i)-\sum_i w_i\,\mathrm{acc}(r_i,\pi)=(1-\pi)\sum_i w_i(1-2r_i)^{+}+\pi\sum_i w_i(2r_i-1)^{+}=\sum_i w_i(1-2r_i)^{+}+\pi(2A-1)$, which is \cref{eq:price}. (iii) If some item with positive weight has $r_i<\tfrac12$ and some other has $r_j>\tfrac12$, this quantity is strictly positive for every $\pi\in[0,1]$: no monitor-insensitive policy is optimal. (iv) The threshold policy, switch iff $r<\tfrac12$, attains $\max(r,1-r)$ pointwise, so its price is zero.
+\end{proposition}
+\emph{Proof.} (i) is a case split on $r\leq\tfrac12$; (ii) is linearity of the sum and $(2r-1)^{+}-(1-2r)^{+}=2r-1$; (iii) bounds each sum below by its $i$-th or $j$-th term; (iv) is a case split. All four are the Lean theorems listed in \cref{tab:lean}. \qed
+
+\Cref{prop:ident} (identification) is stated in \cref{sec:ident}; its three parts are the theorems \texttt{two\_cells\_confound}, \texttt{two\_cells\_do\_not\_identify\_prob} and \texttt{three\_cells\_identify}, where a policy is a function $\{0,1\}^2\to\mathbb{R}$ and the cells are its values. \Cref{prop:chain} (chain dynamics) is stated and discussed in \cref{app:lean}.
+
+\begin{table}[h]
+\caption{Formal statements and their Lean theorems (namespace \texttt{RealityMonitoring}).}
+\label{tab:lean}
+\vskip 0.05in
+\centering\small
+\begin{tabular}{lll}
+\toprule
+paper statement & Lean theorem & file \\
+\midrule
+\cref{prop:ident}(i) two cells confound & \texttt{Identification.two\_cells\_confound} & \texttt{Identification.lean} \\
+\cref{prop:ident}(ii) two cells do not identify & \texttt{Identification.two\_cells\_do\_not\_identify\_prob} & \\
+\cref{prop:ident}(iii) three cells identify & \texttt{Identification.three\_cells\_identify} & \\
+\cref{prop:price-general}(i) pointwise price & \texttt{Price.price\_pointwise} & \texttt{Price.lean} \\
+\cref{prop:price-general}(ii) expectation, \cref{eq:price} & \texttt{Price.price\_expect}, \texttt{Price.price\_eq1} & \\
+\cref{prop:price-general}(iii) strict suboptimality & \texttt{Price.constant\_policy\_suboptimal} & \\
+\cref{prop:price-general}(iv) threshold is optimal & \texttt{Price.threshold\_policy\_optimal} & \\
+\cref{prop:chain} closed form, seed independence & \texttt{closed\_form}, \texttt{seed\_independence} & \texttt{Theory.lean} \\
+\cref{prop:chain} decay, firewall reset, mixture & \texttt{seed\_influence\_decays}, \texttt{firewall\_reset}, \texttt{piInfMixed\_anti} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{What the theory does and does not license.} \Cref{prop:ident} says that the F$\to$F rates in \cref{tab:cells} measure the mechanism: because F$\to$F equals F$\to$T to within $0.08$ in every model, the alternative-truth effect is at most $0.08$ and the policy is ``switch to whatever is named.'' \Cref{prop:price-general} says that a policy which does not respond to the monitor, which is what \cref{sec:control} measures ($0.007$ per standard deviation of stated confidence), is strictly suboptimal whenever the monitor separates items on both sides of even odds, which \cref{sec:monitor} shows it does (AUROC $0.59$--$0.74$), and it gives the size of the loss ($0.47$ for Qwen2.5-7B under pressure). \Cref{prop:chain} turns the measured first hop into a prediction for every later hop, which the agent-chain experiment confirms at 8/8, 6/8 and 8/8 hops. The theory does not derive the value of $\pi$ from training data: the account of where the policy comes from (\cref{app:origin}) is a hypothesis with a pre-registered test (\cref{app:ladder}), not a theorem.
 
 \section{Chain Dynamics: Closed Form and Machine-Checked Proofs}
 \label{app:lean}

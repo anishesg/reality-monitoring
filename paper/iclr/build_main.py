@@ -25,12 +25,18 @@ agents += "" if NF else r'''
 The same protocol on GPT-6 Astra (300 questions, 14{,}259 trials; red in \cref{fig:contagion}) shows the sender invariance exactly: with a correct answer injected, Astra folds to a peer naming the alternative at $0.12$ / $0.11$ / $0.12$ / $0.12$ whether the peer is a 1.5B, 7B or 14B open model or Astra itself, and no more often than with no message at all ($0.15$ [$0.11,0.19$]); with its own reasoned answer in context it folds at $0.00$--$0.03$. The chain keeps its form with different constants: a bare wrong seed is rejected by the first agent $0.81$ of the time, but once an agent is wrong \emph{with its reasoning} the next is wrong with $\pww=0.96$ [$0.93,0.98$] against $\pcw=0.01$ from a correct predecessor, so $\lambda=0.95$, $\piinf=0.21$ and both chains sit at $0.19$ (wrong seed) and $0.10\to0.14$ (right seed) for eight hops. A reasoned wrong answer is as contagious at the frontier as at 7B; what changed is how often one is produced.
 '''
 # ---- edits to Anish's body
+_i = body.index("The fix needs a third cell"); _e = body.index("\n\n", _i)
+prop_ident = r"""\begin{proposition}[Identification]\label{prop:ident}
+Let $\pi(t_{\mathrm{own}},t_{\mathrm{alt}})$ be the switch probability as a function of the truth of the model's claim and of the named alternative; a two-cell protocol observes $\pi(1,0)$ and $\pi(0,1)$ only. (i) A truth-tracker, $\pi=\mathbf{1}[t_{\mathrm{alt}}]$, and a self-doubter, $\pi=\mathbf{1}[\neg t_{\mathrm{own}}]$, are indistinguishable in those two cells and differ by one in the F$\to$F cell $\pi(0,0)$. (ii) For any observed pair $(a,b)\in[0,1]^2$ and any $\delta\in[b-1,b]$ there is a policy with values in $[0,1]$ realising $(a,b)$ whose alternative-truth effect $\pi(0,1)-\pi(0,0)$ equals $\delta$. (iii) The three cells determine both the alternative-truth effect and the own-falsity effect $\pi(0,0)-\pi(1,0)$.
+\end{proposition}
+Proofs are elementary and machine-checked (\cref{app:theory}); (iii) is what makes the F$\to$F rate a measurement of mechanism, and (ii) why no two-cell result can bear on it."""
+body = body[:_e] + "\n\n" + prop_ident + body[_e:]
 old_price = "\\paragraph{What ignoring the monitor costs.} The gap has a price that follows from the decision alone. Consider a content-free challenge on a two-candidate item, a reviser whose reliability $r$ is calibrated ($\\Pr[\\text{correct}\\mid r]=r$) with pre-challenge accuracy $A=\\mathbb{E}[r]$, and a policy that switches with probability $\\pi$ independently of $r$, which is what the next section measures. Holding yields expected correctness $r$ and switching $1-r$, so a Bayesian reviser takes $\\max(r,1-r)$ and the cue-follower $(1-\\pi)r+\\pi(1-r)$; subtracting and taking expectations,\n\\begin{equation}"
 assert body.count(old_price) == 1, body.count(old_price)
 body = body.replace(old_price, "\\paragraph{What ignoring the monitor costs.} The gap has a price that follows from the decision alone.\n\\begin{proposition}[Price of the cue]\\label{prop:price}\nLet a content-free challenge arrive on a two-candidate item, let the reviser's reliability $r$ be calibrated ($\\Pr[\\text{correct}\\mid r]=r$) with pre-challenge accuracy $A=\\mathbb{E}[r]$, and let it switch with probability $\\pi$ independently of $r$ (the policy the next section measures). The expected post-challenge accuracy of the Bayesian reviser exceeds that of the cue-follower by\n\\begin{equation}")
 old_tail = "\\label{eq:price}\n\\end{equation}\nThe first term is the value"
 assert body.count(old_tail) == 1, body.count(old_tail)
-body = body.replace(old_tail, "\\label{eq:price}\n\\end{equation}\n\\end{proposition}\n\\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\\max(r,1-r)$ and the cue-follower $(1-\\pi)r+\\pi(1-r)$; subtract and take expectations. \\qed\\ The first term is the value")
+body = body.replace(old_tail, "\\label{eq:price}\n\\end{equation}\n\\end{proposition}\n\\emph{Proof.} Holding yields expected correctness $r$ and switching $1-r$, so the Bayesian reviser takes $\\max(r,1-r)$ and the cue-follower $(1-\\pi)r+\\pi(1-r)$; subtract and take expectations. \\qed\\ The identity holds pointwise for any policy, and a policy that ignores $r$ is strictly suboptimal as soon as reliability has mass on both sides of one half (\\cref{prop:price-general}, machine-checked). The first term is the value")
 import re as _re
 # reproducibility: no compute hours, no repository specifics; becomes the ICLR "Reproducibility statement" (does not count toward the limit)
 body = _re.sub(r"\\section\*\{Reproducibility\}.*?(?=\Z)", "", body, flags=_re.S)
@@ -59,12 +65,12 @@ quant_paras = quant.split("\n\n")
 quant_main = "\n\n".join(quant_paras[:2]).rstrip() + " The raw confidence splits are larger than the regression coefficient and are difficulty in disguise; \\cref{app:quant} gives the analysis and the coefficient plot.\n\n"
 body = body.replace("\\subsection{Progress is one-sided}", quant_main + "\\subsection{Progress is one-sided}")
 body, progress = cut(body, "\\subsection{Progress is one-sided}", "\\subsection{Two controls: access and position}")
-body = body.replace("\\subsection{Two controls: access and position}", "\\paragraph{Progress is one-sided.}\\label{sec:qwen3}Qwen3-8B, the newest checkpoint, keeps true answers under a sourced counter at $0.56$ against $0.80$--$0.94$ for every older model, yet its F$\\to$F rate is still $0.90$: it learned to weight the truth of its own claim and nothing about evaluating the alternative (\\cref{app:quant}).\n\n\\subsection{Two controls: access and position}")
-appx = appx + "\n\\section{The Policy, Quantified: Full Analysis}\n\\label{app:quant}\n" + "\n\n".join(quant_paras[2:]).replace("\\label{sec:regression}", "") + "\n" + fig_forest.replace("[width=0.6\\linewidth]", "[width=0.7\\linewidth]") + "\n\\paragraph{Progress is one-sided, in full.}" + progress.replace("\\subsection{Progress is one-sided}\n\\label{sec:qwen3}\n", "") + "\n" + fig_repair.replace("[width=0.55\\linewidth]", "[width=0.6\\linewidth]")
+pass  # one-sided-progress paragraph lives in the appendix (app:quant) since 2026-09-26
+appx = appx + "\n\\section{The Policy, Quantified: Full Analysis}\n\\label{app:quant}\n" + "\n\n".join(quant_paras[2:]).replace("\\label{sec:regression}", "") + "\n" + fig_forest.replace("[width=0.6\\linewidth]", "[width=0.7\\linewidth]") + "\n\\paragraph{Progress is one-sided.}\\label{sec:qwen3}" + progress.replace("\\subsection{Progress is one-sided}\n\\label{sec:qwen3}\n", "") + "\n" + fig_repair.replace("[width=0.55\\linewidth]", "[width=0.6\\linewidth]")
 body = body.replace("[width=0.9\\linewidth]{figs/fig_cells", "[width=\\linewidth]{figs/fig_cells").replace("[width=\\textwidth]{figs/fig_cells", "[width=\\linewidth]{figs/fig_cells")
 # 5.7 origin hypothesis -> compressed (the ladder section tests it)
 body, origin = cut(body, "\\subsection{Where the policy plausibly comes from}", "\\section{Training Installs the Missing Link}")
-origin_short = r'''\paragraph{Where the policy plausibly comes from.}\label{sec:origin}Our results fit a corpus-statistics account, stated as a hypothesis: in dialogue data, whether an interlocutor's claim is true leaves traces (people object to false claims) while a speaker's private confidence is invisible, so the corpus teaches an accurate confidence estimator and a flat confidence-to-behavior mapping. The account predicts the surfacing null and that training installs the mapping (\cref{sec:repair}); \cref{app:ladder} gives the pre-registered test and \cref{app:origin} states it in full.
+origin_short = r'''\paragraph{Where the policy plausibly comes from.}\label{sec:origin}Our results fit a corpus-statistics account, stated as a hypothesis: in dialogue data, whether an interlocutor's claim is true leaves traces (people object to false claims) while a speaker's private confidence is invisible, so the corpus teaches an accurate confidence estimator and a flat confidence-to-behavior mapping. It predicts the surfacing null and that training installs the mapping (\cref{sec:repair}); \cref{app:ladder} gives its pre-registered test and \cref{app:origin} the full statement.
 
 '''
 body = body.replace("\\section{Training Installs the Missing Link}", origin_short + "\\section{Training Installs the Missing Link}")
@@ -86,7 +92,7 @@ Language models increasingly know when they might be wrong, and none of that kno
 # two consequences -> one-sentence summaries in the main text, full paragraphs in the appendix
 i = body.index("\\textbf{Survival beats stated confidence.}"); j = body.index("\\section{Limitations}")
 conseq_full = body[i:j]
-conseq_short = r'''\textbf{Two deployment consequences}, survival under a standardized battery of challenges as a confidence score that beats the model's stated confidence in 16 of 19 checkpoints, and the collapse of in-place reconsideration after a false counter (accuracy $0.00$--$0.08$ on questions first answered correctly, restored by re-asking in a fresh context), are given in full in \cref{app:conseq}.
+conseq_short = r'''\textbf{Two deployment consequences}, in full in \cref{app:conseq}: survival under a standardized battery of challenges beats the model's stated confidence as a confidence score in 16 of 19 checkpoints, and asking a model to reconsider in place after a false counter collapses its accuracy ($0.00$--$0.08$) where re-asking in a fresh context restores it.
 
 '''
 body = body[:i] + conseq_short + body[j:]
@@ -96,14 +102,14 @@ body, related_full = cut(body, "\\section{Related Work}", "\\section{Experimenta
 body, setup_full = cut(body, "\\section{Experimental Setup}", "\\begin{figure*}")  # fig_gap float sits between Setup and Section 4
 related_short = r'''\section{Related Work}
 \label{sec:related}
-Sycophancy is documented and traced to preference data \citep{sharma2024sycophancy, perez2023discovering}; repetition of an alternative accounts for much apparent conformity without any speaker \citep{hu2026conformity}, and stated answers are unstable under self-challenge \citep{saadat2026certainty}. Calibration work shows that verbalized confidence and self-evaluation predict correctness \citep{lin2022teaching, tian2023just, xiong2024can, kadavath2022language}; that literature measures the monitor, we measure whether the controller consumes it. \citet{yang2025retraction} find that a hidden-state belief causally drives retraction, the contrast to our result that every \emph{explicit} channel is inert. Intrinsic self-correction is unreliable \citep{huang2024large}; contentless doubt alone flips $0.53$ to $0.91$ of correct answers. Staged releases \citep{olmo2025, lambert2024tulu, tunstall2024zephyr} place changes at training stages (\cref{app:stages}); we add causal interventions (full discussion in \cref{app:related}).
+Sycophancy is documented and traced to preference data \citep{sharma2024sycophancy, perez2023discovering}; repetition of an alternative accounts for much apparent conformity without any speaker \citep{hu2026conformity}, and stated answers are unstable under self-challenge \citep{saadat2026certainty}. Calibration work shows that verbalized confidence and self-evaluation predict correctness \citep{lin2022teaching, tian2023just, xiong2024can, kadavath2022language}; that literature measures the monitor, we measure whether the controller consumes it. \citet{yang2025retraction} find that a hidden-state belief causally drives retraction, the contrast to our result that every \emph{explicit} channel is inert. Intrinsic self-correction is unreliable \citep{huang2024large}. Staged releases \citep{olmo2025, lambert2024tulu, tunstall2024zephyr} place changes at training stages (\cref{app:stages}); we add causal interventions (full discussion in \cref{app:related}).
 
 '''
 setup_short = r'''\section{Experimental Setup}
 \label{sec:setup}
 Every trial has the same shape: a claim enters as the model's prior assistant turn, optionally with epistemic metadata; a challenge arrives; the model answers in a fixed format; the outcome is scored by normalized string matching into retain, switch-to-alternative or switch-elsewhere (unparsed under 2\%). Decoding is greedy, so uncertainty comes from resampling questions. Three banks: 600 easy SciQ items \citep{welbl2017crowdsourcing}, 900 hard MMLU-Pro and TruthfulQA items \citep{wang2024mmlupro, lin2022truthfulqa} split into analysis and held-out halves, and an identification bank of 600 MMLU-Pro items with the true answer and two distinct distractors. Challenges are matched sentence types (sourced counter, bare counter, source only, pressure, weak suggestion; \cref{app:setup} gives the wording). Nineteen open checkpoints span the Qwen2.5 ladder (0.5B--32B), Llama-3.x, Mistral-7B, Phi-3.5-mini, OLMo-2-7B and the staged OLMo-2, Tulu-3 and Zephyr lineages; the identification experiments use six of them and, in \cref{sec:frontier}, one frontier model. Four uncertainty signals are measured per item in a clean context: verbalized confidence, P(True) \citep{kadavath2022language}, a completion-log-probability belief score, and eight-sample consistency. Within checkpoints we use the cluster bootstrap over questions; the identification analysis is a pooled logistic regression over 52{,}102 trials with model fixed effects and errors clustered by model-item. Two analyses were pre-registered with prediction files hashed before data collection.
 
-\paragraph{Framework.} Write $\pi(x)$ for the probability that the model abandons its current answer in context $x$, and decompose $x$ into the cue $u$ (that a challenge occurred, and its surface form), the monitor $s$ (stated confidence, or any of the four signals above), and the latent truth values $t_{\mathrm{own}}$ and $t_{\mathrm{alt}}$ of the current answer and of the named alternative. The monitor is good to the extent that $s$ predicts $t_{\mathrm{own}}$, which we report as AUROC; the controller uses it to the extent that $\pi$ depends on $s$ with $u$ held fixed. The confidence-use gap is the conjunction: AUROC well above chance with $\partial\pi/\partial s\approx 0$. A challenge protocol identifies the controller only if it varies $t_{\mathrm{alt}}$ separately from $u$; the three-cell design of \cref{sec:control} does so, and the pooled regression there estimates the four partial effects of $u$, $t_{\mathrm{own}}$, $t_{\mathrm{alt}}$ and $s$ directly. \Cref{prop:price} prices the gap and \cref{prop:chain} propagates it through a population of agents.
+\paragraph{Framework.} Write $\pi(x)$ for the probability that the model abandons its current answer in context $x$, and decompose $x$ into the cue $u$ (that a challenge occurred, and its surface form), the monitor $s$ (stated confidence, or any of the four signals above), and the latent truth values $t_{\mathrm{own}}$ and $t_{\mathrm{alt}}$ of the current answer and of the named alternative. The monitor is good to the extent that $s$ predicts $t_{\mathrm{own}}$, which we report as AUROC; the controller uses it to the extent that $\pi$ depends on $s$ with $u$ held fixed. The confidence-use gap is the conjunction: AUROC well above chance with $\partial\pi/\partial s\approx 0$. \Cref{prop:ident} says which protocols identify the controller, \cref{prop:price} prices the gap, and \cref{prop:chain} propagates it through a population of agents.
 
 '''
 assert "\\begin{figure*}" in body and "\\section{The Monitor Works}" in body
@@ -151,7 +157,45 @@ $\pi_{k+1}=\pcw+(\pww-\pcw)\,\pi_k$, hence $\pi_k=\piinf+(\pi_1-\piinf)\lambda^{
 \end{proposition}
 The one-step law is the law of total probability; the closed form follows by induction on $k$. These statements, the decay bound and the firewall reset are formalised and checked in Lean~4 with Mathlib (repository directory \texttt{lean/}, \texttt{lake build} with no \texttt{sorry}); formalisation caught one gap in the informal statement, the hypothesis $\pcw>0$, without which $\lambda=1$ is admissible and nothing decays. \Cref{fig:contagion} plots the closed form from the measured first hop against the measured curve for every model.
 '''
-appx = appx + ("" if NF else appx_front.replace("\\textbf{Tables.}", frontier_fig + "\n\\textbf{Tables.}")) + appx_lean
+appx_theory = r"""
+\section{Theory: Statements and Machine-Checked Proofs}
+\label{app:theory}
+Every proposition in the paper is formalised in Lean~4 with Mathlib (directory \texttt{lean/} in the supplementary material). \texttt{lake build} completes with no \texttt{sorry}, and every theorem depends only on the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. The formal names are given in \cref{tab:lean}.
+
+\textbf{Setting.} A finite set of items $i$ with weights $w_i\geq 0$, $\sum_i w_i=1$, and calibrated reliabilities $r_i\in[0,1]$ ($\Pr[\text{correct}\mid r]=r$). A reviser that switches with probability $\pi$ on an item of reliability $r$ has expected post-challenge correctness $\mathrm{acc}(r,\pi)=(1-\pi)r+\pi(1-r)$; the Bayesian reviser attains $\max(r,1-r)$. Write $x^{+}=\max(x,0)$ and $A=\sum_i w_i r_i$.
+
+\begin{proposition}[Price of the cue, general form]\label{prop:price-general}
+(i) For every $r$ and $\pi$, $\max(r,1-r)-\mathrm{acc}(r,\pi)=(1-\pi)(1-2r)^{+}+\pi(2r-1)^{+}$. (ii) Hence for a policy that switches with the same $\pi$ on every item, $\sum_i w_i\max(r_i,1-r_i)-\sum_i w_i\,\mathrm{acc}(r_i,\pi)=(1-\pi)\sum_i w_i(1-2r_i)^{+}+\pi\sum_i w_i(2r_i-1)^{+}=\sum_i w_i(1-2r_i)^{+}+\pi(2A-1)$, which is \cref{eq:price}. (iii) If some item with positive weight has $r_i<\tfrac12$ and some other has $r_j>\tfrac12$, this quantity is strictly positive for every $\pi\in[0,1]$: no monitor-insensitive policy is optimal. (iv) The threshold policy, switch iff $r<\tfrac12$, attains $\max(r,1-r)$ pointwise, so its price is zero.
+\end{proposition}
+\emph{Proof.} (i) is a case split on $r\leq\tfrac12$; (ii) is linearity of the sum and $(2r-1)^{+}-(1-2r)^{+}=2r-1$; (iii) bounds each sum below by its $i$-th or $j$-th term; (iv) is a case split. All four are the Lean theorems listed in \cref{tab:lean}. \qed
+
+\Cref{prop:ident} (identification) is stated in \cref{sec:ident}; its three parts are the theorems \texttt{two\_cells\_confound}, \texttt{two\_cells\_do\_not\_identify\_prob} and \texttt{three\_cells\_identify}, where a policy is a function $\{0,1\}^2\to\mathbb{R}$ and the cells are its values. \Cref{prop:chain} (chain dynamics) is stated and discussed in \cref{app:lean}.
+
+\begin{table}[h]
+\caption{Formal statements and their Lean theorems (namespace \texttt{RealityMonitoring}).}
+\label{tab:lean}
+\vskip 0.05in
+\centering\small
+\begin{tabular}{lll}
+\toprule
+paper statement & Lean theorem & file \\
+\midrule
+\cref{prop:ident}(i) two cells confound & \texttt{Identification.two\_cells\_confound} & \texttt{Identification.lean} \\
+\cref{prop:ident}(ii) two cells do not identify & \texttt{Identification.two\_cells\_do\_not\_identify\_prob} & \\
+\cref{prop:ident}(iii) three cells identify & \texttt{Identification.three\_cells\_identify} & \\
+\cref{prop:price-general}(i) pointwise price & \texttt{Price.price\_pointwise} & \texttt{Price.lean} \\
+\cref{prop:price-general}(ii) expectation, \cref{eq:price} & \texttt{Price.price\_expect}, \texttt{Price.price\_eq1} & \\
+\cref{prop:price-general}(iii) strict suboptimality & \texttt{Price.constant\_policy\_suboptimal} & \\
+\cref{prop:price-general}(iv) threshold is optimal & \texttt{Price.threshold\_policy\_optimal} & \\
+\cref{prop:chain} closed form, seed independence & \texttt{closed\_form}, \texttt{seed\_independence} & \texttt{Theory.lean} \\
+\cref{prop:chain} decay, firewall reset, mixture & \texttt{seed\_influence\_decays}, \texttt{firewall\_reset}, \texttt{piInfMixed\_anti} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{What the theory does and does not license.} \Cref{prop:ident} says that the F$\to$F rates in \cref{tab:cells} measure the mechanism: because F$\to$F equals F$\to$T to within $0.08$ in every model, the alternative-truth effect is at most $0.08$ and the policy is ``switch to whatever is named.'' \Cref{prop:price-general} says that a policy which does not respond to the monitor, which is what \cref{sec:control} measures ($0.007$ per standard deviation of stated confidence), is strictly suboptimal whenever the monitor separates items on both sides of even odds, which \cref{sec:monitor} shows it does (AUROC $0.59$--$0.74$), and it gives the size of the loss ($0.47$ for Qwen2.5-7B under pressure). \Cref{prop:chain} turns the measured first hop into a prediction for every later hop, which the agent-chain experiment confirms at 8/8, 6/8 and 8/8 hops. The theory does not derive the value of $\pi$ from training data: the account of where the policy comes from (\cref{app:origin}) is a hypothesis with a pre-registered test (\cref{app:ladder}), not a theorem.
+"""
+appx = appx + ("" if NF else appx_front.replace("\\textbf{Tables.}", frontier_fig + "\n\\textbf{Tables.}")) + appx_theory + appx_lean
 head = r'''\documentclass{article}
 \usepackage{iclr2027_conference,times}
 \input{math_commands.tex}

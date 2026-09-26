@@ -1,0 +1,18 @@
+== Sat Sep 26 06:24:17 UTC 2026 lake build (RmTheory: Basic, Identification, Price)
+Build completed successfully (8928 jobs).
+== sorry count:
+RmTheory/Basic.lean:0
+RmTheory/Identification.lean:0
+RmTheory/Price.lean:0
+RmTheory/Theory.lean:0
+== axioms:
+'RealityMonitoring.Identification.two_cells_confound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Identification.two_cells_do_not_identify_prob' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RealityMonitoring.Identification.three_cells_identify' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.price_pointwise' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.price_expect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.price_eq1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.constant_policy_suboptimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RealityMonitoring.Price.threshold_policy_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
