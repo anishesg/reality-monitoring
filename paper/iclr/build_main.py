@@ -4,6 +4,7 @@ consequence, limitations, frontier appendix). Re-run after editing the sources; 
 import re, os
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(os.path.dirname(HERE))
 src = open(os.path.join(ROOT, "paper/latex/main.tex")).read()
+NF = os.environ.get("NO_FRONTIER", "0") == "1"   # NO_FRONTIER=1: build the version without the Astra/Fable experiments (writes main_nofrontier.tex)
 body = src[src.index("\\begin{abstract}"): src.index("\\bibliography{refs}")]
 appx = src[src.index("\\appendix"): src.index("\\end{document}")]
 def strip(p):  # drop-in files: remove % comment lines
@@ -18,9 +19,9 @@ frontier_fig = r'''
 \label{fig:frontier}
 \end{figure}
 '''
-agents = strip("agents_consequence.tex").replace("Appendix~X", "\\cref{app:lean}").replace("../figures/fig6_contagion.pdf", "figs/frontier_contagion.pdf")
+agents = strip("agents_consequence.tex").replace("Appendix~X", "\\cref{app:lean}").replace("../figures/fig6_contagion.pdf", "figs/frontier_contagion_open.pdf" if NF else "figs/frontier_contagion.pdf")
 agents = agents.replace("Section~5 says otherwise", "\\cref{sec:control} says otherwise").replace("\\subsection{The gap propagates between agents}", "\\subsection{The gap propagates between agents}\n\\label{sec:agents}")
-agents += r'''
+agents += "" if NF else r'''
 The same protocol on GPT-6 Astra (300 questions, 14{,}259 trials; red in \cref{fig:contagion}) shows the sender invariance exactly: with a correct answer injected, Astra folds to a peer naming the alternative at $0.12$ / $0.11$ / $0.12$ / $0.12$ whether the peer is a 1.5B, 7B or 14B open model or Astra itself, and no more often than with no message at all ($0.15$ [$0.11,0.19$]); with its own reasoned answer in context it folds at $0.00$--$0.03$. The chain keeps its form with different constants: a bare wrong seed is rejected by the first agent $0.81$ of the time, but once an agent is wrong \emph{with its reasoning} the next is wrong with $\pww=0.96$ [$0.93,0.98$] against $\pcw=0.01$ from a correct predecessor, so $\lambda=0.95$, $\piinf=0.21$ and both chains sit at $0.19$ (wrong seed) and $0.10\to0.14$ (right seed) for eight hops. A reasoned wrong answer is as contagious at the frontier as at 7B; what changed is how often one is produced.
 '''
 # ---- edits to Anish's body
@@ -51,7 +52,7 @@ appx = appx + controls_app
 def cutfig(body, filename):
     i = body.rfind("\\begin{figure", 0, body.index(filename)); j = body.index("\\end{figure", i); j = body.index("}", j) + 1
     return body[:i] + body[j:], body[i:j]
-body, fig_forest = cutfig(body, "figs/fig_forest.pdf")
+body, fig_forest = (body, "") if NF else cutfig(body, "figs/fig_forest.pdf")
 body, fig_repair = cutfig(body, "figs/fig_repair.pdf")
 body, quant = cut(body, "\\subsection{The policy, quantified}", "\\subsection{Progress is one-sided}")
 quant_paras = quant.split("\n\n")
@@ -108,7 +109,7 @@ Every trial has the same shape: a claim enters as the model's prior assistant tu
 assert "\\begin{figure*}" in body and "\\section{The Monitor Works}" in body
 body = body.replace("\\begin{figure*}", related_short + setup_short + "\\begin{figure*}", 1)  # right after the Introduction
 appx = appx + "\n\\section{Extended Related Work}\n\\label{app:related}\n" + related_full.replace("\\section{Related Work}\n\\label{sec:related}\n", "") + "\n\\section{Setup Details}\n\\label{app:setup}\n" + setup_full.replace("\\section{Experimental Setup}\n\\label{sec:setup}\n", "")
-body = body.replace("\\end{abstract}", "The same structure holds at the frontier: two frontier models from different developers abandon a correct answer a fifth and a tenth as often as a 7B model and use their own confidence, and the source of a challenge, exactly as little; a wrong answer that one agent reasons its way to is passed down a chain of agents at the frontier as reliably as at 7B.\n\\end{abstract}")
+if not NF: body = body.replace("\\end{abstract}", "The same structure holds at the frontier: two frontier models from different developers abandon a correct answer a fifth and a tenth as often as a 7B model and use their own confidence, and the source of a challenge, exactly as little; a wrong answer that one agent reasons its way to is passed down a chain of agents at the frontier as reliably as at 7B.\n\\end{abstract}")
 body = body.replace("\\section{Conclusion}\n\\label{sec:conclusion}\n\n", "\\section{Conclusion}\n\\label{sec:conclusion}\n\n")
 body = body.replace("\\section{Two Consequences}", "\\section{Three Consequences}")
 ladder_app = r'''
@@ -118,7 +119,7 @@ ladder_app = r'''
 '''
 appx = appx + ladder_app
 body = body.replace("\\section{Limitations}", agents.rstrip() + "\n\n\\section{Limitations}")
-body = body.replace("\\section{Training Installs the Missing Link}", frontier.rstrip() + "\n\n\\section{Training Installs the Missing Link}")
+if not NF: body = body.replace("\\section{Training Installs the Missing Link}", frontier.rstrip() + "\n\n\\section{Training Installs the Missing Link}")
 body = body.replace("The identification experiments inject claims rather than eliciting them; elicited-answer conditions in the survey experiments reproduce the main patterns, but the full three-cell design under elicitation is future work.",
  "The identification experiments on open models inject claims rather than eliciting them; the elicited three-cell design is run on the two frontier models (\\cref{sec:frontier}) and reproduces the injected pattern, and remains to be run on the open models.")
 body = body.replace("The largest unquantized model is 14B.", "The largest open model is 14B; the two frontier models are measured in a single deterministic pass at low reasoning effort, and their responses are graded with an equivalence judge whose agreement with exact-match grading is reported in \\cref{app:frontier}.")
@@ -150,7 +151,7 @@ $\pi_{k+1}=\pcw+(\pww-\pcw)\,\pi_k$, hence $\pi_k=\piinf+(\pi_1-\piinf)\lambda^{
 \end{proposition}
 The one-step law is the law of total probability; the closed form follows by induction on $k$. These statements, the decay bound and the firewall reset are formalised and checked in Lean~4 with Mathlib (repository directory \texttt{lean/}, \texttt{lake build} with no \texttt{sorry}); formalisation caught one gap in the informal statement, the hypothesis $\pcw>0$, without which $\lambda=1$ is admissible and nothing decays. \Cref{fig:contagion} plots the closed form from the measured first hop against the measured curve for every model.
 '''
-appx = appx + appx_front.replace("\\textbf{Tables.}", frontier_fig + "\n\\textbf{Tables.}") + appx_lean
+appx = appx + ("" if NF else appx_front.replace("\\textbf{Tables.}", frontier_fig + "\n\\textbf{Tables.}")) + appx_lean
 head = r'''\documentclass{article}
 \usepackage{iclr2027_conference,times}
 \input{math_commands.tex}
@@ -193,5 +194,24 @@ All open models are open weight and all question banks are public. The supplemen
 \newpage
 ''' + appx + "\n\\end{document}\n"
 out = head + body + tail
-open(os.path.join(HERE, "main.tex"), "w").write(out)
-print("wrote paper/iclr/main.tex", len(out.split()), "words")
+if NF:
+    NFREP = [
+        ("the identification experiments use six of them and, in \\cref{sec:frontier}, one frontier model.", "the identification experiments use six of them."),
+        (", and the structure is the same at the frontier.", "."),
+        (" One of the evaluated systems (GPT-6 Astra) is also used as an equivalence judge for grading frontier responses, as described in \\cref{app:frontier}; that use is part of the method, not of the writing.", ""),
+        (" Frontier-model runs record the model snapshot, reasoning effort and grading for every trial (\\cref{app:frontier}).", ""),
+        ("the elicited design is run on the frontier models (\\cref{sec:frontier}), and running it on open models requires an equivalence judge for their free-form answers, which we leave to future work.", "the elicited design, with the model's own reasoned answer as the challenged turn, requires an equivalence judge for free-form answers and is left to future work."),
+        ("\\cref{app:quant} gives the analysis and the coefficient plot.", "\\cref{app:quant} gives the full analysis and \\cref{fig:forest} plots the coefficients."),
+    ]
+    for a, b in NFREP:
+        assert out.count(a) == 1, ("NF replacement not found", a[:70], out.count(a))
+        out = out.replace(a, b)
+    out = re.sub(r"[^.]*the frontier model is measured in one deterministic pass[^.]*\.", "", out) if False else out
+    m = re.search(r"; the largest open model is 14B, and the frontier model is measured[^.]*\\cref\{app:frontier\}\.", out); assert m, "limitations frontier sentence"
+    out = out.replace(m.group(0), "; the largest model is 14B.")
+    left = [l for l in out.splitlines() if re.search(r"Astra|Fable|sec:frontier|app:frontier|fig:structure|frontier model", l)]
+    assert not left, ("frontier mentions remain", [l[:90] for l in left])
+    open(os.path.join(HERE, "main_nofrontier.tex"), "w").write(out); print("wrote paper/iclr/main_nofrontier.tex", len(out.split()), "words")
+else:
+    open(os.path.join(HERE, "main.tex"), "w").write(out)
+    print("wrote paper/iclr/main.tex", len(out.split()), "words")
