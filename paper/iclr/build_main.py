@@ -25,6 +25,38 @@ agents += "" if NF else r'''
 The same protocol on GPT-6 Astra (300 questions, 14{,}259 trials; red in \cref{fig:contagion}) shows the sender invariance exactly: with a correct answer injected, Astra folds to a peer naming the alternative at $0.12$ / $0.11$ / $0.12$ / $0.12$ whether the peer is a 1.5B, 7B or 14B open model or Astra itself, and no more often than with no message at all ($0.15$ [$0.11,0.19$]); with its own reasoned answer in context it folds at $0.00$--$0.03$. The chain keeps its form with different constants: a bare wrong seed is rejected by the first agent $0.81$ of the time, but once an agent is wrong \emph{with its reasoning} the next is wrong with $\pww=0.96$ [$0.93,0.98$] against $\pcw=0.01$ from a correct predecessor, so $\lambda=0.95$, $\piinf=0.21$ and both chains sit at $0.19$ (wrong seed) and $0.10\to0.14$ (right seed) for eight hops. A reasoned wrong answer is as contagious at the frontier as at 7B; what changed is how often one is produced.
 '''
 # ---- edits to Anish's body
+# Synthetic-monitor sweep (co-author's Exp H, 2026-09-26): the trained controller against the Bayesian curve
+synth = r"""
+\textbf{The controller is fixed; the monitor is now the limit.} To separate what the trained controller can do from what the model's own signals supply, we replace the stated reliability with a synthetic note calibrated to a chosen AUROC against the model's correctness and measure post-challenge accuracy under a sourced counter (\cref{tab:synth}). The untrained model ignores even a near-perfect monitor: at AUROC $0.99$ it stays at $0.24$ where the Bayesian reviser reaches $0.96$. The rule-trained adapter tracks the Bayesian curve, realising 91--99 percent of the achievable gain at every monitor quality, so what training installed is the threshold policy that \cref{prop:price-general}(iv) shows to be optimal, while the shuffled-label control stays flat. Real signals land where the curve says: self-reported confidence has AUROC $0.50$--$0.68$ on this bank, a range in which even the optimal controller gains at most a point, which is why surfacing the model's own confidence adds at most $0.02$ (\cref{sec:nulls}); the best real monitor available on this bank (AUROC $0.80$--$0.87$) lifts the rule adapter from $0.74$ to $0.81$.
+
+\begin{table}[t]
+\caption{Post-challenge accuracy under a sourced counter as a function of monitor quality. The monitor is a synthetic reliability note calibrated to the stated AUROC against the model's own correctness; the first row is the Bayesian threshold policy of \cref{prop:price-general}. Efficiency is the fraction of the achievable gain over keep-all realised at AUROC $\geq 0.8$. Own-confidence rows give the range over three seeds.}
+\label{tab:synth}
+\vskip 0.05in
+\centering\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lcccccc|c}
+\toprule
+monitor AUROC & 0.5 & 0.7 & 0.8 & 0.9 & 0.95 & 0.99 & efficiency \\
+\midrule
+Bayesian reviser (best possible) & .744 & .754 & .780 & .850 & .885 & .960 & --- \\
+rule-trained adapter & .743 & .746 & .781 & .848 & .878 & .959 & .91--.99 \\
+own-confidence adapters (3 seeds) & .68--.77 & .71--.78 & .73--.82 & .79--.86 & .83--.88 & .87--.94 & .42--.93 \\
+shuffled-label control & .755 & .752 & .753 & .756 & .758 & .758 & flat \\
+untrained base & .235 & .237 & .234 & .238 & .235 & .237 & flat \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+"""
+_w = body.index("\\textbf{What the trained model is and is not.}"); _we = body.index("\n\n", _w)
+what_para = body[_w:_we]; body = body[:_w] + "\\textbf{What the trained model is and is not.} It follows stated reliability as a rule, with a sharp threshold at the trained boundary; \\cref{app:repairdetail} characterises it." + body[_we:]
+appx_repair = "\n\\section{The Trained Model in Detail}\n\\label{app:repairdetail}\n" + what_para.replace("\\textbf{What the trained model is and is not.} ", "") + "\n"
+body = body.replace("\\section{Two Consequences}", synth + "\\section{Two Consequences}", 1)
+body = body.replace("Scale buys the knowledge; only training buys its use.", "Scale buys the knowledge; only training buys its use, and once it does the trained controller realises 91 to 99 percent of the Bayes-optimal gain at every monitor quality, so the monitor becomes the binding limit.", 1)
+_c = body.index("Two checks pass."); _ce = body.index("\n\n", _c)
+checks = body[_c:_ce]; body = body[:_c] + body[_ce+2:]
+appx_checks = "\n\\paragraph{Two checks.}" + checks[len("Two checks pass."):] + "\n"
 body = body.replace("It does not. The dissociation has two sides, usually studied by separate communities that do not test each other's assumption.", "It does not.")
 _i = body.index("The fix needs a third cell"); _e = body.index("\n\n", _i)
 prop_ident = r"""\begin{proposition}[Identification]\label{prop:ident}
@@ -102,7 +134,7 @@ Language models increasingly know when they might be wrong, and none of that kno
 # two consequences -> one-sentence summaries in the main text, full paragraphs in the appendix
 i = body.index("\\textbf{Survival beats stated confidence.}"); j = body.index("\\section{Limitations}")
 conseq_full = body[i:j]
-conseq_short = r'''\textbf{Two deployment consequences} are given in full in \cref{app:conseq}: survival under a standardized battery of challenges beats stated confidence as a confidence score in 16 of 19 checkpoints, and in-place reconsideration after a false counter collapses accuracy where re-asking in a fresh context restores it.
+conseq_short = r'''\textbf{Two deployment consequences} (\cref{app:conseq}): survival under a challenge battery beats stated confidence as a confidence score in 16 of 19 checkpoints, and in-place reconsideration after a false counter collapses accuracy where re-asking in a fresh context restores it.
 
 '''
 body = body[:i] + conseq_short + body[j:]
@@ -112,14 +144,14 @@ body, related_full = cut(body, "\\section{Related Work}", "\\section{Experimenta
 body, setup_full = cut(body, "\\section{Experimental Setup}", "\\begin{figure*}")  # fig_gap float sits between Setup and Section 4
 related_short = r'''\section{Related Work}
 \label{sec:related}
-Sycophancy is documented and traced to preference data \citep{sharma2024sycophancy, perez2023discovering}; repetition of an alternative accounts for much apparent conformity without any speaker \citep{hu2026conformity}, and stated answers are unstable under self-challenge \citep{saadat2026certainty}. Calibration work shows that verbalized confidence and self-evaluation predict correctness \citep{lin2022teaching, tian2023just, xiong2024can, kadavath2022language}; that literature measures the monitor, we measure whether the controller consumes it. \citet{yang2025retraction} find that a hidden-state belief causally drives retraction; every \emph{explicit} channel we test is inert. Intrinsic self-correction is unreliable \citep{huang2024large}. Staged releases \citep{olmo2025, lambert2024tulu, tunstall2024zephyr} place changes at training stages (\cref{app:stages}, \cref{app:related}).
+Sycophancy is documented and traced to preference data \citep{sharma2024sycophancy, perez2023discovering}; repetition alone accounts for much apparent conformity \citep{hu2026conformity}, and stated answers are unstable under self-challenge \citep{saadat2026certainty}. Calibration work shows that verbalized confidence and self-evaluation predict correctness \citep{lin2022teaching, tian2023just, xiong2024can, kadavath2022language}; that literature measures the monitor, we measure whether the controller consumes it. \citet{yang2025retraction} find that a hidden-state belief causally drives retraction; every \emph{explicit} channel we test is inert. Intrinsic self-correction is unreliable \citep{huang2024large}. Staged releases \citep{olmo2025, lambert2024tulu, tunstall2024zephyr} place changes at training stages (\cref{app:stages}, \cref{app:related}).
 
 '''
 setup_short = r'''\section{Experimental Setup}
 \label{sec:setup}
 Every trial has the same shape: a claim enters as the model's prior assistant turn, optionally with epistemic metadata; a challenge arrives; the model answers in a fixed format; the outcome is scored by normalized string matching into retain, switch-to-alternative or switch-elsewhere (unparsed under 2\%). Decoding is greedy, so uncertainty comes from resampling questions. Three banks: 600 easy SciQ items \citep{welbl2017crowdsourcing}, 900 hard MMLU-Pro and TruthfulQA items \citep{wang2024mmlupro, lin2022truthfulqa} split into analysis and held-out halves, and an identification bank of 600 MMLU-Pro items with the true answer and two distinct distractors. Challenges are matched sentence types (sourced counter, bare counter, source only, pressure, weak suggestion; \cref{app:setup} gives the wording). Nineteen open checkpoints span the Qwen2.5 ladder (0.5B--32B), Llama-3.x, Mistral-7B, Phi-3.5-mini, OLMo-2-7B and the staged OLMo-2, Tulu-3 and Zephyr lineages; the identification experiments use six of them and, in \cref{sec:frontier}, one frontier model. Four uncertainty signals are measured per item in a clean context: verbalized confidence, P(True) \citep{kadavath2022language}, a completion-log-probability belief score, and eight-sample consistency. Within checkpoints we use the cluster bootstrap over questions; the identification analysis is a pooled logistic regression over 52{,}102 trials with model fixed effects and errors clustered by model-item. Two analyses were pre-registered with prediction files hashed before data collection.
 
-\paragraph{Measures and choices.} Every challenge trial is scored into retain, switch-to-alternative or switch-elsewhere by normalized string match on the model's \texttt{FINAL} line (unparsed under 2\%). We report \emph{abandonment}, the probability of leaving a correct answer, and the switch rate in each cell of \cref{tab:cells}; the \emph{confidence effect}, abandonment at low minus high stated confidence with the challenge held fixed; the \emph{source effect}, abandonment under a sourced minus a bare counter; and $\Delta_b$, the change in F$\to$F switching between items whose clean-context belief favours the alternative versus the claim. Monitor quality is the AUROC of each signal against the model's own correctness on the same items; the regression reports average marginal effects. Decoding is greedy, so every rate is a deterministic function of the prompt and uncertainty comes from questions alone (cluster bootstrap); the identification bank carries two distractors per item so that the F$\to$F cell exists; no training item is ever evaluated.
+\paragraph{Measures and choices.} Every challenge trial is scored into retain, switch-to-alternative or switch-elsewhere by normalized string match on the model's \texttt{FINAL} line (unparsed under 2\%). We report \emph{abandonment}, the probability of leaving a correct answer, and the switch rate in each cell of \cref{tab:cells}; the \emph{confidence effect}, abandonment at low minus high stated confidence with the challenge held fixed; the \emph{source effect}, abandonment under a sourced minus a bare counter; and $\Delta_b$, the change in F$\to$F switching between items whose clean-context belief favours the alternative versus the claim. Monitor quality is the AUROC of each signal against the model's own correctness on the same items; the regression reports average marginal effects. Decoding is greedy, so uncertainty comes from questions alone (cluster bootstrap); the identification bank carries two distractors per item so that the F$\to$F cell exists; no training item is ever evaluated.
 
 \paragraph{Framework.} Write $\pi(x)$ for the probability that the model abandons its current answer in context $x$, with $x$ decomposed into the cue $u$ (that a challenge occurred, and its form), the monitor $s$ (stated confidence or any of the four signals), and the latent truth values $t_{\mathrm{own}}$ and $t_{\mathrm{alt}}$ of the current answer and of the named alternative. The monitor is good to the extent that $s$ predicts $t_{\mathrm{own}}$, which we report as AUROC; the controller uses it to the extent that $\pi$ depends on $s$ with $u$ held fixed. The confidence-use gap is the conjunction: AUROC well above chance with $\partial\pi/\partial s\approx 0$. \Cref{prop:ident} says which protocols identify the controller, \cref{prop:price} prices the gap, and \cref{prop:chain} propagates it through a population of agents.
 
@@ -192,6 +224,8 @@ Let the challenge carry evidence of likelihood ratio $\ell>0$ for the alternativ
 
 \Cref{prop:ident} is proved by exhibiting the two policies in (i), the policy $\pi(1,\cdot)=a$, $\pi(0,1)=b$, $\pi(0,0)=b-\delta$ in (ii), and by definition of the two effects in (iii). Every proposition in the paper, including \cref{prop:chain}, is also formalised and checked in Lean~4 with Mathlib; the sources and build log are in the supplementary material.
 """
+appx = appx + appx_repair
+appx = appx.replace("\\section{Identification Bank and Robustness}", "\\section{Identification Bank and Robustness}" + appx_checks, 1) if "\\section{Identification Bank and Robustness}" in appx else appx + appx_checks
 appx = appx + ("" if NF else appx_front.replace("\\textbf{Tables.}", frontier_fig + "\n\\textbf{Tables.}")) + appx_theory + appx_lean
 head = r'''\documentclass{article}
 \usepackage{iclr2027_conference,times}
