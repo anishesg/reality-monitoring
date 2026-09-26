@@ -1,6 +1,6 @@
 # Research plan: remaining experiments for ICLR 2027 (temporary folder; delete before camera-ready)
 
-Last updated 2026-09-21. Owners: V = author V, A = co-author A. Deadline: full paper 2026-09-25 23:59 AoE; rebuttal window later
+Last updated 2026-09-21. Owners: two authors. Deadline: full paper 2026-09-25 23:59 AoE; rebuttal window later
 carries anything marked "rebuttal". Everything here is frozen in `prereg/` before it runs; this file is the map, not the contract.
 
 ## 0. Thesis and what the remaining work must prove

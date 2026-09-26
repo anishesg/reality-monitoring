@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble paper/iclr/main.tex: co-author A's paper/latex/main.tex body on the ICLR 2027 template + additions (frontier subsection, agent-chain
+"""Assemble paper/iclr/main.tex: the co-author's paper/latex/main.tex body on the ICLR 2027 template + additions (frontier subsection, agent-chain
 consequence, limitations, frontier appendix). Re-run after editing the sources; never hand-edit main.tex."""
 import re, os
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -24,7 +24,7 @@ agents = agents.replace("Section~5 says otherwise", "\\cref{sec:control} says ot
 agents += "" if NF else r'''
 The same protocol on GPT-6 Astra (300 questions, 14{,}259 trials; red in \cref{fig:contagion}) shows the sender invariance exactly: with a correct answer injected, Astra folds to a peer naming the alternative at $0.12$ / $0.11$ / $0.12$ / $0.12$ whether the peer is a 1.5B, 7B or 14B open model or Astra itself, and no more often than with no message at all ($0.15$ [$0.11,0.19$]); with its own reasoned answer in context it folds at $0.00$--$0.03$. The chain keeps its form with different constants: a bare wrong seed is rejected by the first agent $0.81$ of the time, but once an agent is wrong \emph{with its reasoning} the next is wrong with $\pww=0.96$ [$0.93,0.98$] against $\pcw=0.01$ from a correct predecessor, so $\lambda=0.95$, $\piinf=0.21$ and both chains sit at $0.19$ (wrong seed) and $0.10\to0.14$ (right seed) for eight hops. A reasoned wrong answer is as contagious at the frontier as at 7B; what changed is how often one is produced.
 '''
-# ---- edits to co-author A's body
+# ---- edits to the co-author's body
 # Synthetic-monitor sweep (co-author's Exp H, 2026-09-26): the trained controller against the Bayesian curve
 synth = r"""
 \textbf{The controller is fixed; the monitor is now the limit.} To separate what the trained controller can do from what the model's own signals supply, we replace the stated reliability with a synthetic note calibrated to a chosen AUROC against the model's correctness and measure post-challenge accuracy under a sourced counter (\cref{tab:synth}). The untrained model ignores even a near-perfect monitor: at AUROC $0.99$ it stays at $0.24$ where the Bayesian reviser reaches $0.96$. The rule-trained adapter tracks the Bayesian curve, realising 91--99 percent of the achievable gain at every monitor quality, so what training installed is the threshold policy that \cref{prop:price-general}(iv) shows to be optimal, while the shuffled-label control stays flat. Real signals land where the curve says: self-reported confidence has AUROC $0.50$--$0.68$ on this bank, a range in which even the optimal controller gains at most a point, which is why surfacing the model's own confidence adds at most $0.02$ (\cref{sec:nulls}); the best real monitor available on this bank (AUROC $0.80$--$0.87$) lifts the rule adapter from $0.74$ to $0.81$.

@@ -1,6 +1,6 @@
 # Section 3 (proposed): A model of answer revision
 
-Drafted 2026-09-21 (V). Goal: one formal object that every experiment in the paper measures a piece of, so the sections
+Drafted 2026-09-21. Goal: one formal object that every experiment in the paper measures a piece of, so the sections
 read as tests of derived predictions rather than as a list of findings. LaTeX-ready; notation matches `paper/main.tex`.
 
 ## 3.1 Setup

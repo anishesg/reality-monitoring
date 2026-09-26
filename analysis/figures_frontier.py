@@ -65,7 +65,7 @@ for d in sorted(glob.glob(os.path.join(ROOT, "results_ident", "i_*")) + glob.glo
             for chal in ("counter", "pressure"):
                 sel = lambda r, s=src, c=cell, h=chal: r.get("claim_src", "injected") == s and r["cell"] == c and r["chal"] == h
                 # TF: any switch = abandons a correct answer. FT/FF: switch to the NAMED alternative = accepts the correction / follows the cue.
-                # paper definition (co-author A, Sec. 5): TF and FF = any switch away from the held claim; FT = switch to the named true answer.
+                # paper definition (the co-author, Sec. 5): TF and FF = any switch away from the held claim; FT = switch to the named true answer.
                 # The judge-only split of FF into cue (switch_alt) vs recomputation (switch_true) is stored alongside.
                 out[f"{src}/{cell}/{chal}"] = boot(rows, sel, (lambda r: r["outcome"] == "switch_alt") if cell == "FT" else (lambda r: r["outcome"] != "retain"))
                 out[f"{src}/{cell}/{chal}/to_cue"] = boot(rows, sel, lambda r: r["outcome"] == "switch_alt")

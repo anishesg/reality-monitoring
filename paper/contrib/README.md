@@ -1,4 +1,4 @@
-# Drop-in contributions for co-author A's Confidence Without Control draft (2026-09-22)
+# Drop-in contributions for the co-author's Confidence Without Control draft (2026-09-22)
 
 Each file is LaTeX that pastes into the named place of his .tex without other changes.
 

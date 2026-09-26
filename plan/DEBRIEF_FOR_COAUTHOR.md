@@ -1,4 +1,4 @@
-# Debrief: what I (author V) am running, why, and what I need from you — 2026-09-21
+# Debrief: what I am running, why, and what I need from you — 2026-09-21
 
 **One-paragraph version.** Your measurement study establishes that revision follows surface cues, and your audit says the
 headline figures need an estimand repair before they can carry the claim. I am adding three things that turn the paper from
