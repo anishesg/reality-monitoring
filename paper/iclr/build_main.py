@@ -282,7 +282,7 @@ if NF:
         assert out.count(a) == 1, ("NF replacement not found", a[:70], out.count(a))
         out = out.replace(a, b)
     out = re.sub(r"[^.]*the frontier model is measured in one deterministic pass[^.]*\.", "", out) if False else out
-    m = re.search(r"; the largest open model is 14B, and the frontier model is measured[^.]*\\cref\{app:frontier\}\.", out); assert m, "limitations frontier sentence"
+    m = re.search(r"; the largest open model is 14B, and the frontier models are measured[^.]*\\cref\{app:frontier\}\.", out); assert m, "limitations frontier sentence"
     out = out.replace(m.group(0), "; the largest model is 14B.")
     left = [l for l in out.splitlines() if re.search(r"Astra|Fable|sec:frontier|app:frontier|fig:structure|frontier model", l)]
     assert not left, ("frontier mentions remain", [l[:90] for l in left])
