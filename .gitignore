@@ -21,3 +21,4 @@ paper/*.out
 
 .DS_Store
 azure/.last_ip*
+lean/
