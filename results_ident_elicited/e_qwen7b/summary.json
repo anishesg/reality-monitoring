@@ -1,0 +1,8 @@
+{
+ "model": "Qwen/Qwen2.5-7B-Instruct",
+ "backend": "api",
+ "n": 500,
+ "own_accuracy": 0.08,
+ "excluded": 451,
+ "trials": 348
+}

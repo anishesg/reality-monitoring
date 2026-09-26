@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage 3 (V, 2026-09-23): when Fable contagion (live) and decomposition (batch) have finished, judge both with the Astra equivalence judge,
+# Stage 3 (2026-09-23): when Fable contagion (live) and decomposition (batch) have finished, judge both with the Astra equivalence judge,
 # regenerate the frontier figures/tables/summary and the contagion reports. Identification is judged by stage 2.
 set -uo pipefail; cd "$(dirname "$0")/.."; source ~/.rm_keys; export RM_SPEND_CAP_ANTHROPIC=1000
 until grep -q "DONE-CONTAGION" logs/ctg_fable.log 2>/dev/null; do sleep 20; done

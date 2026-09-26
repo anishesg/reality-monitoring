@@ -7,7 +7,7 @@ Prepared 21 September 2026. Read `review.pdf` for the full report.
 - `audit.json`: all extracted summary contrasts, recomputed v17 rates, question-bootstrap intervals, exclusion bounds, and generator checks.
 - `audit_tables.csv`: v17 recomputed results in tabular form.
 
-Repository examined: https://github.com/anishesg/reality-monitoring
+Repository examined: https://github.com/ANONYMIZED/reality-monitoring
 Commit: `d2e42b3f64483a48ee2b87c371f03957a0ddcce2`
 
 Build the PDF:

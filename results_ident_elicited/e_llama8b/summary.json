@@ -1,0 +1,8 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "backend": "api",
+ "n": 500,
+ "own_accuracy": 0.112,
+ "excluded": 435,
+ "trials": 444
+}

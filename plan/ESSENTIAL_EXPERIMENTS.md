@@ -1,4 +1,4 @@
-# Essential experiments, ranked by yield per GPU-hour (V, 2026-09-24, deadline 2026-09-25 AoE)
+# Essential experiments, ranked by yield per GPU-hour (2026-09-24, deadline 2026-09-25 AoE)
 
 The paper already stands as a measurement + mechanism + frontier paper. What lifts it from "accept" to "spotlight" is
 (a) a second frontier family showing the same structure, (b) the causal origin (A1), (c) the fix at capability parity (A3).

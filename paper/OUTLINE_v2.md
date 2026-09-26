@@ -1,7 +1,7 @@
 # Paper outline v2 (2026-09-21): how the pieces flow
 
 Working title: **Cues over Content: Conversational Surface, Not Evidence, Governs Answer Revision in Language Models**
-(Anish's title kept; the theory section and the agent section are added; the measurement repair from the audit is applied.)
+(co-author A's title kept; the theory section and the agent section are added; the measurement repair from the audit is applied.)
 
 | § | Section | Claim it makes | Evidence | Status | Owner |
 |---|---|---|---|---|---|

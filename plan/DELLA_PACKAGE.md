@@ -5,7 +5,7 @@ Paste-ready for whoever has della access. Every command is resumable; re-running
 (~25 GPU-h) already give the paper two figures. Seed rule: trained arms 3 seeds; measured checkpoints one deterministic pass.
 
 ## 0. One-time setup (login node, ~30 min)
-    cd /scratch/gpfs/$USER && git clone https://github.com/anishesg/reality-monitoring.git && cd reality-monitoring
+    cd /scratch/gpfs/$USER && git clone https://github.com/ANONYMIZED/reality-monitoring.git && cd reality-monitoring
     git log -1 --format=%h                       # must be 57b4e53 or later
     python -m venv .venv && source .venv/bin/activate && pip install -r train/requirements.txt
     touch .hftok                                  # put a Hugging Face token inside only if a download asks for one
@@ -51,11 +51,11 @@ Send back: A1 summary.json files (pressure_abandon vs A0 is the number).
 ## 8. A2 hyperparameter sweep on the DEV split (5 runs x ~1.5 h)  -> appendix table; selection rule is pre-registered
     sbatch --gres=gpu:1 --mem=80G --partition=$PARTITION --time=10:00:00 --job-name=rm-sweep --wrap="source slurm/_common.sh; bash train/sweep_a2.sh"
 
-## 9. Anish's v2 epistemic ladder, anchor models + 32B/72B only (6 jobs, ~25 GPU-h; see della/v2_epistemic_ladder/CHANGES_2026-09-21.md)
+## 9. co-author A's v2 epistemic ladder, anchor models + 32B/72B only (6 jobs, ~25 GPU-h; see della/v2_epistemic_ladder/CHANGES_2026-09-21.md)
     cd della/v2_epistemic_ladder && PROJ=/scratch/gpfs/$USER/rm_v2 bash prepare.sh   # SKIP_BIG=1 to skip 72B; then edit submit_all.sh to the 6 models and run it
 
 ## 10. Elicited three-cell identification (6 jobs x ~40 min)  -> closes the paper's stated limitation
-    python experiments/claimbank_3cell.py            # login node, builds claims3.jsonl (same bank as Anish's identification runs)
+    python experiments/claimbank_3cell.py            # login node, builds claims3.jsonl (same bank as co-author A's identification runs)
     CLAIMS=$PWD/claims3.jsonl bash slurm/submit_ident_elicited.sh
 Send back: results_ident_elicited/*/summary.json and ident.jsonl (responses are stored for the judge check).
 

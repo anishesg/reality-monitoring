@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fable 5.1 frontier replication through the Anthropic Message Batches API (V, 2026-09-22). Sequential on purpose: if the
+# Fable 5.1 frontier replication through the Anthropic Message Batches API (2026-09-22). Sequential on purpose: if the
 # prepaid balance runs out (the API refuses; no card on file), the earlier experiments are complete rather than all three partial.
 # Order: three-cell identification (injected+elicited, 500 q) -> contagion (300 q, k=8) -> v17 decomposition (450 q, all cells).
 set -uo pipefail; cd "$(dirname "$0")/.."; source ~/.rm_keys

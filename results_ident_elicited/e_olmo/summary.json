@@ -1,0 +1,8 @@
+{
+ "model": "allenai/OLMo-2-1124-7B-Instruct",
+ "backend": "api",
+ "n": 500,
+ "own_accuracy": 0.074,
+ "excluded": 456,
+ "trials": 306
+}

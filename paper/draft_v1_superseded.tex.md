@@ -2,7 +2,7 @@
 % What Makes a Language Model Change Its Mind? Cues, Not Content.
 % Full LaTeX source (ICLR 2027 submission format).
 % Working draft compiled from experiments of Sep 17-18, 2026.
-% Repo: github.com/anishesg/reality-monitoring (private)
+% Repo: github.com/ANONYMIZED/reality-monitoring (private)
 % =====================================================================
 
 \documentclass{article}

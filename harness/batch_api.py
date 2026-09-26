@@ -1,4 +1,4 @@
-"""OpenAI Batch API backend (V, 2026-09-22). Same interface as the other backends: generate(list_of_message_lists) -> list of texts.
+"""OpenAI Batch API backend (2026-09-22). Same interface as the other backends: generate(list_of_message_lists) -> list of texts.
 Why: the org's live rate limit for gpt-6-astra is 50 requests/day; batches have separate limits and cost 50% of list price.
 Each generate() call is split into jobs of --batch-size requests, submitted, polled until every job finishes, and the outputs are
 mapped back by custom_id. Failed requests come back as "[ERROR:<code>]" (the runners already treat that prefix as an error).

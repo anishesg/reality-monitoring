@@ -31,7 +31,7 @@ internet, so all downloads happen on the login node in step 1. Check `squeue` at
    STAND model) -> real-recipe DPO (12) -> 13B/32B stage checkpoints (6) -> 32B/72B contagion (2) -> STAND at 32B (3) -> the A2
    sweep (1). If the queue limits the number of pending jobs, run it with --core-only first and again later without it.
    If the partition walltime is under 12 h: prefix TIME_GRPO=11:30:00. If a job fails twice the same way, skip it and send me the log.
-   Anish's v2 ladder (della/v2_epistemic_ladder/) is run separately, last.
+   co-author A's v2 ladder (della/v2_epistemic_ladder/) is run separately, last.
 
 4. When results_ladder/olmo/A3/summary.json exists (first milestone, ~4 h after the first real submission), send me its five
    numbers next to results_ladder/olmo/A0/summary.json, then:

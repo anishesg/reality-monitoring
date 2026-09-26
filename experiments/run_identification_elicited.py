@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Elicited three-cell identification (V, 2026-09-22). Same bank, templates, cells and grading as run_identification.py, but the
+"""Elicited three-cell identification (2026-09-22). Same bank, templates, cells and grading as run_identification.py, but the
 challenged claim is the model's OWN generated answer (its full reply stays in the transcript) instead of an injected "FINAL: x".
 Closes the limitation stated in the paper: "the identification experiments inject claims rather than eliciting them".
 

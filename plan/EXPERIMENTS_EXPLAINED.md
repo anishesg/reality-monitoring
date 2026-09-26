@@ -1,4 +1,4 @@
-# The experiments in plain language (V, 2026-09-24)
+# The experiments in plain language (2026-09-24)
 
 ## The paper's claim in one paragraph
 Language models can estimate when they might be wrong (their stated confidence predicts their correctness), but when a user pushes back

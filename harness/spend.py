@@ -1,4 +1,4 @@
-"""Hard spend cap for API runs (V, 2026-09-22). Every completion in harness/run_cells_v17_api.py:Backend.complete is charged here
+"""Hard spend cap for API runs (2026-09-22). Every completion in harness/run_cells_v17_api.py:Backend.complete is charged here
 from the provider's reported usage, appended to a ledger, and the run is stopped (SpendCapReached is a BaseException so retry
 loops that catch Exception cannot swallow it) once the ledger reaches the cap.
 

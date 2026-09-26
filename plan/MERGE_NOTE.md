@@ -1,4 +1,4 @@
-# Merge note for Anish (2026-09-22)
+# Merge note for co-author A (2026-09-22)
 
 Two full drafts existed after last night: your `paper/PAPER.md` ("Confidence Without Control", three acts, pooled AMEs, priced
 repair) and my `paper/main_v2.tex` ("Cues over Content", formal model, agents, ICLR template). `paper/main_v3.tex` merges

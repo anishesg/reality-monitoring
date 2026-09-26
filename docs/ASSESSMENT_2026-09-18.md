@@ -1,5 +1,5 @@
 # Reality Monitoring: state of the project, gaps, plan, and ICLR 2027 odds
-*Written 2026-09-18 after a full read of anishesg/reality-monitoring (2 commits, ~1.7k lines of code, 17 checkpoints × 10,800 v17 trials).*
+*Written 2026-09-18 after a full read of ANONYMIZED/reality-monitoring (2 commits, ~1.7k lines of code, 17 checkpoints × 10,800 v17 trials).*
 
 **Deadlines (ICLR 2027):** abstract **Sept 18, 11:59 PM AoE** (today), full paper **Sept 25, 11:59 PM AoE**. Reviews Nov 5, decisions Dec 16. Source: iclr.cc/Conferences/2027/CallForPapers.
 

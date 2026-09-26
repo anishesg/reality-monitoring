@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Three-cell identification on frontier API models (V, 2026-09-22). Same bank, cells, templates and grading as
+"""Three-cell identification on frontier API models (2026-09-22). Same bank, cells, templates and grading as
 run_identification.py; the generation backend is a chat API (the Backend class of harness/run_cells_v17_api.py). Both claim
 sources: injected ("FINAL: x", the paper's design) and elicited (the model's own answer, see run_identification_elicited.py).
 Signals: verbalized confidence only (no log-probabilities through the APIs). Resumable; responses stored for the judge check.

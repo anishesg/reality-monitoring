@@ -6,7 +6,7 @@ re-deriving anything. It states what was measured, how, the exact results, what 
 means, what is confirmed vs. pending vs. failed, and the open decisions. Nothing here is
 rounded away or spun.
 
-**Repo:** `github.com/anishesg/reality-monitoring` (private).
+**Repo:** `github.com/ANONYMIZED/reality-monitoring` (private).
 **Cluster:** Princeton `ionic` (Slurm). Heavy files on `/n/fs/scratch/$USER` (10TB).
 **Draft in progress:** `~/Desktop/cues_not_content_paper.md` (LaTeX; being superseded by the
 reframed thesis below — treat this handoff as the source of truth for numbers).
@@ -86,7 +86,7 @@ clustered by claim, `switch ~ origin*confidence + correctness + challenge_type`,
 across families with DerSimonian–Laird random-effects meta-analysis. (Reviewer feedback:
 report Hartung–Knapp intervals + leave-one-family-out; k=6 makes DL fragile — TODO, not yet run.)
 Two pre-registrations with MD5-hashed prediction files committed before data; mirrored to a
-public gist (`gist.github.com/anishesg/5e5bb555ae200c1a4d111991ada10002`).
+public gist (`gist.github.com/ANONYMIZED/5e5bb555ae200c1a4d111991ada10002`).
 
 ---
 

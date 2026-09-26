@@ -1,4 +1,4 @@
-# Frontier replication (V, 2026-09-22): GPT-6 Astra, Claude Fable 5.1
+# Frontier replication (2026-09-22): GPT-6 Astra, Claude Fable 5.1
 
 Same three experiments as the open models, same questions, same prompts, same challenge texts; only the generation backend differs.
 Runs are one deterministic pass (seed 0 where the API accepts it), reasoning effort **low**, through each provider's Batch API

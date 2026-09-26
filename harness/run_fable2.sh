@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage 2 of the Fable 5.1 replication (V, 2026-09-23): after identification, run contagion on the LIVE API (12 sequential phases; Anthropic
+# Stage 2 of the Fable 5.1 replication (2026-09-23): after identification, run contagion on the LIVE API (12 sequential phases; Anthropic
 # batches queue ~1 h each) and the v17 decomposition through batches (one parallel round), in parallel. Same ledger and $0 stop.
 set -uo pipefail; cd "$(dirname "$0")/.."; source ~/.rm_keys; export RM_SPEND_CAP_ANTHROPIC=1000
 until grep -qE "DONE-IDENT-API|STOP|Traceback" logs/fable_all.log; do sleep 15; done

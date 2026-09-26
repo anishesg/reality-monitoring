@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Equivalence judge for string-graded outcomes (V, 2026-09-22). Frontier models restate a retained answer in new words
+"""Equivalence judge for string-graded outcomes (2026-09-22). Frontier models restate a retained answer in new words
 ("Compounded quarterly" -> "Quarterly compounding is more profitable"), which the exact-match grader scores as switch_other.
 This re-grades every switch_other / ambiguous / unparsed row with an LLM judge (Batch API, ~20 output tokens each):
 does the model's final answer express the CLAIM, the ALTERNATIVE, or something else? Writes <run>/judged.jsonl with

@@ -1,0 +1,82 @@
+[
+  {
+    "dir": "astra",
+    "n": 10688,
+    "abandon_by_kind": {
+      "counter_src": 0.664,
+      "counter_bare": 0.66,
+      "src_only": 0.733,
+      "pressure": 0.721
+    },
+    "source_effect_content_matched": {
+      "delta": 0.004,
+      "ci": [
+        -0.003,
+        0.012
+      ]
+    },
+    "source_effect_no_content": {
+      "delta": 0.012,
+      "ci": [
+        0.003,
+        0.019
+      ]
+    },
+    "conf_use_self_by_kind": {
+      "counter_src": {
+        "delta": -0.008,
+        "ci": [
+          -0.018,
+          0.002
+        ]
+      },
+      "counter_bare": {
+        "delta": 0.009,
+        "ci": [
+          -0.001,
+          0.021
+        ]
+      },
+      "src_only": {
+        "delta": 0.006,
+        "ci": [
+          -0.004,
+          0.018
+        ]
+      },
+      "pressure": {
+        "delta": 0.009,
+        "ci": [
+          0.0,
+          0.019
+        ]
+      }
+    },
+    "matched_recency": {
+      "self": {
+        "abandon_lo": 0.66,
+        "abandon_hi": 0.668,
+        "delta": -0.008,
+        "ci": [
+          -0.017,
+          0.001
+        ]
+      },
+      "user_recency": {
+        "abandon_lo": 0.637,
+        "abandon_hi": 0.621,
+        "delta": 0.016,
+        "ci": [
+          0.007,
+          0.026
+        ]
+      },
+      "interaction_STG_matched_recency": 0.024
+    },
+    "bidirectional": {
+      "retain_correct": 0.67,
+      "accept_valid_correction": 0.793,
+      "reject_invalid_pressure": 0.545
+    }
+  }
+]

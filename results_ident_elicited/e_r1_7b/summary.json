@@ -1,0 +1,8 @@
+{
+ "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+ "backend": "api",
+ "n": 500,
+ "own_accuracy": 0.002,
+ "excluded": 498,
+ "trials": 18
+}

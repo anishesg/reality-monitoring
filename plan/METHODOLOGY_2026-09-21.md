@@ -1,18 +1,18 @@
 # Methodology brief for the co-author discussion (2026-09-21, evening)
 
 Two designs now exist in the repo and they are not yet reconciled. This brief lays out what has been run, what each design
-proposes, where Anish's audit bites, and a merged GPU plan with the decisions that have to be made before jobs are submitted.
+proposes, where co-author A's audit bites, and a merged GPU plan with the decisions that have to be made before jobs are submitted.
 
 ## 1. What has been run and what it showed
 
-### 1a. Measurement study (Anish; 19 checkpoints, ~400k trials; `results/`)
+### 1a. Measurement study (co-author A; 19 checkpoints, ~400k trials; `results/`)
 Thirteen experiments: fragility with a scale plateau; challenge decomposition; praise-as-pressure; the scissors (confidence
 AUROC rises with scale, behavioral use stays ~0.05); the pre-registered matched-position reversal (family meta mu = -0.38);
 surfacing null; survival-as-calibration (16/19); re-ask vs reconsider; the reliability-conditioned SFT repair (3 seeds,
 -20 pts capability); stage localization (DPO-stage jump in 2/3 lineages); FIRM/POISON both-directions SFT (2 seeds);
 weak-DPO null; steering null.
 
-### 1b. Anish's independent audit of that study (`docs/reviews/2026-09-21/`, today)
+### 1b. co-author A's independent audit of that study (`docs/reviews/2026-09-21/`, today)
 Three issues it calls blocking, verified against committed trial files:
 1. The headline "scissors" figure puts an AUROC of *elicited numerical* confidence next to a behavioral effect of *inserted
    qualitative* confidence phrases. Different estimands; the 0.05 comes from cell E, the AUROC from cell A.
@@ -26,11 +26,11 @@ The audit's recommendation: narrow the paper to "Cues over Confidence: reliabili
 experiment with one primary interaction (Block 1) and one intervention that changes reliance on the signal (Block 2), and keep
 scale, training history, speaker attribution, repeated-challenge calibration, and multi-agent chains OUT of the main paper.
 
-### 1c. Statistics repair (Vikram, done; `analysis/meta_robustness.py`)
+### 1c. Statistics repair (author V, done; `analysis/meta_robustness.py`)
 Hartung-Knapp CI for the matched-position reversal [-0.54, -0.22]; every leave-one-family-out interval excludes zero. This
 closes the k=6 objection regardless of which framing wins.
 
-### 1d. Answer contagion between agents (Vikram; Azure CPU, Q8 weights; `results_contagion/`, prereg P1-P5)
+### 1d. Answer contagion between agents (author V; Azure CPU, Q8 weights; `results_contagion/`, prereg P1-P5)
 Three models complete (9,600 trials each), OLMo running, chains being re-run under a fixed protocol (see caveat).
 
 | model | no message | scripted mention | + reason | generated peer (weak / same / strong) | identity spread (P1 <= .10) | accept true alt | contaminated chain k1 -> k8 | clean chain k1 -> k8 |
@@ -49,7 +49,7 @@ user turns) and all four models' chains are being re-run with a merged single-tu
 
 ## 2. The two designs
 
-### Design V (Vikram, `plan/RESEARCH_PLAN.md`, `train/`, `harness/contagion.py`)
+### Design V (author V, `plan/RESEARCH_PLAN.md`, `train/`, `harness/contagion.py`)
 Thesis extension: surface cues drive revision -> the failure propagates between agents -> preference optimization installs
 it -> a verifiable-reward fix removes it without capability cost.
 - E2 real-recipe DPO (A1): Tulu-3 preference mixture, r64, 3 seeds x 2 SFT backbones -> "DPO causes" instead of "is associated".
@@ -60,7 +60,7 @@ it -> a verifiable-reward fix removes it without capability cost.
   (frozen v17 harness + MMLU/GSM8K/IFEval) -> `results_ladder/<tag>/<arm>/summary.json`; `slurm/submit_ladder.sh` chains
   train -> eval with afterok; per-size GPU defaults (7B: 1x80GB; 32B: 4x80GB + vLLM server for rollouts).
 
-### Design A (Anish, `della/DELLA_SPEC.md`, `experiments/run_identification.py`, `train_repair_v3.py`)
+### Design A (co-author A, `della/DELLA_SPEC.md`, `experiments/run_identification.py`, `train_repair_v3.py`)
 Thesis narrowing per the audit: "Confidence Without Control" / "Cues over Confidence".
 - Identification wave (running on ionic): 3-cell design per item (claim T/alt d1; claim d1/alt T; claim d1/alt d2, the
   identification cell) x 5 counter paraphrases + pressure; 4 uncertainty signals in clean context (token logprobs, verbalized
@@ -92,10 +92,10 @@ genuine-answer version of the pairwise cell (model generates its own answer firs
 fold cell; only initially-wrong items enter the accept cell) is a 20-minute change to `harness/contagion.py` and should be
 run before the paper cites the pairwise numbers. The chain cells from hop 2 already are genuine.
 
-## 4. Proposed merged plan (to decide with Anish before submitting GPU jobs)
+## 4. Proposed merged plan (to decide with co-author A before submitting GPU jobs)
 
 Priority for the 09-25 deadline, in order:
-1. Measurement repair (zero GPU, Anish): harmful/beneficial split of every table; elicited and inserted confidence never on
+1. Measurement repair (zero GPU, co-author A): harmful/beneficial split of every table; elicited and inserted confidence never on
    the same axis; item-crossed reliability values. This is required whichever thesis wins.
 2. Block 1 / identification wave (ionic, running) — the matched experiment the audit asks for.
 3. ONE intervention with the capability frontier. Decision: D2 or A3 first. Recommendation: D2 first because it is already
@@ -103,13 +103,13 @@ Priority for the 09-25 deadline, in order:
    fix that needs no supplied metadata, and it feeds the contagion firewall cell.
 4. Contagion, genuine-answer pairwise version + merged-turn chains (CPU, running) — placed in the paper as Section 7
    "consequence for agent systems" (one figure, half a page) if the thesis stays broad, or as an appendix + follow-up paper
-   if it narrows. This is the decision Anish and Vikram need to make explicitly.
+   if it narrows. This is the decision co-author A and author V need to make explicitly.
 5. E2 real-recipe DPO (12 jobs, ~18 GPU-h) — only if the training-history claim stays in the paper.
 6. D1 unquantized ladder / E6 stage rung — rebuttal.
 7. Frontier API runs (E4) — cheap, laptop, run regardless; strengthens either framing.
 
 GPU jobs to submit on della once the intervention decision is made: D2 (24 x 1.5 h) or A3 (24 x 3 h) first, then E1 bf16
-contagion replication (5 x 20 min), then E2 (12 x 1.5 h). Everything needed is in `slurm/` (Vikram) and `della/` (Anish);
+contagion replication (5 x 20 min), then E2 (12 x 1.5 h). Everything needed is in `slurm/` (author V) and `della/` (co-author A);
 the two directories use different conventions and should be unified by whoever submits.
 
 ## 5. Where this stands against the bar (plan/VENUE_BAR.md)
